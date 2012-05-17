@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 24
+/svn/!svn/ver/2080/trunk
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/2044/trunk/LICENSE
+END
+AUTHORS
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/1563/trunk/AUTHORS
+END
+CHANGES
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/2044/trunk/CHANGES
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/!svn/ver/143/trunk/README
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/2060/trunk/Makefile
+END

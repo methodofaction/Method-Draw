@@ -1,0 +1,24 @@
+Index: editor/svgcanvas.js
+===================================================================
+--- editor/svgcanvas.js	(revision 2067)
++++ editor/svgcanvas.js	(working copy)
+@@ -1227,6 +1227,19 @@
+ 			changes.y2 = pt2.y;
+ 			
+ 		case "text":
++				var tspan = selected.querySelectorAll('tspan');
++				var i = tspan.length
++				while(i--) {
++					var offsetX = selected.getAttribute('x') - tspan[i].getAttribute('x');
++					var offsetY = selected.getAttribute('y') - tspan[i].getAttribute('y');
++					var offset = {
++						x: changes.x - offsetX,
++						y: changes.y - offsetY,
++					}
++					assignAttributes(tspan[i], offset, 1000, true);
++				}
++			finishUp();
++			break;
+ 		case "use":
+ 			finishUp();
+ 			break;

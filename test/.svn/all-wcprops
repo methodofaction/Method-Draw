@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 29
+/svn/!svn/ver/2079/trunk/test
+END
+draw_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/1974/trunk/test/draw_test.html
+END
+select_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/1910/trunk/test/select_test.html
+END
+svgutils_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2072/trunk/test/svgutils_test.html
+END
+history_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2079/trunk/test/history_test.html
+END
+test1.html
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/2074/trunk/test/test1.html
+END
+units_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/1990/trunk/test/units_test.html
+END
+svgtransformlist_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2077/trunk/test/svgtransformlist_test.html
+END
+contextmenu_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2073/trunk/test/contextmenu_test.html
+END
+math_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/1873/trunk/test/math_test.html
+END
+all_tests.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2074/trunk/test/all_tests.html
+END
+path_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/1990/trunk/test/path_test.html
+END
