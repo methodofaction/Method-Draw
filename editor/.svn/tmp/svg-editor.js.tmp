@@ -51,10 +51,10 @@
 				langPath: 'locale/',
 				extPath: 'extensions/',
 				jGraduatePath: 'jgraduate/images/',
-				extensions: ['ext-markers.js', 'ext-eyedropper.js', 'ext-shapes.js', 'ext-grid.js'],
+				extensions: ['ext-markers.js','ext-connector.js', 'ext-eyedropper.js', 'ext-shapes.js', 'ext-imagelib.js','ext-grid.js'],
 				initTool: 'select',
 				wireframe: false,
-				colorPickerCSS: true,
+				colorPickerCSS: null,
 				gridSnapping: false,
 				gridColor: "#000",
 				baseUnit: 'px',
@@ -342,7 +342,19 @@
 					'arrow_down':'dropdown.gif'
 				},
 				placement: {
+					'#logo':'logo',
+				
+					'#tool_clear div,#layer_new':'new_image',
+					'#tool_save div':'save',
+					'#tool_export div':'export',
+					'#tool_open div div':'open',
+					'#tool_import div div':'import',
+					'#tool_source':'source',
 					'#tool_docprops > div':'docprops',
+					'#tool_wireframe':'wireframe',
+					
+					'#tool_undo':'undo',
+					'#tool_redo':'redo',
 					
 					'#tool_select':'select',
 					'#tool_fhpath':'pencil',
@@ -358,11 +370,17 @@
 					'#tool_image':'image',
 					'#tool_zoom':'zoom',
 					
+					'#tool_clone,#tool_clone_multi':'clone',
 					'#tool_node_clone':'node_clone',
+					'#layer_delete,#tool_delete,#tool_delete_multi':'delete',
 					'#tool_node_delete':'node_delete',
 					'#tool_add_subpath':'add_subpath',
 					'#tool_openclose_path':'open_path',
+					'#tool_move_top':'move_top',
+					'#tool_move_bottom':'move_bottom',
+					'#tool_topath':'to_path',
 					'#tool_node_link':'link_controls',
+					'#tool_reorient':'reorient',
 					'#tool_group':'group',
 					'#tool_ungroup':'ungroup',
 					'#tool_unlink_use':'unlink_use',
@@ -429,6 +447,13 @@
 					if (tleft.length != 0) {
 						var min_height = tleft.offset().top + tleft.outerHeight();
 					}
+// 					var size = $.pref('iconsize');
+// 					if(size && size != 'm') {
+// 						svgEditor.setIconSize(size);				
+// 					} else if($(window).height() < min_height) {
+// 						// Make smaller
+// 						svgEditor.setIconSize('s');
+// 					}
 					
 					// Look for any missing flyout icons from plugins
 					$('.tools_flyout').each(function() {
@@ -794,14 +819,14 @@
 			});
 			
 			var contextChanged = function(win, context) {
-				//$('#workarea,#sidepanels').css('top', context?100:75);
-				//$('#rulers').toggleClass('moved', context);
-				//if(cur_context && !context) {
-				//	// Back to normal
-				//	workarea[0].scrollTop -= 25;
-				//} else if(!cur_context && context) {
-				//	workarea[0].scrollTop += 25;
-				//}
+				$('#workarea,#sidepanels').css('top', context?100:75);
+				$('#rulers').toggleClass('moved', context);
+				if(cur_context && !context) {
+					// Back to normal
+					workarea[0].scrollTop -= 25;
+				} else if(!cur_context && context) {
+					workarea[0].scrollTop += 25;
+				}
 				
 				var link_str = '';
 				if(context) {
@@ -1114,7 +1139,7 @@
 						}
 		
 						if(!svgicons) {
-							icon = (btn.type == "menu") ? "" : $('<img src="' + btn.icon + '">');
+							icon = $('<img src="' + btn.icon + '">');
 						} else {
 							fallback_obj[id] = btn.icon;
 							var svgicon = btn.svgicon?btn.svgicon:btn.id;
@@ -1146,16 +1171,9 @@
 							if(!$(parent).length)
 								$('<div>', {id: btn.panel}).appendTo("#tools_top");
 							break;
-						case 'menu':
-							cls = 'menu_item tool_button';
-							parent = "#" + (btn.after || btn.panel);
-							break;
 						case 'app_menu':
 							cls = '';
-							parent = btn.parent || '#main_menu ul';
-							// create the panel if it doesn't exist
-							if(!$(parent).length)
-								$('<div>', {id: btn.panel}).appendTo("#tools_top");
+							parent = '#main_menu ul';
 							break;
 						}
 						
@@ -1167,8 +1185,7 @@
 							if("position" in btn) {
 								$(parent).children().eq(btn.position).before(button);
 							} else {
-								if (btn.type != "menu" || !btn.after) button.appendTo(parent);
-								else $(parent).after(button);
+								button.appendTo(parent);
 							}
 
 							if(btn.type =='mode_flyout') {
@@ -1209,9 +1226,21 @@
 // 									key: btn.key,
 									isDefault: true
 								}, ref_data];
-
-							} else if(btn.type == 'app_menu' || btn.type == 'menu') {
-								button.append(btn.title);
+	// 							
+	// 							// {sel:'#tool_rect', fn: clickRect, evt: 'mouseup', key: 4, parent: '#tools_rect', icon: 'rect'}
+	// 								
+	// 							var pos  = ("position" in opts)?opts.position:'last';
+	// 							var len = flyout_holder.children().length;
+	// 							
+	// 							// Add at given position or end
+	// 							if(!isNaN(pos) && pos >= 0 && pos < len) {
+	// 								flyout_holder.children().eq(pos).before(button);
+	// 							} else {
+	// 								flyout_holder.append(button);
+	// 								cur_h.reverse();
+	// 							}
+							} else if(btn.type == 'app_menu') {
+								button.append('<div>').append(btn.title);
 							}
 							
 						} else if(btn.list) {
@@ -1304,6 +1333,7 @@
 								}
 							});
 						}
+						
 						setupFlyouts(holders);
 					});
 					
@@ -1364,16 +1394,7 @@
 				return new $.jGraduate.Paint(opts);
 			};	
 			
-			// set the canvas properties at init
-			var res = svgCanvas.getResolution();
-			if(curConfig.baseUnit !== "px") {
-				res.w = svgedit.units.convertUnit(res.w) + curConfig.baseUnit;
-				res.h = svgedit.units.convertUnit(res.h) + curConfig.baseUnit;
-			}
-			$('.canvas_width').val(res.w);
-			$('.canvas_height').val(res.h);
-			$('#docprops_button').on("click", function(){showDocProperties()});
-			
+
 			// updates the toolbar (colors, opacity, etc) based on the selected element
 			// This function also updates the opacity and id elements that are in the context panel
 			var updateToolbar = function() {
@@ -1482,11 +1503,18 @@
 				
 				var is_node = currentMode == 'pathedit'; //elem ? (elem.id && elem.id.indexOf('pathpointgrip') == 0) : false;
 				var menu_items = $('#cmenu_canvas li');
-				$('#selected_panel, #multiselected_panel, #g_panel, #rect_panel, #canvas_panel, #circle_panel,\
+				$('#selected_panel, #multiselected_panel, #g_panel, #rect_panel, #circle_panel,\
 					#ellipse_panel, #line_panel, #text_panel, #image_panel, #container_panel, #use_panel, #a_panel').hide();
-				if (!elem) $("#canvas_panel").show();
 				if (elem != null) {
 					var elname = elem.nodeName;
+					
+					// If this is a link with no transform and one child, pretend
+					// its child is selected
+// 					console.log('go', elem)
+// 					if(elname === 'a') { // && !$(elem).attr('transform')) {
+// 						elem = elem.firstChild;
+// 					}
+
 					var angle = svgCanvas.getRotationAngle(elem);
 					$('#angle').val(angle);
 					
@@ -2051,14 +2079,83 @@
 				$(opt).addClass('current').siblings().removeClass('current');
 			}
 			
-      var menus = $('.menu');
-			$('#menu_bar').on('click', function() {$(this).toggleClass('active');});
-      $(window).on('click', function(e) {if(e.target.className != "menu_title") $('#menu_bar').removeClass('active');});
-      $('.menu_title').on('mouseover', function() {
-           menus.removeClass('open');
-           $(this).parent().addClass('open');
-       });
-			
+			(function() {
+				var button = $('#main_icon');
+				var overlay = $('#main_icon span');
+				var list = $('#main_menu');
+				var on_button = false;
+				var height = 0;
+				var js_hover = true;
+				var set_click = false;
+				
+				var hideMenu = function() {
+					list.fadeOut(200);
+				};
+				
+				$(window).mouseup(function(evt) {
+					if(!on_button) {
+						button.removeClass('buttondown');
+						// do not hide if it was the file input as that input needs to be visible 
+						// for its change event to fire
+						if (evt.target.tagName != "INPUT") {
+							list.fadeOut(200);
+						} else if(!set_click) {
+							set_click = true;
+							$(evt.target).click(function() {
+								list.css('margin-left','-9999px').show();
+							});
+						}
+					}
+					on_button = false;
+				}).mousedown(function(evt) {
+// 					$(".contextMenu").hide();
+// 					console.log('cm', $(evt.target).closest('.contextMenu'));
+				
+					var islib = $(evt.target).closest('div.tools_flyout, .contextMenu').length;
+					if(!islib) $('.tools_flyout:visible,.contextMenu').fadeOut(250);
+				});
+				
+				overlay.bind('mousedown',function() {
+					if (!button.hasClass('buttondown')) {
+						button.addClass('buttondown').removeClass('buttonup')
+						// Margin must be reset in case it was changed before;
+						list.css('margin-left',0).show();
+						if(!height) {
+							height = list.height();
+						}
+						// Using custom animation as slideDown has annoying "bounce effect"
+						list.css('height',0).animate({
+							'height': height
+						},200);
+						on_button = true;
+						return false;
+					} else {
+						button.removeClass('buttondown').addClass('buttonup');
+						list.fadeOut(200);
+					}
+				}).hover(function() {
+					on_button = true;
+				}).mouseout(function() {
+					on_button = false;
+				});
+				
+				var list_items = $('#main_menu li');
+				
+				// Check if JS method of hovering needs to be used (Webkit bug)
+				list_items.mouseover(function() {
+					js_hover = ($(this).css('background-color') == 'rgba(0, 0, 0, 0)');
+					
+					list_items.unbind('mouseover');
+					if(js_hover) {
+						list_items.mouseover(function() {
+							this.style.backgroundColor = '#FFC';
+						}).mouseout(function() {
+							this.style.backgroundColor = 'transparent';
+							return true;
+						});
+					}
+				});
+			}());
 			// Made public for UI customization.
 			// TODO: Group UI functions into a public svgEditor.ui interface.
 			Editor.addDropDown = function(elem, callback, dropUp) {
@@ -2092,10 +2189,10 @@
 						button.addClass('down');
 						
 						if(!dropUp) {
-							var pos = $(elem).offset();
+							var pos = $(elem).position();
 							list.css({
-								top: pos.top - 30,
-								left: pos.left - 100
+								top: pos.top + 24,
+								left: pos.left - 10
 							});
 						}
 						list.show();
@@ -2620,9 +2717,9 @@
 			var clickWireframe = function() {
 				var wf = !$('#tool_wireframe').hasClass('push_button_pressed');
 				if (wf) 
-					$('#tool_wireframe').addClass('push_button_pressed');
+					$('#tool_wireframe').addClass('push_button_pressed').removeClass('tool_button');
 				else
-					$('#tool_wireframe').removeClass('push_button_pressed');
+					$('#tool_wireframe').removeClass('push_button_pressed').addClass('tool_button');
 				workarea.toggleClass('wireframe');
 				
 				if(supportsNonSS) return;
@@ -2634,21 +2731,6 @@
 				}
 				
 				updateWireFrame();
-			}
-			
-			var clickRulers = function() {
-				var rulers = !$('#tool_rulers').hasClass('push_button_pressed');
-				if (rulers) {
-					$('#tool_rulers').addClass('push_button_pressed');
-					$('#show_rulers').attr("checked", true);
-					curConfig.showRulers = true;
-				}
-				else {
-					$('#tool_rulers').removeClass('push_button_pressed');
-					$('#show_rulers').attr("checked", false);
-					curConfig.showRulers = false;
-				}
-				$('#rulers').toggle(!!curConfig.showRulers)
 			}
 			
 			var updateWireFrame = function() {
@@ -2688,12 +2770,14 @@
 					res.w = svgedit.units.convertUnit(res.w) + curConfig.baseUnit;
 					res.h = svgedit.units.convertUnit(res.h) + curConfig.baseUnit;
 				}
-				$('.canvas_width').val(res.w);
-				$('.canvas_height').val(res.h);
+				
+				$('#canvas_width').val(res.w);
+				$('#canvas_height').val(res.h);
 				$('#canvas_title').val(svgCanvas.getDocumentTitle());
 				
 				$('#svg_docprops').show();
 			};
+			
 			
 			var showPreferences = function(){
 				if (preferences) return;
@@ -3920,9 +4004,11 @@
 					{sel:'#tool_select', fn: clickSelect, evt: 'click', key: ['V', true]},
 					{sel:'#tool_fhpath', fn: clickFHPath, evt: 'click', key: ['Q', true]},
 					{sel:'#tool_line', fn: clickLine, evt: 'click', key: ['L', true]},
-					{sel:'#tool_rect', fn: clickRect, evt: 'click', key: ['R', true], icon: 'rect'},
-					{sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', key: ['E', true], icon: 'ellipse'},
-					{sel:'#tool_circle', fn: clickCircle, evt: 'mouseup', icon: 'circle'},
+					{sel:'#tool_rect', fn: clickRect, evt: 'mouseup', key: ['R', true], parent: '#tools_rect', icon: 'rect'},
+					{sel:'#tool_square', fn: clickSquare, evt: 'mouseup', parent: '#tools_rect', icon: 'square'},
+					{sel:'#tool_fhrect', fn: clickFHRect, evt: 'mouseup', parent: '#tools_rect', icon: 'fh_rect'},
+					{sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', key: ['E', true], parent: '#tools_ellipse', icon: 'ellipse'},
+					{sel:'#tool_circle', fn: clickCircle, evt: 'mouseup', parent: '#tools_ellipse', icon: 'circle'},
 					{sel:'#tool_fhellipse', fn: clickFHEllipse, evt: 'mouseup', parent: '#tools_ellipse', icon: 'fh_ellipse'},
 					{sel:'#tool_path', fn: clickPath, evt: 'click', key: ['P', true]},
 					{sel:'#tool_text', fn: clickText, evt: 'click', key: ['T', true]},
@@ -3934,8 +4020,7 @@
 					{sel:'#tool_open', fn: clickOpen, evt: 'mouseup', key: ['O', true]},
 					{sel:'#tool_import', fn: clickImport, evt: 'mouseup'},
 					{sel:'#tool_source', fn: showSourceEditor, evt: 'click', key: ['U', true]},
-					{sel:'#tool_wireframe', fn: clickWireframe, evt: 'click'},
-					{sel:'#tool_rulers', fn: clickRulers, evt: 'click'},
+					{sel:'#tool_wireframe', fn: clickWireframe, evt: 'click', key: ['F', true]},
 					{sel:'#tool_source_cancel,#svg_source_overlay,#tool_docprops_cancel,#tool_prefs_cancel', fn: cancelOverlays, evt: 'click', key: ['esc', false, false], hidekey: true},
 					{sel:'#tool_source_save', fn: saveSourceEditor, evt: 'click'},
 					{sel:'#tool_docprops_save', fn: saveDocProperties, evt: 'click'},
@@ -4195,7 +4280,7 @@
 			$('#angle').SpinButton({ min: -180, max: 180, step: 5, callback: changeRotationAngle });
 			$('#font_size').SpinButton({ step: 1, min: 0.001, stepfunc: stepFontSize, callback: changeFontSize });
 			$('#group_opacity').SpinButton({ step: 5, min: 0, max: 100, callback: changeOpacity });
-			$('#blur').SpinButton({ step: .5, min: 0, max: 10, callback: changeBlur });
+			$('#blur').SpinButton({ step: .1, min: 0, max: 10, callback: changeBlur });
 			$('#zoom').SpinButton({ min: 0.001, max: 10000, step: 50, stepfunc: stepZoom, callback: changeZoom })
 				// Set default zoom 
 				.val(svgCanvas.getZoom() * 100);
@@ -4507,7 +4592,8 @@
 					}
 					
 					var big_int = multi * u_multi;
-					ctx.font = "bold 9px sans-serif";
+
+					ctx.font = "9px sans-serif";
 
 					var ruler_d = ((content_d / u_multi) % multi) * u_multi;
 					var label_pos = ruler_d - big_int;
@@ -4544,12 +4630,10 @@
 						
 						if(is_x) {
 							ctx.fillText(label, ruler_d+2, 8);
-							ctx.fillStyle = "#888";
 						} else {
 							var str = (label+'').split('');
 							for(var i = 0; i < str.length; i++) {
 								ctx.fillText(str[i], 1, (ruler_d+9) + i*9);
-								ctx.fillStyle = "#888";
 							}
 						}
 						
@@ -4581,7 +4665,7 @@
 					}
 
 					// console.log('ctx', ctx);
-					ctx.strokeStyle = "#666";
+					ctx.strokeStyle = "#000";
 					ctx.stroke();
 				}
 			}
@@ -4590,7 +4674,7 @@
 				updateCanvas(true);
 // 			});
 			
-		//	var revnums = "svg-editor.js ($Rev: 2083 $) ";
+		//	var revnums = "svg-editor.js ($Rev$) ";
 		//	revnums += svgCanvas.getVersion();
 		//	$('#copyright')[0].setAttribute("title", revnums);
 		

@@ -1,15 +1,44 @@
 ﻿body {
-	background: #D0D0D0;
+	background: #2F2F2C;
+	font: 13px/120% 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+}
+
+html, body {
+  	overflow: hidden;
+  	width: 100%;
+  	height: 100%;
 }
 
 html, body, div{
-        -webkit-user-select: text;
-        -khtml-user-select: text;
-        -moz-user-select: text;
-        -o-user-select: text;
-        user-select: text;
-	/* this will work for QtWebKit in future */
-	-webkit-user-drag: text;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background: #444;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #444;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #666;
+}
+
+::-webkit-scrollbar-corner {
+	background: #444;
 }
 
 #browser-not-supported {
@@ -24,16 +53,6 @@ html, body, div{
 	-moz-transform-origin: 0 0;
 	-o-transform-origin: 0 0;
 	-webkit-transform-origin: 0 0;
-}
-
-#svg_editor {
-	font-size: 8pt;
-	font-family: Verdana, Helvetica, Arial;
-	color: #000000;
-}
-
-#svg_editor a {
-	color: #0000FF;
 }
 
 #svg_editor hr {
@@ -53,6 +72,112 @@ html, body, div{
 	left: 0;
 }
 
+#svg_editor #menu_bar {
+  margin: 0 0 0 50px
+}
+
+#svg_editor #menu_bar.active .menu.open .menu_list {
+  display: block;
+}
+
+#svg_editor .menu {
+  position: relative;
+  z-index: 5;
+  color: #333;
+  display: inline-block;
+}
+
+#svg_editor .menu_title {
+  cursor: pointer;
+  display: inline-block;
+  padding: 7px 10px;
+  z-index: 10;
+  color: #fff;
+  position: relative;
+}
+
+#svg_editor .menu .menu_title:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+#svg_editor .menu_list .separator {
+  margin: 5px 0;
+  border-top: solid #ddd 1px;
+}
+
+#svg_editor .menu_list {
+  display: none;
+  position: absolute;
+  top: 28px;
+  left: 0;
+  white-space: nowrap;
+  background: white;
+  padding: 7px 0;
+  border-radius: 0 3px 3px 3px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+#svg_editor #menu_bar.active .menu.open .menu_title {
+  background: white;
+  color: #333;
+}
+
+#svg_editor .menu_list .menu_item {
+  position: relative;
+  overflow: hidden;
+	line-height: 22px;
+	padding: 5px 55px 5px 25px;
+	cursor: default;
+	color: #333;
+}
+
+#svg_editor .menu_list .menu_item.tool_button {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 5px 55px 5px 25px;
+  height: auto;
+  width: auto;
+}
+
+#svg_editor .menu_list .menu_item.push_button_pressed:before {
+  content: '✔';
+  position: absolute;
+  display: block;
+  left: 7px;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+}
+
+#svg_editor .menu_list .menu_item:hover,
+#svg_editor .menu_list .menu_item.push_button_pressed:hover {
+	background: rgba(0,0,0,0.1);
+	color: #000;
+}
+
+#svg_editor .menu_list .menu_item.push_button_pressed {
+ background: transparent;
+ border: none; 
+ width: auto;
+ height: auto;
+ margin: 0;
+}
+
+#svg_editor .menu_list .menu_item span {
+  display: block;
+  position: absolute;
+  right: 10px;
+  padding: 5px 0;
+  background: rgba(0,0,0, 0.1);
+  top: 6px;
+  width: 20px;
+  height: 10px;
+  text-align: center;
+  font-size: 8px;
+  line-height: 120%;
+}
+
 #svg_editor #svgcanvas {
 	line-height: normal;
 	display: inline-block;
@@ -61,37 +186,34 @@ html, body, div{
 	vertical-align: middle;
 	width: 640px;
 	height: 480px;
-	-apple-dashboard-region:dashboard-region(control rectangle 0px 0px 0px 0px); /* for widget regions that shouldn't react to dragging */
 	position: relative;
-	/* 
-	  A subtle gradient effect in the canvas.
-	  Just experimenting - not sure if this is worth it.
-	*/
-	background: -moz-radial-gradient(45deg,#bbb,#222);
-	background: -webkit-gradient(radial, center center, 3, center center, 1000, from(#bbb), to(#222));
+	background: #3F3F3C;
 }
 
 #rulers > div {
 	position: absolute;
-	background: #DDD;
+	background: #444;
 	z-index: 1;
 	overflow: hidden;
 }
 
-#ruler_corner {
-	top: 76px;
-	left: 41px;
-	width: 15px;
-	height: 15px;
+#rulers #ruler_corner {
+	top: 30px;
+	left: 50px;
+	width: 17px;
+	height: 17px;
+	border-right: solid #2f2f2c 1px;
+	border-bottom: solid #2f2f2c 1px;
+	z-index: 2;
 }
 
 #ruler_x {
 	height: 15px;
-	top: 76px;
-	left: 56px;
-	right: 15px;
-	border-bottom: 1px solid;
-	border-left: 1px solid #777;
+	top: 30px;
+	left: 66px;
+	right: 200px;
+	border-top: solid #444 2px;
+	box-shadow: 0 5px 5px rgba(0,0,0,0.1);
 }
 
 #rulers.moved #ruler_corner,
@@ -101,11 +223,11 @@ html, body, div{
 
 #ruler_y {
 	width: 15px;
-	top: 91px;
-	left: 41px;
+	top: 46px;
+	left: 50px;
 	bottom: 63px;
-	border-right: 1px solid;
-	border-top: 1px solid #777;
+	border-left: solid #444 2px;
+  box-shadow: 5px 0 5px rgba(0,0,0,0.1);
 }
 
 #rulers.moved #ruler_y {
@@ -137,8 +259,6 @@ html, body, div{
 	overflow-x: scroll;
 	overflow-y: hidden;
 	height: 31px;
-	border: 1px solid #808080;
-	border-top: none;
 	margin-top: 2px;
 	margin-left: 4px;
 	position: relative;
@@ -199,12 +319,11 @@ html, body, div{
 #svg_editor div#workarea {
 	display: inline-table-cell;
 	position:absolute;
-	top: 75px;
-	left: 40px;
+	top: 30px;
+	left: 50px;
 	bottom: 62px;
-	right: 14px;
+	right: 200px;
 	background-color: #A0A0A0;
-	border: 1px solid #808080;
 	overflow: auto;
 	text-align: center;
 }
@@ -217,9 +336,6 @@ html, body, div{
 	right: 0px;
 	width: 2px;
 	padding: 10px;
-	border-color: #808080;
-	border-style: solid;
-	border-width: 1px;
 	border-left: none;
 }
 
@@ -237,11 +353,6 @@ html, body, div{
 
 }
 
-/*
-	border-style: solid;
-	border-color: #666;
-	border-width: 0px 0px 0px 1px;	
-*/
 #svg_editor #sidepanel_handle {
 	display: inline-block;
 	position: absolute;
@@ -369,29 +480,9 @@ html, body, div{
 	float: left;
 }
 
-#svg_editor #main_button {
-	position: absolute;
-	top: 4px;
-	left: 4px;
-	z-index: 5;
-}
-
-
-#svg_editor #main_icon {
-	background: #E8E8E8;
-	position: relative;
-	top: -2px;
-	left: -2px;
-	padding: 1px 0 2px 1px;
-	width: 44px;
-	height: 30px;
-	border-left: 1px solid #FFF;
-	border-top: 1px solid #FFF;
-	border-right: 1px solid #808080;
-	border-bottom: 1px solid #808080;
-	border-radius: 8px;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
+#svg_editor .menu .menu_list {
+  display: none;
+  position: absolute;
 }
 
 #svg_editor .tool_button:hover, 
@@ -401,19 +492,17 @@ html, body, div{
 #svg_editor .tool_button_current,
 #svg_editor .push_button_pressed
 {
-	border-left: 1px #fcd9ba solid !important;
-	border-top: 1px #fcd9ba solid !important;
-	border-right: 1px #e0a874 solid !important;
-	border-bottom: 1px #e0a874 solid !important;
-	background-color: #FFC !important;
+  background-color: #fff;
 }
 
-#svg_editor .tool_button_current,
-#svg_editor .push_button_pressed,
-#svg_editor .buttondown { 
-	background-color: #f4e284 !important;
-	border-top: 1px solid #630 !important;
-	border-left: 1px solid #630 !important;
+#svg_editor .tool_button.disabled,
+#svg_editor .tool_button.disabled:hover {
+  opacity: 0.3;
+  background-color: #aaa;
+}
+
+#svg_editor #tools_left .tool_button_current {
+	background-color: #0cf;
 }
 
 #svg_editor #main_icon span {
@@ -424,88 +513,57 @@ html, body, div{
 	z-index: 2;
 }
 
-#svg_editor #main_menu {
-	z-index: 12;
-	background: #E8E8E8;
-	position: relative;
-	width: 230px;
-	padding: 5px;
-	-moz-box-shadow: #555 1px 1px 4px;
-	-webkit-box-shadow: #555 1px 1px 4px;
-	font-size: 1.1em;
-	display: none;
-	overflow: hidden;
-	border: 1px outset gray;
-	clear: both;
-}
-
-#svg_editor #main_menu ul,
-#svg_editor #main_menu li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-#svg_editor #main_menu li {
-/*	height: 35px;*/
-	line-height: 22px;
-	padding-top: 7px;
-	padding-left: 7px;
-	margin: -5px;
-	overflow: auto;
-	cursor: default;
-}
-
-#svg_editor #main_menu li:hover {
-	background: #FFC;
-}
-
-#svg_editor #main_menu li > div {
-	float: left;
-	padding-right: 5px;
-}
-
-#svg_editor #main_menu p {
-	margin-top: 5px;
-}
-
-#svg_editor #logo img {
-	border: 0;
-	width: 32px;
-	height: 32px;
-}
-
-
-
-#main_icon > div {
-	float: left;
-}
-
-#svg_editor #main_button .dropdown {
-	padding-top: 28%;
-	margin-left: -1px;
-}
-
-
-
 #svg_editor #tools_top {
 	position: absolute;
-	left: 50px;
+	width: 190px;
 	right: 2px;
-	top: 2px;
-	height: 72px;
+	top: 30px;
 	border-bottom: none;
 	overflow: auto;
+}
+
+#svg_editor #tools_top label {
+  display: block;
+  color: #999;
+}
+
+#svg_editor #tools_top label.with_dropdown {
+  display: inline-block;
+}
+
+#svg_editor #tools_top label span {
+  display: inline-block;
+  width: 80px;
+}
+
+#svg_editor input[type=text], #svg_editor input[type=number] {
+  border: solid #3f3f3c 1px;
+  background-color: transparent;
+  color: #09f;
+  display: inline-block;
+  font-size: 13px;
+  padding: 2px 5px;
+  width: 50px;
+  -webkit-appearance: none;
+}
+
+#svg_editor input[readonly=readonly] {
+  background: transparent;
+  color: #fff;
+}
+
+#svg_editor input[type=text]:focus {
+  border: solid rgba(0, 120, 255, 0.3) 1px;
+  outline: none;
 }
 
 #svg_editor #tools_left {
 	position: absolute;
 	border-right: none;
-	width: 32px;
-	top: 75px;
+	width: 50px;
+	top: 30px;
 	left: 0;
-	padding-left: 2px;
-	background: #D0D0D0; /* Needed so flyout icons don't appear on the left */
+	background: #2F2F2C; /* Needed so flyout icons don't appear on the left */
 	z-index: 4;
 }
 
@@ -530,7 +588,11 @@ html, body, div{
 	fill: #FFF !important;
 }
 
-#tools_top div[id$="_panel"]:not(#editor_panel):not(#history_panel) {
+#workarea #canvasBackground > rect {
+  stroke: transparent !important;
+}
+
+#tools_top div[id$="_panel"]:not(#canvas_panel) {
 	display: none;
 }
 
@@ -540,60 +602,31 @@ html, body, div{
 
 #cur_context_panel {
 	position: absolute;
-	top: 77px;
-	left: 40px;
-	right: 0;
+  top: 47px;
+  left: 68px;
 	line-height: 22px;
 	overflow: auto;
-	border: 1px solid #777;
 	border-bottom: none;
 	border-right: none;
 	padding-left: 5px;
 	font-size: 12px;
+	background: black;
+  color: #999;
+  opacity: 0.5;
+  padding: 0 10px;
+  border-radius: 0 10px 10px 0;
 }
 
 #svg_editor #cur_context_panel a {
 	float: none;
 	text-decoration: none;
+	color: #fff;
 }
 
 #svg_editor #cur_context_panel a:hover {
 	text-decoration: underline;
 }
 
-#svg_editor #tools_top > div, #tools_top {
-	line-height: 26px;
-}
-
-#svg_editor div.toolset,
-#svg_editor div.toolset > * {
-	float: left;
-}
-
-#svg_editor div.toolset {
-	height: 34px;
-}
-
-#svg_editor div.toolset label span {
-/*	outline: 1px solid red;*/
-	padding-top: 3px;
-	display: inline-block;
-}
-
-#tools_top > div > * {
-	float: left;
-	margin-right: 2px;
-}
-
-#tools_top label {
-	margin-top: 0;
-	margin-left: 5px;
-}
-
-#tools_top input {
-	margin-top: 5px;
-	height: 15px;
-}
 
 #svg_editor #tools_left .tool_button,
 #svg_editor #tools_left .tool_button_current {
@@ -620,18 +653,15 @@ span.zoom_tool {
 
 .dropdown {
 	position: relative;
+	display: inline-block;
 }
 
 #svg_editor .dropdown button {
 	width: 15px;
 	height: 21px;
-	margin: 6px 0 0 1px;
 	padding: 0;
-	border-left: 1px solid #FFFFFF;
-	border-top: 1px solid #FFFFFF;
-	border-right: 1px solid #808080;
-	border-bottom: 1px solid #808080;
-	background-color: #E8E8E8;
+	border: 1px solid #3f3f3c;
+	background-color: transparent;
 }
 
 .dropdown button.down {
@@ -697,17 +727,10 @@ span.zoom_tool {
 {
 	height: 24px;
 	width: 24px;
-	margin: 2px;
-	padding: 2px;
-	border-left: 1px solid #FFF;
-	border-top: 1px solid #FFF;
-	border-right: 1px solid #808080;
-	border-bottom: 1px solid #808080;
-	background-color: #E8E8E8;
+	border: solid #2f2f2c 5px;
+	margin: 5px 0 10px 7px;
+	background-color: #ddd;
 	cursor: pointer;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 }
 
 #svg_editor #main_menu li#tool_open, #svg_editor #main_menu li#tool_import {
@@ -910,6 +933,15 @@ span.zoom_tool {
 #tools_top .dropdown.down > * {
 	border: 1px inset gray;
 	background: #F4E284;
+}
+
+#svg_editor #tools_top h4 {
+  color: #fff;
+  font-weight: normal;
+  margin: 0;
+  border-bottom: solid #444 1px;
+  padding: 0 0 5px 0;
+  margin-bottom: 5px;
 }
 
 .stroke_tool > div {
@@ -1297,6 +1329,10 @@ span.zoom_tool {
 
 #dialog_buttons input[type=button] {
 	margin: 0 1em;
+}
+
+.invisible {
+  visibility: none;
 }
 
 

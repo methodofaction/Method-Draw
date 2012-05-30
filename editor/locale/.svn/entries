@@ -1,7 +1,7 @@
 10
 
 dir
-2080
+2083
 http://svg-edit.googlecode.com/svn/trunk/editor/locale
 http://svg-edit.googlecode.com/svn
 
@@ -502,40 +502,6 @@ has-props
 
 9085
 
-lang.mk.js
-file
-
-
-
-
-2012-03-23T10:41:58.000000Z
-c7196fe4a08f680991f992e3fcc13674
-2011-01-11T21:15:08.685518Z
-1901
-adeveria
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9765
-
 lang.es.js
 file
 
@@ -570,14 +536,14 @@ has-props
 
 9433
 
-lang.zh-TW.js
+lang.mk.js
 file
 
 
 
 
 2012-03-23T10:41:58.000000Z
-9d8e08c4e7169a72bbc50f5dc48aa8e8
+c7196fe4a08f680991f992e3fcc13674
 2011-01-11T21:15:08.685518Z
 1901
 adeveria
@@ -602,7 +568,7 @@ has-props
 
 
 
-8132
+9765
 
 lang.ko.js
 file
@@ -638,14 +604,14 @@ has-props
 
 8521
 
-lang.cy.js
+lang.zh-TW.js
 file
 
 
 
 
 2012-03-23T10:41:58.000000Z
-e2872c35466fba52cec4f1df7623ba1d
+9d8e08c4e7169a72bbc50f5dc48aa8e8
 2011-01-11T21:15:08.685518Z
 1901
 adeveria
@@ -670,7 +636,7 @@ has-props
 
 
 
-8327
+8132
 
 lang.is.js
 file
@@ -706,14 +672,14 @@ has-props
 
 8327
 
-lang.no.js
+lang.cy.js
 file
 
 
 
 
 2012-03-23T10:41:58.000000Z
-93ba32601d165f0156d527f35eb23ea7
+e2872c35466fba52cec4f1df7623ba1d
 2011-01-11T21:15:08.685518Z
 1901
 adeveria
@@ -738,7 +704,7 @@ has-props
 
 
 
-8260
+8327
 
 lang.hu.js
 file
@@ -774,6 +740,40 @@ has-props
 
 8452
 
+lang.no.js
+file
+
+
+
+
+2012-03-23T10:41:58.000000Z
+93ba32601d165f0156d527f35eb23ea7
+2011-01-11T21:15:08.685518Z
+1901
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8260
+
 lang.sk.js
 file
 
@@ -807,40 +807,6 @@ has-props
 
 
 8776
-
-lang.fy.js
-file
-
-
-
-
-2012-03-23T10:41:58.000000Z
-4110bf2038994a9a49abd58cfbe3a7b8
-2011-02-09T06:18:05.544281Z
-1985
-codedread
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8515
 
 lang.vi.js
 file
@@ -876,17 +842,17 @@ has-props
 
 8856
 
-locale.js
+lang.fy.js
 file
 
 
 
 
 2012-03-23T10:41:58.000000Z
-1e7b5088f1c7213d5b6a462a9e73cd3b
-2011-02-11T19:21:50.128793Z
-1995
-adeveria
+4110bf2038994a9a49abd58cfbe3a7b8
+2011-02-09T06:18:05.544281Z
+1985
+codedread
 has-props
 
 
@@ -908,75 +874,7 @@ has-props
 
 
 
-9282
-
-lang.zh-CN.js
-file
-
-
-
-
-2012-03-23T10:41:58.000000Z
-ff6eaaab8f8087a81746147afe8a491b
-2011-01-11T21:15:08.685518Z
-1901
-adeveria
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8116
-
-lang.uk.js
-file
-
-
-
-
-2012-03-23T10:41:58.000000Z
-a5723c6092917ddfb481f5f46cf7a505
-2011-01-11T21:15:08.685518Z
-1901
-adeveria
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9743
+8515
 
 lang.ms.js
 file
@@ -1012,14 +910,14 @@ has-props
 
 8261
 
-lang.hy.js
+lang.uk.js
 file
 
 
 
 
 2012-03-23T10:41:58.000000Z
-8697054036a010cdb8c344f0733b51e3
+a5723c6092917ddfb481f5f46cf7a505
 2011-01-11T21:15:08.685518Z
 1901
 adeveria
@@ -1044,7 +942,75 @@ has-props
 
 
 
-8206
+9743
+
+lang.zh-CN.js
+file
+
+
+
+
+2012-03-23T10:41:58.000000Z
+ff6eaaab8f8087a81746147afe8a491b
+2011-01-11T21:15:08.685518Z
+1901
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8116
+
+locale.js
+file
+
+
+
+
+2012-03-23T10:41:58.000000Z
+1e7b5088f1c7213d5b6a462a9e73cd3b
+2011-02-11T19:21:50.128793Z
+1995
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9282
 
 lang.ro.js
 file
@@ -1079,6 +1045,40 @@ has-props
 
 
 9057
+
+lang.hy.js
+file
+
+
+
+
+2012-03-23T10:41:58.000000Z
+8697054036a010cdb8c344f0733b51e3
+2011-01-11T21:15:08.685518Z
+1901
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8206
 
 lang.yi.js
 file

@@ -291,7 +291,6 @@ $(function() {
 					var svg = elem.getElementsByTagNameNS(svgns, 'svg')[0];
 					var svgroot = document.createElementNS(svgns, "svg");
 					svgroot.setAttributeNS(svgns, 'viewBox', [0,0,icon_w,icon_h].join(' '));
-					
 					// Make flexible by converting width/height to viewBox
 					var w = svg.getAttribute('width');
 					var h = svg.getAttribute('height');

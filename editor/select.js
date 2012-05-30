@@ -54,10 +54,8 @@ svgedit.select.Selector = function(id, elem) {
 			'attr': {
 				'id': ('selectedBox' + this.id),
 				'fill': 'none',
-				'stroke': '#22C',
+				'stroke': '#4F80FF',
 				'stroke-width': '1',
-				'stroke-dasharray': '5,5',
-				// need to specify this so that the rect is not selectable
 				'style': 'pointer-events:none'
 			}
 		})
@@ -230,8 +228,6 @@ svgedit.select.Selector.prototype.resize = function() {
 	var xform = angle ? 'rotate(' + [angle,cx,cy].join(',') + ')' : '';
 	this.selectorGroup.setAttribute('transform', xform);
 
-	// TODO(codedread): Is this if needed?
-//	if(selected === selectedElements[0]) {
 		this.gripCoords = {
 			'nw': [nbax, nbay],
 			'ne': [nbax+nbaw, nbay],
@@ -245,8 +241,8 @@ svgedit.select.Selector.prototype.resize = function() {
 
 		for(var dir in this.gripCoords) {
 			var coords = this.gripCoords[dir];
-			selectedGrips[dir].setAttribute('cx', coords[0]);
-			selectedGrips[dir].setAttribute('cy', coords[1]);
+			selectedGrips[dir].setAttribute('x', coords[0]);
+			selectedGrips[dir].setAttribute('y', coords[1]);
 		};
 
 		// we want to go 20 pixels in the negative transformed y direction, ignoring scale
@@ -257,7 +253,6 @@ svgedit.select.Selector.prototype.resize = function() {
 
 		mgr.rotateGrip.setAttribute('cx', nbax + (nbaw)/2); 
 		mgr.rotateGrip.setAttribute('cy', nbay - 20);
-//	}
 
 	svgFactory_.svgRoot().unsuspendRedraw(sr_handle);
 };
@@ -323,17 +318,15 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 	// add the corner grips
 	for (var dir in this.selectorGrips) {
 		var grip = svgFactory_.createSVGElement({
-			'element': 'circle',
+			'element': 'rect',
 			'attr': {
 				'id': ('selectorGrip_resize_' + dir),
-				'fill': '#22C',
-				'r': 4,
+				'width': 6,
+  			'height': 6,
+  			'fill': "#4F80FF",
+  			'stroke': "transparent",
+  			'stroke-width': 2,
 				'style': ('cursor:' + dir + '-resize'),
-				// This expands the mouse-able area of the grips making them
-				// easier to grab with the mouse.
-				// This works in Opera and WebKit, but does not work in Firefox
-				// see https://bugzilla.mozilla.org/show_bug.cgi?id=500174
-				'stroke-width': 2,
 				'pointer-events': 'all'
 			}
 		});
@@ -346,7 +339,7 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 	// add rotator elems
 	this.rotateGripConnector = this.selectorGripsGroup.appendChild(
 		svgFactory_.createSVGElement({
-			'element': 'line',
+			'element': 'circled',
 			'attr': {
 				'id': ('selectorGrip_rotateconnector'),
 				'stroke': '#22C',

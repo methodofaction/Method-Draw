@@ -1,7 +1,7 @@
 10
 
 dir
-2080
+2083
 http://svg-edit.googlecode.com/svn/trunk/editor/extensions
 http://svg-edit.googlecode.com/svn
 
@@ -60,40 +60,6 @@ adeveria
 
 4797
 
-ext-shapes.xml
-file
-
-
-
-
-2012-03-23T10:41:57.000000Z
-c8e9db99c7ae79c87a598e70bf09e958
-2010-07-09T19:12:30.540956Z
-1627
-adeveria
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1309
-
 ext-server_moinsave.js
 file
 
@@ -127,6 +93,40 @@ rusnakp
 
 
 1904
+
+ext-shapes.xml
+file
+
+
+
+
+2012-03-23T10:41:57.000000Z
+c8e9db99c7ae79c87a598e70bf09e958
+2010-07-09T19:12:30.540956Z
+1627
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1309
 
 ext-imagelib.js
 file
@@ -162,40 +162,6 @@ adeveria
 
 10859
 
-ext-helloworld.js
-file
-
-
-
-
-2012-03-23T10:41:57.000000Z
-56c4292130f2faa311462f934dfa4281
-2010-03-12T16:42:15.633913Z
-1458
-jacques.distler
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2173
-
 filesave.php
 file
 
@@ -229,6 +195,40 @@ adeveria
 
 
 994
+
+ext-helloworld.js
+file
+
+
+
+
+2012-03-23T10:41:57.000000Z
+56c4292130f2faa311462f934dfa4281
+2010-03-12T16:42:15.633913Z
+1458
+jacques.distler
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2173
 
 ext-arrows.js
 file
@@ -264,39 +264,8 @@ codedread
 
 7012
 
-ext-eyedropper.js
-file
-
-
-
-
-2012-03-23T10:41:57.000000Z
-87dfbb341a3bb3e00764977f17bb9349
-2011-01-30T20:03:09.804905Z
-1955
-adrianbjones@gmail.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3843
+shapelib
+dir
 
 fileopen.php
 file
@@ -332,8 +301,39 @@ rusnakp
 
 736
 
-shapelib
-dir
+ext-eyedropper.js
+file
+
+
+
+
+2012-03-23T10:41:57.000000Z
+87dfbb341a3bb3e00764977f17bb9349
+2011-01-30T20:03:09.804905Z
+1955
+adrianbjones@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3843
 
 foreignobject-icons.xml
 file

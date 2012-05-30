@@ -44,6 +44,7 @@
 
 <!-- you can load extensions here -->
 
+
 <!-- always minified scripts -->
 <script type="text/javascript" src="jquery-ui/jquery-ui-1.8.17.custom.min.js"></script>
 <script type="text/javascript" src="jgraduate/jpicker.min.js"></script>
@@ -113,190 +114,145 @@
 	</div>
 	<div id="sidepanel_handle" title="Drag left/right to resize side panel [X]">L a y e r s</div>
 </div>
+<div id="menu_bar">
+  
+  <div class="menu">
+  	<div class="menu_title">File</div>
+  	<div class="menu_list" id="file_menu"> 
+  		<div id="tool_clear" class="menu_item">New Image <span>N</span></div>
+  		<div id="tool_open" class="menu_item"><div id="fileinputs"></div>Open Image...  <span>O</span></div>
+  		<div id="tool_import" class="menu_item"><div id="fileinputs_import"></div>Import SVG... </div>
+  		<div id="tool_save" class="menu_item">Save Image...  <span>S</span></div>
+  		<div id="tool_export" class="menu_item">Export as PNG <span>S</span></div>
+  	</div>
+  </div>
 
-<div id="main_button">
-	<div id="main_icon" class="buttonup" title="Main Menu">
-		<span></span>
-		<div id="logo"></div>
-		<div class="dropdown"></div>
-	</div>
-		
-	<div id="main_menu"> 
-	
-		<!-- File-like buttons: New, Save, Source -->
-		<ul>
-			<li id="tool_clear">
-				<div></div>
-				New Image (N)
-			</li>
-			
-			<li id="tool_open" style="display:none;">
-				<div id="fileinputs">
-					<div></div>
-				</div>
-				Open Image
-			</li>
-			
-			<li id="tool_import" style="display:none;">
-				<div id="fileinputs_import">
-					<div></div>
-				</div>
-				Import SVG
-			</li>
-			
-			<li id="tool_save">
-				<div></div>
-				Save Image (S)
-			</li>
-			
-			<li id="tool_export">
-				<div></div>
-				Export as PNG
-			</li>
-			
-			<li id="tool_docprops">
-				<div></div>
-				Document Properties (D)
-			</li>
-		</ul>
+  <div class="menu">
+    <div class="menu_title">Edit</div>
+  	<div class="menu_list" id="edit_menu">
+  		<div class="menu_item" id="tool_undo">Undo <span>Z</span></div>
+  		<div class="menu_item" id="tool_redo">Redo <span>Y</span></div>
+  		<div class="separator"></div>
+  		<div class="menu_item" id="tool_copy">Copy <span>C</span></div>
+			<div class="menu_item" id="tool_paste">Paste <span>V</span></div>
+  		<div class="menu_item" id="tool_clone">Duplicate <span>D</span></div>
+			<div class="menu_item" id="tool_delete">Delete <span>Del</span></div>
+    </div>
+  </div>
+  
+  <div class="menu">
+    <div class="menu_title">Object</div>
+  	<div class="menu_list"  id="object_menu">
+			<div class="menu_item" id="tool_move_top">Bring to Front</div>
+			<div class="menu_item" id="tool_move_bottom">Send to Back</div>
+			<div class="separator"></div>
+			<div class="menu_item" id="tool_topath">Convert to Path</div>
+			<div class="menu_item" id="tool_reorient">Reorient path</div>
+    </div>
+  </div>
+  	
+  <div class="menu">
+    <div class="menu_title">Canvas</div>
+  	<div class="menu_list" id="canvas_menu">
+    		<div class="menu_item" id="tool_docprops">Canvas Properties... <span>D</span></div>
+    </div>
+  </div>
 
-		<p>
-			<a href="http://svg-edit.googlecode.com/" target="_blank">
-				SVG-edit Home Page
-			</a>
-		</p>
+  <div class="menu">
+    <div class="menu_title">View</div>
+  	<div class="menu_list" id="view_menu">
+  	    <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers</div>
+  	    <div class="menu_item" id="tool_wireframe">View Wireframe</div>
+  	    <div class="separator"></div>
+    		<div class="menu_item" id="tool_source">Source... <span>U</span></div>
+    </div>
+  </div>
+  
 
-		<button id="tool_prefs_option">
-			Editor Options
-		</button>
-
-
-	</div>
+  
 </div>
 
+		<!--	
+  			<li id="tool_save">
+  				<div></div>
+  				Save Image (S)
+  			</li>
+			
+  			<li id="tool_export">
+  				<div></div>
+  				Export as PNG
+  			</li>
+			
+  			<li id="tool_docprops">
+  				<div></div>
+  				Document Properties (D)
+  			</li>
+  		</ul>
+
+  		<p>
+  			<a href="http://svg-edit.googlecode.com/" target="_blank">
+  				SVG-edit Home Page
+  			</a>
+  		</p>
+
+  		<button id="tool_prefs_option">
+  			Editor Options
+  		</button>
+-->
 
 
 <div id="tools_top" class="tools_panel">
-	
-	<div id="editor_panel">
-		<div class="push_button" id="tool_source" title="Edit Source [U]"></div>
-		<div class="tool_button" id="tool_wireframe" title="Wireframe Mode [F]"></div>
-	</div>
 
-    <!-- History buttons -->
-	<div id="history_panel">
-		<div class="tool_sep"></div>
-		<div class="push_button tool_button_disabled" id="tool_undo" title="Undo [Z]"></div>
-		<div class="push_button tool_button_disabled" id="tool_redo" title="Redo [Y]"></div>
-	</div>
-	
-	<!-- Buttons when a single element is selected -->
-	<div id="selected_panel">
+	<div id="canvas_panel">
+	  
 		<div class="toolset">
-			<div class="tool_sep"></div>
-			<div class="push_button" id="tool_clone" title="Duplicate Element [D]"></div>
-			<div class="push_button" id="tool_delete" title="Delete Element [Delete/Backspace]"></div>
-			<div class="tool_sep"></div>
-			<div class="push_button" id="tool_move_top" title="Bring to Front [ Ctrl+Shift+] ]"></div>
-			<div class="push_button" id="tool_move_bottom" title="Send to Back [ Ctrl+Shift+[ ]"></div>
-			<div class="push_button" id="tool_topath" title="Convert to Path"></div>
-			<div class="push_button" id="tool_reorient" title="Reorient path"></div>
-			<div class="push_button" id="tool_make_link" title="Make (hyper)link"></div>
-			<div class="tool_sep"></div>
-			<label id="idLabel" title="Identify the element">
-				<span>id:</span>
-				<input id="elem_id" class="attr_changer" data-attr="id" size="10" type="text"/>
+		  <h4>Canvas</h4>
+			<label title="Change canvas width">
+				<span class="icon_label">Width</span>
+				<input size="3" class="canvas_width" type="text" readonly="readonly" />
+			</label>
+			<label title="Change canvas height">
+				<span class="icon_label">Height</span>
+				<input class="canvas_height" size="3" type="text" readonly="readonly" />
 			</label>
 		</div>
-
-		<label id="tool_angle" title="Change rotation angle" class="toolset">
-			<span id="angleLabel" class="icon_label"></span>
-			<input id="angle" class="attr_changer" size="2" value="0" type="text"/>
+		<button id="docprops_button">Canvas Size...</button>
+		<label title="Change canvas color">
+			<span class="icon_label">Color</span>
+			<input id="canvas_color" size="3" value="#fff" type="text" data-attr="Corner Radius"/>
 		</label>
-		
-		<div class="toolset" id="tool_blur" title="Change gaussian blur value">
-			<label>
-				<span id="blurLabel" class="icon_label"></span>
-				<input id="blur" size="2" value="0" type="text" class="attr_changer"/>
-			</label>
-			<div id="blur_dropdown" class="dropdown">
-				<button></button>
-				<ul>
-					<li class="special"><div id="blur_slider"></div></li>
-				</ul>
-			</div>
-		</div>
-		
-		<div class="dropdown toolset" id="tool_position" title="Align Element to Page">
-				<div id="cur_position" class="icon_label"></div>
-				<button></button>
-		</div>		
-
-		<div id="xy_panel" class="toolset">
-			<label>
-				x: <input id="selected_x" class="attr_changer" title="Change X coordinate" size="3" data-attr="x"/>
-			</label>
-			<label>
-				y: <input id="selected_y" class="attr_changer" title="Change Y coordinate" size="3" data-attr="y"/>
-			</label>
-		</div>
 	</div>
 	
-	<!-- Buttons when multiple elements are selected -->
-	<div id="multiselected_panel">
-		<div class="tool_sep"></div>
-		<div class="push_button" id="tool_clone_multi" title="Clone Elements [C]"></div>
-		<div class="push_button" id="tool_delete_multi" title="Delete Selected Elements [Delete/Backspace]"></div>
-		<div class="tool_sep"></div>
-		<div class="push_button" id="tool_group" title="Group Elements [G]"></div>
-		<div class="push_button" id="tool_make_link_multi" title="Make (hyper)link"></div>
-		<div class="push_button" id="tool_alignleft" title="Align Left"></div>
-		<div class="push_button" id="tool_aligncenter" title="Align Center"></div>
-		<div class="push_button" id="tool_alignright" title="Align Right"></div>
-		<div class="push_button" id="tool_aligntop" title="Align Top"></div>
-		<div class="push_button" id="tool_alignmiddle" title="Align Middle"></div>
-		<div class="push_button" id="tool_alignbottom" title="Align Bottom"></div>
-		<label id="tool_align_relative"> 
-			<span id="relativeToLabel">relative to:</span>
-			<select id="align_relative_to" title="Align relative to ...">
-			<option id="selected_objects" value="selected">selected objects</option>
-			<option id="largest_object" value="largest">largest object</option>
-			<option id="smallest_object" value="smallest">smallest object</option>
-			<option id="page" value="page">page</option>
-			</select>
-		</label>
-		<div class="tool_sep"></div>
-
-	</div>
-
 	<div id="rect_panel">
+	  <h4>Rectangle</h4>
 		<div class="toolset">
 			<label id="rect_width_tool" title="Change rectangle width">
-				<span id="rwidthLabel" class="icon_label"></span>
-				<input id="rect_width" class="attr_changer" size="3" data-attr="width"/>
+				<span class="icon_label">Width</span>
+				<input id="rect_width" class="attr_changer" size="3" data-attr="width" type="number"/>
 			</label>
 			<label id="rect_height_tool" title="Change rectangle height">
-				<span id="rheightLabel" class="icon_label"></span>
-				<input id="rect_height" class="attr_changer" size="3" data-attr="height"/>
+				<span class="icon_label">Height</span>
+				<input id="rect_height" class="attr_changer" size="3" data-attr="height" type="number" />
 			</label>
 		</div>
-		<label id="cornerRadiusLabel" title="Change Rectangle Corner Radius" class="toolset">
-			<span class="icon_label"></span>
+		<label id="cornerRadiusLabel" title="Change Rectangle Corner Radius">
+			<span class="icon_label">Roundness</span>
 			<input id="rect_rx" size="3" value="0" type="text" data-attr="Corner Radius"/>
 		</label>
 	</div>
 
 	<div id="image_panel">
+	<h4>Image</h4>
 	<div class="toolset">
-		<label><span id="iwidthLabel" class="icon_label"></span>
+		<label><span class="icon_label">Width</span>
 		<input id="image_width" class="attr_changer" title="Change image width" size="3" data-attr="width"/>
 		</label>
-		<label><span id="iheightLabel" class="icon_label"></span>
+		<label><span class="icon_label">Height</span>
 		<input id="image_height" class="attr_changer" title="Change image height" size="3" data-attr="height"/>
 		</label>
 	</div>
 	<div class="toolset">
-		<label id="tool_image_url">url:
+		<label id="tool_image_url"><span class="icon_label">URL</span>
 			<input id="image_url" type="text" title="Change URL" size="35"/>
 		</label>
 		<label id="tool_change_image">
@@ -308,59 +264,62 @@
 
 	<div id="circle_panel">
 		<div class="toolset">
-			<label id="tool_circle_cx">cx:
-			<input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" size="3" data-attr="cx"/>
+			<label id="tool_circle_cx"><span class="icon_label">cx:</span>
+			<input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" size="3" data-attr="cx" type="number"/>
 			</label>
 			<label id="tool_circle_cy">cy:
-			<input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" size="3" data-attr="cy"/>
+			<input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" size="3" data-attr="cy" type="number" />
 			</label>
 		</div>
 		<div class="toolset">
 			<label id="tool_circle_r">r:
-			<input id="circle_r" class="attr_changer" title="Change circle's radius" size="3" data-attr="r"/>
+			<input id="circle_r" class="attr_changer" title="Change circle's radius" size="3" data-attr="r" type="number" />
 			</label>
 		</div>
 	</div>
 
 	<div id="ellipse_panel">
+	  <h4>Ellipse</h4>
 		<div class="toolset">
-			<label id="tool_ellipse_cx">cx:
-			<input id="ellipse_cx" class="attr_changer" title="Change ellipse's cx coordinate" size="3" data-attr="cx"/>
+			<label id="tool_ellipse_cx"><span>X</span>
+			<input id="ellipse_cx" class="attr_changer" title="Change ellipse's cx coordinate" size="3" data-attr="cx" type="number" />
 			</label>
-			<label id="tool_ellipse_cy">cy:
-			<input id="ellipse_cy" class="attr_changer" title="Change ellipse's cy coordinate" size="3" data-attr="cy"/>
+			<label id="tool_ellipse_cy"><span>Y</span>
+			<input id="ellipse_cy" class="attr_changer" title="Change ellipse's cy coordinate" size="3" data-attr="cy" type="number" />
 			</label>
 		</div>
 		<div class="toolset">
-			<label id="tool_ellipse_rx">rx:
-			<input id="ellipse_rx" class="attr_changer" title="Change ellipse's x radius" size="3" data-attr="rx"/>
+			<label id="tool_ellipse_rx"><span>Radius X</span>
+			<input id="ellipse_rx" class="attr_changer" title="Change ellipse's x radius" size="3" data-attr="rx" type="number" />
 			</label>
-			<label id="tool_ellipse_ry">ry:
-			<input id="ellipse_ry" class="attr_changer" title="Change ellipse's y radius" size="3" data-attr="ry"/>
+			<label id="tool_ellipse_ry"><span>Radius Y</span>
+			<input id="ellipse_ry" class="attr_changer" title="Change ellipse's y radius" size="3" data-attr="ry" type="number" />
 			</label>
 		</div>
 	</div>
 
 	<div id="line_panel">
+	  <h4>Line</h4>
 		<div class="toolset">
-			<label id="tool_line_x1">x1:
+			<label id="tool_line_x1"><span>Start X</span>
 			<input id="line_x1" class="attr_changer" title="Change line's starting x coordinate" size="3" data-attr="x1"/>
 			</label>
-			<label id="tool_line_y1">y1:
+			<label id="tool_line_y1"><span>Start Y</span>
 			<input id="line_y1" class="attr_changer" title="Change line's starting y coordinate" size="3" data-attr="y1"/>
 			</label>
 		</div>
 		<div class="toolset">
-			<label id="tool_line_x2">x2:
+			<label id="tool_line_x2"><span>End X</span>
 			<input id="line_x2" class="attr_changer" title="Change line's ending x coordinate" size="3" data-attr="x2"/>
 			</label>
-			<label id="tool_line_y2">y2:
+			<label id="tool_line_y2"><span>End Y</span>
 			<input id="line_y2" class="attr_changer" title="Change line's ending y coordinate" size="3" data-attr="y2"/>
 			</label>
 		</div>
 	</div>
 
 	<div id="text_panel">
+	  <h4>Text</h4>
 		<div class="toolset">
 			<div class="tool_button" id="tool_bold" title="Bold Text [B]"><span></span>B</div>
 			<div class="tool_button" id="tool_italic" title="Italic Text [I]"><span></span>i</div>
@@ -394,11 +353,11 @@
 
 	<!-- formerly gsvg_panel -->
 	<div id="container_panel">
-		<div class="tool_sep"></div>
 
 		<!-- Add viewBox field here? -->
 
 		<label id="group_title" title="Group identification label">
+		  <h4>Group</h4>
 			<span>label:</span>
 			<input id="g_title" data-attr="title" size="10" type="text"/>
 		</label>
@@ -421,6 +380,7 @@
 	</div>
 	
 	<div id="path_node_panel">
+	  <h4>Path</h4>
 		<div class="tool_sep"></div>
 		<div class="tool_button push_button_pressed" id="tool_node_link" title="Link Control Points"></div>
 		<div class="tool_sep"></div>
@@ -440,6 +400,72 @@
 		<div class="tool_button" id="tool_openclose_path" title="Open/close sub-path"></div>
 		<div class="tool_button" id="tool_add_subpath" title="Add sub-path"></div>
 	</div>
+	
+	<!-- Buttons when a single element is selected -->
+	<div id="selected_panel">
+
+		<label id="tool_angle" title="Change rotation angle" class="toolset">
+			<span class="icon_label">Rotation</span>
+			<input id="angle" class="attr_changer" size="2" value="0" type="text"/>
+		</label>
+		
+		<div class="toolset" id="tool_blur" title="Change gaussian blur value">
+			<label class="with_dropdown">
+				<span class="icon_label">Blur</span>
+				<input id="blur" size="2" value="0" type="text" class="attr_changer"/>
+			</label>
+			<div id="blur_dropdown" class="dropdown">
+				<button></button>
+				<ul>
+					<li class="special"><div id="blur_slider"></div></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="dropdown toolset" id="tool_position" title="Align Element to Page">
+				<label>
+				<span class="icon_label">Align</span>
+				<button></button>
+				</label>
+		</div>		
+
+		<div id="xy_panel" class="toolset">
+			<label>
+				<span>X:</span> <input id="selected_x" class="attr_changer" title="Change X coordinate" size="3" data-attr="x" type="number"/>
+			</label>
+			<label>
+				<span>Y:</span> <input id="selected_y" class="attr_changer" title="Change Y coordinate" size="3" data-attr="y" type="number"/>
+			</label>
+		</div>
+	</div>
+	
+	<!-- Buttons when multiple elements are selected -->
+	<div id="multiselected_panel">
+		<div class="tool_sep"></div>
+		<div class="push_button" id="tool_clone_multi" title="Clone Elements [C]"></div>
+		<div class="push_button" id="tool_delete_multi" title="Delete Selected Elements [Delete/Backspace]"></div>
+		<div class="tool_sep"></div>
+		<div class="push_button" id="tool_group" title="Group Elements [G]"></div>
+		<div class="push_button" id="tool_make_link_multi" title="Make (hyper)link"></div>
+		<div class="push_button" id="tool_alignleft" title="Align Left"></div>
+		<div class="push_button" id="tool_aligncenter" title="Align Center"></div>
+		<div class="push_button" id="tool_alignright" title="Align Right"></div>
+		<div class="push_button" id="tool_aligntop" title="Align Top"></div>
+		<div class="push_button" id="tool_alignmiddle" title="Align Middle"></div>
+		<div class="push_button" id="tool_alignbottom" title="Align Bottom"></div>
+		<label id="tool_align_relative"> 
+			<span id="relativeToLabel">relative to:</span>
+			<select id="align_relative_to" title="Align relative to ...">
+			<option id="selected_objects" value="selected">selected objects</option>
+			<option id="largest_object" value="largest">largest object</option>
+			<option id="smallest_object" value="smallest">smallest object</option>
+			<option id="page" value="page">page</option>
+			</select>
+		</label>
+		<div class="tool_sep"></div>
+
+	</div>
+
 </div> <!-- tools_top -->
 	<div id="cur_context_panel">
 		
@@ -450,12 +476,8 @@
 	<div class="tool_button" id="tool_select" title="Select Tool"></div>
 	<div class="tool_button" id="tool_fhpath" title="Pencil Tool"></div>
 	<div class="tool_button" id="tool_line" title="Line Tool"></div>
-	<div class="tool_button flyout_current" id="tools_rect_show" title="Square/Rect Tool">
-		<div class="flyout_arrow_horiz"></div>
-	</div>
-	<div class="tool_button flyout_current" id="tools_ellipse_show" title="Ellipse/Circle Tool">
-		<div class="flyout_arrow_horiz"></div>
-	</div>
+	<div class="tool_button" id="tool_rect" title="Square/Rect Tool"></div>
+	<div class="tool_button" id="tool_ellipse" title="Ellipse/Circle Tool"></div>
 	<div class="tool_button" id="tool_path" title="Path Tool"></div>
 	<div class="tool_button" id="tool_text" title="Text Tool"></div>
 	<div class="tool_button" id="tool_image" title="Image Tool"></div>
@@ -644,9 +666,9 @@
 			<fieldset id="change_resolution">
 				<legend id="svginfo_dim">Canvas Dimensions</legend>
 
-				<label><span id="svginfo_width">width:</span> <input type="text" id="canvas_width" size="6"/></label>
+				<label><span id="svginfo_width">width:</span> <input type="text" id="canvas_width" class="canvas_width" size="6"/></label>
 					
-				<label><span id="svginfo_height">height:</span> <input type="text" id="canvas_height" size="6"/></label>
+				<label><span id="svginfo_height">height:</span> <input type="text" id="canvas_height" class="canvas_height" size="6"/></label>
 				
 				<label>
 					<select id="resolution">

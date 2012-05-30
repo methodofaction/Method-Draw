@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 29
-/svn/!svn/ver/2079/trunk/test
+/svn/!svn/ver/2083/trunk/test
 END
 draw_test.html
 K 25
@@ -37,7 +37,7 @@ units_test.html
 K 25
 svn:wc:ra_dav:version-url
 V 45
-/svn/!svn/ver/1990/trunk/test/units_test.html
+/svn/!svn/ver/2083/trunk/test/units_test.html
 END
 svgtransformlist_test.html
 K 25

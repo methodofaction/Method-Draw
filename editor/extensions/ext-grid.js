@@ -151,31 +151,29 @@ svgEditor.addExtension("view_grid", function(s) {
 
     return {
         name: "view_grid",
-        svgicons: "extensions/grid-icon.xml",
-
         zoomChanged: function(zoom) {
             // update size
             if(showGrid) updateGrid(zoom);
         },
 
-        menu: [{
-            parent: "menu_view"
+        buttons: [{
             id: "view_grid",
-            type: "context",
-            panel: "editor_panel",
+            type: "menu",
+            after: "tool_wireframe",
+            panel: "view_menu",
             title: "Show/Hide Grid",
             events: {
                 'click': function() {
                     var gr = !$('#view_grid').hasClass('push_button_pressed');
                     if (gr) {
                         svgEditor.curConfig.showGrid = showGrid = true;
-                        $('#view_grid').addClass('push_button_pressed').removeClass('tool_button');
+                        $('#view_grid').addClass('push_button_pressed');
                         $('#canvasGrid').attr('display', 'normal');
                         updateGrid(svgCanvas.getZoom());
                     }
                     else {
                         svgEditor.curConfig.showGrid = showGrid = false;
-                        $('#view_grid').removeClass('push_button_pressed').addClass('tool_button');
+                        $('#view_grid').removeClass('push_button_pressed');
                         $('#canvasGrid').attr('display', 'none');
                     }
                 }

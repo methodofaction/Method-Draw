@@ -267,7 +267,11 @@ svgedit.units.isValidUnit = function(attr, val, selectedElement) {
 		// not already present
 		try {
 			var elem = elementContainer_.getElement(val);
+<<<<<<< .mine
+			result = (elem == null || svgCanvas.getSelectedElems()[0].id == val);
+=======
 			result = (elem == null || elem === selectedElement);
+>>>>>>> .r2083
 		} catch(e) {}
 		return result;
 	} else {

@@ -1,33 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 
 <g id="tool_eyedropper">
-<svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
- <defs>
-  <radialGradient id="eyedropper_svg_6" cx="0.5" cy="0.5" r="0.5">
-   <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
-   <stop offset="1" stop-color="#e5e5e5" stop-opacity="0.38"/>
-  </radialGradient>
-  <linearGradient id="eyedropper_svg_15" x1="0" y1="0" x2="0.58594" y2="0.55078">
-   <stop offset="0" stop-color="#ffffff" stop-opacity="0.57"/>
-   <stop offset="1" stop-color="#000056" stop-opacity="1"/>
-  </linearGradient>
-  <linearGradient id="eyedropper_svg_19" x1="0" y1="0" x2="1" y2="1">
-   <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
-   <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-  </linearGradient>
- </defs>
- <g display="inline">
-  <title>Layer 1</title>
-  <path d="m193.899994,73l-119.899979,118l-15,39.5l10.25,4.5l43.750015,-20l108.999969,-112l-28.100006,-30z" id="svg_3" fill="none" stroke="#000000" stroke-width="5"/>
-  <path d="m58.649994,232c-2.75,28.200012 -26.399994,28.950012 -21.899994,59c4.5,30.049988 55,28 55.5,-1.25c0.5,-29.25 -20.25,-28.75 -22.25,-54.75l-11.350006,-3z" id="svg_4" fill="#aa56ff" stroke="#000000" stroke-width="7"/>
-  <path d="m45.474976,269.275024l13.775024,0.474976l-0.75,16.75l-14.25,-1.25l1.224976,-15.974976z" id="svg_5" fill="url(#eyedropper_svg_6)" stroke-width="5" fill-opacity="0.73"/>
-  <path d="m217.899994,46c21.5,-101.549999 141.600006,20.449997 28.100006,33l-5,44l-63,-66l39.899994,-11z" id="svg_2" fill="#000000" stroke-width="5"/>
-  <path d="m206.825012,61.075008c3.712494,-2.46249 7.637482,-3.53751 14.424988,-5.575008c10.125,-16.5 32.875,-41.5 40.5,-35c7.625,6.5 -21.25,35.625 -37.5,39.25c-5.5,10.125 -8,13.875 -17.25,16.5c-2.837494,-8.162514 -4.262482,-12.337486 -0.174988,-15.174992z" id="svg_7" fill="url(#eyedropper_svg_15)" stroke-width="5"/>
-  <path d="m133.049988,134.75l46.950012,9.25l-66,70l-42.5,20.5l-11.5,-5l14,-37.5l59.049988,-57.25z" id="svg_11" fill="#aa56ff" stroke="#000000" stroke-width="7"/>
-  <path d="m71.425034,212.350006l9.050888,-20.022537l51.516724,-49.327469l8.507355,0.97197l-69.074966,68.378036z" id="svg_16" fill="url(#eyedropper_svg_19)" stroke-width="5"/>
- </g>
-</svg>
+  	<svg id="Untitled-Page%201" viewBox="0 0 27 27" style="background-color:#ffffff00" version="1.1"
+		xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+		x="0px" y="0px" width="27px" height="27px"
+	>
+		<path d="M 6.0622 22.6906 L 17.3661 11.4659 L 15.6438 9.756 L 4.3402 20.9804 C 4.1126 22.0362 3.5914 23.0909 3.0734 23.9488 C 3.9369 23.4341 4.9996 22.9165 6.0622 22.6906 ZM 27 27 L 27 3.065 C 26.9997 4.5607 25.2111 6.3359 25.2111 6.3359 L 22.3407 9.1861 L 22.5324 9.3765 C 23.0605 9.9007 23.0608 10.7515 22.5324 11.2762 L 20.8101 12.9861 C 20.2822 13.5104 19.4248 13.5104 18.8972 12.9861 L 18.5143 12.6058 L 6.8496 24.1882 L 6.5935 24.2307 C 4.5412 24.57 2.2243 26.5011 2.2007 26.5206 L 1.6309 27 L 27 27 ZM 0 27 L 1.6309 27 L 1.1024 26.4753 L 0.5283 25.9053 L 0 25.3808 L 0 27 ZM 0 0 L 0 25.3808 L 0.4832 24.8147 C 0.502 24.792 2.4485 22.4828 2.7891 20.4531 L 2.8317 20.1984 L 14.496 8.6164 L 14.1134 8.2364 C 13.5853 7.7121 13.5853 6.8612 14.1134 6.3364 L 15.8353 4.6266 C 16.3638 4.102 17.2206 4.102 17.7488 4.6266 L 20.6189 1.7766 C 20.6189 1.7766 23.4892 -1.0736 25.0202 0.4462 L 25.7857 1.2062 L 26.5505 1.9661 C 26.8729 2.2862 27.0001 2.666 27 3.065 L 27 0 L 0 0 Z" fill="#2f2f2c"/>
+	</svg>
 </g>
 	
 	<g id="svg_eof"/>

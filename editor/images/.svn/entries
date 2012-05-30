@@ -1,7 +1,7 @@
 10
 
 dir
-2080
+2083
 http://svg-edit.googlecode.com/svn/trunk/editor/images
 http://svg-edit.googlecode.com/svn
 
@@ -60,40 +60,6 @@ has-props
 
 404
 
-rotate.png
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-f8d00dfcb854a9be795e1154d5106ffd
-2009-09-28T18:25:37.885325Z
-721
-codedread
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1500
-
 to_path.png
 file
 
@@ -127,6 +93,40 @@ has-props
 
 
 1153
+
+rotate.png
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+f8d00dfcb854a9be795e1154d5106ffd
+2009-09-28T18:25:37.885325Z
+721
+codedread
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1500
 
 clone.png
 file
@@ -230,40 +230,6 @@ has-props
 
 5493
 
-italic.png
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-fb9560960a210f875ae410cdc95afb44
-2010-01-04T23:22:53.865829Z
-1151
-codedread
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2972
-
 undo.png
 file
 
@@ -297,6 +263,40 @@ has-props
 
 
 1122
+
+italic.png
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+fb9560960a210f875ae410cdc95afb44
+2010-01-04T23:22:53.865829Z
+1151
+codedread
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2972
 
 conn.svg
 file
@@ -434,40 +434,6 @@ has-props
 
 553
 
-bold.png
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-38714d1ccd3d2d9e7d779f68a24f59c7
-2010-01-04T23:22:53.865829Z
-1151
-codedread
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2976
-
 flyup.gif
 file
 
@@ -501,6 +467,40 @@ has-props
 
 
 48
+
+bold.png
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+38714d1ccd3d2d9e7d779f68a24f59c7
+2010-01-04T23:22:53.865829Z
+1151
+codedread
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2976
 
 eye.png
 file
@@ -1182,40 +1182,6 @@ has-props
 
 459
 
-README.txt
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-90731038df8b761b8f0f791454264a15
-2009-10-06T20:40:12.857885Z
-772
-rusnakp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2639
-
 move_top.png
 file
 
@@ -1249,6 +1215,40 @@ has-props
 
 
 663
+
+README.txt
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+90731038df8b761b8f0f791454264a15
+2009-10-06T20:40:12.857885Z
+772
+rusnakp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2639
 
 save.png
 file
@@ -1318,40 +1318,6 @@ has-props
 
 6700
 
-logo.png
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-faf7276075afb126ec73d1983bfb16b2
-2010-02-10T16:37:23.862351Z
-1370
-adeveria
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3983
-
 square.png
 file
 
@@ -1385,6 +1351,40 @@ has-props
 
 
 422
+
+logo.png
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+faf7276075afb126ec73d1983bfb16b2
+2010-02-10T16:37:23.862351Z
+1370
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3983
 
 circle.png
 file
@@ -1726,40 +1726,6 @@ has-props
 
 812
 
-polygon.png
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-930d3476b1a5f1eac7b80f58a974e8d0
-2009-08-07T03:41:11.531622Z
-357
-codedread
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-881
-
 go-up.png
 file
 
@@ -1794,16 +1760,16 @@ has-props
 
 652
 
-flyouth.png
+polygon.png
 file
 
 
 
 
 2012-03-23T10:41:59.000000Z
-3eee52c33cdc1585d65e9fbe82702c6d
-2009-08-20T14:47:04.716433Z
-419
+930d3476b1a5f1eac7b80f58a974e8d0
+2009-08-07T03:41:11.531622Z
+357
 codedread
 has-props
 
@@ -1826,7 +1792,7 @@ has-props
 
 
 
-109
+881
 
 align-top.png
 file
@@ -1862,17 +1828,17 @@ has-props
 
 287
 
-path.png
+flyouth.png
 file
 
 
 
 
 2012-03-23T10:41:59.000000Z
-d193cedb5b31873cd94107e0cfda1ed2
-2009-10-28T13:20:13.352215Z
-881
-adeveria
+3eee52c33cdc1585d65e9fbe82702c6d
+2009-08-20T14:47:04.716433Z
+419
+codedread
 has-props
 
 
@@ -1894,7 +1860,7 @@ has-props
 
 
 
-854
+109
 
 align-bottom.png
 file
@@ -1929,6 +1895,40 @@ has-props
 
 
 291
+
+path.png
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+d193cedb5b31873cd94107e0cfda1ed2
+2009-10-28T13:20:13.352215Z
+881
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+854
 
 ellipse.png
 file
@@ -2032,40 +2032,6 @@ has-props
 
 919
 
-align-right.png
-file
-
-
-
-
-2012-03-23T10:41:59.000000Z
-7ef9c0c3a0350b75e9bb617b55a8aaba
-2009-11-12T16:56:00.679409Z
-934
-adeveria
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-339
-
 node_clone.png
 file
 
@@ -2099,6 +2065,40 @@ has-props
 
 
 571
+
+align-right.png
+file
+
+
+
+
+2012-03-23T10:41:59.000000Z
+7ef9c0c3a0350b75e9bb617b55a8aaba
+2009-11-12T16:56:00.679409Z
+934
+adeveria
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+339
 
 align-center.png
 file

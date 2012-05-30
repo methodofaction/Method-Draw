@@ -143,14 +143,15 @@ svgedit.path.addPointGrip = function(index, x, y) {
 	var pointGrip = svgedit.utilities.getElem("pathpointgrip_"+index);
 	// create it
 	if (!pointGrip) {
-		pointGrip = document.createElementNS(svgns, "circle");
+		pointGrip = document.createElementNS(svgns, "rect");
 		svgedit.utilities.assignAttributes(pointGrip, {
 			'id': "pathpointgrip_" + index,
 			'display': "none",
-			'r': 4,
-			'fill': "#0FF",
-			'stroke': "#00F",
-			'stroke-width': 2,
+			'width': 5,
+			'height': 5,
+			'fill': "#fff",
+			'stroke': "#4F80FF",
+			'stroke-width': 1,
 			'cursor': 'move',
 			'style': 'pointer-events:all',
 			'xlink:title': uiStrings.pathNodeTooltip
@@ -165,8 +166,8 @@ svgedit.path.addPointGrip = function(index, x, y) {
 	if(x && y) {
 		// set up the point grip element and display it
 		svgedit.utilities.assignAttributes(pointGrip, {
-			'cx': x,
-			'cy': y,
+			'x': x-2.5,
+			'y': y-2.5,
 			'display': "inline"
 		});
 	}
@@ -191,10 +192,8 @@ svgedit.path.addCtrlGrip = function(id) {
 	svgedit.utilities.assignAttributes(pointGrip, {
 		'id': "ctrlpointgrip_" + id,
 		'display': "none",
-		'r': 4,
-		'fill': "#0FF",
-		'stroke': "#55F",
-		'stroke-width': 1,
+		'r': 3,
+		'fill': "#4F80FF",
 		'cursor': 'move',
 		'style': 'pointer-events:all',
 		'xlink:title': uiStrings.pathCtrlPtTooltip
@@ -210,7 +209,7 @@ svgedit.path.getCtrlLine = function(id) {
 	ctrlLine = document.createElementNS(svgns, "line");
 	svgedit.utilities.assignAttributes(ctrlLine, {
 		'id': "ctrlLine_"+id,
-		'stroke': "#555",
+		'stroke': "#4F80FF",
 		'stroke-width': 1,
 		"style": "pointer-events:none"
 	});
@@ -416,7 +415,7 @@ svgedit.path.Segment.prototype.showCtrlPts = function(y) {
 
 svgedit.path.Segment.prototype.selectCtrls = function(y) {
 	$('#ctrlpointgrip_' + this.index + 'c1, #ctrlpointgrip_' + this.index + 'c2').
-		attr('fill', y ? '#0FF' : '#EEE');
+		attr('fill', '#4F80FF');
 };
 
 svgedit.path.Segment.prototype.show = function(y) {
@@ -448,11 +447,8 @@ svgedit.path.Segment.prototype.addGrip = function() {
 svgedit.path.Segment.prototype.update = function(full) {
 	if(this.ptgrip) {
 		var pt = svgedit.path.getGripPt(this);
-		svgedit.utilities.assignAttributes(this.ptgrip, {
-			'cx': pt.x,
-			'cy': pt.y
-		});
-
+		var properties = (this.ptgrip.nodeName == "rect") ? {'x': pt.x-2.5, 'y': pt.y-2.5} : {'cx': pt.x, 'cy': pt.y};
+		svgedit.utilities.assignAttributes(this.ptgrip, properties);
 		svgedit.path.getSegSelector(this, true);
 
 		if(this.ctrlpts) {

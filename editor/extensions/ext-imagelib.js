@@ -350,11 +350,11 @@ svgEditor.addExtension("imagelib", function() {
 	}
 	
 	return {
-		svgicons: "extensions/ext-imagelib.xml",
 		buttons: [{
 			id: "tool_imagelib",
-			type: "app_menu", // _flyout
+			type: "menu", // _flyout
 			position: 4,
+			panel: "file_menu",
 			title: "Image library",
 			events: {
 				"mouseup": showBrowser
