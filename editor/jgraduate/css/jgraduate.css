@@ -20,32 +20,20 @@ h2.jGraduate_Title {
 }
 
 .jGraduate_Picker {
-	font-family: Arial, Helvetica, Sans-Serif;
-	font-size: 12px;
-	border-style: solid;
-	border-color: lightgrey black black lightgrey;
-	border-width: 1px;
-	background-color: #EFEFEF;
 	position: absolute;
-	padding: 10px;
+	padding: 20px;
 }
 
 .jGraduate_tabs li {
-	background-color: #ccc;
-	display: inline;
-	border: solid 1px grey;
-	padding: 3px;
-	margin: 2px;
+	display: inline-block;
+	padding: 5px 10px;
+	margin-right: 5px;
 	cursor: pointer;
 }
 
 li.jGraduate_tab_current {
-	background-color: #EFEFEF;
-	display: inline;
-	padding: 3px;
-	margin: 2px;
-	border: solid 1px black;
-	cursor: pointer;
+  background: #fff;
+  border-radius: 3px 3px 0 0;
 }
 
 .jGraduate_colPick {
@@ -69,10 +57,9 @@ li.jGraduate_tab_current {
 
 .jGraduate_tabs {
 	position: relative;
-	background-color: #EFEFEF;
-	padding: 0px;
-	margin: 0px;
-	margin-bottom: 5px;
+	background-color: #ddd;
+	padding: 10px 10px 0 10px;
+	margin: -20px -20px 20px -20px;
 }
 
 div.jGraduate_Swatch {

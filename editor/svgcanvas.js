@@ -861,16 +861,16 @@ var groupSvgElem = this.groupSvgElem = function(elem) {
 //
 // Returns: The cloned element
 var copyElem = function(el) {
+  var new_el = document.createElementNS(el.namespaceURI, el.nodeName);
+  // set the copied element's new id
+	new_el.removeAttribute("id");
+	new_el.id = getNextId();
 	// manually create a copy of the element
-	var new_el = document.createElementNS(el.namespaceURI, el.nodeName);
 	$.each(el.attributes, function(i, attr) {
 		if (attr.localName != '-moz-math-font-style') {
 			new_el.setAttributeNS(attr.namespaceURI, attr.nodeName, attr.nodeValue);
 		}
 	});
-	// set the copied element's new id
-	new_el.removeAttribute("id");
-	new_el.id = getNextId();
 	
 	// Opera's "d" value needs to be reset for Opera/Win/non-EN
 	// Also needed for webkit (else does not keep curved segments on clone)
@@ -2425,6 +2425,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 			// rotating
 			if (griptype == "rotate") {
 				current_mode = "rotate";
+				current_rotate_mode = elData(grip, "dir");
 			}
 			// resizing
 			else if(griptype == "resize") {
@@ -2519,7 +2520,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					bb[key] = val/current_zoom;
 				});
 				init_bbox = bb;
-				
 				// append three dummy transforms to the tlist so that
 				// we can translate,scale,translate in mousemove
 				var pos = getRotationAngle(mouse_target)?1:0;
@@ -2709,6 +2709,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				started = true;
 				// we are starting an undoable change (a drag-rotation)
 				canvas.undoMgr.beginUndoableChange("transform", selectedElements);
+				document.getElementById("workarea").style.cursor = "url(images/rotate.png) 12 12, auto";
+				document.getElementById("workarea").className = "rotate";
 				break;
 			default:
 				// This could occur in an extension
@@ -3098,7 +3100,14 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					center = transformPoint(cx,cy,m);
 				cx = center.x;
 				cy = center.y;
+				var ccx = box.x // ne
+				var ccy = box.y // ne
+				if (current_rotate_mode == "nw")  ccx = box.x + box.width;
+				if (current_rotate_mode == "se")  ccy = box.y + box.height;
+				if (current_rotate_mode == "sw"){ ccx = box.x + box.width; ccy = box.y + box.height;  }
+				compensation_angle = ((Math.atan2(cy-ccy,cx-ccx)  * (180/Math.PI))-90) % 360;
 				var angle = ((Math.atan2(cy-y,cx-x)  * (180/Math.PI))-90) % 360;
+				angle += compensation_angle;
 				if(curConfig.gridSnapping){
 					angle = snapToGrid(angle);
 				}
@@ -3235,7 +3244,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				if (rubberBox != null) {
 					rubberBox.setAttribute("display", "none");
 				}
-				var factor = evt.shiftKey?.5:2;
+				var factor = evt.altKey?.5:2;
 				call("zoomed", {
 					'x': Math.min(r_start_x, real_x),
 					'y': Math.min(r_start_y, real_y),
@@ -6766,6 +6775,7 @@ this.getMode = function() {
 this.setMode = function(name) {
 	pathActions.clear(true);
 	textActions.clear();
+	$("#workarea").attr("class", name);
 	cur_properties = (selectedElements[0] && selectedElements[0].nodeName == 'text') ? cur_text : cur_shape;
 	current_mode = name;
 };
@@ -7190,7 +7200,6 @@ this.getBlur = function(elem) {
 				changeSelectedAttributeNoUndo("filter", 'url(#' + elem.id + '_blur)');
 			}
 			if(svgedit.browser.isWebkit()) {
-				console.log('e', elem);
 				elem.removeAttribute('filter');
 				elem.setAttribute('filter', 'url(#' + elem.id + '_blur)');
 			}
@@ -7994,18 +8003,18 @@ this.pasteElements = function(type, x, y) {
 
 		// See if elem with elem ID is in the DOM already
 		if(!getElem(elem.id)) copy.id = elem.id;
-		
 		pasted.push(copy);
 		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(copy);
 		batchCmd.addSubCommand(new InsertElementCommand(copy));
 	}
 	
 	selectOnly(pasted);
-	
-	if(type !== 'in_place') {
-		
+	if(type != 'in_place') {
+		if(lastClickPoint == null) {
+		  lastClickPoint.x = 0;
+		  lastClickPoint.y = 0;
+		}
 		var ctr_x, ctr_y;
-		
 		if(!type) {
 			ctr_x = lastClickPoint.x;
 			ctr_y = lastClickPoint.y;

@@ -6,7 +6,8 @@
  * Author: Adam Bender
  */
 // Dependencies:
-// 1) jQuery (for dom injection of context menus)
+// 1) jQuery (for dom injection of context menus)\
+
 var svgedit = svgedit || {};
 (function() {
 	var self = this;

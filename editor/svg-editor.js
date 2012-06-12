@@ -16,7 +16,11 @@
 // 3) svgcanvas.js
 
 (function() { 
-	
+  
+  document.addEventListener("touchstart", touchHandler, true);
+  document.addEventListener("touchmove", touchHandler, true);
+  document.addEventListener("touchend", touchHandler, true);
+  document.addEventListener("touchcancel", touchHandler, true);
 	if(!window.svgEditor) window.svgEditor = function($) {
 		var svgCanvas;
 		var Editor = {};
@@ -25,7 +29,7 @@
 		var defaultPrefs = {
 			lang:'en',
 			iconsize:'m',
-			bkgd_color:'#FFF',
+			bkgd_color:'FFF',
 			bkgd_url:'',
 			img_save:'embed'
 			},
@@ -35,15 +39,15 @@
 			// changed in the UI and are stored in the browser, config can not
 			
 			curConfig = {
-				canvas_expansion: 3,
+				canvas_expansion: 1.2,
 				dimensions: [640,480],
 				initFill: {
-					color: 'FF0000',  // solid red
+					color: '069',  // solid red
 					opacity: 1
 				},
 				initStroke: {
-					width: 5,
-					color: '000000',  // solid black
+					width: 1.5,
+					color: '000',  // solid black
 					opacity: 1
 				},
 				initOpacity: 1,
@@ -54,12 +58,13 @@
 				extensions: ['ext-markers.js', 'ext-eyedropper.js', 'ext-shapes.js', 'ext-grid.js'],
 				initTool: 'select',
 				wireframe: false,
-				colorPickerCSS: true,
+				colorPickerCSS: false,
 				gridSnapping: false,
 				gridColor: "#000",
 				baseUnit: 'px',
 				snappingStep: 10,
-				showRulers: true
+				showRulers: true,
+				show_outside_canvas: false
 			},
 			uiStrings = Editor.uiStrings = {
 				common: {
@@ -108,6 +113,16 @@
 		Editor.curConfig = curConfig;
 		
 		Editor.tool_scale = 1;
+		
+//		window.ontouchmove = function(e) {
+//        e.stopPropagation();
+//    };
+//    
+//    $(document).bind("touchmove", function(evt) {
+//      if (evt.target.tagName.toLowerCase() !== "path" && evt.target.tagName.toLowerCase() !== "a") {
+//        return evt.preventDefault();
+//      }
+//    });
 		
 		// Store and retrieve preferences
 		$.pref = function(key, val) {
@@ -317,8 +332,8 @@
 					'node_clone':'node_clone.png',
 					'delete':'delete.png',
 					'node_delete':'node_delete.png',
-					'group':'shape_group.png',
-					'ungroup':'shape_ungroup.png',
+					//'group':'shape_group.png',
+					//'ungroup':'shape_ungroup.png',
 					'move_top':'move_top.png',
 					'move_bottom':'move_bottom.png',
 					'to_path':'to_path.png',
@@ -363,9 +378,9 @@
 					'#tool_add_subpath':'add_subpath',
 					'#tool_openclose_path':'open_path',
 					'#tool_node_link':'link_controls',
-					'#tool_group':'group',
-					'#tool_ungroup':'ungroup',
-					'#tool_unlink_use':'unlink_use',
+					//'#tool_group':'group',
+					//'#tool_ungroup':'ungroup',
+					//'#tool_unlink_use':'unlink_use',
 					
 					'#tool_alignleft, #tool_posleft':'align_left',
 					'#tool_aligncenter, #tool_poscenter':'align_center',
@@ -403,22 +418,23 @@
 					'#tool_stroke .icon_label': 'stroke',
 					'#group_opacityLabel': 'opacity',
 					'#blurLabel': 'blur',
-					'#font_sizeLabel': 'fontsize',
+					//'#font_sizeLabel': 'fontsize',
 					
 					'.flyout_arrow_horiz':'arrow_right',
-					'.dropdown button, #main_button .dropdown':'arrow_down',
+					//'.dropdown button, #main_button .dropdown':'arrow_down',
 					'#palette .palette_item:first, #fill_bg, #stroke_bg':'no_color'
 				},
 				resize: {
 					'#logo .svg_icon': 32,
 					'.flyout_arrow_horiz .svg_icon': 5,
 					'.layer_button .svg_icon, #layerlist td.layervis .svg_icon': 14,
-					'.dropdown button .svg_icon': 7,
+					//'.dropdown button .svg_icon': 7,
 					'#main_button .dropdown .svg_icon': 9,
 					'.palette_item:first .svg_icon, #fill_bg .svg_icon, #stroke_bg .svg_icon': 16,
 					'.toolbar_button button .svg_icon':16,
 					'.stroke_tool div div .svg_icon': 20,
-					'#tools_bottom label .svg_icon': 18
+					'#tools_bottom label .svg_icon': 18,
+					'#zoom_dropdown .svg_icon': 7,
 				},
 				callback: function(icons) {
 					$('.toolbar_button button > svg, .toolbar_button button > img').each(function() {
@@ -473,7 +489,7 @@
 				path = svgCanvas.pathActions,
 				undoMgr = svgCanvas.undoMgr,
 				Utils = svgedit.utilities,
-				default_img_url = curConfig.imgPath + "logo.png",
+				default_img_url = curConfig.imgPath + "placeholder.svg",
 				workarea = $("#workarea"),
 				canv_menu = $("#cmenu_canvas"),
 				layer_menu = $("#cmenu_layers"),
@@ -794,14 +810,6 @@
 			});
 			
 			var contextChanged = function(win, context) {
-				//$('#workarea,#sidepanels').css('top', context?100:75);
-				//$('#rulers').toggleClass('moved', context);
-				//if(cur_context && !context) {
-				//	// Back to normal
-				//	workarea[0].scrollTop -= 25;
-				//} else if(!cur_context && context) {
-				//	workarea[0].scrollTop += 25;
-				//}
 				
 				var link_str = '';
 				if(context) {
@@ -909,6 +917,7 @@
 					
 					// Clicking the "show" icon should set the current mode
 					shower.mousedown(function(evt) {
+            if ($('#tools_shapelib').is(":visible")) toolButtonClick(show_sel, false);
 						if(shower.hasClass('disabled')) return false;
 						var holder = $(hold_sel);
 						var l = pos.left+34;
@@ -1484,6 +1493,7 @@
 				var menu_items = $('#cmenu_canvas li');
 				$('#selected_panel, #multiselected_panel, #g_panel, #rect_panel, #canvas_panel, #circle_panel,\
 					#ellipse_panel, #line_panel, #text_panel, #image_panel, #container_panel, #use_panel, #a_panel').hide();
+				$('.action_multi_selected, .action_selected, .path_selected, .group_selected').addClass('disabled');
 				if (!elem) $("#canvas_panel").show();
 				if (elem != null) {
 					var elname = elem.nodeName;
@@ -1507,6 +1517,7 @@
 					
 					if(!is_node && currentMode != 'pathedit') {
 						$('#selected_panel').show();
+						$('.action_selected').removeClass('disabled');
 						// Elements in this array already have coord fields
 						if(['line', 'circle', 'ellipse'].indexOf(elname) >= 0) {
 							$('#xy_panel').hide();
@@ -1584,25 +1595,25 @@
 // 						$('#g_panel').show();
 // 					}
 					
-					var link_href = null;
-					if (el_name === 'a') {
-						link_href = svgCanvas.getHref(elem);
-						$('#g_panel').show();
-					}
-					
-					if(elem.parentNode.tagName === 'a') {
-						if(!$(elem).siblings().length) {
-							$('#a_panel').show();
-							link_href = svgCanvas.getHref(elem.parentNode);
-						}
-					}
-					
-					// Hide/show the make_link buttons
-					$('#tool_make_link, #tool_make_link').toggle(!link_href);
-					
-					if(link_href) {
-						$('#link_url').val(link_href);
-					}
+//					var link_href = null;
+//					if (el_name === 'a') {
+//						link_href = svgCanvas.getHref(elem);
+//						$('#g_panel').show();
+//					}
+//					
+//					if(elem.parentNode.tagName === 'a') {
+//						if(!$(elem).siblings().length) {
+//							$('#a_panel').show();
+//							link_href = svgCanvas.getHref(elem.parentNode);
+//						}
+//					}
+//					
+//					// Hide/show the make_link buttons
+//					$('#tool_make_link, #tool_make_link').toggle(!link_href);
+//					
+//					if(link_href) {
+//						$('#link_url').val(link_href);
+//					}
 					
 					if(panels[el_name]) {
 						var cur_panel = panels[el_name];
@@ -1665,6 +1676,7 @@
 				} // if (elem != null)
 				else if (multiselected) {
 					$('#multiselected_panel').show();
+					$('.action_multi_select').removeClass('disabled');
 					menu_items
 						.enableContextMenuItems('#group')
 						.disableContextMenuItems('#ungroup');
@@ -1964,11 +1976,11 @@
 		
 			$("#toggle_stroke_tools").toggle(function() {
 				$(".stroke_tool").css('display','table-cell');
-				$(this).text('<<');
+				$(this).addClass('expanded');
 				resetScrollPos();
 			}, function() {
 				$(".stroke_tool").css('display','none');
-				$(this).text('>>');
+				$(this).removeClass('expanded');
 				resetScrollPos();
 			});
 		
@@ -2025,11 +2037,11 @@
 				}).bind('keyup', 'space', function(evt) {
 					evt.preventDefault();
 					svgCanvas.spaceKey = keypan = false;
-				}).bind('keydown', 'shift', function(evt) {
+				}).bind('keydown', 'alt', function(evt) {
 					if(svgCanvas.getMode() === 'zoom') {
 						workarea.css('cursor', zoomOutIcon);
 					}
-				}).bind('keyup', 'shift', function(evt) {
+				}).bind('keyup', 'alt', function(evt) {
 					if(svgCanvas.getMode() === 'zoom') {
 						workarea.css('cursor', zoomInIcon);
 					}
@@ -2051,9 +2063,26 @@
 				$(opt).addClass('current').siblings().removeClass('current');
 			}
 			
+      //menu handling
       var menus = $('.menu');
-			$('#menu_bar').on('click', function() {$(this).toggleClass('active');});
-      $(window).on('click', function(e) {if(e.target.className != "menu_title") $('#menu_bar').removeClass('active');});
+      var blink = function(e) {
+        e.target.style.background = "#fff";
+        setTimeout(function(){e.target.style.background = "#ddd";}, 50);
+        setTimeout(function(){e.target.style.background = "#fff";}, 150);
+        setTimeout(function(){e.target.style.background = "#ddd";}, 200);
+        setTimeout(function(){e.target.style.background = "";}, 200);
+        setTimeout(closer, 220);
+      }
+      var closer = function(e){
+          if (!$(e.target).hasClass("menu_title") && $('#menu_bar').hasClass("active")) {
+            $('#menu_bar').removeClass('active')
+            $('.tools_flyout').hide();
+            $('input').blur(); 
+          }
+      }
+      $('.menu_item').live('click', blink);
+      $("svg, body").on('click', function(e){closer(e)});
+			$('.menu_title').on('click', function() {$("#menu_bar").toggleClass('active');});
       $('.menu_title').on('mouseover', function() {
            menus.removeClass('open');
            $(this).parent().addClass('open');
@@ -2093,9 +2122,10 @@
 						
 						if(!dropUp) {
 							var pos = $(elem).offset();
+							// position slider
 							list.css({
-								top: pos.top - 30,
-								left: pos.left - 100
+								top: pos.top,
+								left: pos.left - 110
 							});
 						}
 						list.show();
@@ -2239,10 +2269,12 @@
 				setStrokeOpt(this, true);
 			}, {dropUp: true});
 			
-			addAltDropDown('#tool_position', '#position_opts', function() {
-				var letter = this.id.replace('tool_pos','').charAt(0);
-				svgCanvas.alignSelectedElements(letter, 'page');
-			}, {multiclick: true});
+			$('div', '#position_opts').each(function(){
+			  this.addEventListener("mouseup", function(){
+				  var letter = this.id.replace('tool_pos','').charAt(0);
+				  svgCanvas.alignSelectedElements(letter, 'page');
+				})
+			});
 			
 			/*
 			
@@ -2263,7 +2295,6 @@
 			// Unfocus text input when workarea is mousedowned.
 			(function() {
 				var inp;
-
 				var unfocus = function() {
 					$(inp).blur();
 				}
@@ -2407,6 +2438,18 @@
 			var moveToBottomSelected = function() {
 				if (selectedElement != null) {
 					svgCanvas.moveToBottomSelectedElement();
+				}
+			};
+			
+			var moveUpSelected = function() {
+				if (selectedElement != null) {
+					svgCanvas.moveUpDownSelected("Up");
+				}
+			};
+
+			var moveDownSelected = function() {
+				if (selectedElement != null) {
+					svgCanvas.moveUpDownSelected("Down");
 				}
 			};
 			
@@ -2673,8 +2716,6 @@
 				$('#svg_source_textarea').focus();
 			};
 			
-			$('#svg_docprops_container, #svg_prefs_container').draggable({cancel:'button,fieldset', containment: 'window'});
-			
 			var showDocProperties = function(){
 				if (docprops) return;
 				docprops = true;
@@ -2698,7 +2739,6 @@
 			var showPreferences = function(){
 				if (preferences) return;
 				preferences = true;
-				$('#main_menu').hide();
 				
 				// Update background color with current one
 				var blocks = $('#bg_blocks div');
@@ -2767,10 +2807,6 @@
 			}
 			
 			var saveDocProperties = function(){
-				// set title
-				var new_title = $('#canvas_title').val();
-				updateTitle(new_title);
-				svgCanvas.setDocumentTitle(new_title);
 			
 				// update resolution
 				var width = $('#canvas_width'), w = width.val();
@@ -3526,7 +3562,7 @@
 			
 			// Test for embedImage support (use timeout to not interfere with page load)
 			setTimeout(function() {
-				svgCanvas.embedImage('images/logo.png', function(datauri) {
+				svgCanvas.embedImage('images/placeholder.svg', function(datauri) {
 					if(!datauri) {
 						// Disable option
 						$('#image_save_opts [value=embed]').attr('disabled','disabled');
@@ -3687,10 +3723,10 @@
 					deltax = 2 - sidewidth;
 					sidewidth = 2;
 				}
-	
+	    
 				if (deltax == 0) return;
 				sidedrag -= deltax;
-	
+	    
 				var layerpanel = $('#layerpanel');
 				workarea.css('right', parseInt(workarea.css('right'))+deltax);
 				sidepanels.css('width', parseInt(sidepanels.css('width'))+deltax);
@@ -3714,7 +3750,7 @@
 					sidedrag = -1;
 					sidedragging = false;
 				});
-
+      
 			$(window).mouseup(function() {
 				sidedrag = -1;
 				sidedragging = false;
@@ -3754,7 +3790,7 @@
 					}
 				}
 			};
-		
+		  
 			var populateLayers = function(){
 				var layerlist = $('#layerlist tbody');
 				var selLayerNames = $('#selLayerNames');
@@ -3921,19 +3957,19 @@
 					{sel:'#tool_fhpath', fn: clickFHPath, evt: 'click', key: ['Q', true]},
 					{sel:'#tool_line', fn: clickLine, evt: 'click', key: ['L', true]},
 					{sel:'#tool_rect', fn: clickRect, evt: 'click', key: ['R', true], icon: 'rect'},
-					{sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', key: ['E', true], icon: 'ellipse'},
-					{sel:'#tool_circle', fn: clickCircle, evt: 'mouseup', icon: 'circle'},
-					{sel:'#tool_fhellipse', fn: clickFHEllipse, evt: 'mouseup', parent: '#tools_ellipse', icon: 'fh_ellipse'},
+					{sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', key: ['C', true], icon: 'ellipse'},
+					//{sel:'#tool_circle', fn: clickCircle, evt: 'mouseup', icon: 'circle'},
+					//{sel:'#tool_fhellipse', fn: clickFHEllipse, evt: 'mouseup', parent: '#tools_ellipse', icon: 'fh_ellipse'},
 					{sel:'#tool_path', fn: clickPath, evt: 'click', key: ['P', true]},
 					{sel:'#tool_text', fn: clickText, evt: 'click', key: ['T', true]},
 					{sel:'#tool_image', fn: clickImage, evt: 'mouseup'},
 					{sel:'#tool_zoom', fn: clickZoom, evt: 'mouseup', key: ['Z', true]},
-					{sel:'#tool_clear', fn: clickClear, evt: 'mouseup', key: ['N', true]},
-					{sel:'#tool_save', fn: function() { editingsource?saveSourceEditor():clickSave()}, evt: 'mouseup', key: ['S', true]},
+					{sel:'#tool_clear', fn: clickClear, evt: 'mouseup', key: [modKey + 'N', true]},
+					{sel:'#tool_save', fn: function() { editingsource?saveSourceEditor():clickSave()}, evt: 'mouseup', key: [modKey + 'S', true]},
 					{sel:'#tool_export', fn: clickExport, evt: 'mouseup'},
-					{sel:'#tool_open', fn: clickOpen, evt: 'mouseup', key: ['O', true]},
+					{sel:'#tool_open', fn: clickOpen, evt: 'mouseup'},
 					{sel:'#tool_import', fn: clickImport, evt: 'mouseup'},
-					{sel:'#tool_source', fn: showSourceEditor, evt: 'click', key: ['U', true]},
+					{sel:'#tool_source', fn: showSourceEditor, evt: 'click', key: [modKey + 'U', true]},
 					{sel:'#tool_wireframe', fn: clickWireframe, evt: 'click'},
 					{sel:'#tool_rulers', fn: clickRulers, evt: 'click'},
 					{sel:'#tool_source_cancel,#svg_source_overlay,#tool_docprops_cancel,#tool_prefs_cancel', fn: cancelOverlays, evt: 'click', key: ['esc', false, false], hidekey: true},
@@ -3949,23 +3985,25 @@
 					{sel:'#tool_node_delete', fn: deletePathNode, evt: 'click'},
 					{sel:'#tool_openclose_path', fn: opencloseSubPath, evt: 'click'},
 					{sel:'#tool_add_subpath', fn: addSubPath, evt: 'click'},
-					{sel:'#tool_move_top', fn: moveToTopSelected, evt: 'click', key: 'ctrl+shift+]'},
-					{sel:'#tool_move_bottom', fn: moveToBottomSelected, evt: 'click', key: 'ctrl+shift+['},
+					{sel:'#tool_move_top', fn: moveToTopSelected, evt: 'click', key: modKey + 'shift+up'},
+					{sel:'#tool_move_bottom', fn: moveToBottomSelected, evt: 'click', key: modKey + 'shift+down'},
+					{sel:'#tool_move_up', fn: moveUpSelected, evt:'click', key: [modKey+'up', true]},
+					{sel:'#tool_move_down', fn: moveDownSelected, evt:'click', key: [modKey+'down', true]},
 					{sel:'#tool_topath', fn: convertToPath, evt: 'click'},
 					{sel:'#tool_make_link,#tool_make_link_multi', fn: makeHyperlink, evt: 'click'},
-					{sel:'#tool_undo', fn: clickUndo, evt: 'click', key: ['Z', true]},
+					{sel:'#tool_undo', fn: clickUndo, evt: 'click', key: [modKey + 'Z', true]},
 					{sel:'#tool_redo', fn: clickRedo, evt: 'click', key: ['Y', true]},
-					{sel:'#tool_clone,#tool_clone_multi', fn: clickClone, evt: 'click', key: ['D', true]},
-					{sel:'#tool_group', fn: clickGroup, evt: 'click', key: ['G', true]},
-					{sel:'#tool_ungroup', fn: clickGroup, evt: 'click'},
+					{sel:'#tool_clone,#tool_clone_multi', fn: clickClone, evt: 'click', key: [modKey + 'D', true]},
+					{sel:'#tool_group', fn: clickGroup, evt: 'click', key: [modKey + 'G', true]},
+					{sel:'#tool_ungroup', fn: clickGroup, evt: 'click', key: modKey + 'shift+G'},
 					{sel:'#tool_unlink_use', fn: clickGroup, evt: 'click'},
 					{sel:'[id^=tool_align]', fn: clickAlign, evt: 'click'},
 					// these two lines are required to make Opera work properly with the flyout mechanism
 		// 			{sel:'#tools_rect_show', fn: clickRect, evt: 'click'},
 		// 			{sel:'#tools_ellipse_show', fn: clickEllipse, evt: 'click'},
-					{sel:'#tool_bold', fn: clickBold, evt: 'mousedown'},
-					{sel:'#tool_italic', fn: clickItalic, evt: 'mousedown'},
-					{sel:'#sidepanel_handle', fn: toggleSidePanel, key: ['X']},
+					{sel:'#tool_bold', fn: clickBold, evt: 'mousedown', key: [modKey + 'B', true]},
+					{sel:'#tool_italic', fn: clickItalic, evt: 'mousedown',  key: [modKey + 'I', true]},
+					//{sel:'#sidepanel_handle', fn: toggleSidePanel, key: ['X']},
 					{sel:'#copy_save_done', fn: cancelOverlays, evt: 'click'},
 					
 					// Shortcuts not associated with buttons
@@ -3976,10 +4014,8 @@
 					{key: 'ctrl+shift+right', fn: function(){rotateSelected(1,5)}},
 					{key: 'shift+O', fn: selectPrev},
 					{key: 'shift+P', fn: selectNext},
-					{key: [modKey+'up', true], fn: function(){zoomImage(2);}},
-					{key: [modKey+'down', true], fn: function(){zoomImage(.5);}},
-					{key: [modKey+']', true], fn: function(){moveUpDownSelected('Up');}},
-                                        {key: [modKey+'[', true], fn: function(){moveUpDownSelected('Down');}},
+					{key: [modKey+'+', true], fn: function(){zoomImage(2);}},
+					{key: [modKey+'-', true], fn: function(){zoomImage(.5);}},
 					{key: ['up', true], fn: function(){moveSelected(0,-1);}},
 					{key: ['down', true], fn: function(){moveSelected(0,1);}},
 					{key: ['left', true], fn: function(){moveSelected(-1,0);}},
@@ -3996,7 +4032,7 @@
 					{key: ['alt+shift+down', true], fn: function(){svgCanvas.cloneSelectedElements(0,10)}},
 					{key: ['alt+shift+left', true], fn: function(){svgCanvas.cloneSelectedElements(-10,0)}},
 					{key: ['alt+shift+right', true], fn: function(){svgCanvas.cloneSelectedElements(10,0)}},	
-					{key: 'A', fn: function(){svgCanvas.selectAllInCurrentLayer();}},
+					{key: modKey + 'A', fn: function(){svgCanvas.selectAllInCurrentLayer();}},
 
 					// Standard shortcuts
 					{key: modKey+'z', fn: clickUndo},
@@ -4026,6 +4062,7 @@
 								var btn = $(opts.sel);
 								if (btn.length == 0) return true; // Skip if markup does not exist
 								if(opts.evt) {
+								  if (svgedit.browser.isTouch() && opts.evt === "click") opts.evt = "mousedown" 
 									btn[opts.evt](opts.fn);
 								}
 		
@@ -4058,6 +4095,10 @@
 									keyval = opts.key;
 								}
 								keyval += '';
+								if (svgedit.browser.isMac && keyval.indexOf("+") != -1) {
+								  var modifier_key =  keyval.split("+")[0];
+								  if (modifier_key == "ctrl") keyval.replace("ctrl", "cmd")
+								}
 								
 								$.each(keyval.split('/'), function(i, key) {
 									$(document).bind('keydown', key, function(e) {
@@ -4195,7 +4236,7 @@
 			$('#angle').SpinButton({ min: -180, max: 180, step: 5, callback: changeRotationAngle });
 			$('#font_size').SpinButton({ step: 1, min: 0.001, stepfunc: stepFontSize, callback: changeFontSize });
 			$('#group_opacity').SpinButton({ step: 5, min: 0, max: 100, callback: changeOpacity });
-			$('#blur').SpinButton({ step: .5, min: 0, max: 10, callback: changeBlur });
+			$('#blur').SpinButton({ step: .1, min: 0, max: 10, callback: changeBlur });
 			$('#zoom').SpinButton({ min: 0.001, max: 10000, step: 50, stepfunc: stepZoom, callback: changeZoom })
 				// Set default zoom 
 				.val(svgCanvas.getZoom() * 100);
@@ -4457,10 +4498,9 @@
 					var hcanv = $hcanv[0];
 					
 					// Set the canvas size to the width of the container
-					var ruler_len = scanvas[lentype]();
+					var ruler_len = scanvas[lentype]()*2;
 					var total_len = ruler_len;
 					hcanv.parentNode.style[lentype] = total_len + 'px';
-					
 					
 					var canv_count = 1;
 					var ctx_num = 0;
@@ -4508,6 +4548,7 @@
 					
 					var big_int = multi * u_multi;
 					ctx.font = "bold 9px sans-serif";
+					ctx.fillStyle = "#888";
 
 					var ruler_d = ((content_d / u_multi) % multi) * u_multi;
 					var label_pos = ruler_d - big_int;

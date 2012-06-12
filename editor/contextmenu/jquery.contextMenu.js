@@ -42,10 +42,10 @@ if(jQuery)( function() {
 					$(this).mouseup( function(e) {
 						var srcElement = $(this);
 						srcElement.unbind('mouseup');
+						$(".contextMenu").hide();
 						if( evt.button === 2 || o.allowLeft || (evt.ctrlKey && svgedit.browser.isMac()) ) {
 							e.stopPropagation();
-							// Hide context menus that may be showing
-							$(".contextMenu").hide();
+
 							// Get this context menu
 						
 							if( el.hasClass('disabled') ) return false;

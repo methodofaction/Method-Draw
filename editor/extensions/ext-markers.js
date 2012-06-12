@@ -122,6 +122,9 @@ svgEditor.addExtension("Markers", function(S) {
 	//sets the controls with the selected element's settings
 	function showPanel(on) {
 		$('#marker_panel').toggle(on);
+		if ($('#marker_panel_title').length < 1) {
+		  $('#marker_panel').prepend("<label class='clearfix' id='marker_panel_title'>Arrows</label>")
+		}
 
 		if(on) {
 			var el = selElems[0];
@@ -483,7 +486,7 @@ svgEditor.addExtension("Markers", function(S) {
 			panel: "marker_panel",
 			title: "Start marker",
 			id: "start_marker",
-			label: "s",
+			label: "Start",
 			size: 3,
 			events: { change: setMarker }
 		},{
@@ -498,7 +501,7 @@ svgEditor.addExtension("Markers", function(S) {
 			panel: "marker_panel",
 			title: "Middle marker",
 			id: "mid_marker",
-			label: "m",
+			label: "Middle",
 			defval: "",
 			size: 3,
 			events: { change: setMarker }
@@ -514,7 +517,7 @@ svgEditor.addExtension("Markers", function(S) {
 			panel: "marker_panel",
 			title: "End marker",
 			id: "end_marker",
-			label: "e",
+			label: "End",
 			size: 3,
 			events: { change: setMarker }
 		},{
@@ -570,3 +573,4 @@ svgEditor.addExtension("Markers", function(S) {
 	}
 	};
 });
+

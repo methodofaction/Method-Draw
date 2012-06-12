@@ -227,7 +227,8 @@ svgedit.select.Selector.prototype.resize = function() {
 	
 	var xform = angle ? 'rotate(' + [angle,cx,cy].join(',') + ')' : '';
 	this.selectorGroup.setAttribute('transform', xform);
-
+    nbax -= 3.5;
+		nbay -= 3.5;
 		this.gripCoords = {
 			'nw': [nbax, nbay],
 			'ne': [nbax+nbaw, nbay],
@@ -244,15 +245,19 @@ svgedit.select.Selector.prototype.resize = function() {
 			selectedGrips[dir].setAttribute('x', coords[0]);
 			selectedGrips[dir].setAttribute('y', coords[1]);
 		};
-
-		// we want to go 20 pixels in the negative transformed y direction, ignoring scale
-		mgr.rotateGripConnector.setAttribute('x1', nbax + (nbaw)/2);
-		mgr.rotateGripConnector.setAttribute('y1', nbay);
-		mgr.rotateGripConnector.setAttribute('x2', nbax + (nbaw)/2);
-		mgr.rotateGripConnector.setAttribute('y2', nbay - 20);
-
-		mgr.rotateGrip.setAttribute('cx', nbax + (nbaw)/2); 
-		mgr.rotateGrip.setAttribute('cy', nbay - 20);
+		
+		this.rotateCoords = {
+			'nw': [nbax, nbay],
+			'ne': [nbax+nbaw+8, nbay],
+			'sw': [nbax, nbay+nbah+8],
+			'se': [nbax+nbaw+8, nbay+nbah+8]
+		};
+		
+    for(var dir in this.rotateCoords) {
+      var coords = this.rotateCoords[dir];
+		  mgr.rotateGrips[dir].setAttribute('cx', coords[0]); 
+		  mgr.rotateGrips[dir].setAttribute('cy', coords[1]);
+	  }
 
 	svgFactory_.svgRoot().unsuspendRedraw(sr_handle);
 };
@@ -285,8 +290,13 @@ svgedit.select.SelectorManager = function() {
 	};
 
 	this.selectorGripsGroup = null;
-	this.rotateGripConnector = null;
-	this.rotateGrip = null;
+	//this.rotateGripConnector = null;
+	this.rotateGrips = {
+	  'nw': null,
+		'ne': null,
+		'se': null,
+		'sw': null
+	};
 
 	this.initGroup();
 };
@@ -315,14 +325,31 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 	this.selectors = [];
 	this.rubberBandBox = null;
 
+  for (var dir in this.rotateGrips) {
+	  var grip = svgFactory_.createSVGElement({
+  			'element': 'circle',
+  			'attr': {
+  				'id': 'selectorGrip_rotate_' + dir,
+  				'fill': 'transparent',
+  				'r': 8,
+  				'stroke': 'transparent',
+  				'stroke-width': 0,
+  				'style': 'cursor:url(' + config_.imgPath + 'rotate.png) 12 12, auto;'
+  			}
+  	})
+  $.data(grip, 'dir', dir);
+	$.data(grip, 'type', 'rotate');
+	this.rotateGrips[dir] = this.selectorGripsGroup.appendChild(grip);
+	}
+
 	// add the corner grips
 	for (var dir in this.selectorGrips) {
 		var grip = svgFactory_.createSVGElement({
 			'element': 'rect',
 			'attr': {
 				'id': ('selectorGrip_resize_' + dir),
-				'width': 6,
-  			'height': 6,
+				'width': 7,
+  			'height': 7,
   			'fill': "#4F80FF",
   			'stroke': "transparent",
   			'stroke-width': 2,
@@ -335,33 +362,6 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 		$.data(grip, 'type', 'resize');
 		this.selectorGrips[dir] = this.selectorGripsGroup.appendChild(grip);
 	}
-
-	// add rotator elems
-	this.rotateGripConnector = this.selectorGripsGroup.appendChild(
-		svgFactory_.createSVGElement({
-			'element': 'circled',
-			'attr': {
-				'id': ('selectorGrip_rotateconnector'),
-				'stroke': '#22C',
-				'stroke-width': '1'
-			}
-		})
-	);
-
-	this.rotateGrip = this.selectorGripsGroup.appendChild(
-		svgFactory_.createSVGElement({
-			'element': 'circle',
-			'attr': {
-				'id': 'selectorGrip_rotate',
-				'fill': 'lime',
-				'r': 4,
-				'stroke': '#22C',
-				'stroke-width': 2,
-				'style': 'cursor:url(' + config_.imgPath + 'rotate.png) 12 12, auto;'
-			}
-		})
-	);
-	$.data(this.rotateGrip, 'type', 'rotate');
 
 	if($('#canvasBackground').length) return;
 
@@ -467,10 +467,10 @@ svgedit.select.SelectorManager.prototype.getRubberBandBox = function() {
 				'element': 'rect',
 				'attr': {
 					'id': 'selectorRubberBand',
-					'fill': '#22C',
-					'fill-opacity': 0.15,
-					'stroke': '#22C',
-					'stroke-width': 0.5,
+					'fill': 'transparent',
+					'stroke': '#666',
+					'stroke-width': 1,
+					'stroke-dasharray': '3,2', 
 					'display': 'none',
 					'style': 'pointer-events:none'
 				}
