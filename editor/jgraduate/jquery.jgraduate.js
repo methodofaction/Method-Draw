@@ -293,7 +293,7 @@ jQuery.fn.jGraduate =
 						'<div id="' + id + '_jGraduate_Angle" class="jGraduate_SliderBar jGraduate_Angle" title="Click to set Angle">' +
 							'<img id="' + id + '_jGraduate_AngleArrows" class="jGraduate_AngleArrows" src="' + $settings.images.clientPath + 'rangearrows2.gif">' +
 						'</div>' +
-						'<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>deg</label>' + 
+						'<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>º&nbsp;</label>' + 
     	    	    '</div>' +
         	   		'<div class="jGraduate_Slider jGraduate_OpacField">' +
 						'<label class="prelabel">Opac:</label>' +

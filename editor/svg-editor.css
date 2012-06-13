@@ -206,18 +206,18 @@ html, body {
 
 #rulers > div {
 	position: absolute;
-	background: #444;
+	background: #2f2f2c;
 	z-index: 1;
 	overflow: hidden;
+  -webkit-font-smoothing: none;
 }
 
 #rulers #ruler_corner {
 	top: 30px;
 	left: 50px;
-	width: 17px;
-	height: 17px;
-	border-right: solid #2f2f2c 1px;
-	border-bottom: solid #2f2f2c 1px;
+	width: 15px;
+	height: 15px;
+  border: solid #444 1px;
 	z-index: 2;
 }
 
@@ -226,8 +226,22 @@ html, body {
 	top: 30px;
 	left: 66px;
 	right: 200px;
-	border-top: solid #444 2px;
-	box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+	border-top: solid #444 1px;
+	border-right: solid #444 1px;
+}
+
+#ruler_x_cursor {
+  height: 15px;
+  border-right: dotted #999 1px;
+  position: absolute;
+  background: #2f2f2c;
+}
+
+#ruler_y_cursor {
+  width: 15px;
+  border-top: dotted #999 1px;
+  position: absolute;
+  background: #2f2f2c;
 }
 
 #rulers.moved #ruler_corner,
@@ -240,8 +254,8 @@ html, body {
 	top: 46px;
 	left: 50px;
 	bottom: 40px;
-	border-left: solid #444 2px;
-  box-shadow: 5px 0 5px rgba(0,0,0,0.1);
+	border-left: solid #444 1px;
+	border-bottom: solid #444 1px;
 }
 
 #rulers.moved #ruler_y {
@@ -679,7 +693,7 @@ input[type=number]::-webkit-outer-spin-button {
 #svg_editor input[type=text].wide, #svg_editor input[type=number].wide {width: 110px;}
 #svg_editor input[type=text].tuco, #svg_editor input[type=number].tuco {width: 150px;}
 
-#svg_editor input[type=submit], button {
+#svg_editor input[type=submit], #svg_editor input[type=button], button {
   background: #2C7BB3;
   color: #fff;
   border-radius: 2px;
@@ -869,20 +883,40 @@ span.zoom_tool img {
 .dropup ul {
 	top: auto;
 	bottom: 26px;
+	border-radius: 3px;
+	box-shadow: 0 5px 10px #000;
+}
+
+.dropup ul:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  right: 50%;
+  top: auto;
+  width: 0;
+  height: 0;
+  border: solid transparent 5px;
+  border-top-color: #fff;
 }
 
 .dropdown li {
 	display: block;
 	width: 120px;
-	padding: 4px;
-	background: #E8E8E8;
-	border: 1px solid #B0B0B0;
-	margin: 0 0 -1px 0;
+	padding: 5px 10px;
+	color: #333;
+	background: #fff;
+	margin: 0;
 	line-height: 16px;
 }
 
+.dropdown li:first-child {border-radius: 3px 3px 0 0;}
+.dropdown li:last-child {border-radius: 0 0 3px 3px;}
+
+
 .dropdown li:hover {
-	background-color: #FFC;
+	background-color: #ddd;
+	color: #000;
 }
 
 .dropdown li.special {
@@ -1514,9 +1548,10 @@ span.zoom_tool img {
 	font-size: 15px;
 }
 
-button.cancel {
+#svg_editor button.cancel, #svg_editor input.Cancel, #svg_editor input.cancel, #svg_editor input.jGraduate_Cancel {
 	background-color: #999;
 	box-shadow: 0 0 1px rgba(0,0,0,0.5);
+	margin: 0;
 }
 
 #svg_docprops button:first-child,
