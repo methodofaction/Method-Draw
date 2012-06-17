@@ -47,7 +47,7 @@
 
 <!-- you can load extensions here -->
 
-<!-- Font Loader Start -->
+<!-- Font Loader Start 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
   google.load("webfont", "1");
@@ -57,7 +57,8 @@
 $(function(){
     Smm.init('tool_font_family');
 });
-</script>
+</script>-->
+
 
 
 <!-- always minified scripts -->
@@ -167,7 +168,7 @@ $(function(){
 			<div class="menu_item action_multi_selected disabled" id="tool_group">Group Elements <span>⌘G</span></div>
 			<div class="menu_item action_group_selected disabled" id="tool_ungroup">Ungroup Elements <span>⌘⇧G</span></div>
 			<div class="separator"></div>
-			<div class="menu_item action_path_selected disabled" id="tool_topath">Convert to Path</div>
+			<div class="menu_item action_path_convert_selected disabled" id="tool_topath">Convert to Path</div>
 			<div class="menu_item action_path_selected disabled" id="tool_reorient">Reorient path</div>
     </div>
   </div>
@@ -257,6 +258,10 @@ $(function(){
 			<input id="rect_rx" size="3" value="0" data-attr="rx" class="attr_changer" min="0" max="60" type="number" />
 		</label>
 	</div>
+	
+	<div id="path_panel">
+	  <h4>Path</h4>
+	</div>
 
 	<div id="image_panel">
 	<h4>Image</h4>
@@ -337,10 +342,6 @@ $(function(){
 
 	<div id="text_panel">
 	  <h4>Text</h4>
-		<div class="toolset">
-			<div class="tool_button" id="tool_bold" title="Bold Text [B]"><span></span>B</div>
-			<div class="tool_button" id="tool_italic" title="Italic Text [I]"><span></span>i</div>
-		</div>
 		
 		<div class="toolset" id="tool_font_family">
 				<!-- Font family -->
@@ -348,14 +349,25 @@ $(function(){
 			<div id="font_family_dropdown" class="dropdown">
 				<button></button>
 				<ul>
-					<li style="font-family:serif">Serif</li>
-					<li style="font-family:sans-serif">Sans-serif</li>
-					<li style="font-family:cursive">Cursive</li>
-					<li style="font-family:fantasy">Fantasy</li>
-					<li style="font-family:monospace">Monospace</li>
+				  <li style="font-family:Helvetica, Arial, sans-serif">Helvetica</li>
+					<li style="font-family: Junction, sans-serif">Junction</li>
+					<li style="font-family: 'Museo Slab', serif">Museo Slab</li>
+					<li style="font-family: Anivers, sans-serif">Anivers</li>
+					<li style="font-family: Fertigo, sans-serif">Fertigo</li>
+					<li style="font-family: Fanwood, serif">Fanwood</li>
+					<li style="font-family: 'League Gothic', serif">League Gothic</li>
+					<li style="font-family: Georgia, serif;">Georgia</li>
+					<li style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino</li>
+					<li style="font-family: 'Times New Roman', Times, serif">Times</li>
+					<li style="font-family: 'Courier New', Courier, monospace">Courier</li>
 				</ul>
 			</div>
 			</label>
+		</div>
+		
+		<div class="toolset">
+			<div class="tool_button" id="tool_bold" title="Bold Text [B]"><span></span>B</div>
+			<div class="tool_button" id="tool_italic" title="Italic Text [I]"><span></span>i</div>
 		</div>
 
 		<label id="tool_font_size" title="Change Font Size">
@@ -372,20 +384,20 @@ $(function(){
 
 		<!-- Add viewBox field here? -->
 
-		<!--<label id="group_title" title="Group identification label">
+		<label id="group_title" title="Group identification label">
 		  <h4>Group</h4>
 			<span>label:</span>
 			<input id="g_title" data-attr="title" size="10" type="text"/>
-		</label>-->
+		</label>
 	</div>
 	
 	<div id="use_panel">
 		<div class="push_button" id="tool_unlink_use" title="Break link to reference element (make unique)"></div>
 	</div>
 	
-	<!--<div id="g_panel">
-		<div class="push_button" id="tool_ungroup" title="Ungroup Elements [G]"></div>
-	</div>-->
+	<div id="g_panel">
+		<h4>Group</h4>
+	</div>
 
 	<!-- For anchor elements -->
 	<div id="a_panel">
@@ -425,6 +437,17 @@ $(function(){
 			<input id="angle" class="attr_changer" size="2" value="0" type="number"/>
 		</label>
 		
+			<label class="toolset dropdown_set" id="tool_opacity" title="Change selected item opacity">
+  			<span id="group_opacityLabel" class="icon_label">Opacity</span>
+  			<input id="group_opacity" size="3" value="100" type="number" step="5" min="0" max="100" />
+  			<div id="opacity_dropdown" class="dropdown">
+    			<button></button>
+    			<ul>
+    				<li class="special"><div id="opac_slider"></div></li>
+    			</ul>
+    		</div>
+  		</label>
+		
 		<div class="toolset dropdown_set" id="tool_blur" title="Change gaussian blur value">
 			<label>
 				<span class="icon_label">Blur</span>
@@ -438,9 +461,56 @@ $(function(){
 			</label>
 		</div>
 		
+		<!--
+		<label>
+			<input id="stroke_width" size="2" value="5" type="number" data-attr="stroke-width" min="0" max="99" step="1" />
+		</label>
+
+
+		<div id="toggle_stroke_tools" title="Show/hide more stroke tools">
+		</div>
+    -->
+		<h4>Stroke</h4>
+		<div class="toolset" title="Change stroke">
+			<label>
+				<span class="icon_label">Stroke Width</span>
+				<input id="stroke_width" size="2" value="5" type="number" data-attr="stroke-width" min="0" max="99" step="1" />
+			</label>
+		</div>
+		<label class="stroke_tool"> 
+		  <span class="icon_label">Stroke Dash</span>
+			<select id="stroke_style" title="Change stroke dash style">
+				<option selected="selected" value="none">&mdash;</option>
+				<option value="2,2">...</option>
+				<option value="5,5">- -</option>
+				<option value="5,2,2,2">- .</option>
+				<option value="5,2,2,2,2,2">- ..</option>
+			</select>
+		</label>
+			
+    <label style="display: none;">
+      <span class="icon_label">Stroke Join</span>
+		  <div class="stroke_tool dropdown" id="stroke_linejoin">
+			  <div>
+				  <div id="cur_linejoin" title="Linejoin: Miter"></div>
+				  <button></button>
+			  </div>
+		  </div>
+    </label>
+      
+    <label  style="display: none;">
+      <span class="icon_label">Stroke Cap</span>
+  		<div class="stroke_tool dropdown" id="stroke_linecap">
+  			<div>
+  				<div id="cur_linecap" title="Linecap: Butt"></div>
+  				<button></button>
+  			</div>
+  		</div>
+		</label>
+		
+		<h4>Align</h4>
 		<div class="toolset align_buttons" id="tool_position">
 				<label>
-				  <span class="icon_label tuco">Align</span>
 				  <div class="col last clear" id="position_opts">
   				  <div class="push_button" id="tool_posleft" title="Align Left"></div>
         		<div class="push_button" id="tool_poscenter" title="Align Center"></div>
@@ -451,8 +521,8 @@ $(function(){
   				</div>
 				</label>
 		</div>		
-
 		<div id="xy_panel" class="toolset">
+		  <h4>Position</h4>
 			<label>
 				<span>X:</span> <input id="selected_x" class="attr_changer" title="Change X coordinate" size="3" data-attr="x" type="number"/>
 			</label>
@@ -464,6 +534,7 @@ $(function(){
 	
 	<!-- Buttons when multiple elements are selected -->
 	<div id="multiselected_panel">
+	  <h4>Multiple Elements</h4>
 		<!--<div class="tool_sep"></div> -->
 		<!--<div class="push_button" id="tool_clone_multi" title="Clone Elements [C]"></div> -->
 		<!--<div class="push_button" id="tool_delete_multi" title="Delete Selected Elements [Delete/Backspace]"></div> -->
@@ -471,8 +542,8 @@ $(function(){
 		<!--div class="push_button" id="tool_group" title="Group Elements [G]"></div>-->
 		<!--<div class="push_button" id="tool_make_link_multi" title="Make (hyper)link"></div>-->
 		<div class="toolset align_buttons">
+		  <h4>Align</h4>
   		<label>
-  		<span class="icon_label tuco">Align</span>
     		<div class="col last clear">
       		<div class="push_button" id="tool_alignleft" title="Align Left"></div>
       		<div class="push_button" id="tool_aligncenter" title="Align Center"></div>
@@ -484,12 +555,10 @@ $(function(){
   		</label>
 		</div>
 		<label id="tool_align_relative"> 
-			<span id="relativeToLabel">relative to:</span>
+			<span id="relativeToLabel">Relative to:</span>
 			<select id="align_relative_to" title="Align relative to ...">
-			<option id="selected_objects" value="selected">selected objects</option>
-			<option id="largest_object" value="largest">largest object</option>
-			<option id="smallest_object" value="smallest">smallest object</option>
-			<option id="page" value="page">page</option>
+			<option id="selected_objects" value="selected">Objects</option>
+			<option id="page" value="page">Page</option>
 			</select>
 		</label>
 		<div class="tool_sep"></div>
@@ -513,6 +582,24 @@ $(function(){
 	<div class="tool_button" id="tool_image" title="Image Tool"></div>
 	<div class="tool_button" id="tool_zoom" title="Zoom Tool [Ctrl+Up/Down]"></div>
 	
+  <div id="color_tools">
+        <div id="tool_switch" title="Switch stroke and fill colors"></div>
+  			<div class="color_tool active" id="tool_fill">
+  				<label class="icon_label" title="Change fill color"></label>
+				  <div class="color_block">
+					  <div id="fill_bg"></div>
+					  <div id="fill_color" class="color_block"></div>
+				  </div>
+  			</div>
+
+  			<div class="color_tool" id="tool_stroke">
+  					<label class="icon_label" title="Change stroke color"></label>
+  				<div class="color_block">
+  					<div id="stroke_bg"></div>
+  					<div id="stroke_color" class="color_block" title="Change stroke color"></div>
+  				</div>
+  			</div>
+	
 	<div style="display: none">
 		<div id="tool_rect" title="Rectangle"></div>
 		<div id="tool_square" title="Square"></div>
@@ -520,6 +607,7 @@ $(function(){
 		<div id="tool_ellipse" title="Ellipse"></div>
 		<div id="tool_circle" title="Circle"></div>
 		<div id="tool_fhellipse" title="Free-Hand Ellipse"></div>
+	</div>
 	</div>
 </div> <!-- tools_left -->
 
@@ -551,71 +639,9 @@ $(function(){
 	</div>
 
 	<div id="tools_bottom_2">
-		<div id="color_tools">
-			<div class="color_tool" id="tool_fill">
-				<label class="icon_label" for="fill_color" title="Change fill color"></label>
-				<div class="color_block">
-					<div id="fill_bg"></div>
-					<div id="fill_color" class="color_block"></div>
-				</div>
-			</div>
-		
-			<div class="color_tool" id="tool_stroke">
-				<div class="color_block stroke">
-					<label class="icon_label" title="Change stroke color"></label>
-				</div>
-				<div class="color_block">
-					<div id="stroke_bg"></div>
-					<div id="stroke_color" class="color_block" title="Change stroke color"></div>
-				</div>
-				
-				<label>
-					<input id="stroke_width" size="2" value="5" type="number" data-attr="stroke-width" min="0" max="99" step="1" />
-				</label>
-				
-				<label class="stroke_tool">
-					<select id="stroke_style" title="Change stroke dash style">
-						<option selected="selected" value="none">&mdash;</option>
-						<option value="2,2">...</option>
-						<option value="5,5">- -</option>
-						<option value="5,2,2,2">- .</option>
-						<option value="5,2,2,2,2,2">- ..</option>
-					</select>
-				</label>	
-
- 				<div class="stroke_tool dropdown" id="stroke_linejoin">
- 					<div>
-						<div id="cur_linejoin" title="Linejoin: Miter"></div>
-						<button></button>
-					</div>
- 				</div>
- 				
- 				<div class="stroke_tool dropdown" id="stroke_linecap">
- 					<div>
-						<div id="cur_linecap" title="Linecap: Butt"></div>
-						<button></button>
-					</div>
- 				</div>
-			
-				<div id="toggle_stroke_tools" title="Show/hide more stroke tools">
-				</div>
-				
-			</div>
-		</div>
+<!--	
 	
-		<div class="toolset" id="tool_opacity" title="Change selected item opacity">
-			<label>
-				<span id="group_opacityLabel" class="icon_label"></span>
-				<input id="group_opacity" size="3" value="100" type="number" step="5" min="0" max="100" />
-			</label>
-			<div id="opacity_dropdown" class="dropdown">
-				<button></button>
-				<ul>
-					<li class="special down"><div id="opac_slider"></div></li>
-				</ul>
-			</div>
-		</div>
-
+-->
 	</div>
 
 	<div id="tools_bottom_3">
@@ -647,10 +673,6 @@ $(function(){
 <div id="svg_source_editor">
 	<div id="svg_source_overlay"></div>
 	<div id="svg_source_container">
-		<div id="tool_source_back" class="toolbar_button">
-			<button id="tool_source_save">Apply Changes</button>
-			<button id="tool_source_cancel">Cancel</button>
-		</div>
 		<div id="save_output_btns">
 			<p id="copy_save_note">Copy the contents of this box into a text editor, then save the file with a .svg extension.</p>
 			<button id="copy_save_done">Done</button>
@@ -658,6 +680,10 @@ $(function(){
 		<form>
 			<textarea id="svg_source_textarea" spellcheck="false"></textarea>
 		</form>
+		<div id="tool_source_back" class="toolbar_button">
+			<button id="tool_source_cancel" class="cancel">Cancel</button>
+			<button id="tool_source_save" class="ok">Apply Changes</button>
+		</div>
 	</div>
 </div>
 
@@ -788,10 +814,10 @@ $(function(){
 	<li class="separator"><a href="#delete">Delete</a></li>
 	<li class="separator"><a href="#group">Group<span class="shortcut">G</span></a></li>
 	<li><a href="#ungroup">Ungroup<span class="shortcut">G</span></a></li>
-        <li class="separator"><a href="#move_front">Bring to Front<span class="shortcut">SHFT+CTRL+]</span></a></li>
-	<li><a href="#move_up">Bring Forward<span class="shortcut">CTRL+]</span></a></li>
-	<li><a href="#move_down">Send Backward<span class="shortcut">CTRL+[</span></a></li>
-        <li><a href="#move_back">Send to Back<span class="shortcut">SHFT+CTRL+[</span></a></li>
+        <li class="separator"><a href="#move_front">Bring to Front<span class="shortcut">SHFT+CTRL+&uarr;</span></a></li>
+	<li><a href="#move_up">Bring Forward<span class="shortcut">CTRL+&uarr;</span></a></li>
+	<li><a href="#move_down">Send Backward<span class="shortcut">CTRL+&darr;</span></a></li>
+        <li><a href="#move_back">Send to Back<span class="shortcut">SHFT+CTRL+&darr;</span></a></li>
 </ul>
 
 

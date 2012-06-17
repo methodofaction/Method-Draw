@@ -242,7 +242,6 @@ svgEditor.addExtension("shapes", function() {
 			var x = start_x = opts.start_x;
 			var y = start_y = opts.start_y;
 			var cur_style = canv.getStyle();
-
 			cur_shape = canv.addSvgElementFromJson({
 				"element": "path",
 				"curStyles": true,
@@ -253,23 +252,20 @@ svgEditor.addExtension("shapes", function() {
 					"style": "pointer-events:none"
 				}
 			});
-			
+      cur_shape.setAttribute("d", current_d);
 			// Make sure shape uses absolute values
 			if(/[a-z]/.test(current_d)) {
 				current_d = cur_lib.data[cur_shape_id] = canv.pathActions.convertPath(cur_shape);
 				cur_shape.setAttribute('d', current_d);
 				canv.pathActions.fixEnd(cur_shape);
 			}
-	
-			cur_shape.setAttribute('transform', "translate(" + x + "," + y + ") scale(0.005) translate(" + -x + "," + -y + ")");
-			
+	    
+			cur_shape.setAttribute('transform', "translate(" + x + "," + y + ") scale(0.005) translate(" + -x + "," + -y + ")");			
 // 			console.time('b');
 			canv.recalculateDimensions(cur_shape);
-			
+			console.log(cur_shape.getAttribute('d'));	
 			var tlist = canv.getTransformList(cur_shape);
-			
 			lastBBox = cur_shape.getBBox();
-			
 			return {
 				started: true
 			}
@@ -336,7 +332,6 @@ svgEditor.addExtension("shapes", function() {
 			tlist.appendItem(translateOrigin);
 
 			canv.recalculateDimensions(cur_shape);
-			
 			lastBBox = cur_shape.getBBox();
 		},
 		mouseUp: function(opts) {

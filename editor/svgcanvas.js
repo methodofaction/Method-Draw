@@ -22,6 +22,8 @@
 // 10) draw.js
 // 11) path.js
 
+/*jslint browser: true*/
+
 if(!window.console) {
 	window.console = {};
 	window.console.log = function(str) {};
@@ -226,7 +228,7 @@ $.extend(all_properties.text, {
 	fill: "#000000",
 	stroke_width: 0,
 	font_size: 24,
-	font_family: 'serif'
+	font_family: 'Junction'
 });
 
 // Current shape style properties
@@ -441,13 +443,13 @@ var ref_attrs = ["clip-path", "fill", "filter", "marker-end", "marker-mid", "mar
 var elData = $.data;
 
 // Animation element to change the opacity of any newly created element
-var opac_ani = document.createElementNS(svgns, 'animate');
-$(opac_ani).attr({
-	attributeName: 'opacity',
-	begin: 'indefinite',
-	dur: 1,
-	fill: 'freeze'
-}).appendTo(svgroot);
+var opac_ani = false; //document.createElementNS(svgns, 'animate');
+//$(opac_ani).attr({
+//	attributeName: 'opacity',
+//	begin: 'indefinite',
+//	dur: 0,
+//	fill: 'freeze'
+//}).appendTo(svgroot);
 
 var restoreRefElems = function(elem) {
 	// Look for missing reference elements, restore any found
@@ -864,7 +866,6 @@ var copyElem = function(el) {
   var new_el = document.createElementNS(el.namespaceURI, el.nodeName);
   // set the copied element's new id
 	new_el.removeAttribute("id");
-	new_el.id = getNextId();
 	// manually create a copy of the element
 	$.each(el.attributes, function(i, attr) {
 		if (attr.localName != '-moz-math-font-style') {
@@ -899,10 +900,11 @@ var copyElem = function(el) {
 		var ref = $(el).data('symbol');
 		$(new_el).data('ref', ref).data('symbol', ref);
 	}
-	
 	else if(new_el.tagName == 'image') {
 		preventClickDefault(new_el);
 	}
+	new_el.id = getNextId();
+	console.log(new_el);
 	return new_el;
 };
 
@@ -2709,7 +2711,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				started = true;
 				// we are starting an undoable change (a drag-rotation)
 				canvas.undoMgr.beginUndoableChange("transform", selectedElements);
-				document.getElementById("workarea").style.cursor = "url(images/rotate.png) 12 12, auto";
 				document.getElementById("workarea").className = "rotate";
 				break;
 			default:
@@ -6990,7 +6991,15 @@ this.setPaint = function(type, paint) {
 	cur_properties[type + '_paint'] = p;
 	switch ( p.type ) {
 		case "solidColor":
-			this.setColor(type, p.solidColor != "none" ? "#"+p.solidColor : "none");;
+		  
+			if (p.solidColor != "none") {
+			  this.setColor(type, "#"+p.solidColor)
+			}
+			else {
+			  this.setColor(type, "none");
+			  var selector = (type == "fill") ? "#fill_color rect" : "#stroke_color rect" 
+			  document.querySelector(selector).setAttribute('fill', 'transparent');
+			}
 			break;
 		case "linearGradient":
 		case "radialGradient":

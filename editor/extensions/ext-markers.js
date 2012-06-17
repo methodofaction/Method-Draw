@@ -123,7 +123,7 @@ svgEditor.addExtension("Markers", function(S) {
 	function showPanel(on) {
 		$('#marker_panel').toggle(on);
 		if ($('#marker_panel_title').length < 1) {
-		  $('#marker_panel').prepend("<label class='clearfix' id='marker_panel_title'>Arrows</label>")
+		  $('#marker_panel').prepend("<h4 id='marker_panel_title'>Arrows</h4>")
 		}
 
 		if(on) {

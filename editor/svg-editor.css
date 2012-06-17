@@ -280,48 +280,137 @@ html, body {
 	overflow: hidden;
 }
 
-
-
-
 #svg_editor div#palette_holder {
+	display: block;
 	overflow: hidden;
 	height: 31px;
 	margin-top: 10px;
-	margin-left: 10px;
 	position: relative;
 	z-index: 2;
-	display: block;
+	float: left;
 }
 
-#svg_editor #stroke_bg, 
-#svg_editor #fill_bg {
-	height: 16px;
-	width: 16px;
-	margin: 1px;
+#svg_editor div#palette_holder #palette .palette_item:first-child {
+  background: #fff;
 }
 
-#svg_editor #fill_color, #svg_editor #stroke_color {
-	height: 16px;
-	width: 16px;
-	border: 1px solid #ccc;
-	cursor: pointer;
-  margin-top: -18px;
-  margin-left: 0;
+#svg_editor div#palette_holder #palette .palette_item {
+  cursor: pointer;
 }
+
 
 #tool_stroke select {
 	margin-top: 0;
 }
 
+#svg_editor #color_tools {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 6px 6px 0 6px;
+}
+
+#svg_editor #color_tools #tool_fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#svg_editor #color_tools #tool_fill.active, #svg_editor #color_tools #tool_stroke.active {
+  z-index: 2;
+}
+
+#svg_editor #color_tools #tool_fill, #svg_editor #color_tools #tool_stroke {
+  box-shadow: 0 0 0 1px #2f2f2c;
+}
+
+#svg_editor #color_tools #tool_fill .color_block {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border: solid #ccc 1px;
+}
+
+#svg_editor #color_tools #tool_fill .color_block:hover, #svg_editor #color_tools #tool_stroke .color_block:hover {
+  border-color: #fff;
+}
+
+#svg_editor #color_tools #tool_fill .color_block > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#svg_editor #color_tools #tool_fill .color_block #fill_bg, #svg_editor #color_tools #tool_stroke .color_block #stroke_bg {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
+  background: #fff;
+}
+
+#svg_editor #color_tools #tool_stroke {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 0;
+}
+
+#svg_editor #color_tools #tool_stroke #stroke_color:after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 8px;
+  height: 8px;
+  left: 8px;
+  top: 8px;
+  background: #ccc;
+  box-shadow: 0 0 0 1px #000;
+}
+
+#svg_editor #color_tools #tool_switch {
+  cursor: pointer;
+  opacity: 0.7;
+  width: 11px;
+  height: 11px;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQA2LzE0LzEyP6j5+gAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAB4SURBVBiVjZHRCYUwDEVvxIF0kZKN7EjiIrrReR/PSNSKXiikcE5JUtMeADMzXQIcdRfgFWqlyyB7ap1wL+0HAnIv1DqRJUBxTkLUWXIvh9AHkIeb58UkIUnDMH4ZR0otCfhv4ynbtp7ut722ZniFG8L9xx4Ek6QfN9huARmYwR0AAAAASUVORK5CYII=) top left no-repeat;
+  position: absolute;
+  top: -2px;
+  left: 28px;
+}
+
+#svg_editor #color_tools #cross:hover {
+  opacity: 1;
+}
+
+#svg_editor #color_tools #tool_stroke:hover #stroke_color:after {
+  background: #fff;
+}
+
+#svg_editor #color_tools #tool_stroke .color_block {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border: solid #ccc 1px;
+}
+
+#svg_editor #color_tools #tool_stroke .color_block > div {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+
 #svg_editor #color_tools .icon_label {
-	padding: 1px 0 0 5px;
-	width: 28px;
+	padding: 0;
+	width: 24px;
 	height: 100%;
 	cursor: pointer;
 	
 }
 
-#svg_editor #group_opacityLabel, 
 #svg_editor #zoomLabel {
 	cursor: pointer;
 	margin-right: 5px;
@@ -562,9 +651,9 @@ html, body {
 	position: absolute;
 	width: 170px;
 	right: 2px;
-	top: 30px;
+	top: 10px;
 	border-bottom: none;
-	overflow: auto;
+	overflow: visible;
 	padding: 0 10px;
 }
 
@@ -615,7 +704,7 @@ div#font-selector .font-item:hover {
 }
 
 
-#svg_editor #tools_top label span {
+#svg_editor #tools_top label span, #svg_editor #tools_top label select {
   display: block;
   width: 80px;
   float: left;
@@ -631,12 +720,29 @@ div#font-selector .font-item:hover {
   float: left;
 }
 
+#svg_editor #tools_top #marker_panel h4 {
+  float: none;
+}
+
 #svg_editor #tools_top #marker_panel .dropdown .icon_label {
   width: 36px;
   height: 20px;
   margin-top: 2px;
   border: solid #3f3f3c 1px;
   text-align: center;
+}
+
+#svg_editor #font_family_dropdown-list {
+  border-radius: 3px;
+  box-shadow: 0 5px 10px #000;
+}
+
+#svg_editor #font_family_dropdown-list li {
+  cursor: pointer;
+}
+
+#svg_editor #tools_top #marker_panel .dropdown button {
+  margin-top: 2px;
 }
 
 #svg_editor #tools_top #marker_panel #marker_panel_title {
@@ -684,10 +790,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 #svg_editor .dropdown_set input[type=text], #svg_editor .dropdown_set input[type=number] {
   width: 50px;
-}
-
-#svg_editor input#stroke_width {
-  width: 35px;
 }
 
 #svg_editor input[type=text].wide, #svg_editor input[type=number].wide {width: 110px;}
@@ -826,8 +928,9 @@ span.zoom_tool img {
 }
 
 #zoom_panel {
-	margin-top: 5px;
-	float: left;
+	margin-top: 9px;
+	right: 200px;
+  position: absolute;
 }
 
 .dropdown {
@@ -1001,11 +1104,25 @@ span.zoom_tool img {
 	padding-right: 5px;
 }
 
-#tool_bold, #tool_italic { 
+#svg_editor #tool_bold, #svg_editor  #tool_italic { 
 	font: bold 2.1em/1.1em serif;
 	text-align: center;
-	padding-left: 2px;
+	padding: 0 2px 5px 2px;
 	position: relative;
+	float:left;
+	margin: 5px 10px 0 0;
+	color: #ccc;
+	background: #2f2f2c;
+	border: solid #3f3f3c 1px;
+}
+
+#svg_editor #tool_bold:hover, #svg_editor  #tool_italic:hover {
+  color: #fff;
+} 
+
+#svg_editor #tool_font_size {
+  clear:both;
+  padding-top: 8px;
 }
 
 #text {
@@ -1013,16 +1130,16 @@ span.zoom_tool img {
 	left: -9999px;
 }
 
-#tool_bold span, #tool_italic span { 
+#svg_editor #tool_bold span, #svg_editor #tool_italic span { 
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0; left: 0;
-	background: #000;
+	background: #ccc;
 	opacity: 0;
 }
 
-#tool_italic {
+#svg_editor #tool_italic {
 	font-weight: normal;
 	font-style: italic;
 }
@@ -1040,6 +1157,7 @@ span.zoom_tool img {
 	border-radius: 3px;
 	z-index: 5;
 	box-shadow: 0 5px 10px #000;
+	left: 45px !important;
 }
 
 #svg_editor .tools_flyout {
@@ -1093,71 +1211,6 @@ span.zoom_tool img {
 	width: 3.2em;
 }
 
-#svg_editor #color_tools {
-	float: left;
-}
-
-.color_container {
-  	display: table-row;
-}
-
-.color_tool {
-	overflow: hidden;
-	height: 23px;
-	padding: 0 4px;
-	float: left;
-	background: #3f3c3c;
-	margin-left: 5px;
-	border-radius: 2px;
-}
-
-.color_tool > * {
-	display: block;
-	float: left;
-	vertical-align: middle;
-/*	height: 25px;*/
-}
-
-.color_tool .color_block {margin: 2px 3px 0 0;}
-.color_tool .color_block.stroke {margin: 1px 8px 0 0;}
-
-
-
-#toggle_stroke_tools {
-	width: 23px;
-	height: 23px;
-	background: rgba(255,255,255, 0.1);
-	border-radius: 0 3px 3px 0;
-	margin: 0 -5px 0 5px;
-	position: relative;
-}
-
-#toggle_stroke_tools:hover {
-	cursor: pointer;
-	background: rgba(255,255,255, 0.2);
-}
-
-#toggle_stroke_tools:after {
-	display: block;
-	content: '';
-	position: absolute;
-	left: 9px;
-	top: 7px;
-	border: solid transparent 4px;
-	border-left-color: #999;
-}
-
-#toggle_stroke_tools.expanded:after {
-  left: 5px;
-	border: solid transparent 4px;
-	border-right-color: #999;
-}
-
-.stroke_tool {
-	display: none;
-	white-space: nowrap;
-}
-
 #svg_editor .stroke_tool .dropdown button {
   margin-top: 0;
 }
@@ -1181,9 +1234,7 @@ span.zoom_tool img {
   color: #fff;
   font-weight: normal;
   margin: 0;
-  border-bottom: solid #444 1px;
-  padding: 0 0 5px 0;
-  margin-bottom: 5px;
+  padding: 20px 0 5px 0;
 }
 
 .stroke_tool > div {
@@ -1290,45 +1341,7 @@ span.zoom_tool img {
 	-webkit-border-bottom-right-radius: 4px;
 }
 
-#svg_editor #tool_opacity {
-	background: #3c3c3f;
-	height: 23px;
-	border-radius: 2px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	padding: 0 3px;
-	float: left;
-	margin-left: 5px;
-}
-
-#svg_editor #tool_opacity label {
-  float: left;
-  width: 80px;
-}
-
-#svg_editor #tool_opacity label * {
-  display: inline-block;
-  float: none;
-  vertical-align: top;
-}
-
-#svg_editor #group_opacityLabel {
-  margin: 2px 0 0 0;
-}
-
-#opacity_dropdown {
-  margin: 0 -2px;
-}
-
-#svg_editor #tool_opacity label input, #svg_editor #tool_stroke label input { margin-top: 0;}
-
-#svg_editor #tool_opacity label input {
-  width: 40px;
-}
-
-#opacity_dropdown li {
-	width: 140px;
-}
+#svg_editor #tool_stroke label input { margin-top: 0;}
 
 #svg_editor #copyright {
 	text-align: right;
@@ -1356,11 +1369,12 @@ span.zoom_tool img {
 	left: 30px;
 	right: 30px;
 	bottom: 30px;
-	background-color: #B0B0B0;
+	background-color: #fff;
+	border-radius: 3px;
 	opacity: 1.0;
 	text-align: center;
-	border: 1px outset #777;
 	z-index: 6;
+	padding: 20px 0;
 }
 
 #save_output_btns {
@@ -1484,7 +1498,14 @@ span.zoom_tool img {
 
 #svg_source_editor #tool_source_back {
 	text-align: left;
-	padding-left: 20px;
+	padding: 10px 0 0 20px;
+	position: relative;
+}
+
+#svg_source_editor #tool_source_back #tool_source_save {
+  position: absolute;
+  right: 20px;
+  top: 7px;
 }
 
 #svg_prefs_container div.color_block {
@@ -1548,7 +1569,7 @@ span.zoom_tool img {
 	font-size: 15px;
 }
 
-#svg_editor button.cancel, #svg_editor input.Cancel, #svg_editor input.cancel, #svg_editor input.jGraduate_Cancel {
+#svg_editor button.cancel, #svg_editor input.Cancel, #svg_editor input.cancel, #svg_editor input.jGraduate_Cancel, button.cancel {
 	background-color: #999;
 	box-shadow: 0 0 1px rgba(0,0,0,0.5);
 	margin: 0;
@@ -1657,42 +1678,8 @@ span.zoom_tool img {
   border-left-color: #3f3f3c;
 }
 
-.toolbar_button button {
-    border:1px solid #dedede;
-    line-height:130%;
-    float: left;
-	background: #E8E8E8 none;
-    padding:5px 10px 5px 7px; /* Firefox */
-    line-height:17px; /* Safari */
-	margin: 5px 20px 0 0;	
-	
-	border: 1px #808080 solid;
-	border-top-color: #FFF;
-	border-left-color: #FFF;
-
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-
-.toolbar_button button:hover {
-	border: 1px #e0a874 solid;
-	border-top-color: #fcd9ba;
-	border-left-color: #fcd9ba;
-	background-color: #FFC;
-}
-.toolbar_button button:active {
-	background-color: #F4E284;
-	border-left: 1px solid #663300;
-	border-top: 1px solid #663300;
-}
-
 .toolbar_button button .svg_icon {
-    margin:0 3px -3px 0 !important;
-    padding:0;
-    border:none;
-    width:16px;
-    height:16px;
+    display: none;
 }
 
 #dialog_box {
@@ -1897,12 +1884,36 @@ span.zoom_tool img {
 }
 
 #workarea.rect, #workarea.line, #workarea.ellipse, #workarea.path, #workarea.shapelib {
-  cursor: crosshair !important;
+  cursor: crosshair;
 }
 
 #workarea.text {
-  cursor: text !important;
+  cursor: text;
 }
+
+#workarea.eyedropper {
+  cursor: url(images/eyedropper.png), crosshair;
+}
+
+#workarea.fhpath {
+  cursor: url(images/pencil.png) 0 20, crosshair;
+}
+
+#workarea.rotate {
+  cursor: url(images/rotate.png) 12 12, auto;
+}
+
+#workarea.zoom {
+  cursor: crosshair;
+  cursor:-moz-zoom-in;
+  cursor:-webkit-zoom-in;
+}
+#workarea.zoom.out {
+  cursor: crosshair;
+  cursor:-moz-zoom-out;
+  cursor:-webkit-zoom-out;
+}
+
 
 
 /*
@@ -1935,4 +1946,71 @@ span.zoom_tool img {
 /* For IE 6/7 (trigger hasLayout) */
 .clearfix {
     *zoom:1;
+}
+
+
+#svg_editor #group_title {display: none;}
+
+@font-face {
+	font-family: 'Fanwood';
+	src: url('font-files/fanwood-webfont.eot');
+	src: local('☺'), url('font-files/fanwood-webfont.woff') format('woff'), url('font-files/fanwood-webfont.ttf') format('truetype'), url('font-files/fanwood-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/fanwood-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Fanwood';
+	src: url('font-files/fanwood_italic-webfont.eot');
+	src: local('☺'), url('font-files/fanwood_italic-webfont.woff') format('woff'), url('font-files/fanwood_italic-webfont.ttf') format('truetype'), url('font-files/fanwood_italic-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/fanwood_italic-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Junction';
+	src: url('font-files/Junction-webfont.eot');
+	src: local('☺'), url('font-files/Junction-webfont.woff') format('woff'), url('font-files/Junction-webfont.ttf') format('truetype'), url('font-files/Junction-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/Junction-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'League Gothic';
+	src: url('font-files/League_Gothic-webfont.eot');
+	src: local('☺'), url('font-files/League_Gothic-webfont.woff') format('woff'), url('font-files/League_Gothic-webfont.ttf') format('truetype'), url('font-files/League_Gothic-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/League_Gothic-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Museo Slab';
+	src: url('font-files/Museo_Slab-webfont.eot');
+	src: local('☺'), url('font-files/Museo_Slab-webfont.woff') format('woff'), url('font-files/Museo_Slab-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Museo Slab';
+	src: url('font-files/Museo_Slab_Italic-webfont.eot');
+	src: local('☺'), url('font-files/Museo_Slab_Italic-webfont.woff') format('woff'), url('font-files/Museo_Slab_Italic-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Anivers';
+	src: url('font-files/Anivers-webfont.eot');
+	src: local('☺'), url('font-files/Anivers-webfont.woff') format('woff'), url('font-files/Anivers-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Fertigo';
+	src: url('font-files/fertigo-webfont.eot');
+	src: local('☺'), url('font-files/fertigo-webfont.woff') format('woff'), url('font-files/fertigo-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
 }
