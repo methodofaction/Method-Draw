@@ -263,7 +263,6 @@ svgEditor.addExtension("shapes", function() {
 			cur_shape.setAttribute('transform', "translate(" + x + "," + y + ") scale(0.005) translate(" + -x + "," + -y + ")");			
 // 			console.time('b');
 			canv.recalculateDimensions(cur_shape);
-			console.log(cur_shape.getAttribute('d'));	
 			var tlist = canv.getTransformList(cur_shape);
 			lastBBox = cur_shape.getBBox();
 			return {

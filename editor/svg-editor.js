@@ -573,7 +573,7 @@
 						selectedElement = elems[0];
 					}
 				} else {
-					setIcon('#tool_select', 'select');
+				  setIcon('#tool_select', 'select');
 				}
 			}
 		
@@ -680,8 +680,7 @@
 						updateToolbar();
 					} 
 					
-				} // if (elem != null)
-				// Deal with pathedit mode
+				} 
 				togglePathEditMode(is_node, elems);
 				updateContextPanel();
 				svgCanvas.runExtensions("selectedChanged", {
@@ -2914,7 +2913,7 @@
 					return;
 				}
 
-				$(elem).append(icon);
+				$(elem).find("img").replaceWith(icon);
 			}
 		
 			var ua_prefix;
