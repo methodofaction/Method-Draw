@@ -25,7 +25,7 @@ svgEditor.addExtension("shapes", function() {
 		symbol: 'Symbols',
 		arrow: 'Arrows',
 		flowchart: 'Flowchart',
-		animal: 'Animals',
+		nature: 'Nature',
 		game: 'Cards & Chess',
 		dialog_balloon: 'Dialog balloons',
 		electronics: 'Electronics',
@@ -344,7 +344,7 @@ svgEditor.addExtension("shapes", function() {
 					started: false
 				}
 			}
-			
+			canv.setMode("select")
 			return {
 				keep: true,
 				element: cur_shape,
