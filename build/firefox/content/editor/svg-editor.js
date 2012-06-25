@@ -64,7 +64,8 @@
 				baseUnit: 'px',
 				snappingStep: 10,
 				showRulers: true,
-				show_outside_canvas: false
+				show_outside_canvas: false,
+				no_save_warning: true
 			},
 			uiStrings = Editor.uiStrings = {
 				common: {

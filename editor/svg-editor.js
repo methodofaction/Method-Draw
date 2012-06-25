@@ -187,6 +187,7 @@
 		//	- invoke a file chooser dialog in 'save' mode
 		// 	- save the file to location chosen by the user
 		Editor.setCustomHandlers = function(opts) {
+		  Editor.show_save_warning = false;
 			Editor.ready(function() {
 				if(opts.open) {
 					$('#tool_open > input[type="file"]').remove();
@@ -194,7 +195,6 @@
 					svgCanvas.open = opts.open;
 				}
 				if(opts.save) {
-					Editor.show_save_warning = false;
 					svgCanvas.bind("saved", opts.save);
 				}
 				if(opts.pngsave) {
