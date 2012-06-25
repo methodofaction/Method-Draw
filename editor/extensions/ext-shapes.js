@@ -264,6 +264,10 @@ svgEditor.addExtension("shapes", function() {
 			canv.recalculateDimensions(cur_shape);
 			var tlist = canv.getTransformList(cur_shape);
 			lastBBox = cur_shape.getBBox();
+			totalScale = {
+			  sx: 1,
+			  sy: 1
+			};
 			return {
 				started: true
 			}
@@ -304,6 +308,7 @@ svgEditor.addExtension("shapes", function() {
 			sy = sy || 1;
 			
 			// Not perfect, but mostly works...
+			
 			if(x < start_x) {
 				tx = lastBBox.width;
 			}
@@ -316,13 +321,21 @@ svgEditor.addExtension("shapes", function() {
 				
 			translateOrigin.setTranslate(-(left+tx), -(top+ty));
 			if(evt.shiftKey) {
+			  replaced = true
 				var max = Math.min(Math.abs(sx), Math.abs(sy));
-
 				sx = max * (sx < 0 ? -1 : 1);
 				sy = max * (sy < 0 ? -1 : 1);
+				if (totalScale.sx != totalScale.sy) {
+  				var multiplierX = (totalScale.sx > totalScale.sy) ? 1 : totalScale.sx/totalScale.sy;
+  				var multiplierY = (totalScale.sy > totalScale.sx) ? 1 : totalScale.sy/totalScale.sx;
+  				sx *= multiplierY
+  				sy *= multiplierX
+  				console.log(multiplierX, multiplierY);
+				}
 			}
-			scale.setScale(sx,sy);
-			
+			totalScale.sx *= sx;
+		  totalScale.sy *= sy;
+		  scale.setScale(sx,sy);
 			translateBack.setTranslate(left+tx, top+ty);
 			var N = tlist.numberOfItems;
 			tlist.appendItem(translateBack);

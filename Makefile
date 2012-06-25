@@ -85,12 +85,6 @@ $(COMPILED_JS):
 compile: $(COMPILED_JS) $(COMPILED_CSS)
 
 release: build/$(PACKAGE)
-	cd build ; $(ZIP) $(PACKAGE).zip -r $(PACKAGE) ; cd ..
-	tar -z -c -f build/$(PACKAGE)-src.tar.gz \
-	    --exclude='\.svn' \
-	    --exclude='\.git' \
-	    --exclude='build/*' \
-	    .
 
 deploy:
 	cp -R  build/svg-edit-2.6  ../Method.ac/public

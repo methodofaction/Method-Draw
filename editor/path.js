@@ -151,6 +151,7 @@ svgedit.path.addPointGrip = function(index, x, y) {
 			'height': 5,
 			'fill': "#fff",
 			'stroke': "#4F80FF",
+			'shape-rendering': "crispEdges",
 			'stroke-width': 1,
 			'cursor': 'move',
 			'style': 'pointer-events:all',

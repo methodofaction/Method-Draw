@@ -1,0 +1,8 @@
+build/firefox/*
+build/opera/*
+build/svg-edit-2.6/*
+build/svg-edit-2.6-src/*
+build/svg-edit-2.6-src.tar.gz
+build/svg-edit-2.6.wgt
+build/svg-edit-2.6.xpi
+build/svg-edit-2.6.zip

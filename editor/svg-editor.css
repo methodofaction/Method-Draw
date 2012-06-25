@@ -1965,6 +1965,10 @@ span.zoom_tool img {
 .contextMenu LI.quit A { background-image: url(images/door.png); }
 */
 
+#selectorRubberBand {
+	shape-rendering: crispEdges;
+}
+
 /* For modern browsers */
 .clearfix:before,
 .clearfix:after {
