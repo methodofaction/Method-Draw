@@ -64,7 +64,8 @@
 				baseUnit: 'px',
 				snappingStep: 10,
 				showRulers: true,
-				show_outside_canvas: false
+				show_outside_canvas: false,
+				no_save_warning: true
 			},
 			uiStrings = Editor.uiStrings = {
 				common: {
@@ -187,7 +188,6 @@
 		//	- invoke a file chooser dialog in 'save' mode
 		// 	- save the file to location chosen by the user
 		Editor.setCustomHandlers = function(opts) {
-		  Editor.show_save_warning = false;
 			Editor.ready(function() {
 				if(opts.open) {
 					$('#tool_open > input[type="file"]').remove();
@@ -195,6 +195,7 @@
 					svgCanvas.open = opts.open;
 				}
 				if(opts.save) {
+					Editor.show_save_warning = false;
 					svgCanvas.bind("saved", opts.save);
 				}
 				if(opts.pngsave) {
