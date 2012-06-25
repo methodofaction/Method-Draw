@@ -1540,8 +1540,8 @@
 								y = svgedit.units.convertUnit(y);
 							}							
 							
-							$('#selected_x').val(x || 0);
-							$('#selected_y').val(y || 0);
+							$('#selected_x').val(Math.round(y) || 0);
+							$('#selected_y').val(Math.round(x) || 0);
 							$('#xy_panel').show();
 						}
 						
@@ -1563,8 +1563,8 @@
 								point.x = svgedit.units.convertUnit(point.x);
 								point.y = svgedit.units.convertUnit(point.y);
 							}
-							$('#path_node_x').val(point.x);
-							$('#path_node_y').val(point.y);
+							$('#path_node_x').val(Math.round(point.x));
+							$('#path_node_y').val(Math.round(point.y));
 							if(point.type) {
 								seg_type.val(point.type).removeAttr('disabled');
 							} else {
@@ -1597,26 +1597,6 @@
  					  $('#path_panel').show();
  					}
 					
-//					var link_href = null;
-//					if (el_name === 'a') {
-//						link_href = svgCanvas.getHref(elem);
-//						$('#g_panel').show();
-//					}
-//					
-//					if(elem.parentNode.tagName === 'a') {
-//						if(!$(elem).siblings().length) {
-//							$('#a_panel').show();
-//							link_href = svgCanvas.getHref(elem.parentNode);
-//						}
-//					}
-//					
-//					// Hide/show the make_link buttons
-//					$('#tool_make_link, #tool_make_link').toggle(!link_href);
-//					
-//					if(link_href) {
-//						$('#link_url').val(link_href);
-//					}
-					
 					if(panels[el_name]) {
 						var cur_panel = panels[el_name];
 						$('#' + el_name + '_panel').show();
@@ -1628,7 +1608,7 @@
 								attrVal = svgedit.units.convertUnit(bv);
 							}
 						
-							$('#' + el_name + '_' + item).val(attrVal || 0);
+							$('#' + el_name + '_' + item).val(Math.round(attrVal) || 0);
 						});
 						if(el_name == 'text') {
 							$('#text_panel').css("display", "inline");	

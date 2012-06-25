@@ -56,6 +56,7 @@ svgedit.select.Selector = function(id, elem) {
 				'fill': 'none',
 				'stroke': '#4F80FF',
 				'stroke-width': '1',
+				'shape-rendering': 'crispEdges',
 				'style': 'pointer-events:none'
 			}
 		})
