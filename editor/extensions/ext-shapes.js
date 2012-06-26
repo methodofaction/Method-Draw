@@ -28,7 +28,6 @@ svgEditor.addExtension("shapes", function() {
 		nature: 'Nature',
 		game: 'Cards & Chess',
 		dialog_balloon: 'Dialog balloons',
-		math: 'Mathematical',
 		music: 'Music',
 		weather: 'Weather &amp; Time',
 		ui: 'User Interface',
@@ -86,7 +85,7 @@ svgEditor.addExtension("shapes", function() {
 		
 		if(!lib) {
 			$('#shape_buttons').html('Loading...');
-			$.getJSON('extensions/shapelib/' + cat_id + '.json', function(result, textStatus) {
+			$.getJSON('extensions/shapelib/' + cat_id + '.json?=2', function(result, textStatus) {
 				cur_lib = library[cat_id] = {
 					data: result.data,
 					size: result.size,
