@@ -85,7 +85,7 @@ svgEditor.addExtension("shapes", function() {
 		
 		if(!lib) {
 			$('#shape_buttons').html('Loading...');
-			$.getJSON('extensions/shapelib/' + cat_id + '.json?=2', function(result, textStatus) {
+			$.getJSON('extensions/shapelib/' + cat_id + '.json', function(result, textStatus) {
 				cur_lib = library[cat_id] = {
 					data: result.data,
 					size: result.size,
