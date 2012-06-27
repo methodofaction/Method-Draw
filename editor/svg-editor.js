@@ -2055,6 +2055,9 @@
         return false;
       }
       var closer = function(e){
+        if (top != self && !e.isTrigger) {
+            top.exports.setEditorFocus();
+        }
           if (!$(e.target).hasClass("menu_title") && $('#menu_bar').hasClass("active")) {
             if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) {
               blinker(e);
