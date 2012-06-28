@@ -1627,6 +1627,14 @@ span.zoom_tool img {
 	display: none;
 }
 
+#svg_editor button#docprops_button {
+	background: #444;
+}
+
+#svg_editor button#docprops_button:hover {
+	background: #555;
+}
+
 #svg_docprops,
 #svg_prefs {
 	display: none;
