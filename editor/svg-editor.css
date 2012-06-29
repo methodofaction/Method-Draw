@@ -1940,9 +1940,21 @@ span.zoom_tool img {
   cursor: url(images/pencil.png) 0 20, crosshair;
 }
 
-#workarea.rotate {
+#workarea.rotate * {
   cursor: url(images/rotate.png) 12 12, auto;
 }
+
+#workarea.n-resize * {cursor: n-resize !important;}
+#workarea.e-resize * {cursor: e-resize !important;}
+#workarea.w-resize * {cursor: w-resize !important;}
+#workarea.s-resize * {cursor: s-resize !important;}
+
+#workarea.ne-resize * {cursor: ne-resize !important;}
+#workarea.se-resize * {cursor: se-resize !important;}
+#workarea.nw-resize * {cursor: nw-resize !important;}
+#workarea.sw-resize * {cursor: sw-resize !important;}
+
+
 
 #workarea.zoom {
   cursor: crosshair;

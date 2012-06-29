@@ -2730,6 +2730,12 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				started = true;
 			}
 		});
+		if (current_mode) {
+		  document.getElementById("workarea").className = 
+		    (current_mode == "resize")
+		    ? evt.target.style.cursor
+		    : current_mode
+		  }
 	};
 	
 	// in this function we do not record any state changes yet (but we do update
