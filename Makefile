@@ -32,6 +32,7 @@ JS_FILES=\
   locale/locale.js \
   jquery-ui/jquery-ui-1.8.17.custom.min.js \
   jgraduate/jpicker.min.js \
+  mousewheel.js \
 
 CSS_FILES=\
   jgraduate/css/jPicker.css \

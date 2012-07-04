@@ -2072,8 +2072,26 @@
             $('input').blur(); 
           }
       }
+      
+
+      
       $('.menu_item').live('click', function(e){blinker(e)});
       $("svg, body").on('click', function(e){closer(e)});
+      var accumulatedDelta = 0
+      var zoomSteps = [6, 12, 16, 33, 50, 66, 100, 150, 200, 300, 400, 600, 800, 1200]
+      $('#workarea').on('mousewheel', function(e, delta, deltaX, deltaY){
+        if (e.altKey) {
+          e.preventDefault();
+          var currentZoom = svgCanvas.getZoom()*100;
+          var arr_length = zoomSteps.length;
+          for (i=0; i<arr_length; i++) {
+            var max = Math.min(arr_length, i+1);
+            if (deltaY > 0) zoom = (zoomSteps[i] <= currentZoom) ? zoomSteps[max] : zoom;
+            if (deltaY < 0) zoom = (zoomSteps[i] < currentZoom) ? zoomSteps[i] : zoom;
+          }
+          if (zoom) changeZoom({value: zoom});
+        }
+      })
 			$('.menu_title').on('click', function() {$("#menu_bar").toggleClass('active');});
       $('.menu_title').on('mouseover', function() {
            menus.removeClass('open');
@@ -2693,6 +2711,13 @@
 				}
 				
 				updateWireFrame();
+			}
+			
+			var minimizeModal = function() {
+        
+			  if (window.self != window.top) { //we're in an iframe
+		      top.exports.setEditorFocus(false);
+		    }
 			}
 			
 			var clickRulers = function() {
@@ -4057,7 +4082,7 @@
 					{key: modKey + 'z', fn: clickUndo},
 					{key: modKey + 'shift+z', fn: clickRedo},
 					{key: modKey + 'y', fn: clickRedo},
-					
+					{key: 'esc', fn: minimizeModal},
 					{key: modKey+'x', fn: cutSelected},
 					{key: modKey+'c', fn: copySelected},
 					{key: modKey+'v', fn: pasteInCenter}
@@ -4498,13 +4523,13 @@
 			  var title_show = document.getElementById("title_show");
 			  var offset_x = 66;
 			  var offset_y = 48;
-			  $("#workarea").unbind("mousemove.rulers").bind("mousemove.rulers", function(e){
-			    e.stopPropagation();
-          ruler_x_cursor.style.left = (e.pageX-offset_x+workarea.scrollLeft) + "px";
-          ruler_y_cursor.style.top = (e.pageY-offset_y+workarea.scrollTop) + "px";
-          var title = e.target.getAttribute("title");
-          if (typeof title != 'undefined' && title) title_show.innerHTML(title);
-        })
+			  if (svgedit.browser.isTouch()) {
+  			  $("#workarea").unbind("mousemove.rulers").bind("mousemove.rulers", function(e){
+  			    e.stopPropagation();
+            ruler_x_cursor.style.left = (e.pageX-offset_x+workarea.scrollLeft) + "px";
+            ruler_y_cursor.style.top = (e.pageY-offset_y+workarea.scrollTop) + "px";
+          })
+        }
 				if(!zoom) zoom = svgCanvas.getZoom();
 				if(!scanvas) scanvas = $("#svgcanvas");
 				
