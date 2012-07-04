@@ -1771,7 +1771,6 @@
 				}
 				var zoom = svgCanvas.getZoom();
 				var w_area = workarea;
-				
 				zoomChanged(window, {
 					width: 0,
 					height: 0,
@@ -4523,7 +4522,7 @@
 			  var title_show = document.getElementById("title_show");
 			  var offset_x = 66;
 			  var offset_y = 48;
-			  if (svgedit.browser.isTouch()) {
+			  if (!svgedit.browser.isTouch()) {
   			  $("#workarea").unbind("mousemove.rulers").bind("mousemove.rulers", function(e){
   			    e.stopPropagation();
             ruler_x_cursor.style.left = (e.pageX-offset_x+workarea.scrollLeft) + "px";
