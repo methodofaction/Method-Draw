@@ -3019,7 +3019,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				break;
 			case "ellipse":
 				var c = $(shape).attr(["cx", "cy"]);
-				var cx = c.cx, cy = c.cy;
+				var cx = Math.abs(start_x + (x - start_x)/2)
+				var cy = Math.abs(start_y + (y - start_y)/2);
+ 
 				// Opera has a problem with suspendRedraw() apparently
 					handle = null;
 				if (!window.opera) svgroot.suspendRedraw(1000);
@@ -3029,9 +3031,23 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					y = snapToGrid(y);
 					cy = snapToGrid(cy);
 				}
-				shape.setAttributeNS(null, "rx", Math.abs(x - cx) );
-				var ry = Math.abs(evt.shiftKey?(x - cx):(y - cy));
+				var rx = Math.abs(start_x - cx)
+				var ry = Math.abs(start_y - cy);
+        if (evt.shiftKey) {
+          ry = rx
+          cy = (y > start_y) ? start_y + rx : start_y - rx
+          
+        }
+        if (evt.altKey) {
+          cx = start_x
+          cy = start_y
+          rx = Math.abs(x - cx)
+  				ry = evt.shiftKey ? rx : Math.abs(y - cy);
+        }
+				shape.setAttributeNS(null, "rx", rx );
 				shape.setAttributeNS(null, "ry", ry );
+				shape.setAttributeNS(null, "cx", cx );
+				shape.setAttributeNS(null, "cy", cy );
 				if (!window.opera) svgroot.unsuspendRedraw(handle);
 				break;
 			case "fhellipse":
