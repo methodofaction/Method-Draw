@@ -6998,7 +6998,7 @@ this.setPaint = function(type, paint) {
 	switch ( p.type ) {
 		case "solidColor":
 		  
-			if (p.solidColor != "none") {
+			if (p.solidColor != "none" && p.solidColor != "#none") {
 			  this.setColor(type, "#"+p.solidColor)
 			}
 			else {

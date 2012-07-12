@@ -1707,7 +1707,7 @@
 			svgCanvas.bind("extension_added", extAdded);
 			svgCanvas.textActions.setInputElem($("#text")[0]);
 		
-			var str = '<div class="palette_item" data-rgb="#none"></div>'
+			var str = '<div class="palette_item" data-rgb="none"></div>'
 			$.each(palette, function(i,item){
 				str += '<div class="palette_item" style="background-color: ' + item + ';" data-rgb="' + item + '"></div>';
 			});
@@ -2061,21 +2061,21 @@
               top.exports.setEditorFocus();
             }
         }
-          if (!$(e.target).hasClass("menu_title") && $('#menu_bar').hasClass("active")) {
+          if (!$(e.target).hasClass("menu_title")) {
             if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) {
               blinker(e);
               return;
             }
-            $('#menu_bar').removeClass('active')
-            $('.tools_flyout').hide();
-            $('input').blur(); 
+            if ($("#tools_shapelib").is(":visible") && !$(e.target).parents("#tools_shapelib_show, #tools_shapelib").length)
+              $("#tools_shapelib").hide()
+            if (e.target.nodeName.toLowerCase() != "input") $("input").blur();
           }
       }
       
 
       
       $('.menu_item').live('click', function(e){blinker(e)});
-      $("svg, body").on('click', function(e){closer(e)});
+      $("svg, body").on('mousedown', function(e){closer(e)});
       var accumulatedDelta = 0
       var zoomSteps = [6, 12, 16, 33, 50, 66, 100, 150, 200, 300, 400, 600, 800, 1200]
       $('#workarea').on('mousewheel', function(e, delta, deltaX, deltaY){
@@ -3392,6 +3392,7 @@
 			};
 		
 			var updateToolButtonState = function() {
+			  /*
 				var bNoFill = (svgCanvas.getColor('fill') == 'none');
 				var bNoStroke = (svgCanvas.getColor('stroke') == 'none');
 				var buttonsNeedingStroke = [ '#tool_fhpath', '#tool_line' ];
@@ -3427,7 +3428,7 @@
 						$(button).removeClass('disabled');
 					}
 				}
-				
+
 				svgCanvas.runExtensions("toolButtonStateUpdate", {
 					nofill: bNoFill,
 					nostroke: bNoStroke
@@ -3446,6 +3447,7 @@
 				});
 		
 				operaRepaint();
+				*/
 			};
 			
 
@@ -3476,10 +3478,9 @@
 					var fillAttr = "none";
 					var ptype = paint.type;
 					var opac = paint.alpha / 100;
-					
 					switch ( ptype ) {
 						case 'solidColor':
-							fillAttr = "#" + paint[ptype];
+							fillAttr = (paint[ptype] == 'none' || paint[ptype] == 'one') ? 'none' : "#" + paint[ptype];
 							break;
 						case 'linearGradient':
 						case 'radialGradient':
@@ -4033,7 +4034,7 @@
 					{sel:'#tool_move_down', fn: moveDownSelected, evt:'click', key: [modKey+'down', true]},
 					{sel:'#tool_topath', fn: convertToPath, evt: 'click'},
 					{sel:'#tool_make_link,#tool_make_link_multi', fn: makeHyperlink, evt: 'click'},
-					{sel:'#tool_undo', fn: clickUndo, evt: 'click', key: [modKey + 'Z', true]},
+					{sel:'#tool_undo', fn: clickUndo, evt: 'click'},
 					{sel:'#tool_redo', fn: clickRedo, evt: 'click', key: ['Y', true]},
 					{sel:'#tool_clone,#tool_clone_multi', fn: clickClone, evt: 'click', key: [modKey + 'D', true]},
 					{sel:'#tool_group', fn: clickGroup, evt: 'click', key: [modKey + 'G', true]},

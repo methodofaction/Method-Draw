@@ -48,7 +48,7 @@ if(jQuery)( function() {
 
 							// Get this context menu
 						
-							if( el.hasClass('disabled') ) return false;
+							if( el.hasClass('disabled') || evt.altKey ) return false;
 							
 							// Detect mouse position
 							var d = {}, x = e.pageX, y = e.pageY;
