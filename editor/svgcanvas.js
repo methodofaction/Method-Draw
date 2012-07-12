@@ -2913,7 +2913,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					ty = snapToGrid(ty);
 				}
 
-				translateOrigin.setTranslate(tox,toy);
+				translateOrigin.setTranslate(-(left+tx),-(top+ty));
 				if(evt.shiftKey) {
 					if(sx == 1) sx = sy
 					else sy = sx;
