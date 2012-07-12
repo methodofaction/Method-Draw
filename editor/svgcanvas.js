@@ -2913,7 +2913,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					ty = snapToGrid(ty);
 				}
 
-				translateOrigin.setTranslate(-(left+tx),-(top+ty));
+				translateOrigin.setTranslate(tox,toy);
 				if(evt.shiftKey) {
 					if(sx == 1) sx = sy
 					else sy = sx;
@@ -2978,7 +2978,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 			case "square":
 				// fall through
 			case "rect":
-				// fall through
 			case "image":
 				var square = (current_mode == 'square') || evt.shiftKey,
 					w = Math.abs(x - start_x),
@@ -2991,6 +2990,12 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				} else {
 					new_x = Math.min(start_x,x);
 					new_y = Math.min(start_y,y);
+				}
+				if (evt.altKey){
+				  w *=2;
+				  h *=2; 
+				  new_x = start_x - w/2;
+				  new_y = start_y - h/2;
 				}
 	
 				if(curConfig.gridSnapping){
