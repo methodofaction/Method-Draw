@@ -638,16 +638,6 @@ html, body {
 #svg_editor #tools_left .tool_button.loaded { background: #ccc;}
 #svg_editor #tools_left .tool_button.loaded:hover { background: #fff;}
 
-#svg_editor #tools_left .tool_button:after {
-  position: absolute;
-  content: '';
-  left: 0;
-  top: 0;
-  height: 100%;
-  border-left: solid rgba(45,45,45,0.5) 1px;
-  
-}
-
 #tools_top .padded {
   padding: 10px 0;
 }
