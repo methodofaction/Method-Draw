@@ -1,14 +1,7 @@
 ﻿body {
 	background: #2F2F2C;
 	font: 13px/120% 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
-}
-
-* {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
-html, body, div{
-  -webkit-touch-callout: none;
+	-webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -52,14 +45,6 @@ html, body {
         font-size: 0.8em;
         font-family: Verdana, Helvetica, Arial;
         color: #000000;
-}
-
-
-#svg_editor * {
-	transform-origin: 0 0;
-	-moz-transform-origin: 0 0;
-	-o-transform-origin: 0 0;
-	-webkit-transform-origin: 0 0;
 }
 
 #svg_editor hr {
@@ -135,7 +120,7 @@ html, body {
   position: relative;
   overflow: hidden;
 	line-height: 22px;
-	padding: 5px 55px 5px 25px;
+	padding: 5px 69px 5px 25px;
 	cursor: default;
 	color: #333;
 }
@@ -303,36 +288,35 @@ html, body {
 	margin-top: 0;
 }
 
-#svg_editor #color_tools {
+#svg_editor #color_tools, #color_canvas_tools {
   position: relative;
   width: 48px;
   height: 48px;
   margin: 6px 6px 0 6px;
 }
 
-#svg_editor #color_tools #tool_fill {
+#svg_editor #color_tools #tool_fill, #tool_canvas {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
 }
 
-#svg_editor #color_tools #tool_fill.active, #svg_editor #color_tools #tool_stroke.active {
+#tool_fill.active, #tool_stroke.active {
   z-index: 2;
 }
 
-#svg_editor #color_tools #tool_fill, #svg_editor #color_tools #tool_stroke {
+#tool_fill, #tool_stroke, #tool_canvas {
   box-shadow: 0 0 0 1px #2f2f2c;
 }
 
-#svg_editor #color_tools #tool_fill .color_block {
+
+#tool_fill .color_block, #tool_canvas .color_block {
   width: 24px;
   height: 24px;
   overflow: hidden;
   border: solid #ccc 1px;
 }
-
-
 
 #svg_editor #path_node_panel .tool_button {
 	color: #999;
@@ -359,6 +343,10 @@ html, body {
 	padding: 3px 0;
 	width: auto;
 	margin: 0 0 10px 0;
+	background: transparent;
+	color: #ccc;
+	height: auto;
+	line-height: 130%;
 }
 
 #svg_editor #path_node_panel #segment_type {
@@ -384,14 +372,14 @@ html, body {
   background: #fff;
 }
 
-#svg_editor #color_tools #tool_stroke {
+#tool_stroke {
   position: absolute;
   top: 12px;
   left: 12px;
   z-index: 0;
 }
 
-#svg_editor #color_tools #tool_stroke #stroke_color:after {
+#stroke_color:after {
   content: '';
   position: absolute;
   display: block;
@@ -454,11 +442,6 @@ html, body {
 	padding-top: 4px;
 }
 
-#color_tools .icon_label > * {
-	position: relative;
-	top: 1px;
-}
-
 #svg_editor div#palette {
 	float: left;
 	width: 672px;
@@ -486,6 +469,7 @@ html, body {
 	width: 2px;
 	padding: 10px;
 	border-left: none;
+	z-index: 10;
 }
 
 #svg_editor #layerpanel {
@@ -1190,7 +1174,7 @@ span.zoom_tool img {
 	border-radius: 3px;
 	z-index: 5;
 	box-shadow: 0 5px 10px #000;
-	left: 45px !important;
+	width: 530px;
 }
 
 #svg_editor .tools_flyout {

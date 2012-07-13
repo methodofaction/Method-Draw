@@ -501,6 +501,15 @@
 				ui_context = 'toolbars',
 				orig_source = '',
 				paintBox = {fill: null, stroke:null};
+				
+
+			// This puts the correct shortcuts in the menus
+			if (!isMac) {
+			 $('.shortcut').each(function(){
+			   var text = $(this).text();
+			   $(this).text(text.split("⌘").join("Ctrl+"))
+			 }); 
+			}
 
 			// This sets up alternative dialog boxes. They mostly work the same way as
 			// their UI counterparts, expect instead of returning the result, a callback
@@ -1381,6 +1390,31 @@
 			$('.canvas_height').val(res.h);
 			$('#docprops_button').on("click", function(){showDocProperties()});
 			
+			// create a new layer background
+			svgCanvas.createLayer("background")
+			cur_shape = svgCanvas.addSvgElementFromJson({
+				"element": "rect",
+				"attr": {
+					"x": 0,
+					"y": 0,
+					"width": res.w,
+					"height": res.h,
+					"stroke": "none",
+					"id": "canvas_background",
+					"opacity": 1,
+					"fill": "#fff",
+					"style": "pointer-events:none"
+				}
+			});
+			svgCanvas.setCurrentLayer("Layer 1")
+			svgCanvas.setCurrentLayerPosition("1")
+			if($.pref('bkgd_color')) {
+				setBackground($.pref('bkgd_color'), $.pref('bkgd_url'));
+			} else if($.pref('bkgd_url')) {
+				// No color set, only URL
+				setBackground(defaultPrefs.bkgd_color, $.pref('bkgd_url'));
+			}
+			
 			// updates the toolbar (colors, opacity, etc) based on the selected element
 			// This function also updates the opacity and id elements that are in the context panel
 			var updateToolbar = function() {
@@ -1929,7 +1963,6 @@
 				var paint = null;
 		
 				// Webkit-based browsers returned 'initial' here for no stroke
-				console.log(color);
 				if (color === 'transparent' || color === 'initial' || color === '#none') {
 					color = 'none';
 					paint = new $.jGraduate.Paint();
@@ -2990,7 +3023,6 @@
 				if(size == curPrefs.size && !force) return;
 // 				return;
 // 				var elems = $('.tool_button, .push_button, .tool_button_current, .disabled, .icon_label, #url_notice, #tool_open');
-				console.log('size', size);
 				
 				var sel_toscale = '#tools_top .toolset, #editor_panel > *, #history_panel > *,\
 				#main_button, #tools_left > *, #path_node_panel > *, #multiselected_panel > *,\
@@ -3362,15 +3394,19 @@
 			// TODO: go back to the color boxes having white background-color and then setting
 			//       background-image to none.png (otherwise partially transparent gradients look weird)	
 			var colorPicker = function(elem) {
-				var picker = elem.attr('id') == 'stroke_color' ? 'stroke' : 'fill';
+				var picker = elem[0].id == 'stroke_color' ? 'stroke' : 'fill';
+				var is_background = elem[0].id == "canvas_color"
+				if (is_background) picker = 'canvas'
 // 				var opacity = (picker == 'stroke' ? $('#stroke_opacity') : $('#fill_opacity'));
 				var paint = paintBox[picker].paint;
+				
 				var title = (picker == 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
 				var was_none = false;
-				var pos = elem.position();
+				var pos = is_background ? {'right': 200, 'top': 50} : {'left': 45, 'bottom': 50}
+				
 				$("#color_picker")
 					.draggable({cancel:'.jGraduate_tabs, .jGraduate_colPick, .jGraduate_gradPick, .jPicker', containment: 'window'})
-					.css(curConfig.colorPickerCSS || {'left': pos.left, 'bottom': 50 - pos.top})
+					.css(pos)
 					.jGraduate(
 					{ 
 						paint: paint,
@@ -3453,7 +3489,7 @@
 
 
 			var PaintBox = function(container, type) {
-				var cur = curConfig[type === 'fill' ? 'initFill' : 'initStroke'];
+				var cur = curConfig[type === 'stroke' ? 'initStroke' : 'initFill'];
 				
 				// set up gradients to be used for the buttons
 				var svgdocbox = new DOMParser().parseFromString(
@@ -3497,12 +3533,18 @@
 						svgCanvas.setColor(this.type, fillAttr, true);
 						svgCanvas.setPaintOpacity(this.type, opac, true);
 					}
+					if (this.type == "canvas") {
+					  var background = document.getElementById("canvas_background");
+					  if (background) {
+					    background.setAttribute('fill', fillAttr)
+					  }
+					}
+					
 				}
 				
 				this.update = function(apply) {
 					if(!selectedElement) return;
 					var type = this.type;
-					
 					switch ( selectedElement.tagName ) {
 					case 'use':
 					case 'image':
@@ -3570,6 +3612,7 @@
 			
 			paintBox.fill = new PaintBox('#fill_color', 'fill');
 			paintBox.stroke = new PaintBox('#stroke_color', 'stroke');
+			paintBox.canvas = new PaintBox('#canvas_color', 'canvas');
 
 			$('#stroke_width').val(curConfig.initStroke.width);
 			$('#group_opacity').val(curConfig.initOpacity * 100);
@@ -3612,6 +3655,11 @@
 				  $("#tool_stroke").removeClass('active');
 				}
 			});
+			
+			$('#tool_canvas').click(function(){
+				  colorPicker($('#canvas_color'));
+				  updateToolButtonState();
+			});
 
 			$('#tool_stroke').click(function(){
 			  
@@ -3621,7 +3669,6 @@
 				}
 				else {
 				  $('#tool_stroke').addClass('active');
-				  console.log($('#tool_stroke'));
 				  $("#tool_fill").removeClass('active');
 				}
 			});

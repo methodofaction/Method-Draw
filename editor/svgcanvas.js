@@ -6708,6 +6708,13 @@ this.setResolution = function(x, y) {
 	
 		addCommandToHistory(batchCmd);
 		svgroot.unsuspendRedraw(handle);
+		
+		var background = document.getElementById("canvas_background");
+		if (background) {
+		  background.setAttribute("width", x)
+		  background.setAttribute("height", y)
+		}
+		
 		call("changed", [svgcontent]);
 	}
 	return true;

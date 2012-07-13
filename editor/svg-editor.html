@@ -135,7 +135,7 @@ $(function(){
   		<div id="tool_clear" class="menu_item">New Image</div>
   		<div id="tool_open" class="menu_item"><div id="fileinputs"></div>Open Image...</div>
   		<div id="tool_import" class="menu_item"><div id="fileinputs_import"></div>Import SVG...</div>
-  		<div id="tool_save" class="menu_item">Save Image... <span>⌘S</span></div>
+  		<div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
   		<div id="tool_export" class="menu_item">Export as PNG</div>
   	</div>
   </div>
@@ -143,12 +143,12 @@ $(function(){
   <div class="menu">
     <div class="menu_title">Edit</div>
   	<div class="menu_list" id="edit_menu">
-  		<div class="menu_item" id="tool_undo">Undo <span>⌘Z</span></div>
-  		<div class="menu_item" id="tool_redo">Redo <span>⌘Y</span></div>
+  		<div class="menu_item" id="tool_undo">Undo <span class="shortcut">⌘Z</span></div>
+  		<div class="menu_item" id="tool_redo">Redo <span class="shortcut">⌘Y</span></div>
   		<div class="separator"></div>
-  		<div class="menu_item action_selected disabled" id="tool_copy">Copy <span>⌘C</span></div>
-			<div class="menu_item action_selected disabled" id="tool_paste">Paste <span>⌘V</span></div>
-  		<div class="menu_item action_selected disabled" id="tool_clone">Duplicate <span>⌘D</span></div>
+  		<div class="menu_item action_selected disabled" id="tool_copy">Copy <span class="shortcut">⌘C</span></div>
+			<div class="menu_item action_selected disabled" id="tool_paste">Paste <span class="shortcut">⌘V</span></div>
+  		<div class="menu_item action_selected disabled" id="tool_clone">Duplicate <span class="shortcut">⌘D</span></div>
 			<div class="menu_item action_selected disabled" id="tool_delete">Delete <span>⌫</span></div>
     </div>
   </div>
@@ -156,13 +156,13 @@ $(function(){
   <div class="menu">
     <div class="menu_title">Object</div>
   	<div class="menu_list"  id="object_menu">
-			<div class="menu_item action_selected disabled" id="tool_move_top">Bring to Front <span>⌘⇧&uarr;</span></div>
-			<div class="menu_item action_selected disabled" id="tool_move_up">Bring Forward <span>⌘&uarr;</span></div>
-			<div class="menu_item action_selected disabled" id="tool_move_down">Send Backward <span>⌘&darr;</span></div>
-			<div class="menu_item action_selected disabled" id="tool_move_bottom">Send to Back <span>⌘⇧&darr;</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_top">Bring to Front <span class="shortcut">⌘⇧&uarr;</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_up">Bring Forward <span class="shortcut">⌘&uarr;</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_down">Send Backward <span class="shortcut">⌘&darr;</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_bottom">Send to Back <span class="shortcut">⌘⇧&darr;</span></div>
 			<div class="separator"></div>
-			<div class="menu_item action_multi_selected disabled" id="tool_group">Group Elements <span>⌘G</span></div>
-			<div class="menu_item action_group_selected disabled" id="tool_ungroup">Ungroup Elements <span>⌘⇧G</span></div>
+			<div class="menu_item action_multi_selected disabled" id="tool_group">Group Elements <span class="shortcut">⌘G</span></div>
+			<div class="menu_item action_group_selected disabled" id="tool_ungroup">Ungroup Elements <span class="shortcut">⌘⇧G</span></div>
 			<div class="separator"></div>
 			<div class="menu_item action_path_convert_selected disabled" id="tool_topath">Convert to Path</div>
 			<div class="menu_item action_path_selected disabled" id="tool_reorient">Reorient path</div>
@@ -182,7 +182,7 @@ $(function(){
   	    <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers</div>
   	    <div class="menu_item" id="tool_wireframe">View Wireframe</div>
   	    <div class="separator"></div>
-    		<div class="menu_item" id="tool_source">Source... <span>⌘U</span></div>
+    		<div class="menu_item" id="tool_source">Source... <span class="shortcut">⌘U</span></div>
     </div>
   </div>
   
@@ -235,6 +235,18 @@ $(function(){
 			</label>
 		</div>
 		<label title="Modify Canvas Size" class="padded"><button id="docprops_button">Canvas Properties...</button></label>
+  	
+  	
+  	  
+		<div id="color_canvas_tools">
+		  <div class="color_tool active" id="tool_canvas">
+  		  <div class="color_block">
+  			  <div id="canvas_bg"></div>
+  			  <div id="canvas_color" class="color_block"></div>
+  		  </div>
+  		</div>
+  	</div>
+
 	</div>
 	
 	<div id="rect_panel">
