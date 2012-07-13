@@ -1331,7 +1331,7 @@
 						cb_ready = false; // Delay callback
 
 					$.svgIcons(svgicons, {
-						w:24, h:24,
+						w:27, h:27,
 						id_match: false,
 						no_img: (!isWebkit),
 						fallback: fallback_obj,
