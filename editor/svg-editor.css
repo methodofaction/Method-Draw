@@ -310,6 +310,10 @@ html, body {
   box-shadow: 0 0 0 1px #2f2f2c;
 }
 
+#color_canvas_tools {
+	float: left;
+	cursor: pointer;
+}
 
 #tool_fill .color_block, #tool_canvas .color_block {
   width: 24px;
@@ -1331,21 +1335,6 @@ span.zoom_tool img {
 	border-radius: 0;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
-}
-
-.color_tool > *:first-child {
-	-moz-border-radius-topleft: 4px;
-	-moz-border-radius-bottomleft: 4px;
-	-webkit-border-top-left-radius: 4px;
-	-webkit-border-bottom-left-radius: 4px;
-	padding-right: 0;
-}
-
-.color_tool > *:last-child {
-	-moz-border-radius-topright: 4px;
-	-moz-border-radius-bottomright: 4px;
-	-webkit-border-top-right-radius: 4px;
-	-webkit-border-bottom-right-radius: 4px;
 }
 
 #svg_editor #tool_stroke label input { margin-top: 0;}

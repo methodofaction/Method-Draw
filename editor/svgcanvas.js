@@ -6708,13 +6708,13 @@ this.setResolution = function(x, y) {
 	
 		addCommandToHistory(batchCmd);
 		svgroot.unsuspendRedraw(handle);
-		
-		var background = document.getElementById("canvas_background");
-		if (background) {
-		  background.setAttribute("width", x)
-		  background.setAttribute("height", y)
-		}
-		
+		background = document.getElementById("canvas_background");
+	  if (background) {
+	    background.setAttribute("x", -1)
+	    background.setAttribute("y", -1)
+	    background.setAttribute("width", x+1)
+	    background.setAttribute("height", y+1)
+	  }
 		call("changed", [svgcontent]);
 	}
 	return true;
@@ -6902,6 +6902,12 @@ var setGradient = this.setGradient = function(type) {
 		grad = duplicate_grad;
 	}
 	canvas.setColor(type, "url(#" + grad.id + ")");
+	if (type == "canvas") {
+	  var background = document.getElementById("canvas_background");
+	  if (background) {
+	    background.setAttribute('fill', "url(#" + grad.id + ")")
+	  }
+	}
 }
 
 // Function: findDuplicateGradient

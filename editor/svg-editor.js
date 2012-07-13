@@ -1390,24 +1390,28 @@
 			$('.canvas_height').val(res.h);
 			$('#docprops_button').on("click", function(){showDocProperties()});
 			
-			// create a new layer background
-			svgCanvas.createLayer("background")
-			cur_shape = svgCanvas.addSvgElementFromJson({
-				"element": "rect",
-				"attr": {
-					"x": 0,
-					"y": 0,
-					"width": res.w,
-					"height": res.h,
-					"stroke": "none",
-					"id": "canvas_background",
-					"opacity": 1,
-					"fill": "#fff",
-					"style": "pointer-events:none"
-				}
-			});
-			svgCanvas.setCurrentLayer("Layer 1")
-			svgCanvas.setCurrentLayerPosition("1")
+			var createBackground = function(fill) {
+        svgCanvas.createLayer("background")
+  			cur_shape = svgCanvas.addSvgElementFromJson({
+  				"element": "rect",
+  				"attr": {
+  					"x": 0,
+  					"y": 0,
+  					"width": res.w,
+  					"height": res.h,
+  					"stroke": "none",
+  					"id": "canvas_background",
+  					"opacity": 1,
+  					"fill": fill || $.pref('bkgd_color'),
+  					"style": "pointer-events:none"
+  				}
+  			});
+  			svgCanvas.setCurrentLayer("Layer 1")
+  			svgCanvas.setCurrentLayerPosition("1")
+      }
+			
+			// create a new layer background if it doesn't exist
+			if (!document.getElementById('canvas_background')) createBackground();
 			if($.pref('bkgd_color')) {
 				setBackground($.pref('bkgd_color'), $.pref('bkgd_url'));
 			} else if($.pref('bkgd_url')) {
@@ -3485,8 +3489,6 @@
 				operaRepaint();
 				*/
 			};
-			
-
 
 			var PaintBox = function(container, type) {
 				var cur = curConfig[type === 'stroke' ? 'initStroke' : 'initFill'];
@@ -3535,9 +3537,8 @@
 					}
 					if (this.type == "canvas") {
 					  var background = document.getElementById("canvas_background");
-					  if (background) {
-					    background.setAttribute('fill', fillAttr)
-					  }
+					  if (background) background.setAttribute('fill', fillAttr)
+					  else createBackground(fillAttr)
 					}
 					
 				}

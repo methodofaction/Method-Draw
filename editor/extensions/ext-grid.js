@@ -36,8 +36,8 @@ svgEditor.addExtension("view_grid", function(s) {
         'display': 'none'
     });
     
-    var canvBG = $('#canvasBackground');
-    canvBG.append(canvasgrid);
+    var canvBG = $('#canvas_background');
+    canvBG.after(canvasgrid);
 
         // grid-pattern
         var gridPattern = svgdoc.createElementNS(svgns, "pattern");
@@ -161,7 +161,7 @@ svgEditor.addExtension("view_grid", function(s) {
             type: "menu",
             after: "tool_wireframe",
             panel: "view_menu",
-            title: "Show/Hide Grid",
+            title: "View Grid",
             events: {
                 'click': function() {
                     var gr = !$('#view_grid').hasClass('push_button_pressed');
