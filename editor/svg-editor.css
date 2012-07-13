@@ -1072,9 +1072,9 @@ span.zoom_tool img {
 #svg_editor .tool_button_current,
 #svg_editor .push_button_pressed 
 {
-	height: 24px;
-	width: 24px;
-	border: solid #2f2f2c 10px;
+	height: 27px;
+	width: 27px;
+	border: solid #2f2f2c 8px;
 	border-left-width: 13px;
 	margin: 0;
 	background-color: #ddd;
