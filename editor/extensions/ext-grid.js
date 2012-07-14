@@ -13,7 +13,7 @@
 // 2) everything else
 
 svgEditor.addExtension("view_grid", function(s) {
-
+    if (!document.getElementById("canvasGrid")){
     var svgdoc = document.getElementById("svgcanvas").ownerDocument,
 			svgns = "http://www.w3.org/2000/svg",
 			dims = svgEditor.curConfig.dimensions,
@@ -25,7 +25,7 @@ svgEditor.addExtension("view_grid", function(s) {
     var hcanvas = document.createElement('canvas');
     $(hcanvas).hide().appendTo('body');
 
-    var canvasgrid = svgdoc.createElementNS(svgns, "svg");
+    var canvasgrid = svgdoc.createElementNS(svgns, "g");
     assignAttributes(canvasgrid, {
         'id': 'canvasGrid',
         'width': '100%',
@@ -37,9 +37,8 @@ svgEditor.addExtension("view_grid", function(s) {
     });
     
     var canvBG = $('#canvas_background');
-    if (!document.getElementById("canvasGrid")){
-      canvBG.after(canvasgrid);
-    }
+    canvBG.after(canvasgrid);
+    
     
 
         // grid-pattern
@@ -77,6 +76,7 @@ svgEditor.addExtension("view_grid", function(s) {
             'style': 'pointer-events: none; display:visible;'
         });
         $('#canvasGrid').append(gridBox);
+        }
 //     });
 
 	function updateGrid(zoom) {
