@@ -37,7 +37,10 @@ svgEditor.addExtension("view_grid", function(s) {
     });
     
     var canvBG = $('#canvas_background');
-    canvBG.after(canvasgrid);
+    if (!document.getElementById("canvasGrid")){
+      canvBG.after(canvasgrid);
+    }
+    
 
         // grid-pattern
         var gridPattern = svgdoc.createElementNS(svgns, "pattern");

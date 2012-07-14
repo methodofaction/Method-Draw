@@ -3496,11 +3496,18 @@
 
 			var PaintBox = function(container, type) {
 			  var background = document.getElementById("canvas_background");
-			  if (this.type == "stroke") var cur = curConfig['initStroke'];
-			  if (this.type == "fill") var cur = curConfig['initFill'];
-			  if (this.type == "canvas") var cur = (background) ? background.getAttribute("fill") : "#fff";
-				var cur = curConfig[type === 'stroke' ? 'initStroke' : 'initFill'];
-				
+			  var cur = {color: "#fff", opacity: 1}
+			  if (type == "stroke") cur = curConfig['initStroke'];
+			  if (type == "fill") cur = curConfig['initFill'];
+			  if (type == "canvas" && background) {
+          var rgb = background.getAttribute("fill").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+          var hex = ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+                         ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+                         ("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
+          cur = {color: hex, opacity: 1}
+			  }
+
+
 				// set up gradients to be used for the buttons
 				var svgdocbox = new DOMParser().parseFromString(
 					'<svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%"\
@@ -3544,8 +3551,11 @@
 						svgCanvas.setPaintOpacity(this.type, opac, true);
 					}
 					if (this.type == "canvas") {
+					  //recache background in case it changed
+					  var background = document.getElementById("canvas_background");
 					  if (background) background.setAttribute('fill', fillAttr)
 					  else createBackground(fillAttr)
+					  console.log(background.getAttribute('fill'));
 					}
 					
 				}
