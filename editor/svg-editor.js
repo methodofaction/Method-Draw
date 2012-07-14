@@ -1412,6 +1412,10 @@
 			
 			// create a new layer background if it doesn't exist
 			if (!document.getElementById('canvas_background')) createBackground();
+			else {
+			  var fill = document.getElementById('canvas_background').getAttribute("fill");
+			  
+			}
 			if($.pref('bkgd_color')) {
 				setBackground($.pref('bkgd_color'), $.pref('bkgd_url'));
 			} else if($.pref('bkgd_url')) {
@@ -3491,6 +3495,10 @@
 			};
 
 			var PaintBox = function(container, type) {
+			  var background = document.getElementById("canvas_background");
+			  if (this.type == "stroke") var cur = curConfig['initStroke'];
+			  if (this.type == "fill") var cur = curConfig['initFill'];
+			  if (this.type == "canvas") var cur = (background) ? background.getAttribute("fill") : "#fff";
 				var cur = curConfig[type === 'stroke' ? 'initStroke' : 'initFill'];
 				
 				// set up gradients to be used for the buttons
@@ -3536,7 +3544,6 @@
 						svgCanvas.setPaintOpacity(this.type, opac, true);
 					}
 					if (this.type == "canvas") {
-					  var background = document.getElementById("canvas_background");
 					  if (background) background.setAttribute('fill', fillAttr)
 					  else createBackground(fillAttr)
 					}
