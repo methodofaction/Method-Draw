@@ -172,7 +172,7 @@ var clearSvgContentElement = canvas.clearSvgContentElement = function() {
 	}).appendTo(svgroot);
 
 	// TODO: make this string optional and set by the client
-	var comment = svgdoc.createComment(" Created with SVG-edit - http://svg-edit.googlecode.com/ ");
+	var comment = svgdoc.createComment(" Created with Method Draw - http://github.com/duopixel/Method-Draw/ ");
 	svgcontent.appendChild(comment);
 };
 clearSvgContentElement();
