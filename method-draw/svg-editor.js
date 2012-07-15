@@ -65,7 +65,8 @@
 				snappingStep: 10,
 				showRulers: true,
 				show_outside_canvas: false,
-				no_save_warning: true
+				no_save_warning: true,
+				initFont: 'Sans-serif'
 			},
 			uiStrings = Editor.uiStrings = {
 				common: {
@@ -2101,7 +2102,6 @@
         return false;
       }
       var closer = function(e){
-        
         //Method of Action specific to detect when the iframe has focus
         if (top != self && !e.isTrigger) {
             if(typeof top.exports.setEditorFocus == 'function') {
@@ -2113,10 +2113,14 @@
               blinker(e);
               return;
             }
+            else {
+              $('#menu_bar').removeClass('active')
+            }
             if ($("#tools_shapelib").is(":visible") && !$(e.target).parents("#tools_shapelib_show, #tools_shapelib").length)
               $("#tools_shapelib").hide()
             if (e.target.nodeName.toLowerCase() != "input") $("input").blur();
           }
+          
       }
       
 
@@ -2466,19 +2470,21 @@
 		
 			var cutSelected = function() {
 				if (selectedElement != null || multiselected) {
+					if (window.event.type === "keydown") flash($('#edit_menu'));
 					svgCanvas.cutSelectedElements();
 				}
 			};
 			
 			var copySelected = function() {
 				if (selectedElement != null || multiselected) {
+				  if (window.event.type === "keydown") flash($('#edit_menu'));
 					svgCanvas.copySelectedElements();
 				}
 			};
 			
-			var pasteInCenter = function() {
-				var zoom = svgCanvas.getZoom();
-				
+			var pasteSelected = function() {
+			  if (window.event.type === "keydown") flash($('#edit_menu'));
+				var zoom = svgCanvas.getZoom();				
 				var x = (workarea[0].scrollLeft + workarea.width()/2)/zoom  - svgCanvas.contentW; 
 				var y = (workarea[0].scrollTop + workarea.height()/2)/zoom  - svgCanvas.contentH;
 				svgCanvas.pasteElements('point', x, y); 
@@ -2486,30 +2492,35 @@
 			
 			var moveToTopSelected = function() {
 				if (selectedElement != null) {
+				  if (window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveToTopSelectedElement();
 				}
 			};
 			
 			var moveToBottomSelected = function() {
 				if (selectedElement != null) {
+				  if (window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveToBottomSelectedElement();
 				}
 			};
 			
 			var moveUpSelected = function() {
 				if (selectedElement != null) {
+			  if (window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected("Up");
 				}
 			};
 
 			var moveDownSelected = function() {
 				if (selectedElement != null) {
+				  if (window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected("Down");
 				}
 			};
 			
 			var moveUpDownSelected = function(dir) {
 				if (selectedElement != null) {
+				  if (window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected(dir);
 				}
 			};
@@ -2548,6 +2559,7 @@
 						dx *= multi;
 						dy *= multi;
 					}
+					$('input').blur()
 					svgCanvas.moveSelectedElements(dx,dy);
 				}
 			};
@@ -2764,6 +2776,11 @@
 				
 				updateWireFrame();
 			}
+			
+			var clickCanvasColor = function(){
+				  svgCanvas.clearSelection();
+				  $('#tool_canvas').trigger("click")
+			};
 			
 			var minimizeModal = function() {
         
@@ -3513,10 +3530,12 @@
 			  if (type == "fill") cur = curConfig['initFill'];
 			  if (type == "canvas" && background) {
           var rgb = background.getAttribute("fill").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-          var hex = ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-                         ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-                         ("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
-          cur = {color: hex, opacity: 1}
+          if (rgb) {
+            var hex = ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+                           ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+                           ("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
+            cur = {color: hex, opacity: 1}
+          }
 			  }
 
 
@@ -4111,14 +4130,19 @@
 					{sel:'#tool_move_down', fn: moveDownSelected, evt:'click', key: [modKey+'down', true]},
 					{sel:'#tool_topath', fn: convertToPath, evt: 'click'},
 					{sel:'#tool_make_link,#tool_make_link_multi', fn: makeHyperlink, evt: 'click'},
-					{sel:'#tool_undo', fn: clickUndo, evt: 'click'},
-					{sel:'#tool_redo', fn: clickRedo, evt: 'click', key: ['Y', true]},
 					{sel:'#tool_clone,#tool_clone_multi', fn: clickClone, evt: 'click', key: [modKey + 'D', true]},
 					{sel:'#tool_group', fn: clickGroup, evt: 'click', key: [modKey + 'G', true]},
 					{sel:'#tool_ungroup', fn: clickGroup, evt: 'click', key: modKey + 'shift+G'},
 					{sel:'#tool_unlink_use', fn: clickGroup, evt: 'click'},
 					{sel:'[id^=tool_align]', fn: clickAlign, evt: 'click'},
-					{sel:'#tool_switch', fn: clickSwitch, evt: 'click', key: ['X', true]},
+					{sel:'#tool_switch', fn: clickSwitch, evt: 'click', key: ['shift+x', true]},
+					{sel:'#tool_undo', fn: clickUndo, evt: 'click', key: modKey + 'z'},
+					{sel:'#tool_redo', fn: clickRedo, evt: 'click', key: ['y', true]},
+					{sel:'#tool_canvas_color_menu', fn: clickCanvasColor, evt: 'click'},
+					{sel:'#tool_cut', fn: cutSelected, evt: 'click', key: modKey+'x'},
+					{sel:'#tool_copy', fn: copySelected, evt: 'click', key: modKey+'c'},
+					{sel:'#tool_paste', fn: pasteSelected, evt: 'click', key: modKey+'v'},
+					
 					// these two lines are required to make Opera work properly with the flyout mechanism
 		// 			{sel:'#tools_rect_show', fn: clickRect, evt: 'click'},
 		// 			{sel:'#tools_ellipse_show', fn: clickEllipse, evt: 'click'},
@@ -4156,15 +4180,8 @@
 					{key: modKey + 'A', fn: function(){svgCanvas.selectAllInCurrentLayer();}},
 
 					// Standard shortcuts
-					{key: modKey + 'z', fn: clickUndo},
 					{key: modKey + 'shift+z', fn: clickRedo},
-					{key: modKey + 'y', fn: clickRedo},
-					{key: 'esc', fn: minimizeModal},
-					{key: modKey+'x', fn: cutSelected},
-					{key: modKey+'c', fn: copySelected},
-					{key: modKey+'v', fn: pasteInCenter}
-					
-
+					{key: 'esc', fn: minimizeModal}
 				];
 				
 				// Tooltips not directly associated with a single function

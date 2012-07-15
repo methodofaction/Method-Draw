@@ -331,9 +331,11 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
   			'element': 'circle',
   			'attr': {
   				'id': 'selectorGrip_rotate_' + dir,
-  				'fill': 'transparent',
+  				'fill': '#000',
   				'r': 8,
-  				'stroke': 'transparent',
+  				'stroke': '#000',
+  				"fill-opacity": 0,
+  				"stroke-opacity": 0,
   				'stroke-width': 0,
   				'style': 'cursor:url(' + config_.imgPath + 'rotate.png) 12 12, auto;'
   			}

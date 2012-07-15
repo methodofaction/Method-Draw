@@ -65,7 +65,8 @@
 				snappingStep: 10,
 				showRulers: true,
 				show_outside_canvas: false,
-				no_save_warning: true
+				no_save_warning: true,
+				initFont: 'Sans-serif'
 			},
 			uiStrings = Editor.uiStrings = {
 				common: {
@@ -4180,7 +4181,7 @@
 
 					// Standard shortcuts
 					{key: modKey + 'shift+z', fn: clickRedo},
-					{key: 'esc', fn: minimizeModal},
+					{key: 'esc', fn: minimizeModal}
 				];
 				
 				// Tooltips not directly associated with a single function
