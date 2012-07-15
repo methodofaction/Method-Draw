@@ -2101,7 +2101,6 @@
         return false;
       }
       var closer = function(e){
-        
         //Method of Action specific to detect when the iframe has focus
         if (top != self && !e.isTrigger) {
             if(typeof top.exports.setEditorFocus == 'function') {
@@ -2113,10 +2112,14 @@
               blinker(e);
               return;
             }
+            else {
+              $('#menu_bar').removeClass('active')
+            }
             if ($("#tools_shapelib").is(":visible") && !$(e.target).parents("#tools_shapelib_show, #tools_shapelib").length)
               $("#tools_shapelib").hide()
             if (e.target.nodeName.toLowerCase() != "input") $("input").blur();
           }
+          
       }
       
 
