@@ -6711,8 +6711,8 @@ this.setResolution = function(x, y) {
 	  if (background) {
 	    background.setAttribute("x", -1)
 	    background.setAttribute("y", -1)
-	    background.setAttribute("width", x+1)
-	    background.setAttribute("height", y+1)
+	    background.setAttribute("width", x+2)
+	    background.setAttribute("height", y+2)
 	  }
 		call("changed", [svgcontent]);
 	}
@@ -7025,7 +7025,6 @@ this.setPaint = function(type, paint) {
 	// make a copy
 	var p = new $.jGraduate.Paint(paint);
 	this.setPaintOpacity(type, p.alpha/100, true);
-
 	// now set the current paint object
 	cur_properties[type + '_paint'] = p;
 	switch ( p.type ) {
@@ -7037,7 +7036,7 @@ this.setPaint = function(type, paint) {
 			else {
 			  this.setColor(type, "none");
 			  var selector = (type == "fill") ? "#fill_color rect" : "#stroke_color rect" 
-			  document.querySelector(selector).setAttribute('fill', 'transparent');
+			  document.querySelector(selector).setAttribute('fill', 'none');
 			}
 			break;
 		case "linearGradient":

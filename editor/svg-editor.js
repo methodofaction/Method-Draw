@@ -1402,10 +1402,10 @@
   			cur_shape = svgCanvas.addSvgElementFromJson({
   				"element": "rect",
   				"attr": {
-  					"x": 0,
-  					"y": 0,
-  					"width": res.w,
-  					"height": res.h,
+  					"x": -1,
+  					"y": -1,
+  					"width": res.w+2,
+  					"height": res.h+2,
   					"stroke": "none",
   					"id": "canvas_background",
   					"opacity": 1,

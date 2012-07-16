@@ -49,6 +49,35 @@ svgEditor.addExtension("eyedropper", function(S) {
 
 		}
 		
+		var getPaint = function(color, opac, type) {
+			// update the editor's fill paint
+			var opts = null;
+			if (color.indexOf("url(#") === 0) {
+				var refElem = svgCanvas.getRefElem(color);
+				if(refElem) {
+					refElem = refElem.cloneNode(true);
+				} else {
+					refElem =  $("#" + type + "_color defs *")[0];
+				}
+
+				opts = { alpha: opac };
+				opts[refElem.tagName] = refElem;
+			} 
+			else if (color.indexOf("#") === 0) {
+				opts = {
+					alpha: opac,
+					solidColor: color.substr(1)
+				};
+			}
+			else {
+				opts = {
+					alpha: opac,
+					solidColor: 'none'
+				};
+			}
+			return new $.jGraduate.Paint(opts);
+		};
+		
 		return {
 			name: "eyedropper",
 			svgicons: "extensions/eyedropper-icon.xml",
@@ -100,6 +129,12 @@ svgEditor.addExtension("eyedropper", function(S) {
 						if (currentStyle.opacity) 			change(opts.selectedElements[0], "opacity", currentStyle.opacity);
 						if (currentStyle.strokeLinecap) 	change(opts.selectedElements[0], "stroke-linecap", currentStyle.strokeLinecap);
 						if (currentStyle.strokeLinejoin) 	change(opts.selectedElements[0], "stroke-linejoin", currentStyle.strokeLinejoin);
+						
+						var fill = getPaint(currentStyle.fillPaint, currentStyle.fillOpacity*100, "fill")
+						var stroke = getPaint(currentStyle.strokePaint, currentStyle.strokeOpacity*100, "stroke")
+						
+						svgCanvas.setPaint("fill", fill)
+						svgCanvas.setPaint("stroke", stroke)
 						
 						addToHistory(new ChangeElementCommand(target, changes));
 					}
