@@ -1900,7 +1900,7 @@ span.zoom_tool img {
 }
 
 #workarea.fhpath {
-  cursor: url(images/pencil.png) 0 20, crosshair;
+  cursor: url(images/pencil_cursor.png) 0 20, crosshair;
 }
 
 #workarea.rotate * {
