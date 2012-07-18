@@ -1902,7 +1902,7 @@ span.zoom_tool img {
 }
 
 #workarea.eyedropper {
-  cursor: url(images/eyedropper.png), crosshair;
+  cursor: url(images/eyedropper.png) 0 16, crosshair;
 }
 
 #workarea.fhpath {
