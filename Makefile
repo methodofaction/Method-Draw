@@ -73,9 +73,9 @@ $(PACKAGE): $(COMPILED_JS) $(COMPILED_CSS)
 # NOTE: WHITESPACE_ONLY and --formatting PRETTY_PRINT is helpful for debugging.
 
 $(COMPILED_CSS):
-	java -jar $(YUICOMPRESSOR) \
-		$(CSS_INPUT_FILES) \
-		-o $(COMPILED_CSS)
+	cat $(CSS_INPUT_FILES) > editor/temp.css;
+	java -jar $(YUICOMPRESSOR) editor/temp.css -o $(COMPILED_CSS);
+	rm editor/temp.css;
 
 $(COMPILED_JS):
 	java -jar $(CLOSURE) \

@@ -1039,7 +1039,7 @@
 						
 						// create the panel if it doesn't exist
 						if(!panel.length)
-							panel = $('<div>', {id: tool.panel}).appendTo("#tools_top");
+							panel = $('<div>', {id: tool.panel}).appendTo("#tools_top").hide();
 						
 						// TODO: Allow support for other types, or adding to existing tool
 						switch (tool.type) {
@@ -1409,7 +1409,7 @@
   					"stroke": "none",
   					"id": "canvas_background",
   					"opacity": 1,
-  					"fill": fill || $.pref('bkgd_color'),
+  					"fill": fill || "#fff",
   					"style": "pointer-events:none"
   				}
   			});
@@ -1419,16 +1419,7 @@
 			
 			// create a new layer background if it doesn't exist
 			if (!document.getElementById('canvas_background')) createBackground();
-			else {
-			  var fill = document.getElementById('canvas_background').getAttribute("fill");
-			  
-			}
-			if($.pref('bkgd_color')) {
-				setBackground($.pref('bkgd_color'), $.pref('bkgd_url'));
-			} else if($.pref('bkgd_url')) {
-				// No color set, only URL
-				setBackground(defaultPrefs.bkgd_color, $.pref('bkgd_url'));
-			}
+			var fill = document.getElementById('canvas_background').getAttribute("fill");
 			
 			// updates the toolbar (colors, opacity, etc) based on the selected element
 			// This function also updates the opacity and id elements that are in the context panel
@@ -3525,7 +3516,7 @@
 
 			var PaintBox = function(container, type) {
 			  var background = document.getElementById("canvas_background");
-			  var cur = {color: "#fff", opacity: 1}
+			  var cur = {color: "fff", opacity: 1}
 			  if (type == "stroke") cur = curConfig['initStroke'];
 			  if (type == "fill") cur = curConfig['initFill'];
 			  if (type == "canvas" && background) {
@@ -3537,7 +3528,6 @@
             cur = {color: hex, opacity: 1}
           }
 			  }
-
 
 				// set up gradients to be used for the buttons
 				var svgdocbox = new DOMParser().parseFromString(

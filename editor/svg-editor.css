@@ -874,8 +874,12 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   stroke: transparent !important;
 }
 
-#tools_top div[id$="_panel"]:not(#canvas_panel) {
+.context_panel {
 	display: none;
+}
+
+#canvas_panel {
+	display: block;
 }
 
 #svg_editor #multiselected_panel .selected_tool {

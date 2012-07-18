@@ -222,7 +222,7 @@ $(function(){
 
 <div id="tools_top" class="tools_panel">
 
-	<div id="canvas_panel">
+	<div id="canvas_panel" class="context_panel">
 	  
 		<div class="toolset">
 		  <h4>Canvas</h4>
@@ -251,7 +251,7 @@ $(function(){
 
 	</div>
 	
-	<div id="rect_panel">
+	<div id="rect_panel" class="context_panel">
 	  <h4>Rectangle</h4>
 		<div class="toolset">
 			<label id="rect_width_tool" title="Change rectangle width">
@@ -269,11 +269,11 @@ $(function(){
 		</label>
 	</div>
 	
-	<div id="path_panel">
+	<div id="path_panel" class="context_panel">
 	  <h4>Path</h4>
 	</div>
 
-	<div id="image_panel">
+	<div id="image_panel" class="context_panel">
 	<h4>Image</h4>
 	<div class="toolset">
 		<label><span class="icon_label">Width</span>
@@ -294,7 +294,7 @@ $(function(){
 	</div>
   </div>
 
-	<div id="circle_panel">
+	<div id="circle_panel" class="context_panel">
 		<div class="toolset">
 			<label id="tool_circle_cx"><span class="icon_label">cx:</span>
 			<input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" size="3" data-attr="cx" type="number"/>
@@ -310,7 +310,7 @@ $(function(){
 		</div>
 	</div>
 
-	<div id="ellipse_panel">
+	<div id="ellipse_panel" class="context_panel">
 	  <h4>Ellipse</h4>
 		<div class="toolset">
 			<label id="tool_ellipse_cx"><span>X</span>
@@ -330,7 +330,7 @@ $(function(){
 		</div>
 	</div>
 
-	<div id="line_panel">
+	<div id="line_panel" class="context_panel">
 	  <h4>Line</h4>
 		<div class="toolset">
 			<label id="tool_line_x1"><span>Start X</span>
@@ -350,7 +350,7 @@ $(function(){
 		</div>
 	</div>
 
-	<div id="text_panel">
+	<div id="text_panel" class="context_panel">
 	  <h4>Text</h4>
 		
 		<div class="toolset" id="tool_font_family">
@@ -390,7 +390,7 @@ $(function(){
 	</div>
 
 	<!-- formerly gsvg_panel -->
-	<div id="container_panel">
+	<div id="container_panel" class="context_panel">
 
 		<!-- Add viewBox field here? -->
 
@@ -401,23 +401,23 @@ $(function(){
 		</label>
 	</div>
 	
-	<div id="use_panel">
+	<div id="use_panel" class="context_panel">
 		<div class="push_button" id="tool_unlink_use" title="Break link to reference element (make unique)"></div>
 	</div>
 	
-	<div id="g_panel">
+	<div id="g_panel" class="context_panel">
 		<h4>Group</h4>
 	</div>
 
 	<!-- For anchor elements -->
-	<div id="a_panel">
+	<div id="a_panel" class="context_panel">
 		<label id="tool_link_url" title="Set link URL (leave empty to remove)">
 			<span id="linkLabel" class="icon_label"></span>
 			<input id="link_url" type="text" size="35"/>
 		</label>	
 	</div>
 	
-	<div id="path_node_panel">
+	<div id="path_node_panel" class="context_panel">
 	  <h4>Edit Path</h4>
 		<div class="tool_sep"></div>
 		<div class="tool_button push_button_pressed" id="tool_node_link" title="Link Control Points"><input type="checkbox" checked> Linked Control Points</div>
@@ -441,7 +441,7 @@ $(function(){
 	</div>
 	
 	<!-- Buttons when a single element is selected -->
-	<div id="selected_panel">
+	<div id="selected_panel" class="context_panel">
 
 		<label id="tool_angle" title="Change rotation angle" class="toolset">
 			<span class="icon_label">Rotation</span>
@@ -532,7 +532,7 @@ $(function(){
   				</div>
 				</label>
 		</div>		
-		<div id="xy_panel" class="toolset">
+		<div id="xy_panel" class="toolset" class="context_panel">
 		  <h4>Position</h4>
 			<label>
 				<span>X:</span> <input id="selected_x" class="attr_changer" title="Change X coordinate" size="3" data-attr="x" type="number"/>
@@ -544,7 +544,7 @@ $(function(){
 	</div>
 	
 	<!-- Buttons when multiple elements are selected -->
-	<div id="multiselected_panel">
+	<div id="multiselected_panel" class="context_panel">
 	  <h4>Multiple Elements</h4>
 		<!--<div class="tool_sep"></div> -->
 		<!--<div class="push_button" id="tool_clone_multi" title="Clone Elements [C]"></div> -->
