@@ -3,7 +3,7 @@ VERSION=2.6
 PACKAGE=$(NAME)
 MAKEDOCS=naturaldocs/NaturalDocs
 CLOSURE=build/tools/closure-compiler.jar
-YUICOMPRESSOR=build/tools/yuicompressor.jar
+YUICOMPRESSOR=build/tools/yuicompressor-2.4.7.jar
 
 # All files that will be compiled by the Closure compiler.
 
@@ -74,8 +74,7 @@ $(PACKAGE): $(COMPILED_JS) $(COMPILED_CSS)
 
 $(COMPILED_CSS):
 	cat $(CSS_INPUT_FILES) > editor/temp.css;
-	java -jar $(YUICOMPRESSOR) editor/temp.css -o $(COMPILED_CSS);
-	rm editor/temp.css;
+	java -jar $(YUICOMPRESSOR) editor/temp.css -o $(COMPILED_CSS) --line-break 0;
 
 $(COMPILED_JS):
 	java -jar $(CLOSURE) \

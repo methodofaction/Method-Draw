@@ -316,11 +316,6 @@ font-size: 11px;
 	cursor:ew-resize;
 }
 
-
-#svg_editor .jGraduate_gradPick .jGraduate_OkCancel {
-
-}
-
 #svg_editor .jPicker .Button .Ok, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Ok  {
   margin: 0;
   position: absolute;
@@ -328,7 +323,7 @@ font-size: 11px;
   right: 15px;
 }
 
-#svg_editor .jPicker .Button .Cancel, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel  {
+#svg_editor .jPicker .Button .Cancel, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel {
   margin: 0;
   position: absolute;
   bottom: 15px;

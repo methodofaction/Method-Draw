@@ -1,3 +1,649 @@
+@font-face {
+	font-family: 'Fanwood';
+	src: url('font-files/fanwood-webfont.eot');
+	src: local('☺'), url('font-files/fanwood-webfont.woff') format('woff'), url('font-files/fanwood-webfont.ttf') format('truetype'), url('font-files/fanwood-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/fanwood-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Fanwood';
+	src: url('font-files/fanwood_italic-webfont.eot');
+	src: local('☺'), url('font-files/fanwood_italic-webfont.woff') format('woff'), url('font-files/fanwood_italic-webfont.ttf') format('truetype'), url('font-files/fanwood_italic-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/fanwood_italic-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Junction';
+	src: url('font-files/Junction-webfont.eot');
+	src: local('☺'), url('font-files/Junction-webfont.woff') format('woff'), url('font-files/Junction-webfont.ttf') format('truetype'), url('font-files/Junction-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/Junction-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'League Gothic';
+	src: url('font-files/League_Gothic-webfont.eot');
+	src: local('☺'), url('font-files/League_Gothic-webfont.woff') format('woff'), url('font-files/League_Gothic-webfont.ttf') format('truetype'), url('font-files/League_Gothic-webfont.svgz#webfont37hojTTp') format('svg'), url('font-files/League_Gothic-webfont.svg#webfont37hojTTp') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Museo Slab';
+	src: url('font-files/Museo_Slab-webfont.eot');
+	src: local('☺'), url('font-files/Museo_Slab-webfont.woff') format('woff'), url('font-files/Museo_Slab-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Museo Slab';
+	src: url('font-files/Museo_Slab_Italic-webfont.eot');
+	src: local('☺'), url('font-files/Museo_Slab_Italic-webfont.woff') format('woff'), url('font-files/Museo_Slab_Italic-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Anivers';
+	src: url('font-files/Anivers-webfont.eot');
+	src: local('☺'), url('font-files/Anivers-webfont.woff') format('woff'), url('font-files/Anivers-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Fertigo';
+	src: url('font-files/fertigo-webfont.eot');
+	src: local('☺'), url('font-files/fertigo-webfont.woff') format('woff'), url('font-files/fertigo-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+#svg_editor .jPicker .Icon {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    text-align: left;
+    width: 25px;
+}
+#svg_editor .jPicker .Icon span.Color, #svg_editor .jPicker .Icon span.Alpha {
+    background-position: 2px 2px;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%}
+#svg_editor .jPicker .Icon span.Image {
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%}
+#svg_editor .jPicker.Container {
+    z-index: 10;
+}
+
+table#svg_editor .jPicker {
+    width: 545px;
+     z-index: 20;
+}
+
+#svg_editor .jPicker .Move {
+    background-color: #ddd;
+    border-color: #fff #666 #666 #fff;
+    border-style: solid;
+    border-width: 1px;
+    cursor: move;
+    height: 12px;
+    padding: 0;
+}
+#svg_editor .jPicker .Title {
+    display:  none;
+}
+
+#svg_editor .jPicker div.Map {
+    
+  border:  solid #000 1px;
+     
+  cursor: crosshair;
+    
+  height: 260px;
+    
+  margin: 0;
+    
+  overflow: hidden;
+    
+  padding: 0;
+    
+  position: relative;
+    
+  width: 260px;
+    
+}
+#svg_editor .jPicker div[class="Map"] {
+    height: 256px;
+    width: 256px;
+}
+#svg_editor .jPicker div.Bar {
+    border:  solid #000 1px;
+     cursor: n-resize;
+    height: 260px;
+    margin: 0 15px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 24px;
+}
+#svg_editor .jPicker div[class="Bar"] {
+    height: 256px;
+    width: 20px;
+}
+#svg_editor .jPicker .Map .Map1, #svg_editor .jPicker .Map .Map2, #svg_editor .jPicker .Map .Map3, #svg_editor .jPicker .Bar .Map1, #svg_editor .jPicker .Bar .Map2, #svg_editor .jPicker .Bar .Map3, #svg_editor .jPicker .Bar .Map4, #svg_editor .jPicker .Bar .Map5, #svg_editor .jPicker .Bar .Map6 {
+    background-color: transparent;
+    background-image: none;
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+#svg_editor .jPicker .Map .Map1, #svg_editor .jPicker .Map .Map2, #svg_editor .jPicker .Map .Map3 {
+    height: 2596px;
+    width: 256px;
+}
+#svg_editor .jPicker .Bar .Map1, #svg_editor .jPicker .Bar .Map2, #svg_editor .jPicker .Bar .Map3, #svg_editor .jPicker .Bar .Map4 {
+    height: 3896px;
+    width: 20px;
+}
+#svg_editor .jPicker .Bar .Map5, #svg_editor .jPicker .Bar .Map6 {
+    height: 256px;
+    width: 20px;
+}
+#svg_editor .jPicker .Map .Map1, #svg_editor .jPicker .Map .Map2, #svg_editor .jPicker .Bar .Map6 {
+    background-repeat: no-repeat;
+}
+#svg_editor .jPicker .Map .Map3, #svg_editor .jPicker .Bar .Map5 {
+    background-repeat: repeat;
+}
+#svg_editor .jPicker .Bar .Map1, #svg_editor .jPicker .Bar .Map2, #svg_editor .jPicker .Bar .Map3, #svg_editor .jPicker .Bar .Map4 {
+    background-repeat: repeat-x;
+}
+#svg_editor .jPicker .Map .Arrow {
+    display: block;
+    position: absolute;
+}
+#svg_editor .jPicker .Bar .Arrow {
+    display: block;
+    left: 0;
+    position: absolute;
+}
+#svg_editor .jPicker .Preview {
+    font-size: 9px;
+    text-align: center;
+}
+#svg_editor .jPicker .Preview div.bgt  {
+    height: 62px;
+    margin: 0 auto;
+    padding: 0;
+    width: 62px;
+}
+
+
+#svg_editor .jPicker .Preview div span {
+    border: 1px solid #000;
+    display: block;
+    height: 30px;
+    margin: 0 auto;
+    padding: 0;
+    width: 60px;
+}
+#svg_editor .jPicker .Preview .Active {
+    border-bottom-width: 0;
+}
+#svg_editor .jPicker .Preview .Current {
+    border-top-width: 0;
+    cursor: pointer;
+}
+#svg_editor .jPicker .Button {
+    text-align: center;
+    width: 115px;
+}
+#svg_editor .jPicker .Button input {
+    width: 100px;
+}
+#svg_editor .jPicker .Button .Ok {
+    margin: 0 0 5px 0;
+}
+#svg_editor .jPicker td.Radio {
+    margin: 0;
+    padding: 0;
+    width: 31px;
+}
+#svg_editor .jPicker td.Radio input {
+    margin: 0 5px 0 0;
+    padding: 0;
+}
+#svg_editor .jPicker td.Text {
+    font-size: 12px!important;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    width: 70px;
+}
+#svg_editor .jPicker tr.Hex td.Text {
+    width: 100px;
+    color: #666;
+}
+
+#svg_editor .jPicker tr.Hex td.Text span {
+    width: 100px;
+    color: #333;
+}
+#svg_editor .jPicker td.Text input {
+    background-color: #fff;
+    border: 1px inset #aaa;
+    height: 15px;
+    margin: 0 0 0 5px;
+    text-align: left;
+    width: 30px;
+    color: #333;
+}
+
+#svg_editor #color_picker .jPicker tr.Hex td.Text input.Hex {
+    width: 50px;
+    display: inline-block;
+    float: none;
+}
+
+#svg_editor .jPicker tr.Hex td.Text input.AHex {
+    width: 20px;
+    display: none;
+}
+#svg_editor .jPicker .Grid {
+    text-align: center;
+    float: right;
+    width: 108px;
+}
+#svg_editor .jPicker .Grid span.QuickColor {
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    line-height: 15px;
+    margin: 0;
+    padding: 0;
+    width: 18px;
+}
+#svg_editor .jPicker td  {
+  vertical-align:  top;
+}
+#svg_editor .jPicker td.colorsquare  {
+  width:  275px;
+}
+
+#svg_editor .jPicker .prev_div  {
+  margin-top:  -15px;
+}
+
+#svg_editor .jPicker .actions {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+#svg_editor .jPicker .actions .Ok{
+  position: absolute;
+  top: 0;
+  right: 0px;
+}
+
+#svg_editor .jPicker .actions .Cancel{
+  position: absolute;
+  top: 0;
+  left: 0px;
+}
+
+#svg_editor .jPicker .color_preview {
+  width: 62px;
+  margin: 0 auto;
+}
+/* 
+ * jGraduate Default CSS
+ * 
+ * Copyright (c) 2010 Jeff Schiller
+ * http://blog.codedread.com/
+ *
+ * Copyright (c) 2010 Alexis Deveria
+ * http://a.deveria.com/
+ *
+ * Licensed under the Apache License Version 2
+ */
+
+#svg_editor h2.jGraduate_Title {
+  display: none;
+}
+
+#svg_editor .jGraduate_Picker {
+	position: absolute;
+	padding: 20px;
+}
+
+#svg_editor .jGraduate_tabs li {
+	display: inline-block;
+	padding: 5px 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+#svg_editor li.jGraduate_tab_current {
+  background: #fff;
+  border-radius: 3px 3px 0 0;
+}
+
+#svg_editor .jGraduate_colPick {
+	display: none;
+}
+
+#svg_editor .jGraduate_gradPick {	
+	display: none;
+	overflow: visible;
+/*	position: relative;*/
+}
+
+#svg_editor .jGraduate_tabs {
+	position: relative;
+	background-color: #ddd;
+	padding: 10px 10px 0 10px;
+	margin: -20px -20px 20px -20px;
+	border-radius: 3px 3px 0 0;
+}
+
+#svg_editor div.jGraduate_Swatch {
+	float: left;
+	margin: 0 15px 0 0;
+}
+#svg_editor div.jGraduate_GradContainer {
+	border: solid #000 1px;
+	background-image: url(../images/map-opacity.png); 
+	background-position: 0px 0px;
+	height: 256px;
+	width: 256px;
+	position: relative;
+}
+
+#svg_editor div.jGraduate_GradContainer div.grad_coord {
+  background: rgba(0,0,0,0.8);
+  border: 2px solid white;
+  border-radius: 15px;
+  -moz-border-radius: 5px;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  margin: -7px -7px;
+  top: 0;
+  left: 0;
+  text-align: center;
+  font-size: 8px;
+  line-height: 14px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+#svg_editor .jGraduate_AlphaArrows {
+	position: absolute;
+	margin-top: -10px;
+	margin-left: 250.5px;
+}
+
+#svg_editor div.jGraduate_Opacity {
+	border: 2px inset #eee;
+	margin-top: 14px;
+	background-color: black;
+	background-image: url(../images/Maps.png);
+	background-position: 0px -2816px;
+	height: 20px;
+	cursor: ew-resize;
+}
+
+#svg_editor div.jGraduate_StopSlider {
+	margin: -10px 0 0 -10px;
+	width: 276px;
+	overflow: visible;
+	background: white;
+	height: 45px;
+	cursor: pointer;
+}
+
+#svg_editor div.jGraduate_StopSection {
+	width: 120px;
+	float: left;
+}
+
+#svg_editor div.jGraduate_StopSection.jGraduate_SpreadMethod {
+  display: none;
+}
+
+#svg_editor input.jGraduate_Ok, input.jGraduate_Cancel {
+	display: block;
+	width: 100px;
+}
+#svg_editor input.jGraduate_Ok {
+	margin: 0 0 5px 0;
+}
+
+#svg_editor .colorBox {
+	float: left;
+	height: 16px;
+	width: 16px;
+	border: 1px solid #808080;
+	cursor: pointer;
+	margin: 4px 4px 4px 30px;
+}
+
+#svg_editor .colorBox + label {
+	float: left;
+	margin-top: 7px;
+}
+
+#svg_editor label.jGraduate_Form_Heading {
+
+  color: #333;
+	padding: 2px;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#svg_editor div.jGraduate_Form_Section {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 15px 5px 5px 5px;
+	margin: 5px 2px;
+	width: 100px;
+	text-align: center;
+	overflow: auto;
+	background: #eee;
+}
+
+#svg_editor div.jGraduate_Form label {
+	padding: 0 2px;
+	color: #333;
+}
+
+#svg_editor div.jGraduate_StopSection input[type=text],
+#svg_editor div.jGraduate_Slider input[type=text] {
+	width: 33px;
+	color: #333;
+}
+
+#svg_editor div.jGraduate_LightBox {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: #000;
+	opacity: 0.5;
+	display: none;
+}
+
+#svg_editor div.jGraduate_stopPicker {
+  position: absolute;
+  display: none;
+  background: 
+  white;
+  padding: 20px;
+  border-radius: 3px;
+  width: 530px;
+  height: 300px;
+  box-shadow: 0 5px 25px 
+  black;
+}
+
+
+#svg_editor .jGraduate_gradPick {
+	width: 526px;
+}
+
+#svg_editor .jGraduate_gradPick div.jGraduate_Slider {
+	line-height: 160%
+}
+
+#svg_editor .jGraduate_gradPick div.jGraduate_Slider label:last-child {
+	position: absolute;
+	right: 10px;
+	top: 0;
+	color: #999;
+	font-weight: bold;
+}
+
+#svg_editor .jGraduate_gradPick div.jGraduate_Slider label:last-child input {
+  margin: 0 3px 0 0;
+  color: #333;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Form {
+	float: left;
+	width: 270px;
+	position: absolute;
+	left: 284px;
+	width: 266px;
+	height: 200px;
+	top: 195px;
+	margin: -3px 3px 0px 10px;
+	line-height: 200%;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Form label,
+#svg_editor .jGraduate_gradPick .jGraduate_Form input {
+  width: auto;
+  float: left;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field label, #svg_editor .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field input {
+width: auto;
+float: left;
+font-size: 11px;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field #color_picker_jGraduate_match_ctr {
+  float: none;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Form label {
+  clear: left;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Points {
+	position: static;
+	float: left;
+  margin: 0;
+  width: auto;
+	}
+
+#svg_editor .jGraduate_Colorblocks {
+	display: table;
+	border-spacing: 0 5px;
+}
+
+#svg_editor .jGraduate_colorblock {
+	display: table-row;
+}
+
+#svg_editor .jGraduate_Colorblocks .jGraduate_colorblock > * {
+	display: table-cell;
+	vertical-align: middle;
+	margin: 0;
+	float: none;
+}
+
+#svg_editor .jGraduate_gradPick .jGraduate_Form_Section {
+	padding-top: 9px;
+}
+
+
+#svg_editor .jGraduate_Slider {
+	text-align: center;
+	float: left;
+	width: 100%;
+  position: relative;
+  margin: 5px 0;
+}
+
+#svg_editor .jGraduate_Slider .jGraduate_Form_Section {
+	border: none;
+	width: 250px;
+	padding: 0 2px;
+	overflow: visible;
+}
+
+
+#svg_editor .jGraduate_Slider label.prelabel {
+	width: 40px;
+	text-align: left;
+}
+
+#svg_editor .jGraduate_SliderBar {
+	width: 140px;
+	float: left;
+	margin: 0 5px;
+	border:1px solid #BBB;
+	height:20px;
+	position: relative;
+}
+
+#svg_editor div.jGraduate_Slider input {
+	margin-top: 5px;
+}
+
+#svg_editor div.jGraduate_Slider img {
+	top: 0;
+	left: 0;
+	position: absolute;
+	cursor:ew-resize;
+}
+
+#svg_editor .jPicker .Button .Ok, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Ok  {
+  margin: 0;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+#svg_editor .jPicker .Button .Cancel, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel {
+  margin: 0;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
 /* Comment to prevent wrong concat */
 
 body {
@@ -1977,3 +2623,44 @@ span.zoom_tool img {
 
 #svg_editor #group_title {display: none;}
 
+/*
+	Styles to make ordinary <INPUT type="text"/> look like a spinbutton/spinbox control.
+	Use with JQuerySpinBtn.js to provide the spin functionality by reacting to mouse etc.
+	(Requires a reference to the JQuery library found at http://jquery.com/src/latest/)
+	(Hats-off to John Resig for creating the excellent JQuery library. It is fab.)
+
+	This control is achieved with no extra html markup whatsoever and uses unobtrusive javascript.
+
+	Written by George Adamson, Software Unity (george.jquery@softwareunity.com) September 2006.
+	Big improvements added by Mark Gibson, (mgibson@designlinks.net) September 2006.
+
+	Do contact me with comments and suggestions but please don't ask for support.
+	As much as I'd love to help with specific problems I have plenty to get on with already!
+
+	Go ahead and use it in your own projects. This code is provided 'as is'.
+	Sure I've tested in heaps of ways. Its good for me, but you use it at your own risk.
+	SoftwareUnity and I are certainly not responsible if your computer sets fire to the sofa,
+	hacks into the pentagon, hijacks a plane or gives you any kind of hassle whatsoever.
+
+	If you'd like your spin-button image in a different place then you'll need to alter both
+	the CSS below and the javascript isMouseOverUpDn() function to accommodate the new position.
+	You could even have left and right buttons either side of the textbox.
+*/
+
+INPUT.spin-button {
+	/* explicitly put padding for top/bottom/left in here so that Opera displays it better */
+	padding: 2px 20px 2px 2px;
+	background-repeat:no-repeat;		/* Warning: Img may disappear in Firefox if you use 'background-attachment:fixed' ! */
+	background-position:100% 0%;
+	background-image:url('spinbtn_updn.png');
+	background-color:white; /* Needed for Opera */
+}
+
+INPUT.spin-button.up {					/* Change button img when mouse is over the UP-arrow */
+	cursor:pointer;
+	background-position:100% -18px;		/* 18px matches height of 2 visible buttons */
+}
+INPUT.spin-button.down {				/* Change button img when mouse is over the DOWN-arrow */
+	cursor:pointer;
+	background-position:100% -36px;		/* 36px matches height of 2x2 visible buttons */
+}
