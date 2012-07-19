@@ -39,6 +39,7 @@
   <script type="text/javascript" src="sanitize.js"></script>
   <script type="text/javascript" src="history.js"></script>
   <script type="text/javascript" src="select.js"></script>
+  <script type="text/javascript" src="hover.js"></script>
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="path.js"></script>
   <script type="text/javascript" src="svgcanvas.js"></script>
@@ -48,6 +49,8 @@
   <script type="text/javascript" src="jquery-ui/jquery-ui-1.8.17.custom.min.js"></script>
   <script type="text/javascript" src="jgraduate/jpicker.min.js"></script>
   <script type="text/javascript" src="mousewheel.js"></script>
+  <script type="text/javascript" src="extensions/ext-eyedropper.js"></script>
+  <script type="text/javascript" src="extensions/ext-grid.js"></script>
 <!{endif}-->
 
 <!-- you can load extensions here -->
@@ -87,7 +90,6 @@ $(function(){
 </div>
 
 <div id="workarea">
-<style id="styleoverrides" type="text/css" media="screen" scoped="scoped"></style>
 <div id="svgcanvas" style="position:relative">
 
 </div>
@@ -182,6 +184,7 @@ $(function(){
   	<div class="menu_list" id="view_menu">
   	    <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers</div>
   	    <div class="menu_item" id="tool_wireframe">View Wireframe</div>
+  	    <div class="menu_item" id="tool_snap">Snap to Grid</div>
   	    <div class="separator"></div>
     		<div class="menu_item" id="tool_source">Source... <span class="shortcut">⌘U</span></div>
     </div>
@@ -787,18 +790,6 @@ $(function(){
 				<label>
 				  <div class="subtitle"><strong>Units &amp; Rulers</strong></div>
 				  <span id="svginfo_rulers_onoff"><input type="checkbox" value="show_rulers" id="show_rulers" checked> Show rulers</span>  
-
-					<span id="svginfo_unit">Base Unit:</span>
-					<select id="base_unit">
-						<option value="px">Pixels</option>
-						<option value="cm">Centimeters</option>
-						<option value="mm">Millimeters</option>
-						<option value="in">Inches</option>
-						<option value="pt">Points</option>
-						<option value="pc">Picas</option>
-						<option value="em">Ems</option>
-						<option value="ex">Exs</option>
-					</select>
 				</label>
 	
 		</fieldset>
@@ -807,6 +798,19 @@ $(function(){
 			<button id="tool_prefs_save">Save</button>
 		</div>
 	</div>
+</div>
+
+<div id="base_unit_container">
+  <select id="base_unit">
+  	<option value="px">Pixels</option>
+  	<option value="cm">Centimeters</option>
+  	<option value="mm">Millimeters</option>
+  	<option value="in">Inches</option>
+  	<option value="pt">Points</option>
+  	<option value="pc">Picas</option>
+  	<option value="em">Ems</option>
+  	<option value="ex">Exs</option>
+  </select>
 </div>
 
 <div id="dialog_box">

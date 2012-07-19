@@ -25,7 +25,7 @@ svgEditor.addExtension("eyedropper", function(S) {
 							strokeWidth: 5, strokeDashArray: null,
 							opacity: 1.0,
 							strokeLinecap: 'butt',
-							strokeLinejoin: 'miter',
+							strokeLinejoin: 'miter'
 							};
 		function getStyle(opts) {
 			// if we are in eyedropper mode, we don't want to disable the eye-dropper tool
@@ -86,7 +86,7 @@ svgEditor.addExtension("eyedropper", function(S) {
 				type: "mode",
 				title: "Eye Dropper Tool",
 				key: "I",
-				class: "disabled",
+				"class": "disabled",
 				events: {
 					"click": function() {
 						svgCanvas.setMode("eyedropper");
@@ -140,6 +140,6 @@ svgEditor.addExtension("eyedropper", function(S) {
 						addToHistory(batchCmd);
 					}
 				}
-			},
+			}
 		};
 });

@@ -69,7 +69,7 @@ svgEditor.addExtension("Markers", function(S) {
 		triangle:
 			{element:'path', attr:{d:'M10,80 L50,20 L80,80 Z'}},
 		mcircle:
-			{element:'circle', attr:{r:30, cx:50, cy:50}},			
+			{element:'circle', attr:{r:30, cx:50, cy:50}}
 	}
 	
 	
@@ -95,7 +95,7 @@ svgEditor.addExtension("Markers", function(S) {
 			{id: "box_o", title: "Open Box" },
 			{id: "star_o", title: "Open Star" },
 			{id: "triangle_o", title: "Open Triangle" },
-			{id: "mcircle_o", title: "Open Circle" },
+			{id: "mcircle_o", title: "Open Circle" }
 		]
 	};
 

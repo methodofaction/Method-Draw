@@ -32,6 +32,10 @@ JS_FILES=\
   jquery-ui/jquery-ui-1.8.17.custom.min.js \
   jgraduate/jpicker.min.js \
   mousewheel.js \
+	extensions/ext-eyedropper.js \
+	extensions/ext-markers.js \
+	extensions/ext-grid.js \
+	extensions/ext-imagelib.js \
 
 CSS_FILES=\
   fonts.css \
