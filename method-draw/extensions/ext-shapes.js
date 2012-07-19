@@ -31,7 +31,7 @@ svgEditor.addExtension("shapes", function() {
 		music: 'Music',
 		weather: 'Weather &amp; Time',
 		ui: 'User Interface',
-		social: 'Social Web',
+		social: 'Social Web'
 	};
 	
 	var library = {

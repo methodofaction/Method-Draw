@@ -35,7 +35,7 @@ JS_FILES=\
 	extensions/ext-eyedropper.js \
 	extensions/ext-markers.js \
 	extensions/ext-grid.js \
-	extensions/ext-imagelib.js \
+	extensions/ext-shapes.js \
 
 CSS_FILES=\
   fonts.css \
