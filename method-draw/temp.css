@@ -2623,7 +2623,11 @@ span.zoom_tool img {
 
 #svg_editor #group_title {display: none;}
 
-/*
+#base_unit_container {
+	display: none;
+	position: absolute;
+	z-index: 20;
+}/*
 	Styles to make ordinary <INPUT type="text"/> look like a spinbutton/spinbox control.
 	Use with JQuerySpinBtn.js to provide the spin functionality by reacting to mouse etc.
 	(Requires a reference to the JQuery library found at http://jquery.com/src/latest/)

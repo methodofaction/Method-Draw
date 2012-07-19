@@ -20,7 +20,7 @@ svgEditor.addExtension("view_grid", function(s) {
 			svgroot = s.svgroot;
 
 	var showGrid = false;
-    var assignAttributes = svgCanvas.assignAttributes;
+    var assignAttributes = s.assignAttributes;
     
     var hcanvas = document.createElement('canvas');
     $(hcanvas).hide().appendTo('body');

@@ -103,7 +103,6 @@ svgEditor.addExtension("shapes", function() {
 	}
 	
 	function makeButtons(cat, shapes) {
-	  $('.tool_button, .tool_button_current').addClass("loaded")
 		var size = cur_lib.size || 300;
 		var fill = cur_lib.fill || false;
 		var off = size * .05;

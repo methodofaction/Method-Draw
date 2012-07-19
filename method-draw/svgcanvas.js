@@ -408,6 +408,8 @@ svgedit.select.init(curConfig, {
 });
 // this object manages selectors for us
 var selectorManager = this.selectorManager = svgedit.select.getSelectorManager();
+// this object manages selectors for us
+var hoverManager = this.hoverManager = svgedit.select.getSelectorManager();
 
 // Import from path.js
 svgedit.path.init({
@@ -573,7 +575,8 @@ this.addExtension = function(name, ext_func) {
 			svgroot: svgroot,
 			svgcontent: svgcontent,
 			nonce: getCurrentDrawing().getNonce(),
-			selectorManager: selectorManager
+			selectorManager: selectorManager,
+			hoverManager: hoverManager
 		}));
 		} else {
 			var ext = ext_func;
@@ -2370,7 +2373,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   but the action is not recorded until mousing up
 	// - when we are in select mode, select the element, remember the position
 	//   and do nothing else
-	var mouseDown = function(evt)
+	var mouseDown = mosueOver = function(evt)
 	{
 		if(canvas.spaceKey || evt.button === 1) return;
 		
@@ -3158,6 +3161,18 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 		});
 
 	}; // mouseMove()
+	
+	
+	// mouseover mode
+	var mouseOver = function(evt) {
+	  if (evt.button) return;
+	  elem = evt.target;
+	  var clone = elem.cloneNode(true);
+	  clone.setAttribute("fill", "none");
+	  clone.setAttribute("stroke", "#09f")
+    clone.setAttribute("stroke-width", "1")
+    elem.selectorParentGroup.appendChild(clone)
+	}
 	
 	// - in create mode, the element's opacity is set properly, we create an InsertElementCommand
 	//   and store it on the Undo stack

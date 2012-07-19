@@ -52,10 +52,10 @@
 				},
 				initOpacity: 1,
 				imgPath: 'images/',
-				langPath: 'locale/',
 				extPath: 'extensions/',
 				jGraduatePath: 'jgraduate/images/',
-				extensions: ['ext-markers.js', 'ext-eyedropper.js', 'ext-shapes.js', 'ext-grid.js'],
+				//extensions: ['ext-markers.js', 'ext-eyedropper.js', 'ext-shapes.js', 'ext-grid.js'],
+				extensions: [],
 				initTool: 'select',
 				wireframe: false,
 				colorPickerCSS: false,
@@ -281,15 +281,6 @@
 						}
 					});
 				});
-				
-				var good_langs = [];
-	
-				$('#lang_select option').each(function() {
-					good_langs.push(this.value);
-				});
-				
-	// 			var lang = ('lang' in curPrefs) ? curPrefs.lang : null;
-				Editor.putLocale(null, good_langs);
 			}
 			
 			// Load extensions
@@ -443,7 +434,7 @@
 					$('.toolbar_button button > svg, .toolbar_button button > img').each(function() {
 						$(this).parent().prepend(this);
 					});
-					
+					$('.tool_button, .tool_button_current').addClass("loaded")
 					var tleft = $('#tools_left');
 					if (tleft.length != 0) {
 						var min_height = tleft.offset().top + tleft.outerHeight();
@@ -472,9 +463,27 @@
 					}, 1);
 				}
 			});
+			
+			$('#rulers').on("dblclick", function(e){
+			  $("#base_unit_container").css({
+			    top: e.pageY-10,
+			    left: e.pageX-50,
+			    display: 'block'
+		    })
+			})
+			$("#base_unit_container")
+  			.on("mouseleave mouseenter", function(e){
+  			  t = setTimeout(function(){$("#base_unit_container").fadeOut(500)}, 200)
+  			  if(event.type == "mouseover") clearTimeout(t)  
+  			})
+  		$("#base_unit")
+    		.on("change", function(e) {
+    			savePreferences();
+    		});
 
 			Editor.canvas = svgCanvas = new $.SvgCanvas(document.getElementById("svgcanvas"), curConfig);
 			Editor.show_save_warning = false;
+			Editor.paintBox = {fill: null, stroke:null, canvas:null};
 			var palette = ["#000000", "#3f3f3f", "#7f7f7f", "#bfbfbf", "#ffffff",
 			           "#ff0000", "#ff7f00", "#ffff00", "#7fff00",
 			           "#00ff00", "#00ff7f", "#00ffff", "#007fff",
@@ -500,8 +509,7 @@
 				zoomInIcon = 'crosshair',
 				zoomOutIcon = 'crosshair',
 				ui_context = 'toolbars',
-				orig_source = '',
-				paintBox = {fill: null, stroke:null};
+				orig_source = '';
 				
 
 			// This puts the correct shortcuts in the menus
@@ -566,7 +574,6 @@
 				if(curr.length && curr[0].id !== 'tool_select') {
 					curr.removeClass('tool_button_current').addClass('tool_button');
 					$('#tool_select').addClass('tool_button_current').removeClass('tool_button');
-					$('#styleoverrides').text('#svgcanvas svg *{cursor:move;pointer-events:all} #svgcanvas svg{cursor:default}');
 				}
 				svgCanvas.setMode('select');
 			};
@@ -772,8 +779,8 @@
 				
 				// In the event a gradient was flipped:
 				if(selectedElement && mode === "select") {
-					paintBox.fill.update();
-					paintBox.stroke.update();
+					Editor.paintBox.fill.update();
+					Editor.paintBox.stroke.update();
 				}
 				
 				svgCanvas.runExtensions("elementChanged", {
@@ -853,8 +860,8 @@
 			
 			// Makes sure the current selected paint is available to work with
 			var prepPaints = function() {
-				paintBox.fill.prep();
-				paintBox.stroke.prep();
+				Editor.paintBox.fill.prep();
+				Editor.paintBox.stroke.prep();
 			}
 			
 			var flyout_funcs = {};
@@ -1450,14 +1457,14 @@
 						
 						$('#stroke_width').val(gWidth === null ? "" : gWidth);
 						
-						paintBox.fill.update(true);
-						paintBox.stroke.update(true);
+						Editor.paintBox.fill.update(true);
+						Editor.paintBox.stroke.update(true);
 
 						
 						break;
 					default:
-						paintBox.fill.update(true);
-						paintBox.stroke.update(true);
+						Editor.paintBox.fill.update(true);
+						Editor.paintBox.stroke.update(true);
 						
 						$('#stroke_width').val(selectedElement.getAttribute("stroke-width") || 1);
 						$('#stroke_style').val(selectedElement.getAttribute("stroke-dasharray")||"none");
@@ -1977,7 +1984,7 @@
 					paint = new $.jGraduate.Paint({alpha: 100, solidColor: color.substr(1)});
 				}
 				
-				paintBox[picker].setPaint(paint);
+				Editor.paintBox[picker].setPaint(paint);
 				
 				if (isStroke) {
 					svgCanvas.setColor('stroke', color);
@@ -2728,8 +2735,8 @@
 				if (isNaN(fill_opacity)) {fill_opacity = 100;}
 				var stroke = getPaint(stroke_color, stroke_opacity, "stroke");
 				var fill = getPaint(fill_color, fill_opacity, "fill");
-				paintBox.fill.setPaint(stroke, true);
-				paintBox.stroke.setPaint(fill, true);
+				Editor.paintBox.fill.setPaint(stroke, true);
+				Editor.paintBox.stroke.setPaint(fill, true);
 				
 			};
 			
@@ -2766,6 +2773,16 @@
 				}
 				
 				updateWireFrame();
+			}
+			
+			var clickSnapGrid = function() {
+				var sg = !$('#tool_snap').hasClass('push_button_pressed');
+				if (sg) 
+					$('#tool_snap').addClass('push_button_pressed');
+				else
+					$('#tool_snap').removeClass('push_button_pressed');		
+				curConfig.gridSnapping = sg;
+				savePreferences();
 			}
 			
 			var clickCanvasColor = function(){
@@ -2946,17 +2963,12 @@
 				var color = $('#bg_blocks div.cur_background').css('background-color') || '#FFF';
 				setBackground(color, $('#canvas_bg_url').val());
 				
-				// set language
-				var lang = $('#lang_select').val();
-				if(lang != curPrefs.lang) {
-					Editor.putLocale(lang);
-				}
 				
 				// set icon size
 				setIconSize($('#iconsize').val());
 				
 				// set grid setting
-				curConfig.gridSnapping = $('#grid_snapping_on')[0].checked;
+				curConfig.gridSnapping = $('#tool_snap').hasClass('push_button_pressed');
 				curConfig.snappingStep = $('#grid_snapping_step').val();
 				curConfig.showRulers = $('#show_rulers')[0].checked;
 				
@@ -3426,7 +3438,7 @@
 				var is_background = elem[0].id == "canvas_color"
 				if (is_background) picker = 'canvas'
 // 				var opacity = (picker == 'stroke' ? $('#stroke_opacity') : $('#fill_opacity'));
-				var paint = paintBox[picker].paint;
+				var paint = Editor.paintBox[picker].paint;
 				
 				var title = (picker == 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
 				var was_none = false;
@@ -3445,7 +3457,7 @@
 					function(p) {
 						paint = new $.jGraduate.Paint(p);
 						
-						paintBox[picker].setPaint(paint);
+						Editor.paintBox[picker].setPaint(paint);
 						svgCanvas.setPaint(picker, paint);
 						
 						$('#color_picker').hide();
@@ -3649,19 +3661,19 @@
 				}
 			};
 			
-			paintBox.fill = new PaintBox('#fill_color', 'fill');
-			paintBox.stroke = new PaintBox('#stroke_color', 'stroke');
-			paintBox.canvas = new PaintBox('#canvas_color', 'canvas');
+			Editor.paintBox.fill = new PaintBox('#fill_color', 'fill');
+			Editor.paintBox.stroke = new PaintBox('#stroke_color', 'stroke');
+			Editor.paintBox.canvas = new PaintBox('#canvas_color', 'canvas');
 
 			$('#stroke_width').val(curConfig.initStroke.width);
 			$('#group_opacity').val(curConfig.initOpacity * 100);
 			
 			// Use this SVG elem to test vectorEffect support
-			var test_el = paintBox.fill.rect.cloneNode(false);
+			var test_el = Editor.paintBox.fill.rect.cloneNode(false);
 			test_el.setAttribute('style','vector-effect:non-scaling-stroke');
 			var supportsNonSS = (test_el.style.vectorEffect === 'non-scaling-stroke');
 			test_el.removeAttribute('style');
-			var svgdocbox = paintBox.fill.rect.ownerDocument;
+			var svgdocbox = Editor.paintBox.fill.rect.ownerDocument;
 			// Use this to test support for blur element. Seems to work to test support in Webkit
 			var blur_test = svgdocbox.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
 			if(typeof blur_test.stdDeviationX === "undefined") {
@@ -4100,6 +4112,7 @@
 					{sel:'#tool_import', fn: clickImport, evt: 'mouseup'},
 					{sel:'#tool_source', fn: showSourceEditor, evt: 'click', key: [modKey + 'U', true]},
 					{sel:'#tool_wireframe', fn: clickWireframe, evt: 'click'},
+					{sel:'#tool_snap', fn: clickSnapGrid, evt: 'click'},
 					{sel:'#tool_rulers', fn: clickRulers, evt: 'click'},
 					{sel:'#tool_source_cancel,#svg_source_overlay,#tool_docprops_cancel,#tool_prefs_cancel', fn: cancelOverlays, evt: 'click', key: ['esc', false, false], hidekey: true},
 					{sel:'#tool_source_save', fn: saveSourceEditor, evt: 'click'},

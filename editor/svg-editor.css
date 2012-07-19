@@ -1977,3 +1977,8 @@ span.zoom_tool img {
 
 #svg_editor #group_title {display: none;}
 
+#base_unit_container {
+	display: none;
+	position: absolute;
+	z-index: 20;
+}
