@@ -343,12 +343,12 @@ svgedit.history.ChangeElementCommand.prototype.unapply = function(handler) {
 	if(!bChangedTransform) {
 		var angle = svgedit.utilities.getRotationAngle(this.elem);
 		if (angle) {
-			var bbox = elem.getBBox();
+			var bbox = this.elem.getBBox();
 			var cx = bbox.x + bbox.width/2,
 				cy = bbox.y + bbox.height/2;
 			var rotate = ["rotate(", angle, " ", cx, ",", cy, ")"].join('');
-			if (rotate != elem.getAttribute("transform")) {
-				elem.setAttribute("transform", rotate);
+			if (rotate != this.elem.getAttribute("transform")) {
+				this.elem.setAttribute("transform", rotate);
 			}
 		}
 	}

@@ -658,6 +658,7 @@ var getIntersectionList = this.getIntersectionList = function(rect) {
 getStrokedBBox = this.getStrokedBBox = function(elems) {
 	if(!elems) elems = getVisibleElements();
 	if(!elems.length) return false;
+	
 	// Make sure the expected BBox is returned if the element is a group
 	var getCheckedBBox = function(elem) {
 	
@@ -809,7 +810,7 @@ getStrokedBBox = this.getStrokedBBox = function(elems) {
 // An array with all "visible" elements.
 var getVisibleElements = this.getVisibleElements = function(parent) {
 	if(!parent) parent = $(svgcontent).children(); // Prevent layers from being included
-	
+	if (parent.find("#canvas_background").length) parent.splice(0, 1) // Prevent background from being included
 	var contentElems = [];
 	$(parent).children().each(function(i, elem) {
 		try {
@@ -2373,16 +2374,12 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   but the action is not recorded until mousing up
 	// - when we are in select mode, select the element, remember the position
 	//   and do nothing else
-	var mouseDown = mosueOver = function(evt)
+	var mouseDown = mouseOver = function(evt)
 	{
 		if(canvas.spaceKey || evt.button === 1) return;
 		
 		var right_click = evt.button === 2;
-	
-		if(evt.altKey) { // duplicate when  dragging
-			svgCanvas.cloneSelectedElements(0,0);
-		}
-	
+		
 		root_sctm = svgcontent.getScreenCTM().inverse();
 		
 		var pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
@@ -2395,11 +2392,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 			current_mode = "select";
 			lastClickPoint = pt;
 		}
-		
-		// This would seem to be unnecessary...
-// 		if(['select', 'resize'].indexOf(current_mode) == -1) {
-// 			setGradient();
-// 		}
 		
 		var x = mouse_x / current_zoom,
 			y = mouse_y / current_zoom,
@@ -2779,7 +2771,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					}
 
 					if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x,y); x=xya.x; y=xya.y; }
-
+      	  //duplicate only once
 					if (dx != 0 || dy != 0) {
 						var len = selectedElements.length;
 						for (var i = 0; i < len; ++i) {
@@ -2806,6 +2798,21 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 								tlist.appendItem(xform);
 							}
 							
+          	  // alt drag = create a clone and save the reference							
+							if(evt.altKey) {
+							  //clone doesn't exist yet
+							  if (!canvas.addClone) {
+							    canvas.addClone = canvas.cloneSelectedElements(0,0, true);
+							    canvas.removeClone = function(){
+							      parent = canvas.addClone.parentNode
+							      if (parent) {
+							        parent.removeChild(canvas.addClone)
+							        canvas.addClone = false;
+							      }
+							    }
+							    window.addEventListener("keyup", canvas.removeClone)
+          	    }
+          	  }
 							// update our internal bbox that we're tracking while dragging
 							selectorManager.requestSelector(selected).resize();
 						}
@@ -3181,6 +3188,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   this is done in when we recalculate the selected dimensions()
 	var mouseUp = function(evt)
 	{
+	  canvas.addClone = false;
+	  window.removeEventListener("keyup", canvas.removeClone)
+	  
 		if(evt.button === 2) return;
 		var tempJustSelected = justSelected;
 		justSelected = null;
@@ -6731,7 +6741,7 @@ this.setResolution = function(x, y) {
 	  }
 		call("changed", [svgcontent]);
 	}
-	return true;
+	return [x,y];
 };
 
 // Function: getOffset
@@ -7834,116 +7844,83 @@ this.convertToPath = function(elem, getBBox) {
 // attr - String with the attribute name
 // newValue - String or number with the new attribute value
 // elems - The DOM elements to apply the change to
-var changeSelectedAttributeNoUndo = function(attr, newValue, elems) {
-	var handle = svgroot.suspendRedraw(1000);
-	if(current_mode == 'pathedit') {
-		// Editing node
-		pathActions.moveNode(attr, newValue);
-	}
-	var elems = elems || selectedElements;
-	var i = elems.length;
-	var no_xy_elems = ['g', 'polyline', 'path'];
-	var good_g_attrs = ['transform', 'opacity', 'filter'];
-	
-	while (i--) {
-		var elem = elems[i];
-		if (elem == null) continue;
-		
-		// Go into "select" mode for text changes
-		if(current_mode === "textedit" && attr !== "#text" && elem.textContent.length) {
-			textActions.toSelectMode(elem);
-		}
-		
-		// Set x,y vals on elements that don't have them
-		if((attr === 'x' || attr === 'y') && no_xy_elems.indexOf(elem.tagName) >= 0) {
-			var bbox = getStrokedBBox([elem]);
-			var diff_x = attr === 'x' ? newValue - bbox.x : 0;
-			var diff_y = attr === 'y' ? newValue - bbox.y : 0;
-			canvas.moveSelectedElements(diff_x*current_zoom, diff_y*current_zoom, true);
-			continue;
-		}
-		
-		// only allow the transform/opacity/filter attribute to change on <g> elements, slightly hacky
-		// if (elem.tagName === "g" && good_g_attrs.indexOf(attr) >= 0);
-		var oldval = attr === "#text" ? elem.textContent : elem.getAttribute(attr);
-		if (oldval == null)  oldval = "";
-		if (oldval !== String(newValue)) {
-			if (attr == "#text") {
-				var old_w = svgedit.utilities.getBBox(elem).width;
-				elem.textContent = newValue;
-				
-				// FF bug occurs on on rotated elements
-				if(/rotate/.test(elem.getAttribute('transform'))) {
-					elem = ffClone(elem);
-				}
-				
-				// Hoped to solve the issue of moving text with text-anchor="start",
-				// but this doesn't actually fix it. Hopefully on the right track, though. -Fyrd
-				
-// 					var box=getBBox(elem), left=box.x, top=box.y, width=box.width,
-// 						height=box.height, dx = width - old_w, dy=0;
-// 					var angle = getRotationAngle(elem, true);
-// 					if (angle) {
-// 						var r = Math.sqrt( dx*dx + dy*dy );
-// 						var theta = Math.atan2(dy,dx) - angle;
-// 						dx = r * Math.cos(theta);
-// 						dy = r * Math.sin(theta);
-// 						
-// 						elem.setAttribute('x', elem.getAttribute('x')-dx);
-// 						elem.setAttribute('y', elem.getAttribute('y')-dy);
-// 					}
-				
-			} else if (attr == "#href") {
-				setHref(elem, newValue);
-			}
-			else elem.setAttribute(attr, newValue);
-//			if (i==0)
-//				selectedBBoxes[0] = svgedit.utilities.getBBox(elem);
-			// Use the Firefox ffClone hack for text elements with gradients or
-			// where other text attributes are changed. 
-			if(svgedit.browser.isGecko() && elem.nodeName === 'text' && /rotate/.test(elem.getAttribute('transform'))) {
-				if((newValue+'').indexOf('url') === 0 || ['font-size','font-family','x','y'].indexOf(attr) >= 0 && elem.textContent) {
-					elem = ffClone(elem);
-				}
-			}
-			// Timeout needed for Opera & Firefox
-			// codedread: it is now possible for this function to be called with elements
-			// that are not in the selectedElements array, we need to only request a
-			// selector if the element is in that array
-			if (selectedElements.indexOf(elem) >= 0) {
-				setTimeout(function() {
-					// Due to element replacement, this element may no longer
-					// be part of the DOM
-					if(!elem.parentNode) return;
-					selectorManager.requestSelector(elem).resize();
-				},0);
-			}
-			// if this element was rotated, and we changed the position of this element
-			// we need to update the rotational transform attribute 
-			var angle = getRotationAngle(elem);
-			if (angle != 0 && attr != "transform") {
-				var tlist = getTransformList(elem);
-				var n = tlist.numberOfItems;
-				while (n--) {
-					var xform = tlist.getItem(n);
-					if (xform.type == 4) {
-						// remove old rotate
-						tlist.removeItem(n);
-						
-						var box = svgedit.utilities.getBBox(elem);
-						var center = transformPoint(box.x+box.width/2, box.y+box.height/2, transformListToTransform(tlist).matrix);
-						var cx = center.x,
-							cy = center.y;
-						var newrot = svgroot.createSVGTransform();
-						newrot.setRotate(angle, cx, cy);
-						tlist.insertItemBefore(newrot, n);
-						break;
-					}
-				}
-			}
-		} // if oldValue != newValue
-	} // for each elem
-	svgroot.unsuspendRedraw(handle);	
+var changeSelectedAttributeNoUndo = this.changeSelectedAttributeNoUndo = function(attr, newValue, elems) {
+  	var handle = svgroot.suspendRedraw(1000);
+  	if(current_mode == 'pathedit') {
+  		// Editing node
+  		pathActions.moveNode(attr, newValue);
+  	}
+  	var elems = elems || selectedElements;
+  	var i = elems.length;
+  	var no_xy_elems = ['g', 'polyline', 'path'];
+  	var good_g_attrs = ['transform', 'opacity', 'filter'];
+  	while (i--) {
+  		var elem = elems[i];
+  		if (elem == null) continue;
+  		// Go into "select" mode for text changes
+  		if(current_mode === "textedit" && attr !== "#text" && elem.textContent.length) {
+  			textActions.toSelectMode(elem);
+  		}
+
+  		// Set x,y vals on elements that don't have them
+  		if((attr === 'x' || attr === 'y') && no_xy_elems.indexOf(elem.tagName) >= 0) {
+  			var bbox = getStrokedBBox([elem]);
+  			var diff_x = attr === 'x' ? newValue - bbox.x : 0;
+  			var diff_y = attr === 'y' ? newValue - bbox.y : 0;
+  			canvas.moveSelectedElements(diff_x*current_zoom, diff_y*current_zoom, true);
+  			continue;
+  		}
+
+  		var oldval = attr === "#text" ? elem.textContent : elem.getAttribute(attr);
+  		if (oldval == null)  oldval = "";
+  		if (oldval !== String(newValue)) {
+  			if (attr == "#text") {
+  				var old_w = svgedit.utilities.getBBox(elem).width;
+  				elem.textContent = newValue;
+
+  			} else if (attr == "#href") {
+  				setHref(elem, newValue);
+  			}
+  			else elem.setAttribute(attr, newValue);
+
+  			// Timeout needed for Opera & Firefox
+  			// codedread: it is now possible for this function to be called with elements
+  			// that are not in the selectedElements array, we need to only request a
+  			// selector if the element is in that array
+  			if (selectedElements.indexOf(elem) >= 0) {
+  				setTimeout(function() {
+  					// Due to element replacement, this element may no longer
+  					// be part of the DOM
+  					if(!elem.parentNode) return;
+  					selectorManager.requestSelector(elem).resize();
+  				},0);
+  			}
+  			// if this element was rotated, and we changed the position of this element
+  			// we need to update the rotational transform attribute 
+  			var angle = getRotationAngle(elem);
+  			if (angle != 0 && attr != "transform") {
+  				var tlist = getTransformList(elem);
+  				var n = tlist.numberOfItems;
+  				while (n--) {
+  					var xform = tlist.getItem(n);
+  					if (xform.type == 4) {
+  						// remove old rotate
+  						tlist.removeItem(n);
+
+  						var box = svgedit.utilities.getBBox(elem);
+  						var center = transformPoint(box.x+box.width/2, box.y+box.height/2, transformListToTransform(tlist).matrix);
+  						var cx = center.x,
+  							cy = center.y;
+  						var newrot = svgroot.createSVGTransform();
+  						newrot.setRotate(angle, cx, cy);
+  						tlist.insertItemBefore(newrot, n);
+  						break;
+  					}
+  				}
+  			}
+  		} // if oldValue != newValue
+  	} // for each elem
+  	svgroot.unsuspendRedraw(handle);
 };
 
 // Function: changeSelectedAttribute
@@ -8550,7 +8527,7 @@ this.moveSelectedElements = function(dx, dy, undoable) {
 // Function: cloneSelectedElements
 // Create deep DOM copies (clones) of all selected elements and move them slightly 
 // from their originals
-this.cloneSelectedElements = function(x,y) {
+this.cloneSelectedElements = function(x,y, drag) {
 	var batchCmd = new BatchCommand("Clone Elements");
 	// find all the elements selected (stop at first null)
 	var len = selectedElements.length;
@@ -8566,9 +8543,11 @@ this.cloneSelectedElements = function(x,y) {
 	var i = copiedElements.length;
 	while (i--) {
 		// clone each element and replace it within copiedElements
-		var elem = copiedElements[i] = copyElem(copiedElements[i]);
-		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(elem);
-		batchCmd.addSubCommand(new InsertElementCommand(elem));
+		var elem = copiedElements[i] 
+		var clone = copyElem(copiedElements[i]);
+		if (drag) clone.removeAttribute("transform");
+		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(clone);
+		batchCmd.addSubCommand(new InsertElementCommand(clone));
 	}
 	
 	if (!batchCmd.isEmpty()) {
@@ -8576,6 +8555,7 @@ this.cloneSelectedElements = function(x,y) {
 		this.moveSelectedElements(x,y,false);
 		addCommandToHistory(batchCmd);
 	}
+	return clone
 };
 
 // Function: alignSelectedElements

@@ -709,7 +709,7 @@ jQuery.fn.jGraduate =
 
 			trans_img.setAttributeNS(ns.xlink, 'xlink:href', bg_image);
 			
-			$(stopMakerSVG).click(function(evt) {
+			$(stopMakerSVG).on("click touchstart", function(evt) {
 				stop_offset = stopMakerDiv.offset();
 				var target = evt.target;
 				if(target.tagName === 'path') return;
@@ -837,13 +837,13 @@ jQuery.fn.jGraduate =
 			});
 			
 			// bind GUI elements
-			$('#'+id+'_jGraduate_Ok').bind('click', function() {
+			$('#'+id+'_jGraduate_Ok').bind('click touchstart', function() {
 				$this.paint.type = curType;
 				$this.paint[curType] = curGradient.cloneNode(true);;
 				$this.paint.solidColor = null;
 				okClicked();
 			});
-			$('#'+id+'_jGraduate_Cancel').bind('click', function(paint) {
+			$('#'+id+'_jGraduate_Cancel').bind('click touchstart', function(paint) {
 				cancelClicked();
 			});
 
@@ -1112,7 +1112,7 @@ jQuery.fn.jGraduate =
 
 			
 			var tabs = $(idref + ' .jGraduate_tabs li');
-			tabs.click(function() {
+			tabs.on("click touchstart", function() {
 				tabs.removeClass('jGraduate_tab_current');
 				$(this).addClass('jGraduate_tab_current');
 				$(idref + " > div").hide();

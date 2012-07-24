@@ -61,6 +61,10 @@ svgedit.select.Selector = function(id, elem) {
 			}
 		})
 	);
+	
+	if (svgedit.browser.isTouch()) {
+	  this.selectorRect.setAttribute("stroke-opacity", 0);
+	}
 
 	// this holds a reference to the grip coordinates for this selector
 	this.gripCoords = {
@@ -228,17 +232,24 @@ svgedit.select.Selector.prototype.resize = function() {
 	
 	var xform = angle ? 'rotate(' + [angle,cx,cy].join(',') + ')' : '';
 	this.selectorGroup.setAttribute('transform', xform);
-    nbax -= 3.5;
-		nbay -= 3.5;
+
+		if(svgedit.browser.isTouch()) {
+		  nbax -= 15.75;
+  		nbay -= 15.75;
+		}
+		else {
+		  nbax -= 4;
+  		nbay -= 4;
+		}
 		this.gripCoords = {
-			'nw': [nbax, nbay],
-			'ne': [nbax+nbaw, nbay],
-			'sw': [nbax, nbay+nbah],
-			'se': [nbax+nbaw, nbay+nbah],
-			'n':  [nbax + (nbaw)/2, nbay],
-			'w':	[nbax, nbay + (nbah)/2],
-			'e':	[nbax + nbaw, nbay + (nbah)/2],
-			's':	[nbax + (nbaw)/2, nbay + nbah]
+			'nw': [nbax, nbay].map(Math.round),
+			'ne': [nbax+nbaw, nbay].map(Math.round),
+			'sw': [nbax, nbay+nbah].map(Math.round),
+			'se': [nbax+nbaw, nbay+nbah].map(Math.round),
+			'n':  [nbax + (nbaw)/2, nbay].map(Math.round),
+			'w':	[nbax, nbay + (nbah)/2].map(Math.round),
+			'e':	[nbax + nbaw, nbay + (nbah)/2].map(Math.round),
+			's':	[nbax + (nbaw)/2, nbay + nbah].map(Math.round)
 		};
 
 		for(var dir in this.gripCoords) {
@@ -351,15 +362,21 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 			'element': 'rect',
 			'attr': {
 				'id': ('selectorGrip_resize_' + dir),
-				'width': 7,
-  			'height': 7,
+				'width': 8,
+  			'height': 8,
   			'fill': "#4F80FF",
-  			'stroke': "transparent",
-  			'stroke-width': 2,
+  			'stroke': "rgba(0,0,0,0)",
+  			'stroke-width': 1,
 				'style': ('cursor:' + dir + '-resize'),
 				'pointer-events': 'all'
 			}
 		});
+		if (svgedit.browser.isTouch()) {
+		  
+		  grip.setAttribute("width", 30.5)
+		  grip.setAttribute("height", 30.5)
+		  grip.setAttribute("fill-opacity", 0.3)
+		}
 		
 		$.data(grip, 'dir', dir);
 		$.data(grip, 'type', 'resize');

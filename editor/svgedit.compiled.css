@@ -108,15 +108,16 @@ html,body{overflow:hidden;width:100%;height:100%}
 ::-webkit-scrollbar-corner{background:#444}
 #browser-not-supported{font-size:.8em;font-family:Verdana,Helvetica,Arial;color:#000}
 #svg_editor hr{border:0;border-bottom:1px solid #808080}
-#svg_editor select{margin-top:4px}
 #svg_editor #svgroot{-moz-user-select:none;-webkit-user-select:none;position:absolute;top:0;left:0}
 #svg_editor #menu_bar{margin:0 0 0 50px}
 #svg_editor #menu_bar.active .menu.open .menu_list{display:block}
 #svg_editor .menu{position:relative;z-index:5;color:#333;display:inline-block}
 #svg_editor .menu_title{cursor:pointer;display:inline-block;padding:7px 10px;z-index:10;color:#fff;position:relative;height:16px;vertical-align:top}
+.touch #svg_editor .menu_title{padding:7px 17px;height:26px;line-height:26px}
 #svg_editor .menu .menu_title:hover{background:rgba(255,255,255,0.1)}
 #svg_editor .menu_list .separator{margin:5px 0;border-top:solid #ddd 1px}
 #svg_editor .menu_list{display:none;position:absolute;top:28px;left:0;white-space:nowrap;background:white;padding:7px 0;border-radius:0 3px 3px 3px;box-shadow:0 0 20px rgba(0,0,0,0.8)}
+.touch #svg_editor .menu_list{top:38px}
 #svg_editor #menu_bar.active .menu.open .menu_title{background:white;color:#333}
 #svg_editor .menu_list .menu_item{position:relative;overflow:hidden;line-height:22px;padding:5px 69px 5px 25px;cursor:default;color:#333}
 #svg_editor .menu_list .menu_item.tool_button{background:transparent;border:0;margin:0;padding:5px 55px 5px 25px;height:auto;width:auto}
@@ -128,7 +129,7 @@ html,body{overflow:hidden;width:100%;height:100%}
 #svg_editor #svgcanvas{line-height:normal;display:inline-block;background-color:#a0a0a0;text-align:center;vertical-align:middle;width:640px;height:480px;position:relative;background:#3f3f3c}
 #rulers>div{position:absolute;background:#2f2f2c;z-index:1;overflow:hidden;-webkit-font-smoothing:none}
 #rulers #ruler_corner{top:30px;left:50px;width:15px;height:15px;border:solid #444 1px;z-index:2}
-#ruler_x{height:15px;top:30px;left:66px;right:200px;border-top:solid #444 1px;border-right:solid #444 1px}
+#ruler_x{height:15px;top:30px;left:66px;right:175px;border-top:solid #444 1px;border-right:solid #444 1px}
 #ruler_x_cursor{height:15px;border-right:dotted #999 1px;position:absolute;background:#2f2f2c}
 #ruler_y_cursor{width:15px;border-top:dotted #999 1px;position:absolute;background:#2f2f2c}
 #rulers.moved #ruler_corner,#rulers.moved #ruler_x{top:101px}
@@ -139,55 +140,51 @@ html,body{overflow:hidden;width:100%;height:100%}
 #ruler_y canvas{margin-top:-16px}
 #ruler_x>div,#ruler_y>div{overflow:hidden}
 #svg_editor div#palette_holder{display:block;overflow:hidden;height:31px;margin-top:10px;position:relative;z-index:2;float:left}
+.touch #svg_editor div#palette_holder{height:40px;margin-top:0}
 #svg_editor div#palette_holder #palette .palette_item:first-child{background:#fff}
 #svg_editor div#palette_holder #palette .palette_item{cursor:pointer}
-#tool_stroke select{margin-top:0}
-#svg_editor #color_tools,#color_canvas_tools{position:relative;width:48px;height:48px;margin:6px 6px 0 6px}
-#svg_editor #color_tools #tool_fill,#tool_canvas{position:absolute;top:0;left:0;z-index:1}
+#svg_editor #color_tools{position:relative;width:48px;height:48px;margin:6px 6px 0 6px}
+.touch #svg_editor #color_tools{width:auto;height:auto}
+#tool_fill{position:absolute;top:0;left:0;z-index:1}
+.touch #tool_fill{position:static;width:36px;height:36px;margin-bottom:10px}
 #tool_fill.active,#tool_stroke.active{z-index:2}
-#tool_fill,#tool_stroke,#tool_canvas{box-shadow:0 0 0 1px #2f2f2c}
+#tool_stroke{top:14px;left:14px}
+.touch #tool_fill.active,.touch #tool_stroke.active{outline:4px solid #09f}
+#tool_fill,#tool_stroke,#tool_canvas{box-shadow:0 0 0 1px #2f2f2c;position:absolute}
+.touch #tool_fill,.touch #tool_stroke,.touch #tool_canvas{position:relative;top:0;left:0}
 #color_canvas_tools{float:left;cursor:pointer}
-#tool_fill .color_block,#tool_canvas .color_block{width:24px;height:24px;overflow:hidden;border:solid #ccc 1px}
+#tool_fill .color_block{width:24px;height:24px;overflow:hidden;border:solid #ccc 1px}
+.touch #svg_editor #tool_eyedropper{margin-top:6px}
+.touch #tool_fill .color_block{width:36px;height:36px}
+.touch #tool_fill .color_block svg{width:36px!important;height:36px!important}
+.touch #svg_editor #tool_switch{display:none}
 #svg_editor #path_node_panel .tool_button{color:#999;border:solid #3f3f3c 1px;border-radius:3px;padding:3px 10px 3px 40px;background:transparent;position:relative;margin-top:10px;width:90px;height:23px;line-height:24px}
 #svg_editor #path_node_panel .tool_button img{position:absolute;left:5px;top:3px}
 #svg_editor #path_node_panel #tool_node_link{border:0;padding:3px 0;width:auto;margin:0 0 10px 0;background:transparent;color:#ccc;height:auto;line-height:130%}
 #svg_editor #path_node_panel #segment_type{margin-top:10px}
 #svg_editor #color_tools #tool_fill .color_block:hover,#svg_editor #color_tools #tool_stroke .color_block:hover{border-color:#fff}
 #svg_editor #color_tools #tool_fill .color_block>div{position:absolute;top:0;left:0}
+.touch #svg_editor #color_tools #tool_fill .color_block>div{position:relative}
 #svg_editor #color_tools #tool_fill .color_block #fill_bg,#svg_editor #color_tools #tool_stroke .color_block #stroke_bg{position:absolute;top:1px;left:1px;bottom:1px;right:1px;background:#fff}
-#tool_stroke{position:absolute;top:12px;left:12px;z-index:0}
+.touch #svg_editor #color_tools #tool_fill .color_block #fill_bg,.touch #svg_editor #color_tools #tool_stroke .color_block #stroke_bg{width:36px;height:36px;right:auto;bottom:auto}
+.touch #tool_stroke{position:relative;top:0;left:0;z-index:0}
 #stroke_color:after{content:'';position:absolute;display:block;width:8px;height:8px;left:8px;top:8px;background:#ccc;box-shadow:0 0 0 1px #000}
+.touch #stroke_color:after{height:14px;left:10px;position:absolute;top:10px;width:14px}
 #svg_editor #color_tools #tool_switch{cursor:pointer;opacity:.7;width:11px;height:11px;background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQA2LzE0LzEyP6j5+gAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAB4SURBVBiVjZHRCYUwDEVvxIF0kZKN7EjiIrrReR/PSNSKXiikcE5JUtMeADMzXQIcdRfgFWqlyyB7ap1wL+0HAnIv1DqRJUBxTkLUWXIvh9AHkIeb58UkIUnDMH4ZR0otCfhv4ynbtp7ut722ZniFG8L9xx4Ek6QfN9huARmYwR0AAAAASUVORK5CYII=) top left no-repeat;position:absolute;top:-2px;left:28px}
 #svg_editor #color_tools #cross:hover{opacity:1}
 #svg_editor #color_tools #tool_stroke:hover #stroke_color:after{background:#fff}
 #svg_editor #color_tools #tool_stroke .color_block{width:24px;height:24px;overflow:hidden;border:solid #ccc 1px}
+.touch #svg_editor #color_tools #tool_stroke .color_block{width:36px;height:36px}
 #svg_editor #color_tools #tool_stroke .color_block>div{position:absolute;bottom:0;right:0}
-#svg_editor #color_tools .icon_label{padding:0;width:24px;height:100%;cursor:pointer}
+.touch #svg_editor #color_tools #tool_stroke .color_block>div{position:relative}
+#svg_editor #color_tools .icon_label{padding:0;width:24px;height:100%;cursor:pointer;position:absolute}
 #svg_editor #zoomLabel{cursor:pointer;margin-right:5px}
 #svg_editor #linkLabel>svg{height:20px;padding-top:4px}
-#svg_editor div#palette{float:left;width:672px;height:16px}
-#svg_editor div#workarea{display:inline-table-cell;position:absolute;top:30px;left:50px;bottom:40px;right:200px;background-color:#444;overflow:auto;text-align:center}
-#svg_editor #sidepanels{display:none;position:absolute;top:75px;bottom:60px;right:0;width:2px;padding:10px;border-left:none;z-index:10}
-#svg_editor #layerpanel{display:inline-block;position:absolute;top:1px;bottom:0;right:0;width:0;overflow:auto;margin:0;-moz-user-select:none;-webkit-user-select:none}
-#svg_editor #sidepanel_handle{display:inline-block;position:absolute;background-color:#d0d0d0;font-weight:bold;left:0;top:40%;width:1em;padding:5px 1px 5px 5px;margin-left:3px;cursor:pointer;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;-moz-user-select:none;-webkit-user-select:none}
-#svg_editor #sidepanel_handle:hover{font-weight:bold}
-#svg_editor #sidepanel_handle *{cursor:pointer;-moz-user-select:none;-webkit-user-select:none}
-#svg_editor #layerbuttons{margin:0;padding:0;padding-left:2px;padding-right:2px;width:125px;height:20px;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #808080;border-top:1px solid #808080;overflow:hidden}
-#svg_editor .layer_button{width:14px;height:14px;padding:1px;border-left:1px solid #fff;border-top:1px solid #fff;border-right:1px solid #808080;border-bottom:1px solid #808080;cursor:pointer;float:left;margin-right:3px}
-#svg_editor .layer_button:last-child{margin-right:0}
-#svg_editor .layer_buttonpressed{width:14px;height:14px;padding:1px;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #808080;border-top:1px solid #808080;cursor:pointer}
-#svg_editor #layerlist{margin:1px;padding:0;width:127px;border-collapse:collapse;border:1px solid #808080;background-color:#fff}
-#svg_editor #layerlist tr.layer{background-color:#fff;margin:0;padding:0}
-#svg_editor #layerlist tr.layersel{border:1px solid #808080;background-color:#ccc}
-#svg_editor #layerlist td.layervis{width:22px;cursor:pointer}
-#svg_editor #layerlist td.layerinvis{background-image:none;cursor:pointer}
-#svg_editor #layerlist td.layervis *{display:block}
-#svg_editor #layerlist td.layerinvis *{display:none}
-#svg_editor #layerlist td.layername{cursor:pointer}
-#svg_editor #layerlist tr.layersel td.layername{font-weight:bold}
-#svg_editor #selLayerLabel{white-space:nowrap}
-#svg_editor #selLayerNames{display:block}
+#svg_editor div#palette{float:left;width:810px;height:16px}
+#svg_editor div#workarea{display:inline-table-cell;position:absolute;top:30px;left:50px;bottom:40px;right:175px;background-color:#444;overflow:auto;text-align:center}
+.touch #svg_editor div#workarea{top:40px}
 #svg_editor div.palette_item{height:16px;width:16px;float:left}
+.touch #svg_editor div.palette_item{height:30px;border-top:solid #2f2f2c 5px;border-bottom:solid #2f2f2c 5px;width:30px;float:left}
 #svg_editor .menu .menu_list{display:none;position:absolute}
 #svg_editor .tool_button:hover,#svg_editor .push_button:hover,#svg_editor .buttonup:hover,#svg_editor .buttondown,#svg_editor .tool_button_current,#svg_editor .push_button_pressed{background-color:#fff}
 #svg_editor .tool_button.disabled,#svg_editor .tool_button.disabled:hover{opacity:.3;background-color:#aaa}
@@ -197,16 +194,13 @@ html,body{overflow:hidden;width:100%;height:100%}
 #tools_top .padded{padding:10px 0}
 #svg_editor #tools_left .tool_button_current{background-color:#0cf}
 #svg_editor #main_icon span{position:absolute;width:100%;height:100%;display:block;z-index:2}
-#svg_editor #tools_top{position:absolute;width:170px;right:2px;top:10px;border-bottom:0;overflow:visible;padding:0 10px}
+#svg_editor #tools_top{position:absolute;width:160px;right:0;top:30px;border-bottom:0;overflow:visible;padding:0 0 0 10px}
+.touch #svg_editor #tools_top{top:40px}
 #svg_editor label{display:block;color:#999}
 div#font-selector{width:140px;height:300px;overflow:auto;margin:0 auto;position:absolute;top:27px;right:0;border:1px solid black;padding:10px;display:none;background-color:white;z-index:10;border-radius:3px;box-shadow:0 5px 10px rgba(0,0,0,0.7)}
 div#font-selector img{width:100%}
 div#font-selector .font-item{border-bottom:solid #ddd 1px;padding:5px 10px;margin:0 -10px}
 div#font-selector .font-item:hover{background-color:#eee}
-#svg_editor #tools_top label:before,#svg_editor #tools_top label:after{content:"";display:table}
-#svg_editor #tools_top label:after{clear:both}
-#svg_editor #tools_top label span,#svg_editor #tools_top label select{display:block;width:80px;float:left;line-height:185%}
-#svg_editor #tools_top label span.tuco{width:100%;float:none}
 #svg_editor #tools_top #marker_panel *{float:left}
 #svg_editor #tools_top #marker_panel h4{float:none}
 #svg_editor #tools_top #marker_panel .dropdown .icon_label{width:36px;height:20px;margin-top:2px;border:solid #3f3f3c 1px;text-align:center}
@@ -215,9 +209,7 @@ div#font-selector .font-item:hover{background-color:#eee}
 #svg_editor #tools_top #marker_panel .dropdown button{margin-top:2px}
 #svg_editor #tools_top #marker_panel #marker_panel_title{float:none;color:#fff;margin-bottom:3px}
 #svg_editor #tools_top #marker_panel .dropdown .icon_label img{float:none}
-#svg_editor input[type=text],#svg_editor input[type=number]{border:solid #3f3f3c 1px;background-color:transparent;color:#09f;display:block;float:left;font-size:13px;padding:2px 5px;width:70px;-webkit-appearance:none;border-radius:2px;margin:0;-webkit-touch-callout:text;-webkit-user-select:text;-khtml-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}
 #svg_editor #color_picker input[type=text],#color_picker #svg_editor input[type=number]{width:30px;background:#fff}
-input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 #svg_editor .dropdown_set input[type=text],#svg_editor .dropdown_set input[type=number]{width:50px}
 #svg_editor input[type=text].wide,#svg_editor input[type=number].wide{width:110px}
 #svg_editor input[type=text].tuco,#svg_editor input[type=number].tuco{width:150px}
@@ -225,8 +217,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 #svg_editor input[type=submit]:hover,#svg_editor button:hover{box-shadow:inset 0 3px 10px rgba(255,255,255,0.1),inset 0 -3px 10px rgba(0,0,0,0.2)}
 #svg_editor input[type=submit]:hover,#svg_editor button:hover{background:#2f84c1}
 #svg_editor input[type=submit]:active,#svg_editor button:active{padding:6px 10px 4px 10px;box-shadow:inset 0 2px 2px rgba(0,0,0,0.2);border-bottom:solid rgba(255,255,255,0.1) 1px}
-#svg_editor input[type=text]:focus,#svg_editor input[type=number]:focus{border:solid rgba(0,120,255,0.3) 1px;outline:0}
-#svg_editor input[readonly=readonly],#svg_editor input[readonly=readonly]:focus{background:transparent;color:#fff;border:0;outline:0}
 #svg_editor #tools_left{position:absolute;border-right:0;width:50px;top:30px;left:0;background:#2f2f2c;z-index:4}
 #workarea.wireframe #svgcontent *{fill:none;stroke:#000;stroke-width:1px;stroke-opacity:1.0;stroke-dasharray:0;opacity:1;pointer-events:stroke;vector-effect:non-scaling-stroke;filter:none}
 #workarea.wireframe #svgcontent text{fill:#000;stroke:none}
@@ -268,7 +258,6 @@ span.zoom_tool img{vertical-align:top}
 #svg_editor .width_label{padding-right:5px}
 #svg_editor #tool_bold,#svg_editor #tool_italic{font:bold 2.1em/1.1em serif;text-align:center;padding:0 2px 5px 2px;position:relative;float:left;margin:5px 10px 0 0;color:#ccc;background:#2f2f2c;border:solid #3f3f3c 1px}
 #svg_editor #tool_bold:hover,#svg_editor #tool_italic:hover{color:#fff}
-#svg_editor #tool_font_size{clear:both;padding-top:8px}
 #text{position:absolute;left:-9999px}
 #svg_editor #tool_bold span,#svg_editor #tool_italic span{position:absolute;width:100%;height:100%;top:0;left:0;background:#ccc;opacity:0}
 #svg_editor #tool_italic{font-weight:normal;font-style:italic}
@@ -281,12 +270,7 @@ span.zoom_tool img{vertical-align:top}
 #svg_editor #tools_bottom_1{width:115px;float:left}
 #svg_editor #tools_bottom_2{position:relative;float:left;margin-top:5px}
 #tools_bottom input[type=text]{width:3.2em}
-#svg_editor .stroke_tool .dropdown button{margin-top:0}
-#svg_editor .stroke_tool div div{-moz-user-select:none;-webkit-user-select:none;width:20px;height:20px;margin:0;padding:1px;background:rgba(255,255,255,0.3)}
-#svg_editor #tools_bottom .stroke_tool .dropdown button{background-color:#555;margin-top:0}
-#svg_editor #tools_top h4{color:#fff;font-weight:normal;margin:0;padding:20px 0 5px 0}
-.stroke_tool>div{width:42px}
-.stroke_tool>div>*{float:left}
+#svg_editor #tools_top h4{color:#fff;font-weight:normal;margin:0;padding:0 0 10px 0}
 #tools_top .dropdown .icon_label{border:1px solid transparent;height:auto}
 .align_buttons .push_button,.align_buttons .push_button_pressed{display:block;float:left}
 #option_lists ul{display:none;position:absolute;height:auto;z-index:3;margin:0;list-style:none;padding-left:0}
@@ -300,7 +284,6 @@ span.zoom_tool img{vertical-align:top}
 #option_lists ul[class^=optcols] li{float:left}
 #svg_editor ul li.current{background-color:#f4e284}
 #svg_editor #option_lists ul li{margin:0;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0}
-#svg_editor #tool_stroke label input{margin-top:0}
 #svg_editor #copyright{text-align:right;padding-right:.3em}
 #svg_source_editor{display:none}
 #svg_source_editor #svg_source_overlay{position:absolute;top:0;right:0;left:0;bottom:0;background-color:black;opacity:.6;z-index:5}
@@ -396,6 +379,7 @@ span.zoom_tool img{vertical-align:top}
 #workarea.eyedropper{cursor:url(images/eyedropper.png) 0 16,crosshair}
 #workarea.fhpath{cursor:url(images/pencil_cursor.png) 0 20,crosshair}
 #workarea.rotate *{cursor:url(images/rotate.png) 12 12,auto}
+#workarea.select text,#workarea.multiselect text{cursor:default}
 #workarea.n-resize *{cursor:n-resize!important}
 #workarea.e-resize *{cursor:e-resize!important}
 #workarea.w-resize *{cursor:w-resize!important}
@@ -404,6 +388,7 @@ span.zoom_tool img{vertical-align:top}
 #workarea.se-resize *{cursor:se-resize!important}
 #workarea.nw-resize *{cursor:nw-resize!important}
 #workarea.sw-resize *{cursor:sw-resize!important}
+#workarea.copy{cursor:copy}
 #workarea.zoom{cursor:crosshair;cursor:-moz-zoom-in;cursor:-webkit-zoom-in}
 #workarea.zoom.out{cursor:crosshair;cursor:-moz-zoom-out;cursor:-webkit-zoom-out}
 #selectorRubberBand{shape-rendering:crispEdges}
@@ -412,6 +397,30 @@ span.zoom_tool img{vertical-align:top}
 .clearfix{*zoom:1}
 #svg_editor #group_title{display:none}
 #base_unit_container{display:none;position:absolute;z-index:20}
-INPUT.spin-button{padding:2px 20px 2px 2px;background-repeat:no-repeat;background-position:100% 0;background-image:url('spinbtn_updn.png');background-color:white}
-INPUT.spin-button.up{cursor:pointer;background-position:100% -18px}
-INPUT.spin-button.down{cursor:pointer;background-position:100% -36px}
+#svg_editor .draginput{background:#3f3f3c;border-radius:3px;-webkit-font-smoothing:antialiased;width:70px;height:70px;display:block;position:relative;float:left;margin:0 5px 5px 0;overflow:hidden}
+#svg_editor .draginput .caret{border:solid transparent 5px;border-top-color:#999;position:absolute;width:0;height:0;right:5px;margin-top:-2px;top:50%}
+#svg_editor .draginput label{margin:28px 10px 0 5px;font-size:11px}
+#svg_editor .draginput label#resolution_label{font:12px/110% sans-serif;color:white;font-weight:bold;position:absolute;left:auto;right:10px;z-index:0;text-align:right}
+#svg_editor .draginput label#resolution_label .pull{position:relative;left:-15px}
+#svg_editor .draginput label#resolution_label span{right:-13px;left:auto;font-size:16px;top:2px;font-weight:bold;color:white}
+.touch #svg_editor .draginput.active:after{content:attr(data-value);display:block;position:absolute;background:#3f3f3c;top:0;width:40px;left:-50px;padding:3px 5px;color:#fff}
+#svg_editor .draginput input{border:0;background:transparent;font:24px/normal sans-serif;text-align:center;color:#4f80ff;padding:30px 0 16px;width:100%;height:24px;position:relative;z-index:2;cursor:url(images/drag.png),move;cursor:-webkit-drag;cursor:-moz-drag}
+#svg_editor .draginput input:active{cursor:url(images/dragging.png),move;cursor:-webkit-dragging;cursor:-moz-dragging}
+#svg_editor .draginput span{font:11px/130% sans-serif;color:#ccc;display:block;position:absolute;top:5px;left:5px;text-align:left}
+#svg_editor .draginput.error{background:#900}
+#svg_editor .draginput.error input{color:#fff}
+#svg_editor .draginput.stroke_tool{text-align:center}
+#svg_editor .draginput select{-webkit-appearance:none;opacity:0;display:block;position:absolute;height:100%;width:100%;margin:0;z-index:1}
+#svg_editor .draginput#segment_type select{font-size:11px;margin-top:40px;width:70px}
+.draginput_cursor{position:absolute;top:50%;width:100%;border-top:solid rgba(50,100,200,0.25) 3px;margin-top:-2px;z-index:0}
+#svg_editor .draginput input[readonly=readonly]{-webkit-appearance:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+body.dragging *{cursor:url(images/dragging.png),move;cursor:-webkit-drag;cursor:-moz-drag}
+body.drag *{cursor:url(images/dragging.png),move;cursor:-webkit-dragging;cursor:-moz-dragging}
+#svg_editor input[readonly=readonly]:focus{box-shadow:none}
+#color_canvas_tools{background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMAQMAAABsu86kAAAAA3NCSVQICAjb4U/gAAAABlBMVEXu7u7///8o06qaAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADcvMjIvMTL7FNdCAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABFJREFUCJljYP7AgIb+MKAhAM8/C5vWL6zSAAAAAElFTkSuQmCC) top left repeat;width:60px;height:40px;margin:23px 5px 5px 5px;position:relative}
+#color_canvas_tools svg{display:block}
+#tool_angle_indicator{width:50px;height:50px;border-radius:50px;border:solid rgba(50,100,200,0.25) 3px;position:absolute;bottom:2px;left:7px}
+#tool_angle_indicator_cursor{width:4px;height:25px;border-top:solid #4f80ff 3px;position:absolute;margin:-3px 0 0 25px;-webkit-transform-origin:50% 0;-moz-transform-origin:50% 0;-o-transform-origin:50% 0;-ms-transform-origin:50% 0;transform-origin:50% 0}
+INPUT.spin-button{background:transparent url('spinner.svg') right top no-repeat;background-size:17px 54px}
+INPUT.spin-button.up{cursor:pointer;background-position:100% -20px}
+INPUT.spin-button.down{cursor:pointer;background-position:100% -40px}

@@ -700,10 +700,6 @@ html, body {
 	border-bottom: 1px solid #808080;
 }
 
-#svg_editor select {
-	margin-top: 4px;
-}
-
 #svg_editor #svgroot {
 	-moz-user-select: none;
 	-webkit-user-select: none;
@@ -738,6 +734,12 @@ html, body {
   vertical-align: top;
 }
 
+.touch  #svg_editor .menu_title { 
+	padding: 7px 17px;
+	height: 26px;
+	line-height: 26px;
+}
+
 #svg_editor .menu .menu_title:hover {
   background: rgba(255,255,255,0.1);
 }
@@ -757,6 +759,10 @@ html, body {
   padding: 7px 0;
   border-radius: 0 3px 3px 3px;
   box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.touch #svg_editor .menu_list {
+	top: 38px;
 }
 
 #svg_editor #menu_bar.active .menu.open .menu_title {
@@ -858,7 +864,7 @@ html, body {
 	height: 15px;
 	top: 30px;
 	left: 66px;
-	right: 200px;
+	right: 175px;
 	border-top: solid #444 1px;
 	border-right: solid #444 1px;
 }
@@ -923,6 +929,11 @@ html, body {
 	float: left;
 }
 
+.touch #svg_editor div#palette_holder {
+	height: 40px;
+	margin-top: 0;
+}
+
 #svg_editor div#palette_holder #palette .palette_item:first-child {
   background: #fff;
 }
@@ -932,30 +943,55 @@ html, body {
 }
 
 
-#tool_stroke select {
-	margin-top: 0;
-}
-
-#svg_editor #color_tools, #color_canvas_tools {
+#svg_editor #color_tools {
   position: relative;
   width: 48px;
   height: 48px;
   margin: 6px 6px 0 6px;
 }
 
-#svg_editor #color_tools #tool_fill, #tool_canvas {
+.touch #svg_editor #color_tools {
+	width: auto;
+	height: auto;
+}
+
+#tool_fill {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
 }
 
+.touch #tool_fill {
+		position: static;
+		width: 36px;
+		height: 36px;
+		margin-bottom: 10px;
+}
+
+
 #tool_fill.active, #tool_stroke.active {
   z-index: 2;
 }
 
+#tool_stroke {
+	top: 14px;
+	left: 14px;
+}
+
+.touch #tool_fill.active, .touch #tool_stroke.active {
+	outline: 4px solid #09f;
+}
+
 #tool_fill, #tool_stroke, #tool_canvas {
   box-shadow: 0 0 0 1px #2f2f2c;
+  position: absolute;
+}
+
+.touch #tool_fill, .touch #tool_stroke, .touch #tool_canvas {
+	position: relative;
+	top: 0;
+	left: 0;
 }
 
 #color_canvas_tools {
@@ -963,12 +999,30 @@ html, body {
 	cursor: pointer;
 }
 
-#tool_fill .color_block, #tool_canvas .color_block {
+#tool_fill .color_block {
   width: 24px;
   height: 24px;
   overflow: hidden;
   border: solid #ccc 1px;
 }
+
+.touch #svg_editor #tool_eyedropper {
+	margin-top: 6px;
+}
+
+.touch #tool_fill .color_block {
+  width: 36px;
+  height: 36px;
+}
+
+.touch #tool_fill .color_block svg {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.touch #svg_editor #tool_switch {
+	display: none;
+} 
 
 #svg_editor #path_node_panel .tool_button {
 	color: #999;
@@ -1015,6 +1069,10 @@ html, body {
   left: 0;
 }
 
+.touch #svg_editor #color_tools #tool_fill .color_block > div {
+	position: relative;
+}
+
 #svg_editor #color_tools #tool_fill .color_block #fill_bg, #svg_editor #color_tools #tool_stroke .color_block #stroke_bg {
   position: absolute;
   top: 1px;
@@ -1024,10 +1082,17 @@ html, body {
   background: #fff;
 }
 
-#tool_stroke {
-  position: absolute;
-  top: 12px;
-  left: 12px;
+.touch #svg_editor #color_tools #tool_fill .color_block #fill_bg, .touch #svg_editor #color_tools #tool_stroke .color_block #stroke_bg {
+	width: 36px;
+	height: 36px;
+	right: auto;
+	bottom: auto;
+}
+
+.touch #tool_stroke {
+  position: relative;
+  top: 0;
+  left: 0;
   z-index: 0;
 }
 
@@ -1041,6 +1106,15 @@ html, body {
   top: 8px;
   background: #ccc;
   box-shadow: 0 0 0 1px #000;
+}
+
+.touch #stroke_color:after {
+	height: 14px;
+   left: 10px;
+   position: absolute;
+   top: 10px;
+   width: 14px;
+	 
 }
 
 #svg_editor #color_tools #tool_switch {
@@ -1069,11 +1143,21 @@ html, body {
   border: solid #ccc 1px;
 }
 
+.touch #svg_editor #color_tools #tool_stroke .color_block {
+  width: 36px;
+  height: 36px;
+}
+
 #svg_editor #color_tools #tool_stroke .color_block > div {
   position: absolute;
   bottom: 0;
   right: 0;
 }
+
+.touch #svg_editor #color_tools #tool_stroke .color_block > div {
+  position: relative;
+}
+
 
 
 #svg_editor #color_tools .icon_label {
@@ -1081,7 +1165,7 @@ html, body {
 	width: 24px;
 	height: 100%;
 	cursor: pointer;
-	
+	position: absolute;
 }
 
 #svg_editor #zoomLabel {
@@ -1096,7 +1180,7 @@ html, body {
 
 #svg_editor div#palette {
 	float: left;
-	width: 672px;
+	width: 810px;
 	height: 16px;
 }
 
@@ -1106,162 +1190,27 @@ html, body {
 	top: 30px;
 	left: 50px;
 	bottom: 40px;
-	right: 200px;
+	right: 175px;
 	background-color: #444;
 	overflow: auto;
 	text-align: center;
 }
 
-#svg_editor #sidepanels {
-	display: none;
-	position:absolute;
-	top: 75px;
-	bottom: 60px;
-	right: 0px;
-	width: 2px;
-	padding: 10px;
-	border-left: none;
-	z-index: 10;
-}
-
-#svg_editor #layerpanel {
-	display: inline-block;
-	position:absolute;
-	top: 1px;
-	bottom: 0px;
-	right: 0px;
-	width: 0px;
-	overflow: auto;
-	margin: 0px;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-
-}
-
-#svg_editor #sidepanel_handle {
-	display: inline-block;
-	position: absolute;
-	background-color: #D0D0D0;
-	font-weight: bold;
-	left: 0px;
-	top: 40%;
-	width: 1em;
-	padding: 5px 1px 5px 5px;
-	margin-left: 3px;
-	cursor: pointer;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-}
-
-#svg_editor #sidepanel_handle:hover {
-	font-weight: bold;
-}
-
-#svg_editor #sidepanel_handle * {
-	cursor: pointer;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-}
-#svg_editor #layerbuttons {
-	margin: 0px;
-	padding: 0px;
-	padding-left: 2px;
-	padding-right: 2px;
-	width: 125px;
-	height: 20px;
-	border-right: 1px solid #FFFFFF;
-	border-bottom: 1px solid #FFFFFF;
-	border-left: 1px solid #808080;
-	border-top: 1px solid #808080;
-	overflow: hidden;
-}
-
-#svg_editor .layer_button {
-	width: 14px;
-	height: 14px;
-	padding: 1px;
-	border-left: 1px solid #FFFFFF;
-	border-top: 1px solid #FFFFFF;
-	border-right: 1px solid #808080;
-	border-bottom: 1px solid #808080;
-	cursor: pointer;
-	float: left;
-	margin-right: 3px;
-}
-
-#svg_editor .layer_button:last-child {
-	margin-right: 0;
-}
-
-#svg_editor .layer_buttonpressed {
-	width: 14px;
-	height: 14px;
-	padding: 1px;
-	border-right: 1px solid #FFFFFF;
-	border-bottom: 1px solid #FFFFFF;
-	border-left: 1px solid #808080;
-	border-top: 1px solid #808080;
-	cursor: pointer;
-}
-
-#svg_editor #layerlist {
-	margin: 1px;
-	padding: 0px;
-	width: 127px;
-	border-collapse: collapse;	
-	border: 1px solid #808080;
-	background-color: #FFFFFF;
-}
-
-#svg_editor #layerlist tr.layer {
-	background-color: #FFFFFF;
-	margin: 0px;
-	padding: 0px;
-}
-#svg_editor #layerlist tr.layersel {
-	border: 1px solid #808080;
-	background-color: #CCCCCC;
-}
-
-#svg_editor #layerlist td.layervis {
-	width: 22px;
-	cursor:pointer;
-}
-#svg_editor #layerlist td.layerinvis {
-	background-image: none;
-	cursor:pointer;
-}
-
-#svg_editor #layerlist td.layervis * {
-	display: block;
-}
-
-#svg_editor #layerlist td.layerinvis * {
-	display: none;
-}
-
-#svg_editor #layerlist td.layername {
-	cursor: pointer;
-}
-
-#svg_editor #layerlist tr.layersel td.layername {
-	font-weight: bold;
-}
-
-#svg_editor #selLayerLabel {
-	white-space: nowrap;
-}
-
-#svg_editor #selLayerNames {
-	display: block;
+.touch #svg_editor div#workarea {
+	top: 40px;
 }
 
 #svg_editor div.palette_item {
 	height: 16px;
 	width: 16px;
+	float: left;
+}
+
+.touch #svg_editor div.palette_item {
+	height: 30px;
+	border-top: solid #2f2f2c 5px;
+	border-bottom: solid #2f2f2c 5px;
+	width: 30px;
 	float: left;
 }
 
@@ -1308,12 +1257,16 @@ html, body {
 
 #svg_editor #tools_top {
 	position: absolute;
-	width: 170px;
-	right: 2px;
-	top: 10px;
+	width: 160px;
+	right: 0;
+	top: 30px;
 	border-bottom: none;
 	overflow: visible;
-	padding: 0 10px;
+	padding: 0 0 0 10px;
+}
+
+.touch #svg_editor #tools_top {
+	top: 40px;
 }
 
 #svg_editor label {
@@ -1350,29 +1303,6 @@ div#font-selector .font-item {
 
 div#font-selector .font-item:hover {
   background-color: #eee;
-}
-
-#svg_editor #tools_top label:before,
-#svg_editor #tools_top label:after {
-    content:"";
-    display:table;
-}
-
-#svg_editor #tools_top label:after {
-    clear:both;
-}
-
-
-#svg_editor #tools_top label span, #svg_editor #tools_top label select {
-  display: block;
-  width: 80px;
-  float: left;
-  line-height: 185%
-}
-
-#svg_editor #tools_top label span.tuco {
-  width: 100%;
-  float: none;
 }
 
 #svg_editor #tools_top #marker_panel * {
@@ -1415,36 +1345,9 @@ div#font-selector .font-item:hover {
 }
 
 
-
-#svg_editor input[type=text], #svg_editor input[type=number] {
-  border: solid #3f3f3c 1px;
-  background-color: transparent;
-  color: #09f;
-  display: block;
-  float: left;
-  font-size: 13px;
-  padding: 2px 5px;
-  width: 70px;
-  -webkit-appearance: none;
-  border-radius: 2px;
-  margin: 0;
-  -webkit-touch-callout: text;
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
 #svg_editor #color_picker input[type=text], #color_picker #svg_editor input[type=number] {
   width: 30px;
   background: #fff;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
 
 #svg_editor .dropdown_set input[type=text], #svg_editor .dropdown_set input[type=number] {
@@ -1472,19 +1375,6 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 
 #svg_editor input[type=submit]:hover, #svg_editor button:hover {background: #2F84C1;}
 #svg_editor input[type=submit]:active, #svg_editor button:active {padding: 6px 10px 4px 10px; box-shadow: inset 0 2px 2px rgba(0,0,0,0.2); border-bottom: solid rgba(255,255,255,0.1) 1px;}
-
-#svg_editor input[type=text]:focus, #svg_editor input[type=number]:focus {
-  border: solid rgba(0, 120, 255, 0.3) 1px;
-  outline: none;
-}
-
-
-#svg_editor input[readonly=readonly], #svg_editor input[readonly=readonly]:focus {
-  background: transparent;
-  color: #fff;
-  border: none;
-  outline: none;
-}
 
 
 #svg_editor #tools_left {
@@ -1783,11 +1673,6 @@ span.zoom_tool img {
   color: #fff;
 } 
 
-#svg_editor #tool_font_size {
-  clear:both;
-  padding-top: 8px;
-}
-
 #text {
 	position: absolute;
 	left: -9999px;
@@ -1874,40 +1759,12 @@ span.zoom_tool img {
 	width: 3.2em;
 }
 
-#svg_editor .stroke_tool .dropdown button {
-  margin-top: 0;
-}
-
-#svg_editor .stroke_tool div div {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	width: 20px;
-	height: 20px;
-	margin: 0;
-	padding: 1px;
-	background: rgba(255,255,255,0.3);
-}
-
-#svg_editor #tools_bottom .stroke_tool .dropdown button {
-  background-color:#555;
-  margin-top: 0;
-}
-
 #svg_editor #tools_top h4 {
   color: #fff;
   font-weight: normal;
   margin: 0;
-  padding: 20px 0 5px 0;
+  padding: 0 0 10px 0;
 }
-
-.stroke_tool > div {
-	width: 42px;
-}
-
-.stroke_tool > div > * {
-	float: left;
-}
-
 
 #tools_top .dropdown .icon_label {
 	border: 1px solid transparent;
@@ -1988,8 +1845,6 @@ span.zoom_tool img {
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 }
-
-#svg_editor #tool_stroke label input { margin-top: 0;}
 
 #svg_editor #copyright {
 	text-align: right;
@@ -2559,6 +2414,10 @@ span.zoom_tool img {
   cursor: url(images/rotate.png) 12 12, auto;
 }
 
+#workarea.select text, #workarea.multiselect text {
+	cursor: default;
+}
+
 #workarea.n-resize * {cursor: n-resize !important;}
 #workarea.e-resize * {cursor: e-resize !important;}
 #workarea.w-resize * {cursor: w-resize !important;}
@@ -2569,7 +2428,9 @@ span.zoom_tool img {
 #workarea.nw-resize * {cursor: nw-resize !important;}
 #workarea.sw-resize * {cursor: sw-resize !important;}
 
-
+#workarea.copy {
+	cursor: copy;
+}
 
 #workarea.zoom {
   cursor: crosshair;
@@ -2627,7 +2488,209 @@ span.zoom_tool img {
 	display: none;
 	position: absolute;
 	z-index: 20;
-}/*
+}
+
+#svg_editor .draginput {
+  background: #3f3f3c;
+  border-radius: 3px;
+  -webkit-font-smoothing: antialiased;
+  width: 70px;
+  height: 70px;
+  display: block;
+  position: relative;
+  float: left;
+  margin: 0 5px 5px 0;
+	overflow: hidden;
+}
+
+#svg_editor .draginput .caret {
+  border: solid transparent 5px;
+  border-top-color: #999;
+  position: absolute;
+  width: 0;
+	height: 0;
+	right: 5px;
+	margin-top: -2px;
+	top: 50%;
+}
+
+#svg_editor .draginput label {
+	margin: 28px 10px 0 5px;
+	font-size: 11px;
+	
+}
+
+#svg_editor .draginput label#resolution_label {
+	font: 12px/110% sans-serif;
+	color: white;
+	font-weight: bold;
+	position: absolute;
+	left: auto;
+	right: 10px;
+	z-index: 0;
+	text-align: right;
+}
+
+#svg_editor .draginput label#resolution_label .pull {
+	position: relative;
+	left: -15px;
+}
+
+#svg_editor .draginput label#resolution_label span {
+	right: -13px;
+	left: auto;
+	font-size: 16px;
+	top: 2px;
+	font-weight: bold;
+	color: white;
+}
+
+.touch #svg_editor .draginput.active:after {
+	content: attr(data-value);
+	display: block;
+	position: absolute;
+	background: #3f3f3c;
+	top: 0;
+	width: 40px;
+	left: -50px;
+	padding: 3px 5px;
+	color: #fff;
+}
+
+#svg_editor .draginput input {
+  border: none;
+  background: transparent;
+  font: 24px/normal sans-serif;
+  text-align: center;
+  color: #4F80FF;
+  padding: 30px 0 16px;
+  width: 100%;
+  height: 24px;
+	position: relative;
+	z-index: 2;
+	cursor: url(images/drag.png), move;
+  cursor: -webkit-drag;
+	cursor: -moz-drag;
+}
+
+#svg_editor .draginput input:active {  
+	  cursor: url(images/dragging.png), move;
+	  cursor: -webkit-dragging;
+		cursor: -moz-dragging;
+}
+
+#svg_editor .draginput span {
+  font: 11px/130% sans-serif;
+  color: #ccc;
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  text-align: left;
+}
+
+#svg_editor .draginput.error {
+	background: #900;
+}
+
+#svg_editor .draginput.error input {
+	color: #fff;
+}
+
+#svg_editor .draginput.stroke_tool {
+	text-align: center;
+}
+
+#svg_editor .draginput select {
+	-webkit-appearance: none;
+	opacity: 0;
+	display: block;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	z-index: 1;
+}
+
+#svg_editor .draginput#segment_type select {
+	font-size: 11px;
+	margin-top: 40px;
+	width: 70px;
+}
+
+
+.draginput_cursor{
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  border-top: solid rgba(50,100,200,0.25) 3px;
+	margin-top: -2px;
+	z-index: 0;
+}
+
+#svg_editor .draginput input[readonly=readonly] {
+  -webkit-appearance: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+body.dragging * {
+	cursor: url(images/dragging.png), move;
+	cursor: -webkit-drag;
+	cursor: -moz-drag;
+}
+
+body.drag * {
+	cursor: url(images/dragging.png), move;
+	cursor: -webkit-dragging;
+	cursor: -moz-dragging;
+}
+
+#svg_editor input[readonly=readonly]:focus {
+	box-shadow: none;
+}
+
+#color_canvas_tools {
+	background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMAQMAAABsu86kAAAAA3NCSVQICAjb4U/gAAAABlBMVEXu7u7///8o06qaAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADcvMjIvMTL7FNdCAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABFJREFUCJljYP7AgIb+MKAhAM8/C5vWL6zSAAAAAElFTkSuQmCC) top left repeat;
+	width: 60px;
+	height: 40px;
+	margin: 23px 5px 5px 5px;
+	position: relative;
+}
+
+#color_canvas_tools svg {
+	display: block;
+}
+
+#tool_angle_indicator {
+	width: 				 50px;
+	height: 			 50px;
+	border-radius: 50px;
+	border: solid rgba(50,100,200,0.25) 3px;
+	position: absolute;
+	bottom: 2px;
+	left: 7px;
+}
+
+#tool_angle_indicator_cursor {
+	width: 				 4px;
+	height: 			 25px;
+	border-top: solid #4F80FF 3px;
+	position: absolute;
+	margin: -3px 0 0 25px;
+	-webkit-transform-origin: 50% 0;
+	-moz-transform-origin: 50% 0;
+	-o-transform-origin: 50% 0;
+	-ms-transform-origin: 50% 0;
+	transform-origin: 50% 0;
+}
+
+/*
 	Styles to make ordinary <INPUT type="text"/> look like a spinbutton/spinbox control.
 	Use with JQuerySpinBtn.js to provide the spin functionality by reacting to mouse etc.
 	(Requires a reference to the JQuery library found at http://jquery.com/src/latest/)
@@ -2652,19 +2715,16 @@ span.zoom_tool img {
 */
 
 INPUT.spin-button {
-	/* explicitly put padding for top/bottom/left in here so that Opera displays it better */
-	padding: 2px 20px 2px 2px;
-	background-repeat:no-repeat;		/* Warning: Img may disappear in Firefox if you use 'background-attachment:fixed' ! */
-	background-position:100% 0%;
-	background-image:url('spinbtn_updn.png');
-	background-color:white; /* Needed for Opera */
+
+	background: transparent url('spinner.svg') right top no-repeat;
+	background-size: 17px 54px;
 }
 
 INPUT.spin-button.up {					/* Change button img when mouse is over the UP-arrow */
 	cursor:pointer;
-	background-position:100% -18px;		/* 18px matches height of 2 visible buttons */
+	background-position:100% -20px;		/* 18px matches height of 2 visible buttons */
 }
 INPUT.spin-button.down {				/* Change button img when mouse is over the DOWN-arrow */
 	cursor:pointer;
-	background-position:100% -36px;		/* 36px matches height of 2x2 visible buttons */
+	background-position:100% -40px;		/* 36px matches height of 2x2 visible buttons */
 }

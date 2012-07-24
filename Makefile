@@ -11,8 +11,7 @@ JS_FILES=\
   js-hotkeys/jquery.hotkeys.min.js \
   jquerybbq/jquery.bbq.min.js \
   svgicons/jquery.svgicons.js \
-  jgraduate/jquery.jgraduate.min.js \
-  spinbtn/JQuerySpinBtn.min.js \
+  jgraduate/jquery.jgraduate.js \
   touch.js \
   contextmenu/jquery.contextmenu.js \
   browser.js \
@@ -27,8 +26,8 @@ JS_FILES=\
   path.js \
   svgcanvas.js \
   svg-editor.js \
+  jquery-draginput.js \
   contextmenu.js \
-  locale/locale.js \
   jquery-ui/jquery-ui-1.8.17.custom.min.js \
   jgraduate/jpicker.min.js \
   mousewheel.js \
@@ -36,6 +35,7 @@ JS_FILES=\
 	extensions/ext-markers.js \
 	extensions/ext-grid.js \
 	extensions/ext-shapes.js \
+	requestanimationframe.js
 
 CSS_FILES=\
   fonts.css \

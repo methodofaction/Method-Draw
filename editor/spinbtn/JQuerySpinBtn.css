@@ -23,19 +23,16 @@
 */
 
 INPUT.spin-button {
-	/* explicitly put padding for top/bottom/left in here so that Opera displays it better */
-	padding: 2px 20px 2px 2px;
-	background-repeat:no-repeat;		/* Warning: Img may disappear in Firefox if you use 'background-attachment:fixed' ! */
-	background-position:100% 0%;
-	background-image:url('spinbtn_updn.png');
-	background-color:white; /* Needed for Opera */
+
+	background: transparent url('spinner.svg') right top no-repeat;
+	background-size: 17px 54px;
 }
 
 INPUT.spin-button.up {					/* Change button img when mouse is over the UP-arrow */
 	cursor:pointer;
-	background-position:100% -18px;		/* 18px matches height of 2 visible buttons */
+	background-position:100% -20px;		/* 18px matches height of 2 visible buttons */
 }
 INPUT.spin-button.down {				/* Change button img when mouse is over the DOWN-arrow */
 	cursor:pointer;
-	background-position:100% -36px;		/* 36px matches height of 2x2 visible buttons */
+	background-position:100% -40px;		/* 36px matches height of 2x2 visible buttons */
 }
