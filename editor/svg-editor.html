@@ -50,7 +50,6 @@
   <script type="text/javascript" src="mousewheel.js"></script>
   <script type="text/javascript" src="extensions/ext-eyedropper.js"></script>
   <script type="text/javascript" src="extensions/ext-shapes.js"></script>
-  <script type="text/javascript" src="extensions/ext-markers.js"></script>
   <script type="text/javascript" src="requestanimationframe.js"></script>
 <!--{endif}-->
 
@@ -223,10 +222,6 @@ $(function(){
 			<span class="icon_label">Height</span>
 			<input id="rect_height" class="attr_changer" size="3" data-attr="height" type="text" pattern="[0-9]*" />
 		</label>
-		<label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
-			<span class="icon_label">Roundness</span>
-			<input id="rect_rx" size="3" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
-		</label>
 	</div>
 	
 	<div id="path_panel" class="context_panel clearfix">
@@ -367,8 +362,6 @@ $(function(){
 	
 	<div id="path_node_panel" class="context_panel clearfix">
 	  <h4>Edit Path</h4>
-		<div class="tool_sep"></div>
-		<div class="tool_button push_button_pressed" id="tool_node_link" data-title="Link Control Points"><input type="checkbox" checked> Linked Control Points</div>
 
 		<label id="tool_node_x"><span>X</span>
 			<input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" size="3" data-attr="x" />
@@ -379,11 +372,19 @@ $(function(){
 		
 		<label id="segment_type" class="draginput label">
 		  <span>Segment Type</span>
-		<select id="seg_type" data-title="Change Segment type">
-			<option id="straight_segments" selected="selected" value="4">Straight</option>
-			<option id="curve_segments" value="6">Curve</option>
-		</select>
+  		<select id="seg_type" data-title="Change Segment type">
+  			<option id="straight_segments" selected="selected" value="4">Straight</option>
+  			<option id="curve_segments" value="6">Curve</option>
+  		</select>
+  		<div class="caret"></div>
+  		<label id="seg_type_label">Straight</label>
 		</label>
+		
+		<label class="draginput checkbox" id="tool_node_link" data-title="Link Control Points">
+		  <span>Linked Control Points</span>
+		  <div class="push_bottom"><input type="checkbox" checked></div>
+		</label>
+		
 		<div class="clearfix"></div>
 		<div class="tool_button" id="tool_node_clone" title="Adds a node">Add Node</div>
 		<div class="tool_button" id="tool_node_delete" title="Delete Node">Delete Node</div>
@@ -410,9 +411,15 @@ $(function(){
 		<div class="toolset" id="tool_blur" data-title="Change gaussian blur value">
 			<label>
 				<span class="icon_label">Blur</span>
-				<input id="blur" size="2" value="0" class="attr_changer" step=".5"  min="0" max="10" />
+				<input id="blur" size="2" value="0" step=".1"  min="0" max="10" />
 			</label>
 		</div>
+		
+		<label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
+			<span class="icon_label">Roundness</span>
+			<input id="rect_rx" size="3" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
+		</label>
+		
     <div class="clearfix"></div>
 		<h4>Stroke</h4>
 		<div class="toolset" data-title="Change stroke">
@@ -425,11 +432,13 @@ $(function(){
 		  <span>Stroke Dash</span>
 			<select id="stroke_style" data-title="Change stroke dash style">
 				<option selected="selected" value="none">&mdash;</option>
-				<option value="2,2">...</option>
+				<option value="2,2">···</option>
 				<option value="5,5">- -</option>
-				<option value="5,2,2,2">- .</option>
-				<option value="5,2,2,2,2,2">- ..</option>
+				<option value="5,2,2,2">-·-</option>
+				<option value="5,2,2,2,2,2">-··-</option>
 			</select>
+			<div class="caret"></div>
+			<label id="stroke_style_label">&mdash;</label>
 		</label>
 			
     <label style="display: none;">
@@ -439,17 +448,17 @@ $(function(){
     <label  style="display: none;">
       <span class="icon_label">Stroke Cap</span>
 		</label>
-		
+		<div class="clearfix"></div>
 		<h4>Align</h4>
 		<div class="toolset align_buttons" id="tool_position">
 				<label>
 				  <div class="col last clear" id="position_opts">
-  				  <div class="push_button" id="tool_posleft" title="Align Left"></div>
-        		<div class="push_button" id="tool_poscenter" title="Align Center"></div>
-        		<div class="push_button" id="tool_posright" title="Align Right"></div>
-        		<div class="push_button" id="tool_postop" title="Align Top"></div>
-        		<div class="push_button" id="tool_posmiddle" title="Align Middle"></div>
-        		<div class="push_button" id="tool_posbottom" title="Align Bottom"></div>
+  				  <div class="draginput_cell" id="tool_posleft" title="Align Left"></div>
+        		<div class="draginput_cell" id="tool_poscenter" title="Align Center"></div>
+        		<div class="draginput_cell" id="tool_posright" title="Align Right"></div>
+        		<div class="draginput_cell" id="tool_postop" title="Align Top"></div>
+        		<div class="draginput_cell" id="tool_posmiddle" title="Align Middle"></div>
+        		<div class="draginput_cell" id="tool_posbottom" title="Align Bottom"></div>
   				</div>
 				</label>
 		</div>		

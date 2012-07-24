@@ -44,7 +44,7 @@ $.fn.dragInput = function(cfg){
     var $cursor = (area && this.dragCfg.cursor) 
       ? $("<div class='draginput_cursor' />").appendTo($label) 
       : false
-    if ($cursor && this.dragCfg.start) $cursor.css("top", (this.dragCfg.start*-1)/scale+cursorHeight)
+    if ($cursor && !isNaN(this.dragCfg.start)) $cursor.css("top", (this.dragCfg.start*-1)/scale+cursorHeight)
     //this is where all the magic happens  
 		this.adjustValue = function(i, noUndo){
 			var v;

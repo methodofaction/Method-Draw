@@ -398,21 +398,6 @@ html, body {
 	top: 3px;
 }
 
-#svg_editor #path_node_panel #tool_node_link {
-	border: none;
-	padding: 3px 0;
-	width: auto;
-	margin: 0 0 10px 0;
-	background: transparent;
-	color: #ccc;
-	height: auto;
-	line-height: 130%;
-}
-
-#svg_editor #path_node_panel #segment_type {
-	margin-top: 10px;
-}
-
 #svg_editor #color_tools #tool_fill .color_block:hover, #svg_editor #color_tools #tool_stroke .color_block:hover {
   border-color: #fff;
 }
@@ -613,7 +598,7 @@ html, body {
 	position: absolute;
 	width: 160px;
 	right: 0;
-	top: 30px;
+	top: 20px;
 	border-bottom: none;
 	overflow: visible;
 	padding: 0 0 0 10px;
@@ -1117,7 +1102,7 @@ span.zoom_tool img {
   color: #fff;
   font-weight: normal;
   margin: 0;
-  padding: 0 0 10px 0;
+  padding: 10px 0 5px 0;
 }
 
 #tools_top .dropdown .icon_label {
@@ -1126,7 +1111,24 @@ span.zoom_tool img {
 	height: auto;
 }
 
-.align_buttons .push_button, .align_buttons .push_button_pressed {
+
+#svg_editor .draginput_cell {
+	float: left;
+	height: 26px;
+	border: solid #3f3f3c 10px;
+	outline: solid #2f2f2c 1px;
+	background-color: #ddd;
+	cursor: pointer;
+}
+
+
+#svg_editor .align_buttons  .draginput_cell:nth-child(1) {border-radius: 3px 0 0 0;}
+#svg_editor .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 3px 0 0;}
+#svg_editor .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 3px;}
+#svg_editor .align_buttons  .draginput_cell:nth-child(6) {border-radius: 0 0 3px 0;}
+
+
+.align_buttons .push_button {
   display: block;
   float: left;
 }
@@ -1234,116 +1236,6 @@ span.zoom_tool img {
 	padding: 20px 0;
 }
 
-#save_output_btns {
-	display: none;
-	text-align: left;
-}
-
-#save_output_btns p {
-	margin: .5em 1.5em;
-	display: inline-block;
-}
-
-#bg_blocks {
-	overflow: auto;
-}
-
-#bg_blocks div {
-  	box-shadow: 0 2px 3px rgba(0,0,0,0.3);
-  	margin-right: 10px;
-}
-
-#svg_docprops #svg_docprops_container,
-#svg_prefs #svg_prefs_container {
-	position: absolute;
-	top: 50%;
-	width: 300px;
-	height: 200px;
-	margin-top: -140px;
-	margin-left: -250px;
-	border-radius: 3px;
-	padding: 20px;
-	left: 50%;
-	background-color: #fff;
-	box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-	opacity: 1.0;
-	z-index: 20001;
-}
-
-#svg_docprops .error {
-	border: 1px solid red;
-	padding: 3px;
-}
-
-#svg_docprops #resolution {
-	max-width: 14em;
-}
-
-#tool_docprops_back, 
-#tool_prefs_back {
-	margin-left: 1em;
-	overflow: auto;
-}
-
-#svg_docprops_container #svg_docprops_docprops, 
-#svg_prefs #svg_docprops_prefs {
-	float: left;
-	width: 221px;
-	margin: 5px .7em; 
-	overflow: hidden;
-}
-
-#svg_prefs #svg_prefs_container {
-  width: 500px;
-  height: 320px;
-  margin: -180px 0 0 -350px;
-}
-
-
-#svg_docprops legend, 
-#svg_prefs legend {
-	font-weight: bold;
-	font-size: 18px;
-	padding: 0 0 20px 0;
-	display: block;
-	font-family: sans-serif;
-}
-
-#svg_docprops_docprops > legend, 
-#svg_prefs_container > fieldset > legend {
-	font-weight: bold;
-	font-size: 1.1em;
-}
-
-
-#svg_docprops_container fieldset,
-#svg_prefs fieldset {
-	margin: 0;
-	padding: 0;
-	border: none;
-}
-
-#svg_docprops_container label,
-#svg_prefs_container label {
-	display: block;
-	margin: .5em;
-}
-
-#svg_prefs_container label {
-  margin: 10px 0;
-}
-
-#svginfo_bg_note {
-	font-size: .9em;
-	font-style: italic;
-	color: #444;
-}
-
-#canvas_title, #canvas_bg_url {
-	display: block;
-	width: 96%;
-}
-
 #svg_source_editor #svg_source_textarea {
 	position: relative;
 	width: 95%;
@@ -1382,107 +1274,15 @@ span.zoom_tool img {
 	text-align: left;
 }
 
-#svg_docprops input,
-#svg_prefs input,
-#svg_docprops select,
-#svg_prefs select {
-  font-size: 15px;
-  border-radius: 3px;
-  border: solid #aaa  1px;
-  background-color: #eee;
-  padding: 5px 10px;
-}
 
-#svg_docprops select,
-#svg_prefs select {
-  height: 30px;
-  width: 210px;
-}
-
-#svg_docprops label,
-#svg_prefs label {
-  display: inline-block;
-  width: 100px;
-  vertical-align: top;
-}
-
-#svg_prefs .subtitle {
-  margin-bottom: 10px;
-}
-
-#svg_prefs label {
-  width: 200px;
-}
-
-#svg_docprops label span,
-#svg_prefs label span {
-  display: inline-block;
-  padding-bottom: 5px;
-}
-
-#svg_docprops button,
-#svg_prefs button {
-	position: absolute;
-	font-size: 15px;
-}
 
 #svg_editor button.cancel, #svg_editor input.Cancel, #svg_editor input.cancel, #svg_editor input.jGraduate_Cancel, button.cancel {
+	-webkit-appearance: none;
 	background-color: #999;
 	box-shadow: 0 0 1px rgba(0,0,0,0.5);
 	margin: 0;
 }
 
-#svg_docprops button:first-child,
-#svg_prefs button:first-child {
-	bottom: 15px;
-	left: 15px;
-	right: auto;
-}
-
-#svg_docprops button:last-child,
-#svg_prefs button:last-child {
-	bottom: 15px;
-	right: 15px;
-	left: auto;
-}
-
-#svg_docprops button img,
-#svg_prefs button img {
-	display: none;
-}
-
-#svg_editor button#docprops_button {
-	background: #444;
-}
-
-#svg_editor button#docprops_button:hover {
-	background: #555;
-}
-
-#svg_docprops,
-#svg_prefs {
-	display: none;
-}
-
-#image_save_opts label {
-	font-size: .9em;
-}
-
-#image_save_opts input {
-	margin-left: 0;
-}
-
-#svg_docprops #svg_docprops_overlay,
-#svg_prefs #svg_prefs_overlay {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	left: 0px;
-	bottom: 0px;
-	background-color: black;
-	opacity: 0.6;
-	z-index: 20000;
-}
 
 #shape_buttons {
 	overflow: auto;
@@ -1854,7 +1654,6 @@ span.zoom_tool img {
   position: relative;
   float: left;
   margin: 0 5px 5px 0;
-	overflow: hidden;
 }
 
 #svg_editor .draginput .caret {
@@ -1870,19 +1669,27 @@ span.zoom_tool img {
 
 #svg_editor .draginput label {
 	margin: 28px 10px 0 5px;
-	font-size: 11px;
-	
-}
-
-#svg_editor .draginput label#resolution_label {
-	font: 12px/110% sans-serif;
+	font-size: 14px;
 	color: white;
 	font-weight: bold;
+	font-family: sans-serif;
+}
+
+#svg_editor .draginput label#resolution_label, #svg_editor .draginput label#seg_type_label {
+	font: bold 12px/110% sans-serif;
 	position: absolute;
 	left: auto;
 	right: 10px;
 	z-index: 0;
 	text-align: right;
+}
+
+ #svg_editor .draginput label#seg_type_label {
+	margin-top: 40px;
+}
+
+ #svg_editor .draginput label#seg_type_label .caret {
+	top: 66%;
 }
 
 #svg_editor .draginput label#resolution_label .pull {
@@ -1903,12 +1710,32 @@ span.zoom_tool img {
 	content: attr(data-value);
 	display: block;
 	position: absolute;
-	background: #3f3f3c;
+	background: #fff;
+	font-size: 16px;
 	top: 0;
-	width: 40px;
+	width: 30px;
 	left: -50px;
-	padding: 3px 5px;
-	color: #fff;
+	padding: 0 5px;
+	color: #333;
+	z-index: 10;
+	font-family: sans-serif;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 10px;
+	height: 20px;
+	line-height: 20px;
+	letter-spacing: -1px;
+}
+
+.touch #svg_editor .draginput.active:before {
+	content: '';
+	height: 0;
+	width: 0;
+	position: absolute;
+	top: 5px;
+	left: -5px;
+	border: solid transparent 5px;
+	border-left-color: #fff;
 }
 
 #svg_editor .draginput input {
@@ -1964,12 +1791,6 @@ span.zoom_tool img {
 	width: 100%;
 	margin: 0;
 	z-index: 1;
-}
-
-#svg_editor .draginput#segment_type select {
-	font-size: 11px;
-	margin-top: 40px;
-	width: 70px;
 }
 
 

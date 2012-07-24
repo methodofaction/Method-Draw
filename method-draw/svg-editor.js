@@ -1503,7 +1503,13 @@
 					if(panels[el_name]) {
 						var cur_panel = panels[el_name];
 						$('#' + el_name + '_panel').show();
-			
+			      
+			      // corner radius has to live in a different panel
+			      // because otherwise it changes the position of the 
+			      // of the elements
+			      if(el_name == "rect") $("#cornerRadiusLabel").show()
+			      else $("#cornerRadiusLabel").hide()
+						
 						$.each(cur_panel, function(i, item) {
 							var attrVal = elem.getAttribute(item);
 							if(curConfig.baseUnit !== 'px' && elem[item]) {
@@ -1680,15 +1686,13 @@
 			var changeBlur = function(ctl, noUndo) {
 				val = ctl.value;
 				$('#blur').val(val);
-				var complete = false;
-				if(!ctl || !ctl.handle) {
-					$('#blur_slider').slider('option', 'value', val);
-					complete = true;
-				}
-				if(noUndo) {
+				
+				var undo = (window.event.type == "mouseup");
+				
+				if(!undo) {
 					svgCanvas.setBlurNoUndo(val);	
 				} else {
-					svgCanvas.setBlur(val, complete);
+					svgCanvas.setBlur(val, true);
 				}
 			}
 		
@@ -1700,7 +1704,13 @@
 		
 			$('#stroke_style').change(function(){
 				svgCanvas.setStrokeAttr('stroke-dasharray', $(this).val());
+				$("#stroke_style_label").html(this.options[this.selectedIndex].text)
 				operaRepaint();
+			});
+			
+			$('#seg_type').change(function() {
+				svgCanvas.setSegType($(this).val());
+				$("#seg_type_label").html(this.options[this.selectedIndex].text)
 			});
 		
 			// Lose focus for select elements when changed (Allows keyboard shortcuts to work better)
@@ -1710,9 +1720,7 @@
 				svgCanvas.setFontFamily(this.value);
 			});
 		
-			$('#seg_type').change(function() {
-				svgCanvas.setSegType($(this).val());
-			});
+
 		
 			$('#text').keyup(function(){
 				svgCanvas.setTextContent(this.value);
@@ -2074,55 +2082,6 @@
 				$('#font_family').val($(this).text()).change();
 			});
 			
-			Editor.addDropDown('#opacity_dropdown', function() {
-				if($(this).find('div').length) return;
-				var perc = parseInt($(this).text().split('%')[0]);
-				changeOpacity(false, perc);
-			}, false);
-			
-			// For slider usage, see: http://jqueryui.com/demos/slider/ 
-			$("#opac_slider").slider({
-				start: function() {
-					$('#opacity_dropdown li:not(.special)').hide();
-				},
-				stop: function() {
-					$('#opacity_dropdown li').show();
-					$(window).mouseup();
-				},
-				slide: function(evt, ui){
-					changeOpacity(ui);
-				}
-			});
-		
-			Editor.addDropDown('#blur_dropdown', $.noop);
-			
-			var slideStart = false;
-			
-			$("#blur_slider").slider({
-				max: 10,
-				step: .1,
-				stop: function(evt, ui) {
-					slideStart = false;
-					changeBlur(ui);
-					$('#blur_dropdown li').show();
-					$(window).mouseup();
-				},
-				start: function() {
-					slideStart = true;
-				},
-				slide: function(evt, ui){
-					changeBlur(ui, null, slideStart);
-				}
-			});
-			
-			addAltDropDown('#stroke_linecap', '#linecap_opts', function() {
-				setStrokeOpt(this, true);
-			}, {dropUp: true});
-			
-			addAltDropDown('#stroke_linejoin', '#linejoin_opts', function() {
-				setStrokeOpt(this, true);
-			}, {dropUp: true});
-			
 			$('div', '#position_opts').each(function(){
 			  this.addEventListener("mouseup", function(){
 				  var letter = this.id.replace('tool_pos','').charAt(0);
@@ -2358,11 +2317,11 @@
 			};
 		
 			var linkControlPoints = function() {
-				var linked = !$('#tool_node_link').hasClass('push_button_pressed');
+				var linked = !$('#tool_node_link').hasClass('checked');
 				if (linked)
-					$('#tool_node_link').addClass('push_button_pressed').removeClass('tool_button').find("input").attr("checked", true);
+					$('#tool_node_link').addClass('checked').find("input").attr("checked", true);
 				else
-					$('#tool_node_link').removeClass('push_button_pressed').addClass('tool_button').find("input").attr("checked", false);
+					$('#tool_node_link').removeClass('checked').find("input").attr("checked", false);
 					
 				path.linkControlPoints(linked);
 			}
@@ -2893,46 +2852,6 @@
 				$.prompt(uiStrings.notification.enterNewImgURL, curhref, function(url) {
 					if(url) setImageURL(url);
 				});
-			}
-		
-			// added these event handlers for all the push buttons so they
-			// behave more like buttons being pressed-in and not images
-			(function() {
-				var toolnames = ['clear','open','save','source','delete','delete_multi','paste','clone','clone_multi','move_top','move_bottom'];
-				var all_tools = '';
-				var cur_class = 'tool_button_current';
-				
-				$.each(toolnames, function(i,item) {
-					all_tools += '#tool_' + item + (i==toolnames.length-1?',':'');
-				});
-				
-				$(all_tools).mousedown(function() {
-					$(this).addClass(cur_class);
-				}).bind('mousedown mouseout', function() {
-					$(this).removeClass(cur_class);
-				});
-				
-				$('#tool_undo, #tool_redo').mousedown(function(){ 
-					if (!$(this).hasClass('disabled')) $(this).addClass(cur_class);
-				}).bind('mousedown mouseout',function(){
-					$(this).removeClass(cur_class);}
-				);
-			}());
-		
-			// switch modifier key in tooltips if mac
-			// NOTE: This code is not used yet until I can figure out how to successfully bind ctrl/meta
-			// in Opera and Chrome
-			if (isMac && !window.opera) {
-				var shortcutButtons = ["tool_clear", "tool_save", "tool_source", "tool_undo", "tool_redo", "tool_clone"];
-				var i = shortcutButtons.length;
-				while (i--) {
-					var button = document.getElementById(shortcutButtons[i]);
-					if (button != null) {
-						var title = button.title;
-						var index = title.indexOf("Ctrl+");
-						button.title = [title.substr(0, index), "Cmd+", title.substr(index + 5)].join('');
-					}
-				}
 			}
 			
 			// TODO: go back to the color boxes having white background-color and then setting
