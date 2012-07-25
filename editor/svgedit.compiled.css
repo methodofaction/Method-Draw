@@ -175,7 +175,7 @@ div#palette_holder #palette .palette_item{cursor:pointer}
 .touch #color_tools #tool_stroke .color_block>div{position:relative}
 #color_tools .icon_label{padding:0;width:24px;height:100%;cursor:pointer;position:absolute}
 #linkLabel>svg{height:20px;padding-top:4px}
-div#palette{float:left;width:810px;height:16px}
+div#palette{float:left;height:16px}
 div#workarea{display:inline-table-cell;position:absolute;top:30px;left:50px;bottom:40px;right:175px;background-color:#444;overflow:auto;text-align:center}
 .touch div#workarea{top:40px}
 div.palette_item{height:16px;width:16px;float:left}
@@ -335,14 +335,21 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 .ui-slider-handle:focus{outline:0}
 #shape_buttons{background:#fff;border-radius:0 3px 3px 0;padding:10px}
 .tools_flyout .tool_button,.tools_flyout .tool_flyout{background:#fff;width:40px;height:40px;margin:5px;border-radius:0;-moz-border-radius:0;-webkit-border-radius:0;border-width:0}
-.contextMenu{position:absolute;z-index:99999;border:solid 1px rgba(0,0,0,.33);background:rgba(255,255,255,.95);padding:5px 0;margin:0;display:none;font:12px/15px Lucida Sans,Helvetica,Verdana,sans-serif;border-radius:5px;-moz-border-radius:5px;-moz-box-shadow:2px 5px 10px rgba(0,0,0,.3);-webkit-box-shadow:2px 5px 10px rgba(0,0,0,.3);box-shadow:2px 5px 10px rgba(0,0,0,.3)}
+.contextMenu{position:absolute;z-index:99999;border:solid 1px rgba(0,0,0,.33);background:rgba(255,255,255,.95);padding:5px 0;margin:0;display:none;font:12px/15px 'Lucida Sans','Lucida Grande',Helvetica,Verdana,sans-serif;border-radius:5px;-moz-border-radius:5px;-moz-box-shadow:2px 5px 10px rgba(0,0,0,.3);-webkit-box-shadow:2px 5px 10px rgba(0,0,0,.3);box-shadow:2px 5px 10px rgba(0,0,0,.3)}
+.touch .contextMenu{border:solid 5px rgba(0,0,0,.7);padding:0;margin:0 0 0 20px;font:18px/24px sans-serif;border-radius:5px;-webkit-box-shadow:2px 5px 20px 3px #000;box-shadow:2px 5px 20px rgba(0,0,0,0.5)}
+.touch .contextMenu:after{content:'';width:0;height:0;border:solid transparent 10px;border-right-color:rgba(0,0,0,.7);position:absolute;top:50%;left:-25px;margin-top:-10px;z-index:1000}
 .contextMenu LI{list-style:none;padding:0;margin:0}
 .contextMenu .shortcut{width:115px;text-align:right;float:right}
+.touch .contextMenu .shortcut{display:none}
+.touch .shortcut{display:none}
 .contextMenu A{-moz-user-select:none;-webkit-user-select:none;color:#222;text-decoration:none;display:block;line-height:20px;height:20px;background-position:6px center;background-repeat:no-repeat;outline:0;padding:0 15px 1px 20px}
+.touch .contextMenu A{padding:0 15px;border-bottom:#;font-weight:bold;border-top:solid 1px #e3e3e3;height:40px;line-height:40px;min-width:200px}
 .contextMenu LI.hover A{background-color:#2e5dea;color:white;cursor:default}
 .contextMenu LI.disabled A{color:#999}
+.touch .contextMenu LI.disabled A{display:none}
 .contextMenu LI.hover.disabled A{background-color:transparent}
 .contextMenu LI.separator{border-top:solid 1px #e3e3e3;padding-top:5px;margin-top:5px}
+.touch .contextMenu LI.separator{border-top:0;margin:0;padding:0}
 #menu{display:none;position:absolute;top:0;left:0;right:0;height:30px;background:#000;z-index:10;color:#fff}
 #workarea.rect,#workarea.line,#workarea.ellipse,#workarea.path,#workarea.shapelib{cursor:crosshair}
 #workarea.text{cursor:text}

@@ -361,6 +361,7 @@
 				Utils = svgedit.utilities,
 				default_img_url = curConfig.imgPath + "placeholder.svg",
 				workarea = $("#workarea"),
+				canv_menu = $("#cmenu_canvas"),
 				exportWindow = null, 
 				tool_scale = 1,
 				ui_context = 'toolbars',
@@ -1571,6 +1572,7 @@
 					}
 					menu_items[(el_name === 'g' ? 'en':'dis') + 'ableContextMenuItems']('#ungroup');
 					menu_items[((el_name === 'g' || !multiselected) ? 'dis':'en') + 'ableContextMenuItems']('#group');
+
 				} // if (elem != null)
 				else if (multiselected) {
 					$('#multiselected_panel').show();
@@ -1597,6 +1599,14 @@
 				}
 				
 				svgCanvas.addedNew = false;
+				
+				if ( (elem && !is_node)	|| multiselected) {
+					// update the selected elements' layer
+					$('#selLayerNames').removeAttr('disabled').val(currentLayerName);
+					
+					// Enable regular menu options
+					canv_menu.enableContextMenuItems('#delete,#cut,#copy,#move_front,#move_up,#move_down,#move_back');
+				}
 			};
 		
 			$('#text').on("focus", function(e){ textBeingEntered = true; } );
@@ -3616,6 +3626,9 @@
 			$('.contextMenu li').mousedown(function(ev) {
 				ev.preventDefault();
 			})
+			
+			$('#cmenu_canvas li').disableContextMenu();
+			canv_menu.enableContextMenuItems('#delete,#cut,#copy');
 			
 			window.onbeforeunload = function() { 
 				// Suppress warning if page is empty 

@@ -147,8 +147,8 @@ svgedit.path.addPointGrip = function(index, x, y) {
 		svgedit.utilities.assignAttributes(pointGrip, {
 			'id': "pathpointgrip_" + index,
 			'display': "none",
-			'width': 5,
-			'height': 5,
+			'width': svgeditor.browser.isTouch() ? 30 : 5,
+			'height': svgeditor.browser.isTouch() ? 30 : 5,
 			'fill': "#fff",
 			'stroke': "#4F80FF",
 			'shape-rendering': "crispEdges",
@@ -167,8 +167,8 @@ svgedit.path.addPointGrip = function(index, x, y) {
 	if(x && y) {
 		// set up the point grip element and display it
 		svgedit.utilities.assignAttributes(pointGrip, {
-			'x': x-2.5,
-			'y': y-2.5,
+			'x': x-(svgeditor.browser.isTouch() ? 15 : 2.5),
+			'y': y-(svgeditor.browser.isTouch() ? 15 : 2.5),
 			'display': "inline"
 		});
 	}
@@ -193,7 +193,7 @@ svgedit.path.addCtrlGrip = function(id) {
 	svgedit.utilities.assignAttributes(pointGrip, {
 		'id': "ctrlpointgrip_" + id,
 		'display': "none",
-		'r': 3,
+		'r': svgeditor.browser.isTouch() ? 15 : 3,
 		'fill': "#4F80FF",
 		'cursor': 'move',
 		'style': 'pointer-events:all',
@@ -224,8 +224,8 @@ svgedit.path.getPointGrip = function(seg, update) {
 	if(update) {
 		var pt = svgedit.path.getGripPt(seg);
 		svgedit.utilities.assignAttributes(pointGrip, {
-			'x': pt.x-2.5,
-			'y': pt.y-2.5,
+			'x': pt.x-(svgeditor.browser.isTouch() ? 15 : 2.5),
+			'y': pt.y-(svgeditor.browser.isTouch() ? 15 : 2.5),
 			'display': "inline"
 		});
 	}
@@ -446,7 +446,8 @@ svgedit.path.Segment.prototype.addGrip = function() {
 svgedit.path.Segment.prototype.update = function(full) {
 	if(this.ptgrip) {
 		var pt = svgedit.path.getGripPt(this);
-		var properties = (this.ptgrip.nodeName == "rect") ? {'x': pt.x-2.5, 'y': pt.y-2.5} : {'cx': pt.x, 'cy': pt.y};
+		var reposition = (svgeditor.browser.isTouch() ? 15 : 2.5)
+		var properties = (this.ptgrip.nodeName == "rect") ? {'x': pt.x-reposition, 'y': pt.y-reposition} : {'cx': pt.x, 'cy': pt.y};
 		svgedit.utilities.assignAttributes(this.ptgrip, properties);
 		svgedit.path.getSegSelector(this, true);
 

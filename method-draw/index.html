@@ -24,11 +24,11 @@
 <!--{if svg_edit_release}-->
   <script type="text/javascript" src="svgedit.compiled.js"></script>
 <!--{else}>
+  <script type="text/javascript" src="touch.js"></script>
   <script type="text/javascript" src="js-hotkeys/jquery.hotkeys.min.js"></script>
   <script type="text/javascript" src="jquerybbq/jquery.bbq.min.js"></script>
   <script type="text/javascript" src="svgicons/jquery.svgicons.js"></script>
   <script type="text/javascript" src="jgraduate/jquery.jgraduate.js"></script>
-  <script type="text/javascript" src="touch.js"></script>
   <script type="text/javascript" src="contextmenu/jquery.contextMenu.js"></script>
   <script type="text/javascript" src="browser.js"></script>
   <script type="text/javascript" src="svgtransformlist.js"></script>
@@ -51,6 +51,7 @@
   <script type="text/javascript" src="extensions/ext-eyedropper.js"></script>
   <script type="text/javascript" src="extensions/ext-shapes.js"></script>
   <script type="text/javascript" src="requestanimationframe.js"></script>
+  <script type="text/javascript" src="taphold.js"></script>
 <!{endif}-->
 
 <!-- you can load extensions here -->
@@ -166,12 +167,12 @@ $(function(){
 	  <h4 class="clearfix">Canvas</h4>
 	  
 		<label data-title="Change canvas width">
-			<span class="icon_label">Width</span>
 			<input size="3" id="canvas_width" type="text" pattern="[0-9]*" />
+			<span class="icon_label">Width</span>
 		</label>
 		<label data-title="Change canvas height">
-			<span class="icon_label">Height</span>
 			<input id="canvas_height" size="3" type="text" pattern="[0-9]*" />
+			<span class="icon_label">Height</span>
 		</label>
 		  	
   	
@@ -207,91 +208,104 @@ $(function(){
 	<div id="rect_panel" class="context_panel">
 	  <h4 class="clearfix">Rectangle</h4>
 	  <label>
-			<span>X</span> 
 			<input id="rect_x" class="attr_changer" data-title="Change X coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+			<span>X</span> 
 		</label>
 		<label>
-		  <span>Y</span> 
 		  <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+			<span>Y</span> 
 		</label>
 		<label id="rect_width_tool attr_changer" data-title="Change rectangle width">
-			<span class="icon_label">Width</span>
 			<input id="rect_width" class="attr_changer" size="3" data-attr="width" type="text" pattern="[0-9]*" />
+			<span class="icon_label">Width</span>
 		</label>
 		<label id="rect_height_tool" data-title="Change rectangle height">
-			<span class="icon_label">Height</span>
 			<input id="rect_height" class="attr_changer" size="3" data-attr="height" type="text" pattern="[0-9]*" />
+			<span class="icon_label">Height</span>
 		</label>
 	</div>
 	
 	<div id="path_panel" class="context_panel clearfix">
 	  <h4 class="clearfix">Path</h4>
-	  <label><span>X</span>
+	  <label>
 		  <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+		  <span>X</span>
 		</label>
-		<label><span>Y</span>
+		<label>
 		  <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+		  <span>Y</span>
 		</label>
 	</div>
 
 	<div id="image_panel" class="context_panel clearfix">
 	<h4>Image</h4>
 		<label>
-			<span>X</span> 
 			<input id="image_x" class="attr_changer" data-title="Change X coordinate" size="3" data-attr="x"  pattern="[0-9]*"/>
+		  <span>X</span> 
 		</label>
 		<label>
-		  <span>Y</span> 
 		  <input id="image_y" class="attr_changer" data-title="Change Y coordinate" size="3" data-attr="y"  pattern="[0-9]*"/>
-		</label>
-		<label><span class="icon_label">Width</span>
-		  <input id="image_width" class="attr_changer" data-title="Change image width" size="3" data-attr="width" pattern="[0-9]*" />
+		  <span>Y</span> 
 		</label>
 		<label>
-		  <span class="icon_label">Height</span>
+		  <input id="image_width" class="attr_changer" data-title="Change image width" size="3" data-attr="width" pattern="[0-9]*" />
+		  <span class="icon_label">Width</span>
+		</label>
+		<label>
 		  <input id="image_height" class="attr_changer" data-title="Change image height" size="3" data-attr="height" pattern="[0-9]*" />
+		  <span class="icon_label">Height</span>
 		</label>
   </div>
 
 	<div id="ellipse_panel" class="context_panel clearfix">
 	  <h4>Ellipse</h4>
-		<label id="tool_ellipse_cx"><span>X</span>
+		<label id="tool_ellipse_cx">
 		  <input id="ellipse_cx" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="cx" pattern="[0-9]*" />
+		  <span>X</span>
 		</label>
-		<label id="tool_ellipse_cy"><span>Y</span>
+		<label id="tool_ellipse_cy">
 		  <input id="ellipse_cy" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="cy" pattern="[0-9]*" />
+		  <span>Y</span>
 		</label>
-		<label id="tool_ellipse_rx"><span>Radius X</span>
+		<label id="tool_ellipse_rx">
 		  <input id="ellipse_rx" class="attr_changer" data-title="Change ellipse's x radius" size="3" data-attr="rx" pattern="[0-9]*" />
+	    <span>Radius X</span>
 		</label>
-		<label id="tool_ellipse_ry"><span>Radius Y</span>
+		<label id="tool_ellipse_ry">
 		  <input id="ellipse_ry" class="attr_changer" data-title="Change ellipse's y radius" size="3" data-attr="ry" pattern="[0-9]*" />
+		  <span>Radius Y</span>
 		</label>
 	</div>
 
 	<div id="line_panel" class="context_panel clearfix">
 	  <h4>Line</h4>
-		<label id="tool_line_x1"><span>Start X</span>
+		<label id="tool_line_x1">
 		  <input id="line_x1" class="attr_changer" data-title="Change line's starting x coordinate" size="3" data-attr="x1" pattern="[0-9]*" />
+		  <span>Start X</span>
 		</label>
-		<label id="tool_line_y1"><span>Start Y</span>
+		<label id="tool_line_y1">
 		  <input id="line_y1" class="attr_changer" data-title="Change line's starting y coordinate" size="3" data-attr="y1" pattern="[0-9]*" />
+		  <span>Start Y</span>
 		</label>
-		<label id="tool_line_x2"><span>End X</span>
+		<label id="tool_line_x2">
 		  <input id="line_x2" class="attr_changer" data-title="Change line's ending x coordinate" size="3" data-attr="x2"   pattern="[0-9]*" />
+		  <span>End X</span>
 		</label>
-		<label id="tool_line_y2"><span>End Y</span>
+		<label id="tool_line_y2">
 		  <input id="line_y2" class="attr_changer" data-title="Change line's ending y coordinate" size="3" data-attr="y2"   pattern="[0-9]*" />
+		  <span>End Y</span>
 		</label>
 	</div>
 
 	<div id="text_panel" class="context_panel clearfix">
 	  <h4>Text</h4>
-		<label><span>X</span>
+		<label>
 		  <input id="text_x" class="attr_changer" data-title="Change text x coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+		  <span>X</span>
 		</label>
-		<label><span>Y</span>
+		<label>
 		  <input id="text_y" class="attr_changer" data-title="Change text y coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+		  <span>Y</span>
 		</label>
 		<div class="toolset" id="tool_font_family">
 				<!-- Font family -->
@@ -321,8 +335,8 @@ $(function(){
 		</div>
 
 		<label id="tool_font_size" data-title="Change Font Size">
-			<span id="font_sizeLabel" class="icon_label">Font Size</span>
 			<input id="font_size" size="3" value="0" />
+			<span id="font_sizeLabel" class="icon_label">Font Size</span>
 		</label>
 		
 		<!-- Not visible, but still used -->
@@ -344,30 +358,26 @@ $(function(){
 	
 	<div id="g_panel" class="context_panel clearfix">
 		<h4>Group</h4>
-		<label><span>X</span>
-		  <input id="group_x" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+		<label>
+		  <input id="g_x" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+		  <span>X</span>
 		</label>
-		<label><span>Y</span>
-		  <input id="group_y" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+		<label>
+		  <input id="g_y" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+		  <span>Y</span>
 		</label>
-	</div>
-
-	<!-- For anchor elements -->
-	<div id="a_panel" class="context_panel clearfix">
-		<label id="tool_link_url" data-title="Set link URL (leave empty to remove)">
-			<span id="linkLabel" class="icon_label"></span>
-			<input id="link_url" type="text" size="35"/>
-		</label>	
 	</div>
 	
 	<div id="path_node_panel" class="context_panel clearfix">
 	  <h4>Edit Path</h4>
 
-		<label id="tool_node_x"><span>X</span>
+		<label id="tool_node_x">
 			<input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" size="3" data-attr="x" />
+		  <span>X</span>
 		</label>
-		<label id="tool_node_y"><span>Y</span>
+		<label id="tool_node_y">
 			<input id="path_node_y" class="attr_changer" data-title="Change node's y coordinate" size="3" data-attr="y" />
+		  <span>Y</span>
 		</label>
 		
 		<label id="segment_type" class="draginput label">
@@ -396,97 +406,64 @@ $(function(){
 	<div id="selected_panel" class="context_panel clearfix">
 
 		<label id="tool_angle" data-title="Change rotation angle" class="draginput">
-			<span class="icon_label">Rotation</span>
 			<input id="angle" class="attr_changer" size="2" value="0" data-min="-180" data-max="180" type="text"/>
+			<span class="icon_label">Rotation</span>
 			<div id="tool_angle_indicator">
 			  <div id="tool_angle_indicator_cursor"></div>
 			</div>
 		</label>
 		
 			<label class="toolset" id="tool_opacity" data-title="Change selected item opacity">
-  			<span id="group_opacityLabel" class="icon_label">Opacity</span>
   			<input id="group_opacity" size="3" value="100" step="5" min="0" max="100" />
+  		  <span id="group_opacityLabel" class="icon_label">Opacity</span>
   		</label>
 		
 		<div class="toolset" id="tool_blur" data-title="Change gaussian blur value">
 			<label>
-				<span class="icon_label">Blur</span>
 				<input id="blur" size="2" value="0" step=".1"  min="0" max="10" />
+			  <span class="icon_label">Blur</span>
 			</label>
 		</div>
 		
 		<label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
-			<span class="icon_label">Roundness</span>
 			<input id="rect_rx" size="3" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
+		  <span class="icon_label">Roundness</span>
 		</label>
 		
-    <div class="clearfix"></div>
-		<h4>Stroke</h4>
-		<div class="toolset" data-title="Change stroke">
-			<label>
-				<span class="icon_label">Stroke Width</span>
-				<input id="stroke_width" size="2" value="5" data-attr="stroke-width" min="0" max="99" step="1" />
-			</label>
-		</div>
-		<label class="stroke_tool draginput"> 
-		  <span>Stroke Dash</span>
-			<select id="stroke_style" data-title="Change stroke dash style">
-				<option selected="selected" value="none">&mdash;</option>
-				<option value="2,2">···</option>
-				<option value="5,5">- -</option>
-				<option value="5,2,2,2">-·-</option>
-				<option value="5,2,2,2,2,2">-··-</option>
-			</select>
-			<div class="caret"></div>
-			<label id="stroke_style_label">&mdash;</label>
-		</label>
-			
-    <label style="display: none;">
-      <span class="icon_label">Stroke Join</span>
-    </label>
-      
-    <label  style="display: none;">
-      <span class="icon_label">Stroke Cap</span>
-		</label>
 		<div class="clearfix"></div>
-		<h4>Align</h4>
-		<div class="toolset align_buttons" id="tool_position">
-				<label>
-				  <div class="col last clear" id="position_opts">
-  				  <div class="draginput_cell" id="tool_posleft" title="Align Left"></div>
-        		<div class="draginput_cell" id="tool_poscenter" title="Align Center"></div>
-        		<div class="draginput_cell" id="tool_posright" title="Align Right"></div>
-        		<div class="draginput_cell" id="tool_postop" title="Align Top"></div>
-        		<div class="draginput_cell" id="tool_posmiddle" title="Align Middle"></div>
-        		<div class="draginput_cell" id="tool_posbottom" title="Align Bottom"></div>
-  				</div>
-				</label>
-		</div>		
+		<div id="align_tools">
+  		<h4>Align</h4>
+  		<div class="toolset align_buttons" id="tool_position">
+  				<label>
+  				  <div class="col last clear" id="position_opts">
+    				  <div class="draginput_cell" id="tool_posleft" title="Align Left"></div>
+          		<div class="draginput_cell" id="tool_poscenter" title="Align Center"></div>
+          		<div class="draginput_cell" id="tool_posright" title="Align Right"></div>
+          		<div class="draginput_cell" id="tool_postop" title="Align Top"></div>
+          		<div class="draginput_cell" id="tool_posmiddle" title="Align Middle"></div>
+          		<div class="draginput_cell" id="tool_posbottom" title="Align Bottom"></div>
+    				</div>
+  				</label>
+  		</div>		
+  	</div>
 	</div>
 	
 	<!-- Buttons when multiple elements are selected -->
 	<div id="multiselected_panel" class="context_panel clearfix">
-	  <h4>Multiple Elements</h4>
-		<!--<div class="tool_sep"></div> -->
-		<!--<div class="push_button" id="tool_clone_multi" title="Clone Elements [C]"></div> -->
-		<!--<div class="push_button" id="tool_delete_multi" title="Delete Selected Elements [Delete/Backspace]"></div> -->
-		<!--<div class="tool_sep"></div> -->
-		<!--div class="push_button" id="tool_group" title="Group Elements [G]"></div>-->
-		<!--<div class="push_button" id="tool_make_link_multi" title="Make (hyper)link"></div>-->
+	  <h4 class="hidable">Multiple Elements</h4>
 		<div class="toolset align_buttons">
 		  <h4>Align</h4>
-  		<label>
     		<div class="col last clear">
-      		<div class="push_button" id="tool_alignleft" title="Align Left"></div>
-      		<div class="push_button" id="tool_aligncenter" title="Align Center"></div>
-      		<div class="push_button" id="tool_alignright" title="Align Right"></div>
-      		<div class="push_button" id="tool_aligntop" title="Align Top"></div>
-      		<div class="push_button" id="tool_alignmiddle" title="Align Middle"></div>
-      		<div class="push_button" id="tool_alignbottom" title="Align Bottom"></div>
+      		<div class="draginput_cell" id="tool_alignleft" title="Align Left"></div>
+      		<div class="draginput_cell" id="tool_aligncenter" title="Align Center"></div>
+      		<div class="draginput_cell" id="tool_alignright" title="Align Right"></div>
+      		<div class="draginput_cell" id="tool_aligntop" title="Align Top"></div>
+      		<div class="draginput_cell" id="tool_alignmiddle" title="Align Middle"></div>
+      		<div class="draginput_cell" id="tool_alignbottom" title="Align Bottom"></div>
     		</div>
-  		</label>
 		</div>
-		<label id="tool_align_relative"> 
+		<div class="clearfix"></div>
+		<label id="tool_align_relative" style="margin-top: 10px;"> 
 			<span id="relativeToLabel">Relative to:</span>
 			<select id="align_relative_to" title="Align relative to ...">
 			<option id="selected_objects" value="selected">Objects</option>
@@ -495,6 +472,37 @@ $(function(){
 		</label>
 		<div class="tool_sep"></div>
 
+	</div>
+	
+	<div id="stroke_panel" class="context_panel clearfix">
+  	<div class="clearfix"></div>
+  	<h4>Stroke</h4>
+  	<div class="toolset" data-title="Change stroke">
+  		<label>
+  			<input id="stroke_width" size="2" value="5" data-attr="stroke-width" min="0" max="99" step="1" />
+  		  <span class="icon_label">Stroke Width</span>
+  		</label>
+  	</div>
+  	<label class="stroke_tool draginput"> 
+  	  <span>Stroke Dash</span>
+  		<select id="stroke_style" data-title="Change stroke dash style">
+  			<option selected="selected" value="none">&mdash;</option>
+  			<option value="2,2">···</option>
+  			<option value="5,5">- -</option>
+  			<option value="5,2,2,2">-·-</option>
+  			<option value="5,2,2,2,2,2">-··-</option>
+  		</select>
+  		<div class="caret"></div>
+  		<label id="stroke_style_label">&mdash;</label>
+  	</label>
+		
+    <label style="display: none;">
+      <span class="icon_label">Stroke Join</span>
+    </label>
+    
+    <label  style="display: none;">
+      <span class="icon_label">Stroke Cap</span>
+  	</label>
 	</div>
 
 </div> <!-- tools_top -->
@@ -511,7 +519,7 @@ $(function(){
 	<div class="tool_button" id="tool_ellipse" title="Ellipse/Circle Tool [C]"></div>
 	<div class="tool_button" id="tool_path" title="Path Tool [P]"></div>
 	<div class="tool_button" id="tool_text" title="Text Tool [T]"></div>
-	<div class="tool_button" id="tool_zoom" title="Zoom Tool [Ctrl+Up/Down]"></div>
+	<div class="tool_button" id="tool_zoom" title="Zoom Tool [Z]"></div>
 	
   <div id="color_tools">
         <div id="tool_switch" title="Switch stroke and fill colors [X]"></div>
@@ -537,9 +545,26 @@ $(function(){
 
     <!-- Zoom buttons -->
 	<div id="zoom_panel" class="toolset" title="Change zoom level">
-		<label>
-  		<span id="zoomLabel" class="zoom_tool icon_label"></span>
-  		<input id="zoom" size="3" value="100" type="text" />
+		<label class="draginput select" id="zoom_label">
+  		<span  id="zoomLabel" class="zoom_tool icon_label"></span>
+  		<select id="zoom_select">
+  		  <option>6%</option>
+  		  <option>12%</option>
+  		  <option>16%</option>
+  		  <option>25%</option>
+  		  <option>50%</option>
+  		  <option>75%</option>
+  		  <option selected>100%</option>
+  		  <option>150%</option>
+  		  <option>200%</option>
+  		  <option>300%</option>
+  		  <option>400%</option>
+  		  <option>600%</option>
+  		  <option>800%</option>
+  		  <option>1600%</option>
+  		</select>
+  		<div class="caret"></div>
+  		<input id="zoom" size="3" value="100%" type="text" readonly="readonly" />
 		</label>
 	</div>
 
