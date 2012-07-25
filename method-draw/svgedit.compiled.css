@@ -399,6 +399,7 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 .draginput input[readonly=readonly]{-webkit-appearance:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .draginput input:focus{background:#4f80ff;color:#fff;outline:0;box-shadow:0 0 5px 2px #4f80ff}
 .draginput input:focus+span{z-index:10;color:#fff}
+.draginput .push_bottom{bottom:0;position:absolute}
 #zoom_label{height:20px;background:transparent;cursor:default!important;width:auto;padding:0 10px;margin:0}
 #zoom_panel{padding:9px 0;right:175px;position:absolute}
 #zoom_label img{width:16px;height:16px}

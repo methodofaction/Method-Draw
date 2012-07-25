@@ -1445,6 +1445,8 @@
   					if (elname === "path") $('.action_path_selected').removeClass('disabled');
   
 					} else {
+					  $('#path_node_panel').show();
+					  $('#stroke_panel').hide();
 						var point = path.getNodePoint();
 						$('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
 						$('#tool_node_delete').toggleClass('disabled', !path.canDeleteNodes);
