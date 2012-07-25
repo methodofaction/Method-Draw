@@ -10,7 +10,7 @@ $.fn.dragInput = function(cfg){
 		this.dragCfg = {
 			min: cfg && !isNaN(parseFloat(cfg.min)) ? Number(cfg.min) : null,	// Fixes bug with min:0
 			max: cfg && !isNaN(parseFloat(cfg.max)) ? Number(cfg.max) : null,
-			step: cfg && cfg.step ? Number(cfg.step) : 1,
+			step: cfg && Number(cfg.step) ? cfg.step : 1,
 			stepfunc: cfg && cfg.stepfunc ? cfg.stepfunc : false,
 			page: cfg && cfg.page ? Number(cfg.page) : 10,
 			reset: cfg && cfg.reset ? cfg.reset : this.value,
@@ -149,9 +149,9 @@ $.fn.dragInput = function(cfg){
 		
 		.bind("mousewheel", function(e, delta, deltaX, deltaY){
 			if (deltaY > 0)
-				this.adjustValue(this.dragCfg.step, true);
+				this.adjustValue(this.dragCfg.step);
 			else if (deltaY < 0)
-				this.adjustValue(-this.dragCfg.step, true);
+				this.adjustValue(-this.dragCfg.step);
 			e.preventDefault();
 		})
 		
