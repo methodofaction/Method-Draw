@@ -546,7 +546,7 @@ svgedit.select.SelectorManager.prototype.getRubberBandBox = function() {
 				'element': 'rect',
 				'attr': {
 					'id': 'selectorRubberBand',
-					'fill': 'transparent',
+					'fill': 'none',
 					'stroke': '#666',
 					'stroke-width': 1,
 					'stroke-dasharray': '3,2', 
