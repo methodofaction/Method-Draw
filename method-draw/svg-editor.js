@@ -724,8 +724,6 @@
 				}
 				$('#cur_context_panel').toggle(!!context).html(link_str);
 
-				
-				updateTitle();
 			}
 			
 			// Makes sure the current selected paint is available to work with
@@ -2558,7 +2556,6 @@
 					svgCanvas.clearSelection();
 					hideSourceEditor();
 					zoomImage();
-					updateTitle();
 					prepPaints();
 				}
 		
@@ -2572,17 +2569,6 @@
 				}
 				setSelectMode();		
 			};
-			
-			var updateTitle = function(title) {
-				title = title || svgCanvas.getDocumentTitle();
-				var new_title = orig_title + (title?': ' + title:'');
-				
-				// Remove title update with current context info, isn't really necessary
-// 				if(cur_context) {
-// 					new_title = new_title + cur_context;
-// 				}
-				$('title:first').text(new_title);
-			}
 			
 			function setBackground(color, url) {
 // 				if(color == curPrefs.bkgd_color && url == curPrefs.bkgd_url) return;

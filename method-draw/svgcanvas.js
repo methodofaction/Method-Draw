@@ -2736,7 +2736,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 		if (!started) return;
 		if(evt.button === 1 || canvas.spaceKey) return;
-
 		var selected = selectedElements[0],
 			pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
 			mouse_x = pt.x * current_zoom,
@@ -2769,7 +2768,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					}
       	  
       	  if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x,y); x=xya.x; y=xya.y; }
-					
 					if (dx != 0 || dy != 0) {
 						var len = selectedElements.length;
 						for (var i = 0; i < len; ++i) {
@@ -3862,7 +3860,6 @@ var textActions = canvas.textActions = function() {
 			// TODO: Find way to block native selection
 		},
 		mouseMove: function(mouse_x, mouse_y) {
-		  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 			var pt = screenToPt(mouse_x, mouse_y);
 			setEndSelectionFromPoint(pt.x, pt.y);
 		},			
@@ -4372,7 +4369,6 @@ var pathActions = canvas.pathActions = function() {
 			}
 		},
 		mouseMove: function(evt, mouse_x, mouse_y) {
-		  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 			hasMoved = true;
 			if(current_mode === "path") {
 				if(!drawn_path) return;

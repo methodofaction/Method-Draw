@@ -212,7 +212,7 @@ input[type=text].tuco,input[type=number].tuco{width:150px}
 input[type=submit],input[type=button],button{background:#4f80ff;color:#fff;border-radius:3px;padding:7px 17px;border:0;line-height:140%;font-size:14px;font-weight:bold;font-family:sans-serif}
 input[type=submit]:hover,button:hover{box-shadow:inset 0 3px 10px rgba(255,255,255,0.1),inset 0 -3px 10px rgba(0,0,0,0.2)}
 input[type=submit]:hover,button:hover{background:#2f84c1}
-input[type=submit]:active,button:active{padding:6px 10px 4px 10px;box-shadow:inset 0 2px 2px rgba(0,0,0,0.2);border-bottom:solid rgba(255,255,255,0.1) 1px}
+input[type=submit]:active,button:active{box-shadow:inset 0 2px 2px rgba(0,0,0,0.2);border-bottom:solid rgba(255,255,255,0.1) 1px}
 #tools_left{position:absolute;border-right:0;width:50px;top:30px;left:0;background:#2f2f2c;z-index:4}
 #workarea.wireframe #svgcontent *{fill:none;stroke:#000;stroke-width:1px;stroke-opacity:1.0;stroke-dasharray:0;opacity:1;pointer-events:stroke;vector-effect:non-scaling-stroke;filter:none}
 #workarea.wireframe #svgcontent text{fill:#000;stroke:none}

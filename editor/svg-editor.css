@@ -715,7 +715,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
  input[type=submit]:hover,  button:hover {background: #2F84C1;}
- input[type=submit]:active,  button:active {padding: 6px 10px 4px 10px; box-shadow: inset 0 2px 2px rgba(0,0,0,0.2); border-bottom: solid rgba(255,255,255,0.1) 1px;}
+ input[type=submit]:active,  button:active { box-shadow: inset 0 2px 2px rgba(0,0,0,0.2); border-bottom: solid rgba(255,255,255,0.1) 1px;}
 
 
  #tools_left {
