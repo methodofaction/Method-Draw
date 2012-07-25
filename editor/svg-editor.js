@@ -133,6 +133,7 @@
 		}
 
 		Editor.init = function() {
+		  document.domain = document.domain;
 			// For external openers
 			(function() {
 				// let the opener know SVG Edit is ready
