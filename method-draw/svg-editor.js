@@ -95,12 +95,6 @@
 		Editor.tool_scale = 1;
 		
 		Editor.setConfig = function(opts) {
-			$.each(opts, function(key, val) {
-				// Only allow prefs defined in defaultPrefs
-				if(key in defaultPrefs) {
-					$.pref(key, val);
-				}
-			});
 			$.extend(true, curConfig, opts);
 			if(opts.extensions) {
 				curConfig.extensions = opts.extensions;
