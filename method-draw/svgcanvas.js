@@ -409,7 +409,6 @@ svgedit.select.init(curConfig, {
 // this object manages selectors for us
 var selectorManager = this.selectorManager = svgedit.select.getSelectorManager();
 // this object manages selectors for us
-var hoverManager = this.hoverManager = svgedit.select.getSelectorManager();
 
 // Import from path.js
 svgedit.path.init({
@@ -560,6 +559,7 @@ var runExtensions = this.runExtensions = function(action, vars, returnArray) {
 	return result;
 }
 
+
 // Function: addExtension
 // Add an extension to the editor
 // 
@@ -575,8 +575,7 @@ this.addExtension = function(name, ext_func) {
 			svgroot: svgroot,
 			svgcontent: svgcontent,
 			nonce: getCurrentDrawing().getNonce(),
-			selectorManager: selectorManager,
-			hoverManager: hoverManager
+			selectorManager: selectorManager
 		}));
 		} else {
 			var ext = ext_func;
@@ -2374,10 +2373,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   but the action is not recorded until mousing up
 	// - when we are in select mode, select the element, remember the position
 	//   and do nothing else
-	var mouseDown = mouseOver = function(evt)
+	var mouseDown = function(evt)
 	{
-		if(canvas.spaceKey || evt.button === 1) return;
-		
+		if (evt.originalEvent.touches && evt.originalEvent.touches > 1) return;
 		var right_click = evt.button === 2;
 		
 		root_sctm = svgcontent.getScreenCTM().inverse();
@@ -2734,8 +2732,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	
 	// in this function we do not record any state changes yet (but we do update
 	// any elements that are still being created, moved or resized on the canvas)
-	var mouseMove = function(evt)
-	{
+	var mouseMove = function(evt) {
+	  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 		if (!started) return;
 		if(evt.button === 1 || canvas.spaceKey) return;
 
@@ -2769,9 +2767,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						dx = snapToGrid(dx);
 						dy = snapToGrid(dy);
 					}
-
-					if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x,y); x=xya.x; y=xya.y; }
-      	  //duplicate only once
+      	  
+      	  if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x,y); x=xya.x; y=xya.y; }
+					
 					if (dx != 0 || dy != 0) {
 						var len = selectedElements.length;
 						for (var i = 0; i < len; ++i) {
@@ -2790,7 +2788,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 							// Note that if Webkit and there's no ID for this
 							// element, the dummy transform may have gotten lost.
 							// This results in unexpected behaviour
-							
 							xform.setTranslate(dx,dy);
 							if(tlist.numberOfItems) {
 								tlist.replaceItem(xform, 0);
@@ -2798,27 +2795,34 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 								tlist.appendItem(xform);
 							}
 							
-          	  // alt drag = create a clone and save the reference							
-							if(evt.altKey) {
-							  //clone doesn't exist yet
-							  if (!canvas.addClone) {
-							    canvas.addClone = canvas.cloneSelectedElements(0,0, true);
-							    canvas.removeClone = function(){
-							      parent = canvas.addClone.parentNode
-							      if (parent) {
-							        parent.removeChild(canvas.addClone)
-							        canvas.addClone = false;
-							      }
-							    }
-							    window.addEventListener("keyup", canvas.removeClone)
-          	    }
-          	  }
 							// update our internal bbox that we're tracking while dragging
 							selectorManager.requestSelector(selected).resize();
 						}
-						
+
+        	  //duplicate only once
+        	  // alt drag = create a clone and save the reference							
+  					if(evt.altKey) {
+  					  //clone doesn't exist yet
+  					  if (!canvas.addClone) {
+  					    canvas.addClone = canvas.cloneSelectedElements(0,0, xform);
+  					    canvas.removeClone = function(){
+  					      parent = canvas.addClone.parentNode
+  					      if (parent) {
+  					        parent.removeChild(canvas.addClone)
+  					        canvas.addClone = false;
+  					      }
+  					    }
+  					    window.addEventListener("keyup", canvas.removeClone)
+        	    }
+        	  }
+			
 						call("transition", selectedElements);
 					}
+					
+
+
+					
+					
 				}
 				break;
 			case "multiselect":
@@ -3170,16 +3174,35 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	}; // mouseMove()
 	
 	
-	// mouseover mode
+	/* mouseover mode
 	var mouseOver = function(evt) {
-	  if (evt.button) return;
-	  elem = evt.target;
-	  var clone = elem.cloneNode(true);
-	  clone.setAttribute("fill", "none");
-	  clone.setAttribute("stroke", "#09f")
-    clone.setAttribute("stroke-width", "1")
-    elem.selectorParentGroup.appendChild(clone)
+	  
+	  if(canvas.spaceKey || evt.button === 1 || current_mode != "select") return;
+	  evt.stopPropagation();
+	  mouse_target = getMouseTarget(evt);
+	  if (svghover.lastChild) svghover.removeChild(svghover.lastChild);
+	  
+	  if (mouse_target.id == "svgroot") return
+	  switch (mouse_target.nodeName) {
+	    case "polyline":
+	    case "line":
+	    case "path":
+	    case "ellipse":
+	    case "rect":
+					var clone = mouse_target.cloneNode(true); 
+					clone.setAttribute("stroke", "#c00")
+					clone.setAttribute("stroke-width", "1")
+					clone.setAttribute("stroke-opacity", "1")
+					clone.setAttribute("shape-rendering", "crispEdges")
+					clone.setAttribute("fill", "none")
+					hover_group.appendChild(clone);
+			break;
+				
+	    default:
+	    break;
+	  }
 	}
+	*/
 	
 	// - in create mode, the element's opacity is set properly, we create an InsertElementCommand
 	//   and store it on the Undo stack
@@ -3839,6 +3862,7 @@ var textActions = canvas.textActions = function() {
 			// TODO: Find way to block native selection
 		},
 		mouseMove: function(mouse_x, mouse_y) {
+		  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 			var pt = screenToPt(mouse_x, mouse_y);
 			setEndSelectionFromPoint(pt.x, pt.y);
 		},			
@@ -4348,6 +4372,7 @@ var pathActions = canvas.pathActions = function() {
 			}
 		},
 		mouseMove: function(evt, mouse_x, mouse_y) {
+		  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 			hasMoved = true;
 			if(current_mode === "path") {
 				if(!drawn_path) return;
@@ -7604,21 +7629,42 @@ this.setLinkURL = function(val) {
 };
 
 
+// Function selectedAreSame
+// Checks if all the selected Elements are the same type
+// 
+// Parameters:
+// None
+
+this.elementsAreSame = function(elements) {
+  if (!elements.length || elements[0] == null) return null
+	else {
+	  var isSameElement = function(el) { 
+	    if (el && selectedElements[0])
+	      return (el.nodeName == selectedElements[0].nodeName);
+	    else return null;
+	  }
+	  return selectedElements.every(isSameElement);
+	}
+}
+
+
 // Function: setRectRadius
 // Sets the rx & ry values to the selected rect element to change its corner radius
 // 
 // Parameters:
 // val - The new radius
 this.setRectRadius = function(val) {
-	var selected = selectedElements[0];
-	if (selected != null && selected.tagName == "rect") {
+	if (canvas.elementsAreSame(selectedElements) && selectedElements[0].tagName == "rect") {
+		var assign_rr = function(selected){
 		var r = selected.getAttribute("rx");
-		if (r != val) {
-			selected.setAttribute("rx", val);
-			selected.setAttribute("ry", val);
-			addCommandToHistory(new ChangeElementCommand(selected, {"rx":r, "ry":r}, "Radius"));
-			call("changed", [selected]);
-		}
+  		if (r != val) {
+  			selected.setAttribute("rx", val);
+  			selected.setAttribute("ry", val);
+  			addCommandToHistory(new ChangeElementCommand(selected, {"rx":r, "ry":r}, "Radius"));
+  			call("changed", [selected]);
+  		}
+    }
+		selectedElements.forEach(assign_rr)
 	}
 };
 
@@ -8423,7 +8469,6 @@ this.moveToBottomSelectedElement = function() {
 this.moveUpDownSelected = function(dir) {
 	var selected = selectedElements[0];
 	if (!selected) return;
-	
 	curBBoxes = [];
 	var closest, found_cur;
 	// jQuery sorts this list
@@ -8545,7 +8590,7 @@ this.cloneSelectedElements = function(x,y, drag) {
 		// clone each element and replace it within copiedElements
 		var elem = copiedElements[i] 
 		var clone = copyElem(copiedElements[i]);
-		if (drag) clone.removeAttribute("transform");
+		if (drag) clone.setAttribute("transform", "");
 		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(clone);
 		batchCmd.addSubCommand(new InsertElementCommand(clone));
 	}

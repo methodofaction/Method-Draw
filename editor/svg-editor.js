@@ -22,6 +22,7 @@
   document.addEventListener("touchmove", touchHandler, true);
   document.addEventListener("touchend", touchHandler, true);
   document.addEventListener("touchcancel", touchHandler, true);
+  
 	if(!window.svgEditor) window.svgEditor = function($) {
 		var svgCanvas;
 		var Editor = {};
@@ -284,13 +285,9 @@
 				resize: {
 					'#logo .svg_icon': 15,
 					'.flyout_arrow_horiz .svg_icon': 5,
-					'.layer_button .svg_icon, #layerlist td.layervis .svg_icon': 14,
-					'#main_button .dropdown .svg_icon': 9,
-					'#fill_bg .svg_icon, #stroke_bg .svg_icon': svgedit.browser.isTouch() ? 36 : 24,
+					'#fill_bg .svg_icon, #stroke_bg .svg_icon': svgedit.browser.isTouch() ? 24 : 24,
 					'.palette_item:first .svg_icon': svgedit.browser.isTouch() ? 30 : 16,
-					'.toolbar_button button .svg_icon':16,
-					'.stroke_tool div div .svg_icon': 20,
-					'#tools_bottom label .svg_icon': 18,
+					'#zoomLabel .svg_icon': 16,
 					'#zoom_dropdown .svg_icon': 7
 				},
 				callback: function(icons) {
@@ -468,7 +465,6 @@
 			var docprops = false;
 			var preferences = false;
 			var cur_context = '';
-			var orig_title = $('title:first').text();
 			
 			var saveHandler = function(window,svg) {
 				Editor.show_save_warning = false;
@@ -552,7 +548,7 @@
 				var is_node = (mode == "pathedit");
 				// if elems[1] is present, then we have more than one element
 				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
-				multiselected = (elems.length >= 2 && elems[1] != null);
+				multiselected = (elems.length >= 2 && elems[1] != null) ? elems : false;
 				if (selectedElement != null) {
 					// unless we're already in always set the mode of the editor to select because
 					// upon creation of a text element the editor is switched into
@@ -580,7 +576,7 @@
 				
 				if(!elem) return;
 				
-				multiselected = (elems.length >= 2 && elems[1] != null);
+				multiselected = (elems.length >= 2 && elems[1] != null) ? elems : null;
 				// Only updating fields for single elements for now
 				if(!multiselected) {
 					switch ( mode ) {
@@ -668,7 +664,6 @@
 				var diff = (zoomlevel) - (res.zoom)
 				var zoom = $('#zoom')[0]
 				var current_zoom = res.zoom
-				console.log(diff);
 				var animateZoom = function(timestamp) {
 				  var progress = timestamp - start
 				  var tick = progress / duration
@@ -1387,18 +1382,34 @@
 				var elem = selectedElement;
 				// If element has just been deleted, consider it null
 				if(elem != null && !elem.parentNode) elem = null;
+				if (multiselected && multiselected[0] != null && !multiselected[0].parentNode) multiselected = false;
+				
 				var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
 				var currentMode = svgCanvas.getMode();
 				var unit = curConfig.baseUnit !== 'px' ? curConfig.baseUnit : null;
 				
 				var is_node = currentMode == 'pathedit'; //elem ? (elem.id && elem.id.indexOf('pathpointgrip') == 0) : false;
 				var menu_items = $('#cmenu_canvas li');
-				$('#selected_panel, #multiselected_panel, #g_panel, #path_panel, #rect_panel, #canvas_panel, #circle_panel,\
-					#ellipse_panel, #line_panel, #text_panel, #image_panel, #container_panel, #use_panel, #a_panel').hide();
+				$('.context_panel').hide();
 				$('.menu_item', '#edit_menu').addClass('disabled');
 				$('.menu_item', '#object_menu').addClass('disabled');
-				if (!elem && !multiselected) $("#canvas_panel").show();
+				
+        
+        //hack to show the proper multialign box
+        if (multiselected) {
+          elem = (svgCanvas.elementsAreSame(multiselected)) ? multiselected[0] : null
+          if (elem) $("#tools_top").addClass("multiselected")
+        }
+
+        if (!elem && !multiselected) {
+          $("#tools_top").removeClass("multiselected")			  
+          $("#stroke_panel").hide();
+          $("#canvas_panel").show();
+				}
+    
+		
 				if (elem != null) {
+				  $("#stroke_panel").show();
 					var elname = elem.nodeName;
 					var angle = svgCanvas.getRotationAngle(elem);
 					$('#angle').val(Math.round(angle));
@@ -1423,7 +1434,7 @@
 							x = svgedit.units.convertUnit(x);
 							y = svgedit.units.convertUnit(y);
 						}
-						
+												
 						$("#" + elname +"_x").val(Math.round(x))
 						$("#" + elname +"_y").val(Math.round(y))
 											
@@ -1556,15 +1567,6 @@
 							$('#container_panel').show();
 							$('.action_group_selected').removeClass('disabled');
 							var title = svgCanvas.getTitle();
-							var label = $('#g_title')[0];
-							label.value = title;
-							setInputWidth(label);
-							var d = 'disabled';
-							if(el_name == 'use') {
-								label.setAttribute(d, d);
-							} else {
-								label.removeAttribute(d);
-							}
 						}
 					}
 					menu_items[(el_name === 'g' ? 'en':'dis') + 'ableContextMenuItems']('#ungroup');
@@ -1597,8 +1599,8 @@
 				svgCanvas.addedNew = false;
 			};
 		
-			$('#text').focus( function(){ textBeingEntered = true; } );
-			$('#text').blur( function(){ textBeingEntered = false; } );
+			$('#text').on("focus", function(e){ textBeingEntered = true; } );
+			$('#text').on("blur", function(){ textBeingEntered = false; } );
 		  
 			// bind the selected event to our function that handles updates to the UI
 			svgCanvas.bind("selected", selectedChanged);
@@ -1653,8 +1655,6 @@
 				rotateCursor(ctl.value)
 				$('#tool_reorient').toggleClass('disabled', ctl.value == 0);
 			}
-			
-			
 			
 			var changeZoom = function(ctl) {
 				var zoomlevel = ctl.value / 100;
@@ -1719,29 +1719,11 @@
 			$('#font_family').change(function() {
 				svgCanvas.setFontFamily(this.value);
 			});
-		
-
-		
+				
 			$('#text').keyup(function(){
 				svgCanvas.setTextContent(this.value);
 			});
 		  
-			$('#image_url').change(function(){
-				setImageURL(this.value); 
-			});
-			
-			$('#link_url').change(function() {
-				if(this.value.length) {
-					svgCanvas.setLinkURL(this.value);
-				} else {
-					svgCanvas.removeHyperlink();
-				}
-			});
-		
-			$('#g_title').change(function() {
-				svgCanvas.setGroupTitle(this.value);
-			});
-		
 			changeAttribute = function(el, noUndo) {
 				var attr = el.getAttribute("data-attr");
 				var val = el.value;
@@ -1750,23 +1732,6 @@
 					$.alert(uiStrings.notification.invalidAttrValGiven);
 					el.value = selectedElement.getAttribute(attr);
 					return false;
-				}
-				else{
-				  el.blur()
-				}
-				
-				if (attr !== "id") {
-					if (isNaN(val)) {
-						val = svgCanvas.convertToNum(attr, val);
-					} else if(curConfig.baseUnit !== 'px') {
-						// Convert unitless value to one with given unit
-				
-						var unitData = svgedit.units.getTypeMap();
-
-						if(selectedElement[attr] || svgCanvas.getMode() === "pathedit" || attr === "x" || attr === "y") {
-							val *= unitData[curConfig.baseUnit];
-						}
-					}
 				}
 				if (!noUndo) svgCanvas.changeSelectedAttribute(attr, val);
 				else svgCanvas.changeSelectedAttributeNoUndo(attr, val);
@@ -1779,7 +1744,7 @@
 				inp.focus().remove();
 			});
 			
-			$('.palette_item').mousedown(function(evt){
+			$('.palette_item').on("mousedown touchstart touchmove", function(evt){
 				var isStroke = $('#tool_stroke').hasClass('active');
 				var picker = isStroke ? "stroke" : "fill";
 				var color = $(this).attr('data-rgb');
@@ -1842,7 +1807,7 @@
 				var last_x = null, last_y = null, w_area = workarea[0], 
 					panning = false, keypan = false;
 				
-				$('#svgcanvas').bind('mousemove mouseup', function(evt) {
+				$('#svgcanvas').bind('mousemove mouseup touchend', function(evt) {
 					if(panning === false) return;
 					w_area.scrollLeft -= (evt.clientX - last_x);
 					w_area.scrollTop -= (evt.clientY - last_y);
@@ -1850,10 +1815,11 @@
 					last_x = evt.clientX;
 					last_y = evt.clientY;
 					
-					if(evt.type === 'mouseup') panning = false;
+					if(evt.type === 'mouseup' || evt.type === 'touchend') panning = false;
 					return false;
-				}).mousedown(function(evt) {
-					if(evt.button === 1 || keypan === true) {
+				})
+				.on("mousedown touchmove", function(evt) {
+					if(evt.button === 1 || keypan === true || (evt.originalEvent.touches && evt.originalEvent.touches.length >= 2)) {
 						panning = true;
 						last_x = evt.clientX;
 						last_y = evt.clientY;
@@ -2526,11 +2492,6 @@
 				curConfig.gridSnapping = sg;
 			}
 			
-			var clickCanvasColor = function(){
-				  svgCanvas.clearSelection();
-				  $('#tool_canvas').trigger("click")
-			};
-			
 			var minimizeModal = function() {
         
 			  if (window.self != window.top) { //we're in an iframe
@@ -3129,13 +3090,7 @@
 				}
 			});
 			
-			$('#tool_canvas').on("click touchstart", function(){
-				  colorPicker($('#canvas_color'));
-				  updateToolButtonState();
-			});
-
-			$('#tool_stroke').on("click touchstart", function(){
-			  
+			$('#tool_stroke').on("click", function(){
 			  if ($('#tool_stroke').hasClass('active')) {
 				  colorPicker($('#stroke_color'));
 				  updateToolButtonState();
@@ -3146,9 +3101,29 @@
 				}
 			});
 			
-			$('#zoomLabel').click(function() {
-				$('#zoom_dropdown button').mousedown();
-				$(window).mouseup();
+			$('#tool_canvas').on("click touchstart", function(){
+				  colorPicker($('#canvas_color'));
+				  updateToolButtonState();
+			});
+			
+			$('#tool_stroke').on("touchstart", function(){
+			    $('#tool_stroke').addClass('active');
+				  $("#tool_fill").removeClass('active');
+				  colorPicker($('#stroke_color'));
+				  updateToolButtonState();
+			});
+
+      $('#tool_fill').on("touchstart", function(){
+			    $('#tool_fill').addClass('active');
+				  $("#tool_stroke").removeClass('active');
+				  colorPicker($('#fill_color'));
+				  updateToolButtonState();
+			});
+			
+			$('#zoom_select').on("change", function() {
+				var val = this.options[this.selectedIndex].text
+        val = val.split("%")[0]
+				$("#zoom").val(val).trigger("change")
 			});
 		
 			$('.push_button').mousedown(function() { 
@@ -3349,7 +3324,6 @@
 					{sel:'[id^=tool_align]', fn: clickAlign, evt: 'click'},
 					{sel:'#tool_undo', fn: clickUndo, evt: 'click', key: modKey + 'z'},
 					{sel:'#tool_redo', fn: clickRedo, evt: 'click', key: ['y', true]},
-					{sel:'#tool_canvas_color_menu', fn: clickCanvasColor, evt: 'click'},
 					{sel:'#tool_cut', fn: cutSelected, evt: 'click', key: [modKey+'x', true]},
 					{sel:'#tool_copy', fn: copySelected, evt: 'click', key: modKey+'c'},
 					{sel:'#tool_paste', fn: pasteSelected, evt: 'click', key: modKey+'v'},
@@ -3472,14 +3446,6 @@
 						// Setup flyouts
 						setupFlyouts(flyouts);
 						
-						
-						// Misc additional actions
-						
-						// Make "return" keypress trigger the change event
-						$('.attr_changer, #image_url').bind('keydown', 'return', 
-							function(evt) {$(this).change();evt.preventDefault();}
-						);
-						
 						$(window).bind('keydown', 'tab', function(e) {
 							if(ui_context === 'canvas') {
 								e.preventDefault();
@@ -3584,8 +3550,8 @@
 			$('#path_y')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#rect_x')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#rect_y')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
-			$('#group_x')      .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
-			$('#group_y')      .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#g_x')      .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#g_y')      .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#image_x')      .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#text_y')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#text_x')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });

@@ -44,7 +44,9 @@ $.fn.dragInput = function(cfg){
     var $cursor = (area && this.dragCfg.cursor) 
       ? $("<div class='draginput_cursor' />").appendTo($label) 
       : false
+    $input.attr("readonly", "readonly")
     if ($cursor && !isNaN(this.dragCfg.start)) $cursor.css("top", (this.dragCfg.start*-1)/scale+cursorHeight)
+   
     //this is where all the magic happens  
 		this.adjustValue = function(i, noUndo){
 			var v;
@@ -98,7 +100,7 @@ $.fn.dragInput = function(cfg){
   	this.updateCursor = function(){
   	  var value = parseFloat(this.value)
   		var pos = (value*-1)/scale+cursorHeight
-  		$(this).next(".draginput_cursor").css("top", pos)
+  		$cursor.css("top", pos)
   	}
   	
   	this.start = function(e) {
@@ -119,7 +121,10 @@ $.fn.dragInput = function(cfg){
 		  .attr("data-domain", cursorHeight)
 		  .attr("data-cursor", ($cursor != false))
 		  		
-		.bind("mousedown touchstart", function(e){this.start(e);})
+		.bind("mousedown touchstart", function(e){
+		  this.blur();
+		  this.start(e);
+		})
 		
 		.bind("dblclick taphold", function(e) {
 			this.removeAttribute("readonly", "readonly");
@@ -127,54 +132,19 @@ $.fn.dragInput = function(cfg){
 			this.select();
 		})
 		
-		.blur(function(e){
-		  this.setAttribute("readonly", "readonly");
-		  this.adjustValue(0)
-		})
-		
 		.keydown(function(e){
-			// Respond to up/down arrow keys.
-			switch(e.keyCode){
-				case 13: this.blur();  break; // Enter
-				case 38: this.adjustValue(this.dragCfg.step);  break; // Up
-				case 40: this.adjustValue(-this.dragCfg.step); break; // Down
-				case 33: this.adjustValue(this.dragCfg.page);  break; // PageUp
-				case 34: this.adjustValue(-this.dragCfg.page); break; // PageDown
-			}
+		  // Respond to up/down arrow keys.
+		  switch(e.keyCode){
+		  	case 13: this.adjustValue(0); this.blur();  break; // Enter
+		  }
 		})
 		
-		/*
-		http://unixpapa.com/js/key.html describes the current state-of-affairs for
-		key repeat events:
-		- Safari 3.1 changed their model so that keydown is reliably repeated going forward
-		- Firefox and Opera still only repeat the keypress event, not the keydown
-		*/
-		.keypress(function(e){
-			if (this.repeating) {
-				// Respond to up/down arrow keys.
-				switch(e.keyCode){
-					case 38: this.adjustValue(this.dragCfg.step);  break; // Up
-					case 40: this.adjustValue(-this.dragCfg.step); break; // Down
-					case 33: this.adjustValue(this.dragCfg.page);  break; // PageUp
-					case 34: this.adjustValue(-this.dragCfg.page); break; // PageDown
-				}
-			} 
-			// we always ignore the first keypress event (use the keydown instead)
-			else {
-				this.repeating = true;
-			}
+		.focus(function(e){
+		  if (this.getAttribute("readonly") === "readonly") this.blur()
 		})
 		
-		// clear the 'repeating' flag
-		.keyup(function(e) {
-			this.repeating = false;
-			switch(e.keyCode){
-				case 38: // Up
-				case 40: // Down
-				case 33: // PageUp
-				case 34: // PageDown
-				case 13: this.adjustValue(0); break; // Enter/Return
-			}
+		.blur(function(e){
+		  this.setAttribute("readonly", "readonly")
 		})
 		
 		.bind("mousewheel", function(e, delta, deltaX, deltaY){
@@ -196,7 +166,7 @@ $.fn.dragInput.updateCursor = function(el){
   var scale = parseFloat(el.getAttribute("data-scale"));
   var domain = parseFloat(el.getAttribute("data-domain"));
 	var pos = ((value*-1)/scale+domain) + "px";
-	var cursor = el.nextElementSibling
-	if (cursor) cursor.style.top = pos;
+	var cursor = el.parentNode.lastChild
+	if (cursor.className == "draginput_cursor") cursor.style.top = pos;
 }
 

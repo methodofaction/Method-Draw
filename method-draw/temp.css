@@ -216,9 +216,7 @@ table#svg_editor .jPicker {
 #svg_editor .jPicker .Button input {
     width: 100px;
 }
-#svg_editor .jPicker .Button .Ok {
-    margin: 0 0 5px 0;
-}
+
 #svg_editor .jPicker td.Radio {
     margin: 0;
     padding: 0;
@@ -325,38 +323,38 @@ table#svg_editor .jPicker {
  * Licensed under the Apache License Version 2
  */
 
-#svg_editor h2.jGraduate_Title {
+h2.jGraduate_Title {
   display: none;
 }
 
-#svg_editor .jGraduate_Picker {
+.jGraduate_Picker {
 	position: absolute;
 	padding: 20px;
 }
 
-#svg_editor .jGraduate_tabs li {
+.jGraduate_tabs li {
 	display: inline-block;
 	padding: 5px 10px;
 	margin-right: 5px;
 	cursor: pointer;
 }
 
-#svg_editor li.jGraduate_tab_current {
+li.jGraduate_tab_current {
   background: #fff;
   border-radius: 3px 3px 0 0;
 }
 
-#svg_editor .jGraduate_colPick {
+.jGraduate_colPick {
 	display: none;
 }
 
-#svg_editor .jGraduate_gradPick {	
+.jGraduate_gradPick {	
 	display: none;
 	overflow: visible;
 /*	position: relative;*/
 }
 
-#svg_editor .jGraduate_tabs {
+.jGraduate_tabs {
 	position: relative;
 	background-color: #ddd;
 	padding: 10px 10px 0 10px;
@@ -364,11 +362,11 @@ table#svg_editor .jPicker {
 	border-radius: 3px 3px 0 0;
 }
 
-#svg_editor div.jGraduate_Swatch {
+div.jGraduate_Swatch {
 	float: left;
 	margin: 0 15px 0 0;
 }
-#svg_editor div.jGraduate_GradContainer {
+div.jGraduate_GradContainer {
 	border: solid #000 1px;
 	background-image: url(../images/map-opacity.png); 
 	background-position: 0px 0px;
@@ -377,7 +375,7 @@ table#svg_editor .jPicker {
 	position: relative;
 }
 
-#svg_editor div.jGraduate_GradContainer div.grad_coord {
+div.jGraduate_GradContainer div.grad_coord {
   background: rgba(0,0,0,0.8);
   border: 2px solid white;
   border-radius: 15px;
@@ -398,13 +396,13 @@ table#svg_editor .jPicker {
   -webkit-user-select: none;
 }
 
-#svg_editor .jGraduate_AlphaArrows {
+.jGraduate_AlphaArrows {
 	position: absolute;
 	margin-top: -10px;
 	margin-left: 250.5px;
 }
 
-#svg_editor div.jGraduate_Opacity {
+div.jGraduate_Opacity {
 	border: 2px inset #eee;
 	margin-top: 14px;
 	background-color: black;
@@ -414,7 +412,7 @@ table#svg_editor .jPicker {
 	cursor: ew-resize;
 }
 
-#svg_editor div.jGraduate_StopSlider {
+div.jGraduate_StopSlider {
 	margin: -10px 0 0 -10px;
 	width: 276px;
 	overflow: visible;
@@ -423,24 +421,24 @@ table#svg_editor .jPicker {
 	cursor: pointer;
 }
 
-#svg_editor div.jGraduate_StopSection {
+div.jGraduate_StopSection {
 	width: 120px;
 	float: left;
 }
 
-#svg_editor div.jGraduate_StopSection.jGraduate_SpreadMethod {
+div.jGraduate_StopSection.jGraduate_SpreadMethod {
   display: none;
 }
 
-#svg_editor input.jGraduate_Ok, input.jGraduate_Cancel {
+input.jGraduate_Ok, input.jGraduate_Cancel {
 	display: block;
 	width: 100px;
 }
-#svg_editor input.jGraduate_Ok {
+input.jGraduate_Ok {
 	margin: 0 0 5px 0;
 }
 
-#svg_editor .colorBox {
+.colorBox {
 	float: left;
 	height: 16px;
 	width: 16px;
@@ -449,12 +447,12 @@ table#svg_editor .jPicker {
 	margin: 4px 4px 4px 30px;
 }
 
-#svg_editor .colorBox + label {
+.colorBox + label {
 	float: left;
 	margin-top: 7px;
 }
 
-#svg_editor label.jGraduate_Form_Heading {
+label.jGraduate_Form_Heading {
 
   color: #333;
 	padding: 2px;
@@ -462,7 +460,7 @@ table#svg_editor .jPicker {
 	font-size: 13px;
 }
 
-#svg_editor div.jGraduate_Form_Section {
+div.jGraduate_Form_Section {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	padding: 15px 5px 5px 5px;
@@ -473,18 +471,18 @@ table#svg_editor .jPicker {
 	background: #eee;
 }
 
-#svg_editor div.jGraduate_Form label {
+div.jGraduate_Form label {
 	padding: 0 2px;
 	color: #333;
 }
 
-#svg_editor div.jGraduate_StopSection input[type=text],
-#svg_editor div.jGraduate_Slider input[type=text] {
+div.jGraduate_StopSection input[type=text],
+div.jGraduate_Slider input[type=text] {
 	width: 33px;
 	color: #333;
 }
 
-#svg_editor div.jGraduate_LightBox {
+div.jGraduate_LightBox {
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -495,7 +493,7 @@ table#svg_editor .jPicker {
 	display: none;
 }
 
-#svg_editor div.jGraduate_stopPicker {
+div.jGraduate_stopPicker {
   position: absolute;
   display: none;
   background: 
@@ -509,15 +507,15 @@ table#svg_editor .jPicker {
 }
 
 
-#svg_editor .jGraduate_gradPick {
+.jGraduate_gradPick {
 	width: 526px;
 }
 
-#svg_editor .jGraduate_gradPick div.jGraduate_Slider {
+.jGraduate_gradPick div.jGraduate_Slider {
 	line-height: 160%
 }
 
-#svg_editor .jGraduate_gradPick div.jGraduate_Slider label:last-child {
+.jGraduate_gradPick div.jGraduate_Slider label:last-child {
 	position: absolute;
 	right: 10px;
 	top: 0;
@@ -525,12 +523,12 @@ table#svg_editor .jPicker {
 	font-weight: bold;
 }
 
-#svg_editor .jGraduate_gradPick div.jGraduate_Slider label:last-child input {
+.jGraduate_gradPick div.jGraduate_Slider label:last-child input {
   margin: 0 3px 0 0;
   color: #333;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Form {
+.jGraduate_gradPick .jGraduate_Form {
 	float: left;
 	width: 270px;
 	position: absolute;
@@ -542,55 +540,55 @@ table#svg_editor .jPicker {
 	line-height: 200%;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Form label,
-#svg_editor .jGraduate_gradPick .jGraduate_Form input {
+.jGraduate_gradPick .jGraduate_Form label,
+.jGraduate_gradPick .jGraduate_Form input {
   width: auto;
   float: left;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field label, #svg_editor .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field input {
+.jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field label, .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field input {
 width: auto;
 float: left;
 font-size: 11px;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field #color_picker_jGraduate_match_ctr {
+.jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field #color_picker_jGraduate_match_ctr {
   float: none;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Form label {
+.jGraduate_gradPick .jGraduate_Form label {
   clear: left;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Points {
+.jGraduate_gradPick .jGraduate_Points {
 	position: static;
 	float: left;
   margin: 0;
   width: auto;
 	}
 
-#svg_editor .jGraduate_Colorblocks {
+.jGraduate_Colorblocks {
 	display: table;
 	border-spacing: 0 5px;
 }
 
-#svg_editor .jGraduate_colorblock {
+.jGraduate_colorblock {
 	display: table-row;
 }
 
-#svg_editor .jGraduate_Colorblocks .jGraduate_colorblock > * {
+.jGraduate_Colorblocks .jGraduate_colorblock > * {
 	display: table-cell;
 	vertical-align: middle;
 	margin: 0;
 	float: none;
 }
 
-#svg_editor .jGraduate_gradPick .jGraduate_Form_Section {
+.jGraduate_gradPick .jGraduate_Form_Section {
 	padding-top: 9px;
 }
 
 
-#svg_editor .jGraduate_Slider {
+.jGraduate_Slider {
 	text-align: center;
 	float: left;
 	width: 100%;
@@ -598,7 +596,7 @@ font-size: 11px;
   margin: 5px 0;
 }
 
-#svg_editor .jGraduate_Slider .jGraduate_Form_Section {
+.jGraduate_Slider .jGraduate_Form_Section {
 	border: none;
 	width: 250px;
 	padding: 0 2px;
@@ -606,12 +604,12 @@ font-size: 11px;
 }
 
 
-#svg_editor .jGraduate_Slider label.prelabel {
+.jGraduate_Slider label.prelabel {
 	width: 40px;
 	text-align: left;
 }
 
-#svg_editor .jGraduate_SliderBar {
+.jGraduate_SliderBar {
 	width: 140px;
 	float: left;
 	margin: 0 5px;
@@ -620,29 +618,30 @@ font-size: 11px;
 	position: relative;
 }
 
-#svg_editor div.jGraduate_Slider input {
+div.jGraduate_Slider input {
 	margin-top: 5px;
 }
 
-#svg_editor div.jGraduate_Slider img {
+div.jGraduate_Slider img {
 	top: 0;
 	left: 0;
 	position: absolute;
 	cursor:ew-resize;
 }
 
-#svg_editor .jPicker .Button .Ok, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Ok  {
-  margin: 0;
+.jPicker .Button .Ok, .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Ok  {
+  -webkit-appearance: none;
+	margin: 0;
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 5px;
+  right: 5px;
 }
 
-#svg_editor .jPicker .Button .Cancel, #svg_editor .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel {
+.jPicker .Button .Cancel, .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel {
   margin: 0;
   position: absolute;
-  bottom: 15px;
-  left: 15px;
+	bottom: 5px;
+	left: 5px;
 }
 /* Comment to prevent wrong concat */
 
@@ -695,12 +694,7 @@ html, body {
         color: #000000;
 }
 
-#svg_editor hr {
-	border: none;
-	border-bottom: 1px solid #808080;
-}
-
-#svg_editor #svgroot {
+ #svgroot {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	position: absolute;
@@ -708,22 +702,22 @@ html, body {
 	left: 0;
 }
 
-#svg_editor #menu_bar {
+ #menu_bar {
   margin: 0 0 0 50px
 }
 
-#svg_editor #menu_bar.active .menu.open .menu_list {
+ #menu_bar.active .menu.open .menu_list {
   display: block;
 }
 
-#svg_editor .menu {
+ .menu {
   position: relative;
   z-index: 5;
   color: #333;
   display: inline-block;
 }
 
-#svg_editor .menu_title {
+ .menu_title {
   cursor: pointer;
   display: inline-block;
   padding: 7px 10px;
@@ -734,22 +728,22 @@ html, body {
   vertical-align: top;
 }
 
-.touch  #svg_editor .menu_title { 
+.touch   .menu_title { 
 	padding: 7px 17px;
 	height: 26px;
 	line-height: 26px;
 }
 
-#svg_editor .menu .menu_title:hover {
+ .menu .menu_title:hover {
   background: rgba(255,255,255,0.1);
 }
 
-#svg_editor .menu_list .separator {
+ .menu_list .separator {
   margin: 5px 0;
   border-top: solid #ddd 1px;
 }
 
-#svg_editor .menu_list {
+ .menu_list {
   display: none;
   position: absolute;
   top: 28px;
@@ -761,16 +755,16 @@ html, body {
   box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
 
-.touch #svg_editor .menu_list {
+.touch  .menu_list {
 	top: 38px;
 }
 
-#svg_editor #menu_bar.active .menu.open .menu_title {
+ #menu_bar.active .menu.open .menu_title {
   background: white;
   color: #333;
 }
 
-#svg_editor .menu_list .menu_item {
+ .menu_list .menu_item {
   position: relative;
   overflow: hidden;
 	line-height: 22px;
@@ -779,7 +773,7 @@ html, body {
 	color: #333;
 }
 
-#svg_editor .menu_list .menu_item.tool_button {
+ .menu_list .menu_item.tool_button {
   background: transparent;
   border: none;
   margin: 0;
@@ -788,7 +782,7 @@ html, body {
   width: auto;
 }
 
-#svg_editor .menu_list .menu_item.push_button_pressed:before {
+ .menu_list .menu_item.push_button_pressed:before {
   content: '✔';
   position: absolute;
   display: block;
@@ -798,19 +792,19 @@ html, body {
   height: 20px;
 }
 
-#svg_editor .menu_list .menu_item:hover,
-#svg_editor .menu_list .menu_item.push_button_pressed:hover {
+ .menu_list .menu_item:hover,
+ .menu_list .menu_item.push_button_pressed:hover {
 	background: rgba(0,0,0,0.1);
 	color: #000;
 }
 
-#svg_editor .menu_list .menu_item.disabled:hover,
-#svg_editor .menu_list .menu_item.push_button_pressed.disabled:hover {
+ .menu_list .menu_item.disabled:hover,
+ .menu_list .menu_item.push_button_pressed.disabled:hover {
 	background: transparent;
 	color: #333;
 }
 
-#svg_editor .menu_list .menu_item.push_button_pressed {
+ .menu_list .menu_item.push_button_pressed {
  background: transparent;
  border: none; 
  width: auto;
@@ -818,7 +812,7 @@ html, body {
  margin: 0;
 }
 
-#svg_editor .menu_list .menu_item span {
+ .menu_list .menu_item span {
   display: block;
   position: absolute;
   right: 10px;
@@ -831,7 +825,7 @@ html, body {
   line-height: 120%;
 }
 
-#svg_editor #svgcanvas {
+ #svgcanvas {
 	line-height: normal;
 	display: inline-block;
 	background-color: #A0A0A0;
@@ -919,7 +913,7 @@ html, body {
 	overflow: hidden;
 }
 
-#svg_editor div#palette_holder {
+ div#palette_holder {
 	display: block;
 	overflow: hidden;
 	height: 31px;
@@ -929,28 +923,28 @@ html, body {
 	float: left;
 }
 
-.touch #svg_editor div#palette_holder {
+.touch  div#palette_holder {
 	height: 40px;
 	margin-top: 0;
 }
 
-#svg_editor div#palette_holder #palette .palette_item:first-child {
+ div#palette_holder #palette .palette_item:first-child {
   background: #fff;
 }
 
-#svg_editor div#palette_holder #palette .palette_item {
+ div#palette_holder #palette .palette_item {
   cursor: pointer;
 }
 
 
-#svg_editor #color_tools {
+ #color_tools {
   position: relative;
   width: 48px;
   height: 48px;
   margin: 6px 6px 0 6px;
 }
 
-.touch #svg_editor #color_tools {
+.touch  #color_tools {
 	width: auto;
 	height: auto;
 }
@@ -1006,7 +1000,7 @@ html, body {
   border: solid #ccc 1px;
 }
 
-.touch #svg_editor #tool_eyedropper {
+.touch  #tool_eyedropper {
 	margin-top: 6px;
 }
 
@@ -1020,11 +1014,11 @@ html, body {
   height: 36px !important;
 }
 
-.touch #svg_editor #tool_switch {
+.touch  #tool_switch {
 	display: none;
 } 
 
-#svg_editor #path_node_panel .tool_button {
+ #path_node_panel .tool_button {
 	color: #999;
 	border: solid #3F3F3C 1px;
 	border-radius: 3px;
@@ -1038,27 +1032,27 @@ html, body {
 	line-height: 24px;
 }
 
-#svg_editor #path_node_panel .tool_button img {
+ #path_node_panel .tool_button img {
 	position: absolute;
 	left: 5px;
 	top: 3px;
 }
 
-#svg_editor #color_tools #tool_fill .color_block:hover, #svg_editor #color_tools #tool_stroke .color_block:hover {
+ #color_tools #tool_fill .color_block:hover,  #color_tools #tool_stroke .color_block:hover {
   border-color: #fff;
 }
 
-#svg_editor #color_tools #tool_fill .color_block > div {
+ #color_tools #tool_fill .color_block > div {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.touch #svg_editor #color_tools #tool_fill .color_block > div {
+.touch  #color_tools #tool_fill .color_block > div {
 	position: relative;
 }
 
-#svg_editor #color_tools #tool_fill .color_block #fill_bg, #svg_editor #color_tools #tool_stroke .color_block #stroke_bg {
+ #color_tools #tool_fill .color_block #fill_bg,  #color_tools #tool_stroke .color_block #stroke_bg {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -1067,7 +1061,7 @@ html, body {
   background: #fff;
 }
 
-.touch #svg_editor #color_tools #tool_fill .color_block #fill_bg, .touch #svg_editor #color_tools #tool_stroke .color_block #stroke_bg {
+.touch  #color_tools #tool_fill .color_block #fill_bg, .touch  #color_tools #tool_stroke .color_block #stroke_bg {
 	width: 36px;
 	height: 36px;
 	right: auto;
@@ -1102,7 +1096,7 @@ html, body {
 	 
 }
 
-#svg_editor #color_tools #tool_switch {
+ #color_tools #tool_switch {
   cursor: pointer;
   opacity: 0.7;
   width: 11px;
@@ -1113,39 +1107,39 @@ html, body {
   left: 28px;
 }
 
-#svg_editor #color_tools #cross:hover {
+ #color_tools #cross:hover {
   opacity: 1;
 }
 
-#svg_editor #color_tools #tool_stroke:hover #stroke_color:after {
+ #color_tools #tool_stroke:hover #stroke_color:after {
   background: #fff;
 }
 
-#svg_editor #color_tools #tool_stroke .color_block {
+ #color_tools #tool_stroke .color_block {
   width: 24px;
   height: 24px;
   overflow: hidden;
   border: solid #ccc 1px;
 }
 
-.touch #svg_editor #color_tools #tool_stroke .color_block {
+.touch  #color_tools #tool_stroke .color_block {
   width: 36px;
   height: 36px;
 }
 
-#svg_editor #color_tools #tool_stroke .color_block > div {
+ #color_tools #tool_stroke .color_block > div {
   position: absolute;
   bottom: 0;
   right: 0;
 }
 
-.touch #svg_editor #color_tools #tool_stroke .color_block > div {
+.touch  #color_tools #tool_stroke .color_block > div {
   position: relative;
 }
 
 
 
-#svg_editor #color_tools .icon_label {
+ #color_tools .icon_label {
 	padding: 0;
 	width: 24px;
 	height: 100%;
@@ -1153,23 +1147,18 @@ html, body {
 	position: absolute;
 }
 
-#svg_editor #zoomLabel {
-	cursor: pointer;
-	margin-right: 5px;
-}
-
-#svg_editor #linkLabel > svg {
+ #linkLabel > svg {
 	height: 20px;
 	padding-top: 4px;
 }
 
-#svg_editor div#palette {
+ div#palette {
 	float: left;
 	width: 810px;
 	height: 16px;
 }
 
-#svg_editor div#workarea {
+ div#workarea {
 	display: inline-table-cell;
 	position:absolute;
 	top: 30px;
@@ -1181,58 +1170,69 @@ html, body {
 	text-align: center;
 }
 
-.touch #svg_editor div#workarea {
+.touch  div#workarea {
 	top: 40px;
 }
 
-#svg_editor div.palette_item {
+ div.palette_item {
 	height: 16px;
 	width: 16px;
 	float: left;
 }
 
-.touch #svg_editor div.palette_item {
+.touch  div.palette_item {
 	height: 30px;
 	border-top: solid #2f2f2c 5px;
 	border-bottom: solid #2f2f2c 5px;
-	width: 30px;
+	width: 19px;
 	float: left;
 }
 
-#svg_editor .menu .menu_list {
+ .menu .menu_list {
   display: none;
   position: absolute;
 }
 
-#svg_editor .tool_button:hover, 
-#svg_editor .push_button:hover,
-#svg_editor .buttonup:hover,
-#svg_editor .buttondown,
-#svg_editor .tool_button_current,
-#svg_editor .push_button_pressed
+ .tool_button:hover, 
+ .push_button:hover,
+ .buttonup:hover,
+ .buttondown,
+ .tool_button_current,
+ .push_button_pressed
 {
   background-color: #fff;
 }
 
-#svg_editor .tool_button.disabled,
-#svg_editor .tool_button.disabled:hover {
+ .tool_button.disabled,
+ .tool_button.disabled:hover {
   opacity: 0.3;
   background-color: #aaa;
 }
 
-#svg_editor #tools_left .tool_button { background: #2f2f2c;}
-#svg_editor #tools_left .tool_button.loaded { background: #ccc;}
-#svg_editor #tools_left .tool_button.loaded:hover { background: #fff;}
+ #tools_left .tool_button { background: #2f2f2c; position: relative;}
+ #tools_left .tool_button.loaded { background: #ccc;}
+ #tools_left .tool_button.loaded:hover { background: #fff;}
+ #tools_left .tool_button:after,  #tools_left .tool_button_current:after {
+	position: absolute;
+	content: '';
+	border: solid #2f2f2c 1px;
+	top: 0;
+	left: 0;
+	width: 27px;
+	height: 27px;
+	z-index: 0;
+}
+
 
 #tools_top .padded {
   padding: 10px 0;
 }
 
-#svg_editor #tools_left .tool_button_current {
+ #tools_left .tool_button_current {
 	background-color: #0cf;
 }
 
-#svg_editor #main_icon span {
+ #main_icon span {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -1240,7 +1240,7 @@ html, body {
 	z-index: 2;
 }
 
-#svg_editor #tools_top {
+ #tools_top {
 	position: absolute;
 	width: 160px;
 	right: 0;
@@ -1250,11 +1250,11 @@ html, body {
 	padding: 0 0 0 10px;
 }
 
-.touch #svg_editor #tools_top {
-	top: 40px;
+.touch  #tools_top {
+	top: 30px;
 }
 
-#svg_editor label {
+ label {
   display: block;
   color: #999;
 }
@@ -1290,15 +1290,15 @@ div#font-selector .font-item:hover {
   background-color: #eee;
 }
 
-#svg_editor #tools_top #marker_panel * {
+ #tools_top #marker_panel * {
   float: left;
 }
 
-#svg_editor #tools_top #marker_panel h4 {
+ #tools_top #marker_panel h4 {
   float: none;
 }
 
-#svg_editor #tools_top #marker_panel .dropdown .icon_label {
+ #tools_top #marker_panel .dropdown .icon_label {
   width: 36px;
   height: 20px;
   margin-top: 2px;
@@ -1306,63 +1306,65 @@ div#font-selector .font-item:hover {
   text-align: center;
 }
 
-#svg_editor #font_family_dropdown-list {
+ #font_family_dropdown-list {
   border-radius: 3px;
   box-shadow: 0 5px 10px #000;
 }
 
-#svg_editor #font_family_dropdown-list li {
+ #font_family_dropdown-list li {
   cursor: pointer;
 }
 
-#svg_editor #tools_top #marker_panel .dropdown button {
+ #tools_top #marker_panel .dropdown button {
   margin-top: 2px;
 }
 
-#svg_editor #tools_top #marker_panel #marker_panel_title {
+ #tools_top #marker_panel #marker_panel_title {
   float: none;
   color: #fff;
   margin-bottom: 3px;
 }
 
-#svg_editor #tools_top #marker_panel .dropdown .icon_label img {
+ #tools_top #marker_panel .dropdown .icon_label img {
   float: none;
 }
 
 
-#svg_editor #color_picker input[type=text], #color_picker #svg_editor input[type=number] {
+ #color_picker input[type=text], #color_picker  input[type=number] {
   width: 30px;
   background: #fff;
 }
 
-#svg_editor .dropdown_set input[type=text], #svg_editor .dropdown_set input[type=number] {
+ .dropdown_set input[type=text],  .dropdown_set input[type=number] {
   width: 50px;
 }
 
-#svg_editor input[type=text].wide, #svg_editor input[type=number].wide {width: 110px;}
-#svg_editor input[type=text].tuco, #svg_editor input[type=number].tuco {width: 150px;}
+ input[type=text].wide,  input[type=number].wide {width: 110px;}
+ input[type=text].tuco,  input[type=number].tuco {width: 150px;}
 
-#svg_editor input[type=submit], #svg_editor input[type=button], button {
-  background: #2C7BB3;
+ input[type=submit],  input[type=button], button {
+  background: #4F80FF;
   color: #fff;
-  border-radius: 2px;
-  padding: 5px 10px;
+  border-radius: 3px;
+  padding: 7px 17px;
   border: none;
   line-height: 140%;
-  border-bottom: solid transparent 1px;
+	font-size: 14px;
+	font-weight: bold;
+	font-family: sans-serif;
 
 }
 
-#svg_editor input[type=submit]:hover, #svg_editor button:hover {
+ input[type=submit]:hover,  button:hover {
 box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
             inset 0 -3px 10px rgba(0, 0, 0, 0.2);
 }
 
-#svg_editor input[type=submit]:hover, #svg_editor button:hover {background: #2F84C1;}
-#svg_editor input[type=submit]:active, #svg_editor button:active {padding: 6px 10px 4px 10px; box-shadow: inset 0 2px 2px rgba(0,0,0,0.2); border-bottom: solid rgba(255,255,255,0.1) 1px;}
+ input[type=submit]:hover,  button:hover {background: #2F84C1;}
+ input[type=submit]:active,  button:active {padding: 6px 10px 4px 10px; box-shadow: inset 0 2px 2px rgba(0,0,0,0.2); border-bottom: solid rgba(255,255,255,0.1) 1px;}
 
 
-#svg_editor #tools_left {
+ #tools_left {
 	position: absolute;
 	border-right: none;
 	width: 50px;
@@ -1405,7 +1407,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	display: block;
 }
 
-#svg_editor #multiselected_panel .selected_tool {
+ #multiselected_panel .selected_tool {
 	vertical-align: 12px;
 }
 
@@ -1426,49 +1428,28 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   border-radius: 0 10px 10px 0;
 }
 
-#svg_editor #cur_context_panel a {
+ #cur_context_panel a {
 	float: none;
 	text-decoration: none;
 	color: #fff;
 }
 
-#svg_editor #cur_context_panel a:hover {
+ #cur_context_panel a:hover {
 	text-decoration: underline;
 }
 
 
-#svg_editor #tools_left .tool_button,
-#svg_editor #tools_left .tool_button_current {
+ #tools_left .tool_button,
+ #tools_left .tool_button_current {
 	position: relative;
 	z-index: 11;
 }
 
-#svg_editor .flyout_arrow_horiz {
+ .flyout_arrow_horiz {
 	position: absolute;
 	bottom: -1px;
 	right: 0;
 	z-index: 10;
-}
-
-
-span.zoom_tool {
-	line-height: 16px;
-  background: #ccc;
-  display: block;
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
-  float: left;
-}
-
-span.zoom_tool img {
-  vertical-align: top;
-}
-
-#zoom_panel {
-	margin-top: 9px;
-	right: 200px;
-  position: absolute;
 }
 
 .dropdown {
@@ -1476,7 +1457,7 @@ span.zoom_tool img {
 	float: left;
 }
 
-#svg_editor .dropdown button {
+ .dropdown button {
   width: 21px;
   height: 22px;
   padding: 0 3px 0 3px;
@@ -1487,11 +1468,11 @@ span.zoom_tool img {
   position: relative;
 }
 
-#svg_editor .dropdown button:hover {
+ .dropdown button:hover {
   background-color: #666;
 }
 
-#svg_editor .dropdown button:after {
+ .dropdown button:after {
   content: '';
   position: absolute;
   border: solid transparent 4px;
@@ -1598,10 +1579,10 @@ span.zoom_tool img {
 }
 
 
-#svg_editor .tool_button, 
-#svg_editor .push_button,
-#svg_editor .tool_button_current,
-#svg_editor .push_button_pressed 
+ .tool_button, 
+ .push_button,
+ .tool_button_current,
+ .push_button_pressed 
 {
 	height: 27px;
 	width: 27px;
@@ -1612,7 +1593,7 @@ span.zoom_tool img {
 	cursor: pointer;
 }
 
-#svg_editor #main_menu li#tool_open, #svg_editor #main_menu li#tool_import {
+ #main_menu li#tool_open,  #main_menu li#tool_import {
 	position: relative;
 	overflow: hidden;
 }
@@ -1633,16 +1614,16 @@ span.zoom_tool img {
 	cursor: pointer; /* Sadly doesn't appear to have an effect */
 }
 
-#svg_editor .disabled {
+ .disabled {
 	opacity: 0.5;
 	cursor: default;
 }
 
-#svg_editor .width_label {
+ .width_label {
 	padding-right: 5px;
 }
 
-#svg_editor #tool_bold, #svg_editor  #tool_italic { 
+ #tool_bold,   #tool_italic { 
 	font: bold 2.1em/1.1em serif;
 	text-align: center;
 	padding: 0 2px 5px 2px;
@@ -1654,7 +1635,7 @@ span.zoom_tool img {
 	border: solid #3f3f3c 1px;
 }
 
-#svg_editor #tool_bold:hover, #svg_editor  #tool_italic:hover {
+ #tool_bold:hover,   #tool_italic:hover {
   color: #fff;
 } 
 
@@ -1663,7 +1644,7 @@ span.zoom_tool img {
 	left: -9999px;
 }
 
-#svg_editor #tool_bold span, #svg_editor #tool_italic span { 
+ #tool_bold span,  #tool_italic span { 
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -1672,7 +1653,7 @@ span.zoom_tool img {
 	opacity: 0;
 }
 
-#svg_editor #tool_italic {
+ #tool_italic {
 	font-weight: normal;
 	font-style: italic;
 }
@@ -1682,7 +1663,7 @@ span.zoom_tool img {
 	display: none;
 }
 
-#svg_editor #color_picker {
+ #color_picker {
 	position: absolute;
 	display: none;
 	background: #fff;
@@ -1693,7 +1674,7 @@ span.zoom_tool img {
 	width: 530px;
 }
 
-#svg_editor .tools_flyout {
+ .tools_flyout {
 	position: absolute;
 	display: none;
 	cursor: pointer;
@@ -1706,21 +1687,21 @@ span.zoom_tool img {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-#svg_editor .tools_flyout_v {
+ .tools_flyout_v {
 	position: absolute;
 	display: none;
 	cursor: pointer;
 	width: 30px;
 }
 
-#svg_editor .tools_flyout .tool_button {
+ .tools_flyout .tool_button {
 	float: left;
 	background-color: #fff;
 	height: 24px;
 	width: 24px;
 }
 
-#svg_editor #tools_bottom {
+ #tools_bottom {
 	position: absolute;
 	left: 50px;
 	right: 0;
@@ -1729,12 +1710,12 @@ span.zoom_tool img {
 	overflow: visible;
 }
 
-#svg_editor #tools_bottom_1 {
+ #tools_bottom_1 {
 	width: 115px;
 	float: left;
 }
 
-#svg_editor #tools_bottom_2 {
+ #tools_bottom_2 {
 	position: relative;
 	float: left;
 	margin-top: 5px;
@@ -1744,7 +1725,7 @@ span.zoom_tool img {
 	width: 3.2em;
 }
 
-#svg_editor #tools_top h4 {
+ #tools_top h4 {
   color: #fff;
   font-weight: normal;
   margin: 0;
@@ -1757,21 +1738,49 @@ span.zoom_tool img {
 	height: auto;
 }
 
+#tools_top.multiselected #align_tools {
+	display: none;
+}
 
-#svg_editor .draginput_cell {
+#tools_top.multiselected #multiselected_panel {
+	display: block !important;
+}
+
+#tools_top.multiselected #multiselected_panel .hidable {
+	display: none;
+}
+
+ .draginput_cell {
 	float: left;
+	height: 26px;
 	height: 26px;
 	border: solid #3f3f3c 10px;
 	outline: solid #2f2f2c 1px;
-	background-color: #ddd;
+	background: #ddd;
 	cursor: pointer;
+	position: relative;
+}
+
+ .draginput_cell:hover {
+	background: #fff;
+}
+
+ .draginput_cell:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: solid #3f3f3c 1px;
+	height: 26px;
+	width: 26px;
+	z-index: 0;
 }
 
 
-#svg_editor .align_buttons  .draginput_cell:nth-child(1) {border-radius: 3px 0 0 0;}
-#svg_editor .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 3px 0 0;}
-#svg_editor .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 3px;}
-#svg_editor .align_buttons  .draginput_cell:nth-child(6) {border-radius: 0 0 3px 0;}
+ .align_buttons  .draginput_cell:nth-child(1) {border-radius: 3px 0 0 0;}
+ .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 3px 0 0;}
+ .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 3px;}
+ .align_buttons  .draginput_cell:nth-child(6) {border-radius: 0 0 3px 0;}
 
 
 .align_buttons .push_button {
@@ -1815,16 +1824,16 @@ span.zoom_tool img {
 }
 
 
-#svg_editor #option_lists .tool_button, #svg_editor #option_lists .push_button, #svg_editor #option_lists .tool_button_current, #svg_editor #option_lists .push_button_pressed {
+ #option_lists .tool_button,  #option_lists .push_button,  #option_lists .tool_button_current,  #option_lists .push_button_pressed {
   border: none;
   background: transparent;
 }
 
-#svg_editor #option_lists .tool_button:hover {
+ #option_lists .tool_button:hover {
   background: #ddd;
 }
 
-#svg_editor #option_lists ul li.current {
+ #option_lists ul li.current {
 	background-color: #F4E284;
 }
 
@@ -1837,18 +1846,18 @@ span.zoom_tool img {
 	float: left;
 }
 
-#svg_editor ul li.current {
+ ul li.current {
 	background-color: #F4E284;
 }
 
-#svg_editor #option_lists ul li {
+ #option_lists ul li {
 	margin: 0;
 	border-radius: 0;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 }
 
-#svg_editor #copyright {
+ #copyright {
 	text-align: right;
 	padding-right: .3em;
 }
@@ -1922,7 +1931,7 @@ span.zoom_tool img {
 
 
 
-#svg_editor button.cancel, #svg_editor input.Cancel, #svg_editor input.cancel, #svg_editor input.jGraduate_Cancel, button.cancel {
+ button.cancel,  input.Cancel,  input.cancel,  input.jGraduate_Cancel, button.cancel {
 	-webkit-appearance: none;
 	background-color: #999;
 	box-shadow: 0 0 1px rgba(0,0,0,0.5);
@@ -2107,8 +2116,8 @@ span.zoom_tool img {
 /* Necessary to keep the flyouts sized properly */
 #shape_buttons {background: #fff; border-radius: 0 3px 3px 0; padding: 10px}
 
-#svg_editor .tools_flyout .tool_button,
-#svg_editor .tools_flyout .tool_flyout {
+ .tools_flyout .tool_button,
+ .tools_flyout .tool_flyout {
   background: #fff;
 	width: 40px;
 	height: 40px;
@@ -2282,7 +2291,7 @@ span.zoom_tool img {
 }
 
 
-#svg_editor #group_title {display: none;}
+ #group_title {display: none;}
 
 #base_unit_container {
 	display: none;
@@ -2290,7 +2299,7 @@ span.zoom_tool img {
 	z-index: 20;
 }
 
-#svg_editor .draginput {
+ .draginput {
   background: #3f3f3c;
   border-radius: 3px;
   -webkit-font-smoothing: antialiased;
@@ -2302,7 +2311,7 @@ span.zoom_tool img {
   margin: 0 5px 5px 0;
 }
 
-#svg_editor .draginput .caret {
+ .draginput .caret {
   border: solid transparent 5px;
   border-top-color: #999;
   position: absolute;
@@ -2313,7 +2322,7 @@ span.zoom_tool img {
 	top: 50%;
 }
 
-#svg_editor .draginput label {
+ .draginput label {
 	margin: 28px 10px 0 5px;
 	font-size: 14px;
 	color: white;
@@ -2321,7 +2330,7 @@ span.zoom_tool img {
 	font-family: sans-serif;
 }
 
-#svg_editor .draginput label#resolution_label, #svg_editor .draginput label#seg_type_label {
+ .draginput label#resolution_label,  .draginput label#seg_type_label {
 	font: bold 12px/110% sans-serif;
 	position: absolute;
 	left: auto;
@@ -2330,20 +2339,20 @@ span.zoom_tool img {
 	text-align: right;
 }
 
- #svg_editor .draginput label#seg_type_label {
+  .draginput label#seg_type_label {
 	margin-top: 40px;
 }
 
- #svg_editor .draginput label#seg_type_label .caret {
+  .draginput label#seg_type_label .caret {
 	top: 66%;
 }
 
-#svg_editor .draginput label#resolution_label .pull {
+ .draginput label#resolution_label .pull {
 	position: relative;
 	left: -15px;
 }
 
-#svg_editor .draginput label#resolution_label span {
+ .draginput label#resolution_label span {
 	right: -13px;
 	left: auto;
 	font-size: 16px;
@@ -2352,7 +2361,7 @@ span.zoom_tool img {
 	color: white;
 }
 
-.touch #svg_editor .draginput.active:after {
+.touch  .draginput.active:after {
 	content: attr(data-value);
 	display: block;
 	position: absolute;
@@ -2373,7 +2382,7 @@ span.zoom_tool img {
 	letter-spacing: -1px;
 }
 
-.touch #svg_editor .draginput.active:before {
+.touch  .draginput.active:before {
 	content: '';
 	height: 0;
 	width: 0;
@@ -2384,7 +2393,7 @@ span.zoom_tool img {
 	border-left-color: #fff;
 }
 
-#svg_editor .draginput input {
+ .draginput input {
   border: none;
   background: transparent;
   font: 24px/normal sans-serif;
@@ -2400,13 +2409,13 @@ span.zoom_tool img {
 	cursor: -moz-drag;
 }
 
-#svg_editor .draginput input:active {  
+ .draginput input:active {  
 	  cursor: url(images/dragging.png), move;
 	  cursor: -webkit-dragging;
 		cursor: -moz-dragging;
 }
 
-#svg_editor .draginput span {
+ .draginput span {
   font: 11px/130% sans-serif;
   color: #ccc;
   display: block;
@@ -2416,19 +2425,19 @@ span.zoom_tool img {
   text-align: left;
 }
 
-#svg_editor .draginput.error {
+ .draginput.error {
 	background: #900;
 }
 
-#svg_editor .draginput.error input {
+ .draginput.error input {
 	color: #fff;
 }
 
-#svg_editor .draginput.stroke_tool {
+ .draginput.stroke_tool {
 	text-align: center;
 }
 
-#svg_editor .draginput select {
+ .draginput select {
 	-webkit-appearance: none;
 	opacity: 0;
 	display: block;
@@ -2449,7 +2458,7 @@ span.zoom_tool img {
 	z-index: 0;
 }
 
-#svg_editor .draginput input[readonly=readonly] {
+ .draginput input[readonly=readonly] {
   -webkit-appearance: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -2459,6 +2468,68 @@ span.zoom_tool img {
   user-select: none;
 }
 
+
+ .draginput input:focus {
+	background: #4F80FF;
+	color: #fff;
+	outline: none;
+	box-shadow: 0 0 5px 2px #4F80FF;
+}
+
+ .draginput input:focus+span {
+	z-index: 10;
+	color:#fff;
+}
+
+#zoom_label {
+	height: 20px;
+	background: transparent;
+	cursor: default !important;
+	width: auto;
+	padding: 0 10px;
+	margin: 0;
+}
+
+#zoom_panel {
+	padding: 9px 0;
+	right: 175px;
+  position: absolute;
+}
+
+#zoom_label img {
+	width: 16px;
+	height: 16px;
+}
+
+#zoomLabel {
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	background: #ccc;
+}
+
+#zoomLabel:after {
+	content: '';
+	position: absolute;
+	border-left: solid #2f2f2c 1px;
+	left: 0;
+	height: 16px;
+}
+
+#zoom_label input {
+	color: #ccc;
+	font-size: 13px;
+	height: auto;
+	width: auto;
+	padding: 0;
+	cursor: default;
+	position: static;
+}
+
+#zoom_label span {
+	top: 0;
+	left: 0;
+}
 
 body.dragging * {
 	cursor: url(images/dragging.png), move;
@@ -2472,7 +2543,7 @@ body.drag * {
 	cursor: -moz-dragging;
 }
 
-#svg_editor input[readonly=readonly]:focus {
+input[readonly=readonly]:focus {
 	box-shadow: none;
 }
 
@@ -2482,20 +2553,22 @@ body.drag * {
 	height: 40px;
 	margin: 23px 5px 5px 5px;
 	position: relative;
+	overflow: hidden;
 }
 
-#color_canvas_tools svg {
+#color_canvas_tools  {
 	display: block;
 }
+
 
 #tool_angle_indicator {
 	width: 				 50px;
 	height: 			 50px;
 	border-radius: 50px;
-	border: solid rgba(50,100,200,0.25) 3px;
+	background: rgba(255,255,255,0.05);
 	position: absolute;
 	bottom: 2px;
-	left: 7px;
+	left: 10px;
 }
 
 #tool_angle_indicator_cursor {
@@ -2503,7 +2576,7 @@ body.drag * {
 	height: 			 25px;
 	border-top: solid #4F80FF 3px;
 	position: absolute;
-	margin: -3px 0 0 25px;
+	margin: 0 0 0 23px;
 	-webkit-transform-origin: 50% 0;
 	-moz-transform-origin: 50% 0;
 	-o-transform-origin: 50% 0;

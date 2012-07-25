@@ -63,7 +63,7 @@ svgedit.select.Selector = function(id, elem) {
 	);
 	
 	if (svgedit.browser.isTouch()) {
-	  this.selectorRect.setAttribute("stroke-opacity", 0);
+	  this.selectorRect.setAttribute("stroke-opacity", 0.3);
 	}
 
 	// this holds a reference to the grip coordinates for this selector
@@ -399,6 +399,59 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 		}
 	});
 
+  var defs = svgFactory_.createSVGElement({
+    'element': 'defs',
+    'attr': {
+      'id': 'placeholder_defs'
+    }
+  })
+  
+  var pattern = svgFactory_.createSVGElement({
+    'element': 'pattern',
+    'attr': {
+      'id': 'checkerPattern',
+      'patternUnits': 'userSpaceOnUse',
+      'x': 0,
+      'y': 0,
+      'width': 20,
+      'height': 20,
+      'viewBox': '0 0 10 10'
+    }
+  })
+  
+  var pattern_bg = svgFactory_.createSVGElement({
+    'element': 'rect',
+    'attr': {
+      'x': 0,
+      'y': 0,
+      'width': 10,
+      'height': 10,
+      'fill': "#fff"
+    }
+  })
+
+  var pattern_square1 = svgFactory_.createSVGElement({
+    'element': 'rect',
+    'attr': {
+      'x': 0,
+      'y': 0,
+      'width': 5,
+      'height': 5,
+      'fill': "#eee"
+    }
+  })
+  
+  var pattern_square2 = svgFactory_.createSVGElement({
+    'element': 'rect',
+    'attr': {
+      'x': 5,
+      'y': 5,
+      'width': 5,
+      'height': 5,
+      'fill': "#eee"
+    }
+  })
+
 	var rect = svgFactory_.createSVGElement({
 		'element': 'rect',
 		'attr': {
@@ -408,7 +461,7 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 			'y': 0,
 			'stroke-width': 1,
 			'stroke': '#000',
-			'fill': '#FFF',
+			'fill': 'url(#checkerPattern)',
 			'style': 'pointer-events:none'
 		}
 	});
@@ -416,7 +469,13 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
 	// Both Firefox and WebKit are too slow with this filter region (especially at higher
 	// zoom levels) and Opera has at least one bug
 //	if (!svgedit.browser.isOpera()) rect.setAttribute('filter', 'url(#canvashadow)');
+	canvasbg.appendChild(defs);
+	defs.appendChild(pattern);
+	pattern.appendChild(pattern_bg);
+	pattern.appendChild(pattern_square1);
+	pattern.appendChild(pattern_square2);
 	canvasbg.appendChild(rect);
+
 	svgFactory_.svgRoot().insertBefore(canvasbg, svgFactory_.svgContent());
 };
 
@@ -527,6 +586,13 @@ svgedit.select.init = function(config, svgFactory) {
 	config_ = config;
 	svgFactory_ = svgFactory;
 	selectorManager_ = new svgedit.select.SelectorManager();
+	//for hovering elements
+	svgFactory_.createSVGElement({
+		'element': 'g',
+		'attr': {
+			'id': 'hover_group'
+		}
+	})
 };
 
 /**

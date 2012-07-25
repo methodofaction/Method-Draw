@@ -8,11 +8,11 @@ YUICOMPRESSOR=build/tools/yuicompressor-2.4.7.jar
 # All files that will be compiled by the Closure compiler.
 
 JS_FILES=\
+  touch.js \
   js-hotkeys/jquery.hotkeys.min.js \
   jquerybbq/jquery.bbq.min.js \
   svgicons/jquery.svgicons.js \
   jgraduate/jquery.jgraduate.js \
-  touch.js \
   contextmenu/jquery.contextmenu.js \
   browser.js \
   svgtransformlist.js \
@@ -32,10 +32,10 @@ JS_FILES=\
   jgraduate/jpicker.min.js \
   mousewheel.js \
 	extensions/ext-eyedropper.js \
-	extensions/ext-markers.js \
 	extensions/ext-grid.js \
 	extensions/ext-shapes.js \
-	requestanimationframe.js
+	requestanimationframe.js \
+	taphold.js
 
 CSS_FILES=\
   fonts.css \

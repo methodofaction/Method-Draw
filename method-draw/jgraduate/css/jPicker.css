@@ -153,9 +153,7 @@ table#svg_editor .jPicker {
 #svg_editor .jPicker .Button input {
     width: 100px;
 }
-#svg_editor .jPicker .Button .Ok {
-    margin: 0 0 5px 0;
-}
+
 #svg_editor .jPicker td.Radio {
     margin: 0;
     padding: 0;
