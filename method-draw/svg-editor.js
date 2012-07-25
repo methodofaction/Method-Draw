@@ -47,7 +47,7 @@
 			showRulers: (svgedit.browser.isTouch()) ? false : true,
 			show_outside_canvas: false,
 			no_save_warning: true,
-			initFont: 'Sans-serif'
+			initFont: 'Helvetica, Arial, sans-serif'
 		},
 			uiStrings = Editor.uiStrings = {
 				common: {
@@ -2053,9 +2053,11 @@
 				}
 			}
 			
-			Editor.addDropDown('#font_family_dropdown', function() {
-				var fam = $(this).text();
-				$('#font_family').val($(this).text()).change();
+			$('#font_family_dropdown').change(function() {
+				var fam = this.options[this.selectedIndex].value
+				var fam_display = this.options[this.selectedIndex].text
+				$('#preview_font').html(fam_display).css("font-family", fam);
+				$('#font_family').val(fam).change();
 			});
 			
 			$('div', '#position_opts').each(function(){

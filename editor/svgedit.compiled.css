@@ -249,7 +249,7 @@ input[type=submit]:active,button:active{padding:6px 10px 4px 10px;box-shadow:ins
 #tool_open input,#tool_import input,#tool_image input{position:absolute;opacity:0;font-size:10em;top:-5px;right:-5px;margin:0;cursor:pointer}
 .disabled{opacity:.5;cursor:default}
 .width_label{padding-right:5px}
-#tool_bold,#tool_italic{font:bold 2.1em/1.1em serif;text-align:center;padding:0 2px 5px 2px;position:relative;float:left;margin:5px 10px 0 0;color:#ccc;background:#2f2f2c;border:solid #3f3f3c 1px}
+#tool_bold,#tool_italic{font:bold 40px/85px serif;text-align:center;position:relative;float:left;padding:0;color:#ccc;background:transparent;border:0;width:100%;height:70px;margin:0}
 #tool_bold:hover,#tool_italic:hover{color:#fff}
 #text{position:absolute;left:-9999px}
 #tool_bold span,#tool_italic span{position:absolute;width:100%;height:100%;top:0;left:0;background:#ccc;opacity:0}
@@ -385,12 +385,16 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 .touch .draginput.active:after{content:attr(data-value);display:block;position:absolute;background:#fff;font-size:16px;top:0;width:30px;left:-50px;padding:0 5px;color:#333;z-index:10;font-family:sans-serif;font-weight:bold;text-align:right;padding-right:10px;height:20px;line-height:20px;letter-spacing:-1px}
 .touch .draginput.active:before{content:'';height:0;width:0;position:absolute;top:5px;left:-5px;border:solid transparent 5px;border-left-color:#fff}
 .draginput input{border:0;background:transparent;font:24px/normal sans-serif;text-align:center;color:#4f80ff;padding:30px 0 16px;width:100%;height:24px;position:relative;z-index:2;cursor:url(images/drag.png),move;cursor:-webkit-drag;cursor:-moz-drag}
+.draginput.twocol{width:145px}
+#tool_font_family .caret{right:10px;top:55%}
+#preview_font{font-size:24px;color:#fff;margin:30px 0 0 10px}
+#preview_font:after{content:'';position:absolute;right:0;top:3px;bottom:3px;width:40px;border-right:solid #3f3f3c 10px;background:transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iZzU4MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBzdG9wLWNvbG9yPSIjM2YzZjNjIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzZjNmM2MiIG9mZnNldD0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c1ODApIiAvPjwvc3ZnPg==)}
 .draginput input:active{cursor:url(images/dragging.png),move;cursor:-webkit-dragging;cursor:-moz-dragging}
 .draginput span{font:11px/130% sans-serif;color:#ccc;display:block;position:absolute;top:5px;left:5px;text-align:left}
 .draginput.error{background:#900}
 .draginput.error input{color:#fff}
 .draginput.stroke_tool{text-align:center}
-.draginput select{-webkit-appearance:none;opacity:0;display:block;position:absolute;height:100%;width:100%;margin:0;z-index:1}
+.draginput select{-webkit-appearance:none;opacity:0;display:block;position:absolute;height:100%;width:100%;margin:0;z-index:1;top:0;left:0}
 .draginput_cursor{position:absolute;top:50%;width:100%;border-top:solid rgba(50,100,200,0.25) 3px;margin-top:-2px;z-index:0}
 .draginput input[readonly=readonly]{-webkit-appearance:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .draginput input:focus{background:#4f80ff;color:#fff;outline:0;box-shadow:0 0 5px 2px #4f80ff}

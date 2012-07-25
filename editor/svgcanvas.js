@@ -228,7 +228,7 @@ $.extend(all_properties.text, {
 	fill: "#000000",
 	stroke_width: 0,
 	font_size: 24,
-	font_family: 'Junction'
+	font_family: 'Helvetica, Arial, sans-serif'
 });
 
 // Current shape style properties
