@@ -328,7 +328,6 @@ svgEditor.addExtension("shapes", function() {
   				var multiplierY = (totalScale.sy > totalScale.sx) ? 1 : totalScale.sy/totalScale.sx;
   				sx *= multiplierY
   				sy *= multiplierX
-  				console.log(multiplierX, multiplierY);
 				}
 			}
 			totalScale.sx *= sx;
