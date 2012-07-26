@@ -646,7 +646,7 @@ div.jGraduate_Slider img {
 /* Comment to prevent wrong concat */
 
 body {
-	background: rgba(0,0,0,0.81);
+	background: #2F2F2C;
 	font: 13px/120% 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
 	-webkit-touch-callout: none;
   -webkit-user-select: none;
