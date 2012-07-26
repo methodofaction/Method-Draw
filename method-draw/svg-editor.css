@@ -569,11 +569,11 @@ html, body {
  #tools_left .tool_button:after,  #tools_left .tool_button_current:after {
 	position: absolute;
 	content: '';
-	border: solid #2f2f2c 1px;
-	top: 0;
-	left: 0;
-	width: 27px;
-	height: 27px;
+	border: solid #2f2f2c 2px;
+	top: -1px;
+	left: -1px;
+	width: 28px;
+	height: 28px;
 	z-index: 0;
 }
 
