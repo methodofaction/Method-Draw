@@ -186,7 +186,7 @@ div.palette_item{height:16px;width:16px;float:left}
 #tools_left .tool_button{background:#2f2f2c;position:relative}
 #tools_left .tool_button.loaded{background:#ccc}
 #tools_left .tool_button.loaded:hover{background:#fff}
-#tools_left .tool_button:after,#tools_left .tool_button_current:after{position:absolute;content:'';border:solid #2f2f2c 2px;top:-1px;left:-1px;width:28px;height:28px;z-index:0}
+#tools_left .tool_button:after,#tools_left .tool_button_current:after{position:absolute;content:'';border:solid #2f2f2c 2px;top:-1px;left:-1px;width:26px;height:26px;z-index:0}
 #tools_left .tool_button_current{background-color:#0cf}
 #main_icon span{position:absolute;width:100%;height:100%;display:block;z-index:2}
 #tools_top{position:absolute;width:160px;right:0;top:20px;border-bottom:0;overflow:visible;padding:0 0 0 10px}
