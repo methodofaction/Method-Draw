@@ -51,7 +51,6 @@ svgEditor.addExtension("eyedropper", function(S) {
 		var getPaint = function(color, opac, type) {
 			// update the editor's fill paint
 			var opts = null;
-			console.log(color);
 			if (color.indexOf("url(#") === 0) {
 				var refElem = svgCanvas.getRefElem(color);
 				if(refElem) {
@@ -87,6 +86,7 @@ svgEditor.addExtension("eyedropper", function(S) {
 				title: "Eye Dropper Tool",
 				key: "I",
 				"class": "disabled",
+				icon: "extensions/eyedropper.png",
 				events: {
 					"click": function() {
 						svgCanvas.setMode("eyedropper");
@@ -130,7 +130,6 @@ svgEditor.addExtension("eyedropper", function(S) {
   						if (currentStyle.strokeLinecap) 	change(element, "stroke-linecap", currentStyle.strokeLinecap);
   						if (currentStyle.strokeLinejoin) 	change(element, "stroke-linejoin", currentStyle.strokeLinejoin);
   						batchCmd.addSubCommand(new ChangeElementCommand(element, changes));
-  						console.log(changes);
   						changes = {};
 						});
 						var fill = getPaint(currentStyle.fillPaint, currentStyle.fillOpacity*100, "fill")

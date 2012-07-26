@@ -2216,13 +2216,8 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
 		}
 	}
 	call("selected", selectedElements);
-	
-	if (showGrips || selectedElements.length == 1) {
-		selectorManager.requestSelector(selectedElements[0]).showGrips(true);
-	}
-	else {
-		selectorManager.requestSelector(selectedElements[0]).showGrips(false);
-	}
+	if (showGrips || selectedElements.length == 1) selectorManager.requestSelector(selectedElements[0]).showGrips(true)
+  else selectorManager.requestSelector(selectedElements[0]).showGrips(false);
 
 	// make sure the elements are in the correct order
 	// See: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-compareDocumentPosition
@@ -2801,16 +2796,17 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         	  // alt drag = create a clone and save the reference							
   					if(evt.altKey) {
   					  //clone doesn't exist yet
-  					  if (!canvas.addClone) {
-  					    canvas.addClone = canvas.cloneSelectedElements(0,0, xform);
-  					    canvas.removeClone = function(){
-  					      parent = canvas.addClone.parentNode
-  					      if (parent) {
-  					        parent.removeChild(canvas.addClone)
-  					        canvas.addClone = false;
+  					  if (!canvas.addClones) {
+  					    canvas.addClones = canvas.cloneSelectedElements(0,0, xform);
+  					    canvas.removeClones = function(){
+  					      if (canvas.addClones) {
+  					        canvas.addClones.forEach(function(clone){
+  					          if (clone.parentNode) clone.parentNode.removeChild(clone)
+  					          canvas.addClones = false;
+  					        })
   					      }
   					    }
-  					    window.addEventListener("keyup", canvas.removeClone)
+  					    window.addEventListener("keyup", canvas.removeClones)
         	    }
         	  }
 			
@@ -3209,8 +3205,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   this is done in when we recalculate the selected dimensions()
 	var mouseUp = function(evt)
 	{
-	  canvas.addClone = false;
-	  window.removeEventListener("keyup", canvas.removeClone)
+	  canvas.addClones = false;
+	  window.removeEventListener("keyup", canvas.removeClones)
 	  
 		if(evt.button === 2) return;
 		var tempJustSelected = justSelected;
@@ -3887,9 +3883,11 @@ var textActions = canvas.textActions = function() {
 		},
 		setCursor: setCursor,
 		toEditMode: function(x, y) {
+		  selectOnly([curtext], false)
 			allow_dbl = false;
 			current_mode = "textedit";
-			selectorManager.requestSelector(curtext).showGrips(false);
+    	//selectorManager.requestSelector(curtext).showGrips(false);
+		
 			// Make selector group accept clicks
 			var sel = selectorManager.requestSelector(curtext).selectorRect;
 			
@@ -8582,21 +8580,28 @@ this.cloneSelectedElements = function(x,y, drag) {
 	// note that we loop in the reverse way because of the way elements are added
 	// to the selectedElements array (top-first)
 	var i = copiedElements.length;
+	clones = []
 	while (i--) {
 		// clone each element and replace it within copiedElements
 		var elem = copiedElements[i] 
 		var clone = copyElem(copiedElements[i]);
-		if (drag) clone.setAttribute("transform", "");
+		if (drag) {
+		  //removed the dragged transform until that moment
+		  tlist = getTransformList(clone)
+      tlist.removeItem(drag)
+		  recalculateDimensions(clone)
+		}
 		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(clone);
+		clones.push(clone)
 		batchCmd.addSubCommand(new InsertElementCommand(clone));
 	}
 	
 	if (!batchCmd.isEmpty()) {
 		addToSelection(copiedElements.reverse()); // Need to reverse for correct selection-adding
-		this.moveSelectedElements(x,y,false);
+		if (!drag) this.moveSelectedElements(x,y,false);
 		addCommandToHistory(batchCmd);
 	}
-	return clone
+	return clones
 };
 
 // Function: alignSelectedElements

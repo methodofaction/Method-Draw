@@ -155,7 +155,7 @@ svgEditor.addExtension("shapes", function() {
 			type: "mode_flyout", // _flyout
 			position: 6,
 			title: "Shape library",
-			fallback: "extensions/ext-shapes.png",
+			icon: "extensions/ext-shapes.png",
 			events: {
 				"click": function() {
 					canv.setMode(mode_id);

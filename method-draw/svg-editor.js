@@ -240,11 +240,11 @@
 					'spapelib':'shapelib.png',
 					'node_delete':'node_delete.png',				
 					'align_left':'align-left.png',
-					'align_center':'align-center',
-					'align_right':'align-right',
-					'align_top':'align-top',
-					'align_middle':'align-middle',
-					'align_bottom':'align-bottom',
+					'align_center':'align-center.png',
+					'align_right':'align-right.png',
+					'align_top':'align-top.png',
+					'align_middle':'align-middle.png',
+					'align_bottom':'align-bottom.png',
 					'arrow_right':'flyouth.png',
 					'arrow_down':'dropdown.gif'
 				},
@@ -1005,17 +1005,16 @@
 						var icon;
 						var id = btn.id;
 						var num = i;
-						
 						// Give button a unique ID
 						while($('#'+id).length) {
 							id = btn.id + '_' + (++num);
 						}
-		
 						if(!svgicons) {
 							icon = (btn.type == "menu") ? "" : $('<img src="' + btn.icon + '">');
 						} else {
 							fallback_obj[id] = btn.icon;
-							var svgicon = btn.svgicon?btn.svgicon:btn.id;
+							var svgicon = btn.svgicon ? btn.svgicon : btn.id;
+							console.log(svgicon);
 							if(btn.type == 'app_menu') {
 								placement_obj['#' + id + ' > div'] = svgicon;
 							} else {
@@ -1391,6 +1390,7 @@
         
         //hack to show the proper multialign box
         if (multiselected) {
+          multiselected = multiselected.filter(Boolean)
           elem = (svgCanvas.elementsAreSame(multiselected)) ? multiselected[0] : null
           if (elem) $("#tools_top").addClass("multiselected")
         }
@@ -1534,20 +1534,14 @@
 						});
 						
 						if(el_name == 'text') {
+							var font_family = elem.getAttribute("font-family");
+							var select = document.getElementById("font_family_dropdown");
+							select.selectedIndex = 3
+							
 							$('#text_panel').css("display", "inline");	
-							if (svgCanvas.getItalic()) {
-								$('#tool_italic').addClass('push_button_pressed').removeClass('tool_button');
-							}
-							else {
-								$('#tool_italic').removeClass('push_button_pressed').addClass('tool_button');
-							}
-							if (svgCanvas.getBold()) {
-								$('#tool_bold').addClass('push_button_pressed').removeClass('tool_button');
-							}
-							else {
-								$('#tool_bold').removeClass('push_button_pressed').addClass('tool_button');
-							}
-							$('#font_family').val(elem.getAttribute("font-family"));
+							$('#tool_italic').toggleClass('active', svgCanvas.getItalic())
+							$('#tool_bold').toggleClass('active', svgCanvas.getBold())
+							$('#font_family').val(font_family);
 							$('#font_size').val(elem.getAttribute("font-size"));
 							$('#text').val(elem.textContent);
 							if (svgCanvas.addedNew) {
@@ -1889,17 +1883,12 @@
               top.exports.setEditorFocus();
             }
         }
-          if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
-            if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) {
-              blinker(e);
-              return;
-            }
-            else {
-              $('#menu_bar').removeClass('active')
-            }
- 
-          }
-          
+        if (e.target.nodeName.toLowerCase() === "input") return false;
+        if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
+          if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blinker(e)
+          else $('#menu_bar').removeClass('active')
+
+        }  
       }
       
 
