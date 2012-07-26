@@ -2537,6 +2537,15 @@
 				$('#svg_source_textarea').css('height', height);
 			};
 			
+			var clickSave = function(){
+				// In the future, more options can be provided here
+				var saveOpts = {
+					'images': curPrefs.img_save,
+					'round_digits': 6
+				}
+				svgCanvas.save(saveOpts);
+			};
+			
 			var saveSourceEditor = function(){
 				if (!editingsource) return;
 		

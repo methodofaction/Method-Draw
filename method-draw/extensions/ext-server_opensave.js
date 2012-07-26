@@ -14,7 +14,7 @@ svgEditor.addExtension("server_opensave", {
 		var save_png_action = 'extensions/filesave.php';
 	
 		// Create upload target (hidden iframe)
-		var target = $('<iframe name="output_frame" src="#"/>').hide().appendTo('body');
+		var target = $('<iframe name="output_frame" />').hide().appendTo('body');
 	
 		svgEditor.setCustomHandlers({
 			save: function(win, data) {
