@@ -12,10 +12,7 @@ $.fn.dragInput = function(cfg){
 			max: cfg && !isNaN(parseFloat(cfg.max)) ? Number(cfg.max) : null,
 			step: cfg && Number(cfg.step) ? cfg.step : 1,
 			stepfunc: cfg && cfg.stepfunc ? cfg.stepfunc : false,
-			page: cfg && cfg.page ? Number(cfg.page) : 10,
-			reset: cfg && cfg.reset ? cfg.reset : this.value,
-			delay: cfg && cfg.delay ? Number(cfg.delay) : 500,
-			interval: cfg && cfg.interval ? Number(cfg.interval) : 100,
+			dragAdjust: cfg && cfg.dragAdjust ? cfg.dragAdjust : 1,
 			height: 70,
 			cursor: cfg && cfg.cursor ? Boolean(cfg.cursor) : false,
 			start: cfg && cfg.start ? Number(cfg.start) : 0,
@@ -27,7 +24,7 @@ $.fn.dragInput = function(cfg){
 		};
 		// if a smallStep isn't supplied, use half the regular step
 		this.dragCfg.smallStep = cfg && cfg.smallStep ? cfg.smallStep : this.dragCfg.step/2;
-		
+		var dragAdjust = this.dragCfg.dragAdjust;
 		var $label = $(this).parent();
 		var $input = $(this);
 		var cursorHeight = this.dragCfg.height;
@@ -79,7 +76,7 @@ $.fn.dragInput = function(cfg){
       }
       var deltaY = (e.pageY - lastY) *-1
       lastY = e.pageY;
-      val = deltaY * scale
+      val = (deltaY * scale) * dragAdjust
       var fixed = (step < 1) ? 1 : 0
       this.adjustValue(val.toFixed(fixed))  //no undo true
     };

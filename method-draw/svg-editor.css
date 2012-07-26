@@ -1815,9 +1815,6 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   height: 24px;
 	position: relative;
 	z-index: 2;
-	cursor: url(images/drag.png), move;
-  cursor: -webkit-drag;
-	cursor: -moz-drag;
 }
 
 .draginput.twocol {
@@ -1846,11 +1843,19 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iZzU4MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBzdG9wLWNvbG9yPSIjM2YzZjNjIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzZjNmM2MiIG9mZnNldD0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c1ODApIiAvPjwvc3ZnPg==);
 }
 
- .draginput input:active {  
-	  cursor: url(images/dragging.png), move;
-	  cursor: -webkit-dragging;
-		cursor: -moz-dragging;
+.draginput input, .draginput input:hover, .draginput input:active {  
+	  cursor: url(images/drag.png), move;
+	  cursor: -webkit-grab;
+		cursor: -moz-grab;
 }
+
+.draginput.active input, .draginput.active input:hover, .draginput.active input:active {  
+	  cursor: url(images/dragging.png), move;
+	  cursor: -webkit-grabbing;
+		cursor: -moz-grabbing;
+}
+
+
 
  .draginput span {
   font: 11px/130% sans-serif;
@@ -1977,14 +1982,14 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 
 body.dragging * {
 	cursor: url(images/dragging.png), move;
-	cursor: -webkit-drag;
-	cursor: -moz-drag;
+	cursor: -webkit-grabbing;
+	cursor: -moz-grabbing;
 }
 
 body.drag * {
 	cursor: url(images/dragging.png), move;
-	cursor: -webkit-dragging;
-	cursor: -moz-dragging;
+	cursor: -webkit-grabbing;
+	cursor: -moz-grabbing;
 }
 
 input[readonly=readonly]:focus {

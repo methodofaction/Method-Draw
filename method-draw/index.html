@@ -52,6 +52,7 @@
   <script type="text/javascript" src="extensions/ext-shapes.js"></script>
   <script type="text/javascript" src="requestanimationframe.js"></script>
   <script type="text/javascript" src="taphold.js"></script>
+  <script type="text/javascript" src="extensions/ext-server_opensave.js"></script>
 <!{endif}-->
 
 <!-- you can load extensions here -->
@@ -101,6 +102,8 @@ $(function(){
     <div class="menu_title" id="logo"></div>
     <div class="menu_list">
       <div id="tool_about" class="menu_item">About this Editor...</div>
+      <div class="separator"></div>
+      <div id="tool_about" class="menu_item">Keyboard Shortcus...</div>
     </div>
   </a>
   
@@ -108,8 +111,8 @@ $(function(){
   	<div class="menu_title">File</div>
   	<div class="menu_list" id="file_menu"> 
   		<div id="tool_clear" class="menu_item">New Image</div>
-  		<div id="tool_open" class="menu_item"><div id="fileinputs"></div>Place Image...</div>
-  		<div id="tool_import" class="menu_item"><div id="fileinputs_import"></div>Import SVG...</div>
+  		<div id="tool_open" class="menu_item"><div id="fileinputs"></div>Open SVG...</div>
+  		<div id="tool_import" class="menu_item"><div id="fileinputs_import"></div>Place SVG...</div>
   		<div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
   		<div id="tool_export" class="menu_item">Export as PNG</div>
   	</div>
