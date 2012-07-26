@@ -1,7 +1,7 @@
 /* Comment to prevent wrong concat */
 
 body {
-	background: #2F2F2C;
+	background: rgba(0,0,0,0.81);
 	font: 13px/120% 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
 	-webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -575,11 +575,6 @@ html, body {
 	width: 27px;
 	height: 27px;
 	z-index: 0;
-}
-
-
-#tools_top .padded {
-  padding: 10px 0;
 }
 
  #tools_left .tool_button_current {

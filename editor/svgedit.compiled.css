@@ -97,7 +97,7 @@ div.jGraduate_Slider input{margin-top:5px}
 div.jGraduate_Slider img{top:0;left:0;position:absolute;cursor:ew-resize}
 .jPicker .Button .Ok,.jGraduate_Picker .jGraduate_OkCancel .jGraduate_Ok{-webkit-appearance:none;margin:0;position:absolute;bottom:5px;right:5px}
 .jPicker .Button .Cancel,.jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel{margin:0;position:absolute;bottom:5px;left:5px}
-body{background:#2f2f2c;font:13px/120% 'Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;margin:0;padding:0}
+body{background:rgba(0,0,0,0.81);font:13px/120% 'Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;margin:0;padding:0}
 ::selection{background:#000;color:#fff}
 ::-moz-selection{background:#000;color:#fff}
 html,body{overflow:hidden;width:100%;height:100%}
@@ -187,7 +187,6 @@ div.palette_item{height:16px;width:16px;float:left}
 #tools_left .tool_button.loaded{background:#ccc}
 #tools_left .tool_button.loaded:hover{background:#fff}
 #tools_left .tool_button:after,#tools_left .tool_button_current:after{position:absolute;content:'';border:solid #2f2f2c 1px;top:0;left:0;width:27px;height:27px;z-index:0}
-#tools_top .padded{padding:10px 0}
 #tools_left .tool_button_current{background-color:#0cf}
 #main_icon span{position:absolute;width:100%;height:100%;display:block;z-index:2}
 #tools_top{position:absolute;width:160px;right:0;top:20px;border-bottom:0;overflow:visible;padding:0 0 0 10px}
