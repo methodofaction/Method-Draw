@@ -2374,10 +2374,10 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 		var right_click = evt.button === 2;
 		
 		root_sctm = svgcontent.getScreenCTM().inverse();
-		
+		isBotchedZoom = svgedit.browser.isGecko();
 		var pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
-			mouse_x = pt.x * current_zoom,
-			mouse_y = pt.y * current_zoom;
+			mouse_x = pt.x * (isBotchedZoom ? 1 : current_zoom),
+			mouse_y = pt.y * (isBotchedZoom ? 1 : current_zoom);
 			
 		evt.preventDefault();
 
@@ -2733,8 +2733,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 		if(evt.button === 1 || canvas.spaceKey) return;
 		var selected = selectedElements[0],
 			pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
-			mouse_x = pt.x * current_zoom,
-			mouse_y = pt.y * current_zoom,
+			mouse_x = pt.x * (isBotchedZoom ? 1 : current_zoom),
+			mouse_y = pt.y * (isBotchedZoom ? 1 : current_zoom),
 			shape = getElem(getId());
 
 		var real_x = x = mouse_x / current_zoom;
