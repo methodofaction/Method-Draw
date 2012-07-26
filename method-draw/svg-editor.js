@@ -1544,7 +1544,7 @@
 							$('#font_family').val(font_family);
 							$('#font_size').val(elem.getAttribute("font-size"));
 							$('#text').val(elem.textContent);
-							$('#preview_font').text(font_family.split(",")[0]).css('font-family', font_family);
+							$('#preview_font').text(font_family.split(",")[0].replace(/'/g, "")).css('font-family', font_family);
 							if (svgCanvas.addedNew) {
 								// Timeout needed for IE9
 								setTimeout(function() {
