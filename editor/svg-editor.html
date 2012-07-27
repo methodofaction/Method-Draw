@@ -413,7 +413,7 @@ $(function(){
 		</label>
 		
 			<label class="toolset" id="tool_opacity" data-title="Change selected item opacity">
-  			<input id="group_opacity" size="3" value="100" step="5" min="0" max="100" />
+  			<input id="group_opacity" class="attr_changer" data-attr="opacity" data-multiplier="0.01" size="3" value="100" step="5" min="0" max="100" />
   		  <span id="group_opacityLabel" class="icon_label">Opacity</span>
   		</label>
 		
@@ -450,8 +450,15 @@ $(function(){
 	<!-- Buttons when multiple elements are selected -->
 	<div id="multiselected_panel" class="context_panel clearfix">
 	  <h4 class="hidable">Multiple Elements</h4>
-		<div class="toolset align_buttons">
-		  <h4>Align</h4>
+	  
+		<div class="toolset align_buttons" style="position: relative">
+		  <label id="tool_align_relative" style="margin-top: 10px;"> 
+  			<select id="align_relative_to" title="Align relative to ...">
+  			<option id="selected_objects" value="selected">Align to objects</option>
+  			<option id="page" value="page">Align to page</option>
+  			</select>
+  		</label>
+		  <h4>&nbsp;</h4>
     		<div class="col last clear">
       		<div class="draginput_cell" id="tool_alignleft" title="Align Left"></div>
       		<div class="draginput_cell" id="tool_aligncenter" title="Align Center"></div>
@@ -462,14 +469,6 @@ $(function(){
     		</div>
 		</div>
 		<div class="clearfix"></div>
-		<label id="tool_align_relative" style="margin-top: 10px;"> 
-			<span id="relativeToLabel">Relative to:</span>
-			<select id="align_relative_to" title="Align relative to ...">
-			<option id="selected_objects" value="selected">Objects</option>
-			<option id="page" value="page">Page</option>
-			</select>
-		</label>
-		<div class="tool_sep"></div>
 
 	</div>
 	
@@ -547,20 +546,20 @@ $(function(){
 		<label class="draginput select" id="zoom_label">
   		<span  id="zoomLabel" class="zoom_tool icon_label"></span>
   		<select id="zoom_select">
-  		  <option>6%</option>
-  		  <option>12%</option>
-  		  <option>16%</option>
-  		  <option>25%</option>
-  		  <option>50%</option>
-  		  <option>75%</option>
-  		  <option selected>100%</option>
-  		  <option>150%</option>
-  		  <option>200%</option>
-  		  <option>300%</option>
-  		  <option>400%</option>
-  		  <option>600%</option>
-  		  <option>800%</option>
-  		  <option>1600%</option>
+  		  <option value="6">6%</option>
+  		  <option value="12">12%</option>
+  		  <option value="16">16%</option>
+  		  <option value="25">25%</option>
+  		  <option value="50">50%</option>
+  		  <option value="75">75%</option>
+  		  <option selected value="100">100%</option>
+  		  <option value="150">150%</option>
+  		  <option value="200">200%</option>
+  		  <option value="300">300%</option>
+  		  <option value="400">400%</option>
+  		  <option value="600">600%</option>
+  		  <option value="800">800%</option>
+  		  <option value="1600">1600%</option>
   		</select>
   		<div class="caret"></div>
   		<input id="zoom" size="3" value="100%" type="text" readonly="readonly" />

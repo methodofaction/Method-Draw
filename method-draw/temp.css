@@ -2677,7 +2677,28 @@ input[readonly=readonly]:focus {
 	transform-origin: 50% 0;
 }
 
-/*
+#stroke_style_label {
+	font-size: 30px;
+	margin-top: 33px;
+	letter-spacing: -1px;
+}
+
+.stroke_tool .caret {
+	top: 60%;
+}
+
+#tool_align_relative {
+	position: absolute;
+	top: -5px;
+	left: 0;
+	right: 20px;
+	display: block;
+}
+
+#tool_align_relative select {
+	width: 100%;
+	display: block;
+}/*
 	Styles to make ordinary <INPUT type="text"/> look like a spinbutton/spinbox control.
 	Use with JQuerySpinBtn.js to provide the spin functionality by reacting to mouse etc.
 	(Requires a reference to the JQuery library found at http://jquery.com/src/latest/)

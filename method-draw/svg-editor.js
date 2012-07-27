@@ -544,7 +544,8 @@
 				var is_node = (mode == "pathedit");
 				// if elems[1] is present, then we have more than one element
 				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
-				multiselected = (elems.length >= 2 && elems[1] != null) ? elems : false;
+				elems = elems.filter(Boolean)
+				multiselected = (elems.length >= 2) ? elems : false;
 				if (selectedElement != null) {
 					// unless we're already in always set the mode of the editor to select because
 					// upon creation of a text element the editor is switched into
@@ -671,6 +672,8 @@
 				  }
 				  else {
 				    $("#zoom").val(zoomlevel*100)
+				    $("option", "#zoom_select").removeAttr("selected")
+				    $("option[value="+ zoomlevel*100 +"]", "#zoom_select").attr("selected", "selected")
 				  }
 				}
 				animateZoom(Date.now())
@@ -818,7 +821,7 @@
 							if(!shower.data('isLibrary')) {
 								holder.css('left', w).show().animate({
 									left: l
-								},150);
+								},50);
 							} else {
 								holder.css('left', l).show();
 							}
@@ -1330,8 +1333,11 @@
 						Editor.paintBox.stroke.update(true);
 						
 						$('#stroke_width').val(selectedElement.getAttribute("stroke-width") || 1);
-						$('#stroke_style').val(selectedElement.getAttribute("stroke-dasharray")||"none");
-	
+						var dash = selectedElement.getAttribute("stroke-dasharray") || "none"
+						$('option', '#stroke_style').removeAttr('selected');
+						$('#stroke_style option[value="'+ dash +'"]').attr("selected", "selected");
+						$('#stroke_style').trigger('change');
+	          $.fn.dragInput.updateCursor($('#stroke_width')[0])
 						var attr = selectedElement.getAttribute("stroke-linejoin") || 'miter';
 						
 						if ($('#linejoin_' + attr).length != 0)
@@ -1349,8 +1355,7 @@
 				if(selectedElement != null) {
 					var opac_perc = ((selectedElement.getAttribute("opacity")||1.0)*100);
 					$('#group_opacity').val(opac_perc);
-					$('#opac_slider').slider('option', 'value', opac_perc);
-					$('#elem_id').val(selectedElement.id);
+					$.fn.dragInput.updateCursor($('#group_opacity')[0])
 				}
 				
 				updateToolButtonState();
@@ -1389,7 +1394,7 @@
         
         //hack to show the proper multialign box
         if (multiselected) {
-          multiselected = multiselected.filter(Boolean)
+          multiselected = multiselected.filter(Boolean);
           elem = (svgCanvas.elementsAreSame(multiselected)) ? multiselected[0] : null
           if (elem) $("#tools_top").addClass("multiselected")
         }
@@ -1620,10 +1625,6 @@
 				str += '<div class="palette_item" style="background-color: ' + item + ';" data-rgb="' + item + '"></div>';
 			});
 			$('#palette').append(str);
-				
-			var changeRectRadius = function(ctl) {
-				svgCanvas.setRectRadius(ctl.value);
-			}
 			
 			var changeFontSize = function(ctl) {
 				svgCanvas.setFontSize(ctl.value);
@@ -1676,26 +1677,10 @@
 				}, true);
 			}
 			
-			var changeOpacity = function(ctl, val) {
-				if(val == null) val = ctl.value;
-				$('#group_opacity').val(val);
-				if(!ctl || !ctl.handle) {
-					$('#opac_slider').slider('option', 'value', val);
-				}
-				svgCanvas.setOpacity(val/100);
-			}
-		
-			var changeBlur = function(ctl, noUndo) {
+			var changeBlur = function(ctl, completed) {
 				val = ctl.value;
 				$('#blur').val(val);
-				
-				var undo = (window.event.type == "mouseup");
-				
-				if(!undo) {
-					svgCanvas.setBlurNoUndo(val);	
-				} else {
-					svgCanvas.setBlur(val, true);
-				}
+				svgCanvas.setBlur(val, true);
 			}
 		
 			var operaRepaint = function() {
@@ -1726,17 +1711,19 @@
 				svgCanvas.setTextContent(this.value);
 			});
 		  
-			changeAttribute = function(el, noUndo) {
+			changeAttribute = function(el, completed) {
 				var attr = el.getAttribute("data-attr");
-				var val = el.value;
+				var multiplier = el.getAttribute("data-multiplier") || 1;
+				multiplier = parseFloat(multiplier);
+				var val = el.value * multiplier;
 				var valid = svgedit.units.isValidUnit(attr, val, selectedElement);
 				if(!valid) {
 					$.alert(uiStrings.notification.invalidAttrValGiven);
 					el.value = selectedElement.getAttribute(attr);
 					return false;
 				}
-				if (!noUndo) svgCanvas.changeSelectedAttribute(attr, val);
-				else svgCanvas.changeSelectedAttributeNoUndo(attr, val);
+				//if (!noUndo) svgCanvas.changeSelectedAttribute(attr, val);
+				svgCanvas.changeSelectedAttributeNoUndo(attr, val);
 			};
 			
 			// Prevent selection of elements when shift-clicking
@@ -3549,11 +3536,11 @@
 			$('#text_y')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#text_x')       .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#image_y')      .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
-			$('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: changeRectRadius,    cursor: true                          });
+			$('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: changeAttribute,    cursor: true                          });
 	    $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: changeStrokeWidth,   cursor: true, smallStep: 0.1, start: 1.5          });
 			$('#angle')        .dragInput({ min: -180, max: 180,   step:  1,  callback: changeRotationAngle, cursor: false, dragAdjust: 0.5      });
 			$('#font_size')    .dragInput({ min: 1,    max: 250,   step:  1,  callback: changeFontSize,      cursor: true,  stepfunc: stepFontSize });
-			$('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: changeOpacity,       cursor: true,  start: 100             });
+			$('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: changeAttribute,       cursor: true,  start: 100             });
 			$('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: changeBlur,          cursor: true,  start: 0               });
 				// Set default zoom 
 			$('#zoom').val(svgCanvas.getZoom() * 100);
@@ -3915,8 +3902,6 @@
 							}
 						}
 					}
-
-					// console.log('ctx', ctx);
 					ctx.strokeStyle = "#666";
 					ctx.stroke();
 				}

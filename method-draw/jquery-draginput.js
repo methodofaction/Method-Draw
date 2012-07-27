@@ -38,21 +38,21 @@ $.fn.dragInput = function(cfg){
     var canvas = svgEditor.canvas
     var selectedElems = canvas.getSelectedElems();
     var isTouch = svgedit.browser.isTouch();
-    var $cursor = (area && this.dragCfg.cursor) 
+    var completed = true //for mousewheel
+    var $cursor = (area && this.dragCfg.cursor)
       ? $("<div class='draginput_cursor' />").appendTo($label) 
       : false
     $input.attr("readonly", "readonly")
     if ($cursor && !isNaN(this.dragCfg.start)) $cursor.css("top", (this.dragCfg.start*-1)/scale+cursorHeight)
    
     //this is where all the magic happens  
-		this.adjustValue = function(i, noUndo){
+		this.adjustValue = function(i, completed){
 			var v;
 			if(isNaN(this.value)) {
 				v = this.dragCfg.reset;
 			} else if($.isFunction(this.dragCfg.stepfunc)) {
 				v = this.dragCfg.stepfunc(this, i);
 			} else {
-				// weirdest javascript bug ever: 5.1 + 0.1 = 5.199999999
 				v = Number((Number(this.value) + Number(i)).toFixed(5));
 			}
 			if (max !== null) v = Math.min(v, max);
@@ -60,7 +60,7 @@ $.fn.dragInput = function(cfg){
 			if ($cursor) this.updateCursor(v);
 			this.value = v;
 			$label.attr("data-value", v)
-			if ($.isFunction(this.dragCfg.callback)) this.dragCfg.callback(this, noUndo)
+			if ($.isFunction(this.dragCfg.callback)) this.dragCfg.callback(this, completed)
 		};
           
 		$label.toggleClass("draginput", $label.is("label"))
@@ -84,14 +84,15 @@ $.fn.dragInput = function(cfg){
   	//when the mouse is released
   	this.stop = function() {
   	  $('body').removeClass('dragging');
-  	  $label.removeClass("active")
+  	  $label.removeClass("active");
+  	  completed = true;
   	  $(window).unbind("mousemove.draginput touchmove.draginput mouseup.draginput touchend.draginput");
   	  lastY = 0;
   	  if (selectedElems[0]) {
     	  var batchCmd = canvas.undoMgr.finishUndoableChange();
       	if (!batchCmd.isEmpty()) canvas.undoMgr.addCommandToHistory(batchCmd);
     	}
-  	  this.adjustValue(0)
+  	  this.adjustValue(0, completed)
   	}
   	
   	this.updateCursor = function(){
@@ -145,15 +146,23 @@ $.fn.dragInput = function(cfg){
 		})
 		
 		.bind("mousewheel", function(e, delta, deltaX, deltaY){
+      if (completed) canvas.undoMgr.beginUndoableChange(attr, selectedElems)
+		  completed = false
+      clearTimeout(window.undoTimeout)
+  	  window.undoTimeout = setTimeout(function(){
+  	    wheel_input.stop()
+  	  },1000)
+  	  
+		  var wheel_input = this;
 			if (deltaY > 0)
 				this.adjustValue(this.dragCfg.step);
 			else if (deltaY < 0)
 				this.adjustValue(-this.dragCfg.step);
 			e.preventDefault();
+	    
 		})
-		
-	});
 
+	});
 	
 };
 
