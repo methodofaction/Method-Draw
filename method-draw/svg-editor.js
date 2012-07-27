@@ -429,6 +429,15 @@
 				svgCanvas.setMode('select');
 			};
 			
+			var setEyedropperMode = function() {
+			  var curr = $('.tool_button_current');
+				if(curr.length && curr[0].id !== 'tool_eyedropper') {
+					curr.removeClass('tool_button_current').addClass('tool_button');
+					$('#tool_eyedropper').addClass('tool_button_current').removeClass('tool_button');
+				}
+				svgCanvas.setMode('eyedropper');
+		  }
+			
 			var togglePathEditMode = function(editmode, elems) {
 				$('#path_node_panel').toggle(editmode);
 				$('#tools_bottom_2,#tools_bottom_3').toggle(!editmode);
@@ -1105,7 +1114,7 @@
 									sel: '#'+id,
 									fn: btn.events.click,
 									icon: btn.id,
-// 									key: btn.key,
+                  //key: btn.key,
 									isDefault: true
 								}, ref_data];
 
@@ -3337,6 +3346,7 @@
 					{key: ['alt+shift+left', true], fn: function(){svgCanvas.cloneSelectedElements(-10,0)}},
 					{key: ['alt+shift+right', true], fn: function(){svgCanvas.cloneSelectedElements(10,0)}},	
 					{key: modKey + 'A', fn: function(){svgCanvas.selectAllInCurrentLayer();}},
+					{key: 'I', fn: function(){setEyedropperMode()}},
 
 					// Standard shortcuts
 					{key: modKey + 'shift+z', fn: clickRedo},

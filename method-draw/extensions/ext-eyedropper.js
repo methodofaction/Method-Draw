@@ -31,20 +31,7 @@ svgEditor.addExtension("eyedropper", function(S) {
 			// if we are in eyedropper mode, we don't want to disable the eye-dropper tool
 			var mode = svgCanvas.getMode();
 			if (mode == "eyedropper") return;
-
-			var elem = null;
 			var tool = $('#tool_eyedropper');
-			
-			if (opts.elems[0] &&
-				$.inArray(opts.elems[0].nodeName, ['svg', 'g', 'use']) == -1) 
-			{
-				elem = opts.elems[0];
-				tool.removeClass('disabled');
-			}
-			// disable eye-dropper tool
-			else {
-				tool.addClass('disabled');
-			}
 
 		}
 		
@@ -84,8 +71,8 @@ svgEditor.addExtension("eyedropper", function(S) {
 				id: "tool_eyedropper",
 				type: "mode",
 				title: "Eye Dropper Tool",
+				position: 8,
 				key: "I",
-				"class": "disabled",
 				icon: "extensions/eyedropper.png",
 				events: {
 					"click": function() {
@@ -94,10 +81,6 @@ svgEditor.addExtension("eyedropper", function(S) {
 				}
 			}],
 			
-			
-			// if we have selected an element, grab its paint and enable the eye dropper button
-			selectedChanged: getStyle,
-			elementChanged: getStyle,
 			mouseDown: function(opts) {
 				var mode = svgCanvas.getMode();
 				var e = opts.event;
@@ -112,6 +95,14 @@ svgEditor.addExtension("eyedropper", function(S) {
   				currentStyle.strokeLinecap = target.getAttribute("stroke-linecap");
   				currentStyle.strokeLinejoin = target.getAttribute("stroke-linejoin");
   				currentStyle.opacity = target.getAttribute("opacity") || 1.0;
+  				opts.selectedElements = opts.selectedElements.filter(Boolean)
+				  if (!opts.selectedElements.length) { //nothing selected, just update colors
+  			    var fill = getPaint(currentStyle.fillPaint, currentStyle.fillOpacity*100, "fill");
+  					var stroke = getPaint(currentStyle.strokePaint, currentStyle.strokeOpacity*100, "stroke");
+  					svgEditor.paintBox.fill.setPaint(fill)
+  					svgEditor.paintBox.stroke.setPaint(stroke)
+  			    return;
+  			  }
 					if ($.inArray(opts.selectedElements.nodeName, ['g', 'use']) == -1) {
 						var changes = {};
 						var change = function(elem, attrname, newvalue) {
