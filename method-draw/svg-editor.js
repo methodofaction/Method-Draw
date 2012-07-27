@@ -1866,9 +1866,6 @@
         return false;
       }
       var closer = function(e){
-        //Method of Action specific to detect when the iframe has focus
-        if((top != self && !e.isTrigger) && typeof top.exports.focus_editor == 'function') top.exports.focus_editor();
-
         if (e.target.nodeName.toLowerCase() === "input") return false;
         if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
           if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blinker(e)
