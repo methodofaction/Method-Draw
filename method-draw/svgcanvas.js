@@ -7623,7 +7623,7 @@ this.setLinkURL = function(val) {
 };
 
 
-// Function selectedAreSame
+// Function elementAreSame
 // Checks if all the selected Elements are the same type
 // 
 // Parameters:

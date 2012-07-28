@@ -540,11 +540,7 @@
 			
 			// called when we've selected a different element
 			var selectedChanged = function(window,elems) {
-			  
-			  //check if anything is a polyline
-			  //polyline = elems.filter(function(el){ return el && el.nodeName == "polyline" })
-			  //if (polyline.length) {svgCanvas.convertToPath();}
-			  
+			  			  
 				var mode = svgCanvas.getMode();
 				if(mode === "select") setSelectMode();
 				var is_node = (mode == "pathedit");
@@ -552,13 +548,28 @@
 				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
 				elems = elems.filter(Boolean)
 				multiselected = (elems.length >= 2) ? elems : false;
+				if (svgCanvas.elementsAreSame(multiselected)) selectedElement = multiselected[0]
+				
 				if (selectedElement != null) {
-
 					if (!is_node) {
+					  $('#multiselected_panel').hide()
 						updateToolbar();
 					} 
-					
-				} 
+					if (multiselected.length) {//multiselected elements are the same
+					  $('#tools_top').addClass('multiselected')
+					}
+				}
+				else if (multiselected.length) {
+				  $('.context_panel').hide()
+				  $('#tools_top').removeClass('multiselected')
+				  $('#multiselected_panel').show()
+				}
+				else {
+				  $('.context_panel').hide()
+				  $('#canvas_panel').show()
+				  $('#tools_top').removeClass('multiselected')
+				}
+				
 				togglePathEditMode(is_node, elems);
 				svgCanvas.runExtensions("selectedChanged", {
 					elems: elems,
@@ -1399,7 +1410,7 @@
           elem = (svgCanvas.elementsAreSame(multiselected)) ? multiselected[0] : null
           if (elem) $("#tools_top").addClass("multiselected")
         }
-
+        
         if (!elem && !multiselected) {
           $("#tools_top").removeClass("multiselected")			  
           $("#stroke_panel").hide();
