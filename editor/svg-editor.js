@@ -435,7 +435,9 @@
 				$('#tools_bottom_2,#tools_bottom_3').toggle(!editmode);
 				if(editmode) {
 					// Change select icon
+					
 					$('.tool_button_current').removeClass('tool_button_current').addClass('tool_button');
+					$('#tool_canvas').hide();
 					$('#tool_select').addClass('tool_button_current').removeClass('tool_button');
 					setIcon('#tool_select', 'select_node');
 					multiselected = false;
