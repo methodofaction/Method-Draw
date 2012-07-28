@@ -226,12 +226,8 @@
 					'select_node':'select_node.png',
 					'pencil':'pencil.png',
 					'pen':'line.png',
-					'square':'square.png',
 					'rect':'square.png',
-					'fh_rect':'freehand-square.png',
-					'circle':'circle.png',
 					'ellipse':'ellipse.png',
-					'fh_ellipse':'freehand-circle.png',
 					'path':'path.png',
 					'text':'text.png',
 					'image':'image.png',
@@ -254,11 +250,7 @@
 					'#tool_fhpath':'pencil',
 					'#tool_line':'pen',
 					'#tool_rect,#tools_rect_show':'rect',
-					'#tool_square':'square',
-					'#tool_fhrect':'fh_rect',
 					'#tool_ellipse,#tools_ellipse_show':'ellipse',
-					'#tool_circle':'circle',
-					'#tool_fhellipse':'fh_ellipse',
 					'#tool_path':'path',
 					'#tool_text,#layer_rename':'text',
 					'#tool_image':'image',
@@ -548,6 +540,11 @@
 			
 			// called when we've selected a different element
 			var selectedChanged = function(window,elems) {
+			  
+			  //check if anything is a polyline
+			  //polyline = elems.filter(function(el){ return el && el.nodeName == "polyline" })
+			  //if (polyline.length) {svgCanvas.convertToPath();}
+			  
 				var mode = svgCanvas.getMode();
 				if(mode === "select") setSelectMode();
 				var is_node = (mode == "pathedit");
@@ -556,9 +553,6 @@
 				elems = elems.filter(Boolean)
 				multiselected = (elems.length >= 2) ? elems : false;
 				if (selectedElement != null) {
-					// unless we're already in always set the mode of the editor to select because
-					// upon creation of a text element the editor is switched into
-					// select mode and this event fires - we need our UI to be in sync
 
 					if (!is_node) {
 						updateToolbar();
@@ -566,7 +560,6 @@
 					
 				} 
 				togglePathEditMode(is_node, elems);
-				updateContextPanel();
 				svgCanvas.runExtensions("selectedChanged", {
 					elems: elems,
 					selectedElement: selectedElement,
@@ -1383,8 +1376,7 @@
 			}
 		
 			// updates the context panel tools based on the selected element
-			var updateContextPanel = function() {
-			  
+			var updateContextPanel = function(e) {
 				var elem = selectedElement;
 				// If element has just been deleted, consider it null
 				if(elem != null && !elem.parentNode) elem = null;
@@ -1441,9 +1433,14 @@
 							x = svgedit.units.convertUnit(x);
 							y = svgedit.units.convertUnit(y);
 						}
-												
+
 						$("#" + elname +"_x").val(Math.round(x))
 						$("#" + elname +"_y").val(Math.round(y))
+						if (elname === "polyline") {
+						  //we're acting as if polylines were paths
+						  $("#path_x").val(Math.round(x))
+  						$("#path_y").val(Math.round(y))
+						}
 											
 					  // Elements in this array cannot be converted to a path
   					var no_path = ['image', 'text', 'path', 'g', 'use'].indexOf(elname) == -1;
@@ -1517,7 +1514,7 @@
  						$('#g_panel').show();
  					}
  					
- 					if (el_name == "path") {
+ 					if (el_name == "path" || el_name == "polyline") {
  					  $('#path_panel').show();
  					}
 					
@@ -3518,11 +3515,15 @@
 			$('#canvas_height').dragInput({ min: 10,   max: null,  step: 10,  callback: changeCanvasSize,    cursor: false, dragAdjust: .1         }); 
 			$('#canvas_width') .dragInput({ min: 10,   max: null,  step: 10,  callback: changeCanvasSize,    cursor: false, dragAdjust: .1         });                         
 			$('#rect_width')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         }); 
-			$('#rect_height')  .dragInput({ min: 0,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
-			$('#ellipse_cx')   .dragInput({ min: 0,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
-			$('#ellipse_cy')   .dragInput({ min: 0,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#rect_height')  .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#ellipse_cx')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#ellipse_cy')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#ellipse_rx')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#ellipse_ry')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$("#image_height") .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#circle_cx')    .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#circle_cy')    .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
+			$('#circle_r')     .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$("#image_height") .dragInput({ min: 0,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#selected_x')   .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
 			$('#selected_y')   .dragInput({ min: null, max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
