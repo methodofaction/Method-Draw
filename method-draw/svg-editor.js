@@ -825,6 +825,7 @@
 					
 					// Clicking the "show" icon should set the current mode
 					shower.mousedown(function(evt) {
+					  $('#workarea').one("mousedown", function(){$('#tools_shapelib').hide()})
             if ($('#tools_shapelib').is(":visible")) toolButtonClick(show_sel, false);
 						if(shower.hasClass('disabled')) return false;
 						var holder = $(hold_sel);
@@ -3560,7 +3561,7 @@
 			$('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: changeAttribute,    cursor: true                          });
 	    $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: changeStrokeWidth,   cursor: true, smallStep: 0.1, start: 1.5          });
 			$('#angle')        .dragInput({ min: -180, max: 180,   step:  1,  callback: changeRotationAngle, cursor: false, dragAdjust: 0.5      });
-			$('#font_size')    .dragInput({ min: 1,    max: 250,   step:  1,  callback: changeFontSize,      cursor: true,  stepfunc: stepFontSize });
+			$('#font_size')    .dragInput({ min: 1, max: 250, step: 1, callback: changeFontSize, cursor: true, stepfunc: stepFontSize, dragAdjust: .15 });
 			$('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: changeAttribute,       cursor: true,  start: 100             });
 			$('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: changeBlur,          cursor: true,  start: 0               });
 				// Set default zoom 

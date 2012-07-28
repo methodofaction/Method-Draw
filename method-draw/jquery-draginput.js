@@ -48,10 +48,12 @@ $.fn.dragInput = function(cfg){
     //this is where all the magic happens  
 		this.adjustValue = function(i, completed){
 			var v;
+			i = parseFloat(i);
 			if(isNaN(this.value)) {
 				v = this.dragCfg.reset;
 			} else if($.isFunction(this.dragCfg.stepfunc)) {
 				v = this.dragCfg.stepfunc(this, i);
+				console.log(v);
 			} else {
 				v = Number((Number(this.value) + Number(i)).toFixed(5));
 			}
