@@ -192,7 +192,7 @@ $(function(){
     	</div>
   	</label>
 
-	  <label class="draginput">
+	  <div class="draginput">
 	    <span>Sizes</span>
   		<select id="resolution">
   			<option id="selectedPredefined" selected="selected">Custom</option>
@@ -205,7 +205,7 @@ $(function(){
   		</select>
   		<div class="caret"></div>
   		<label id="resolution_label">Custom</label>
-		</label>
+		</div>
 
 	</div>
 	
@@ -328,7 +328,7 @@ $(function(){
 		  <span>Y</span>
 		</label>
 		
-		<label class="toolset draginput select twocol" id="tool_font_family">
+		<div class="toolset draginput select twocol" id="tool_font_family">
 				<!-- Font family -->
 			<span>Font</span>
 		  <div id="preview_font" style="font-family: Helvetica, Arial, sans-serif;">Helvetica</div>
@@ -349,7 +349,7 @@ $(function(){
 			</select>
       <div class="tool_button" id="tool_bold" data-title="Bold Text [B]">B</div>
       <div class="tool_button" id="tool_italic" data-title="Italic Text [I]">i</div>
-		</label>
+		</div>
 
 		<label id="tool_font_size" data-title="Change Font Size">
 			<input id="font_size" size="3" value="0" />
@@ -396,7 +396,7 @@ $(function(){
 		  <span>Y</span>
 		</label>
 		
-		<label id="segment_type" class="draginput label">
+		<div id="segment_type" class="draginput label">
 		  <span>Segment Type</span>
   		<select id="seg_type" data-title="Change Segment type">
   			<option id="straight_segments" selected="selected" value="4">Straight</option>
@@ -404,7 +404,7 @@ $(function(){
   		</select>
   		<div class="caret"></div>
   		<label id="seg_type_label">Straight</label>
-		</label>
+		</div>
 		
 		<label class="draginput checkbox" id="tool_node_link" data-title="Link Control Points">
 		  <span>Linked Control Points</span>
@@ -498,7 +498,7 @@ $(function(){
   		  <span class="icon_label">Stroke Width</span>
   		</label>
   	</div>
-  	<label class="stroke_tool draginput"> 
+  	<div class="stroke_tool draginput"> 
   	  <span>Stroke Dash</span>
   		<select id="stroke_style" data-title="Change stroke dash style">
   			<option selected="selected" value="none">&mdash;</option>
@@ -509,7 +509,7 @@ $(function(){
   		</select>
   		<div class="caret"></div>
   		<label id="stroke_style_label">&mdash;</label>
-  	</label>
+  	</div>
 		
     <label style="display: none;">
       <span class="icon_label">Stroke Join</span>
@@ -560,7 +560,7 @@ $(function(){
 
     <!-- Zoom buttons -->
 	<div id="zoom_panel" class="toolset" title="Change zoom level">
-		<label class="draginput select" id="zoom_label">
+		<div class="draginput select" id="zoom_label">
   		<span  id="zoomLabel" class="zoom_tool icon_label"></span>
   		<select id="zoom_select">
   		  <option value="6">6%</option>
@@ -580,7 +580,7 @@ $(function(){
   		</select>
   		<div class="caret"></div>
   		<input id="zoom" size="3" value="100%" type="text" readonly="readonly" />
-		</label>
+		</div>
 	</div>
 
 	<div id="tools_bottom_3">

@@ -2353,13 +2353,11 @@
 			var clickBold = function(){
 				svgCanvas.setBold( !svgCanvas.getBold() );
 				updateContextPanel();
-				return false;
 			};
 			
 			var clickItalic = function(){
 				svgCanvas.setItalic( !svgCanvas.getItalic() );
 				updateContextPanel();
-				return false;
 			};
 			
 			var clickExport = function() {
@@ -2493,7 +2491,7 @@
 			var minimizeModal = function() {
         
 			  if (window.self != window.top) { //we're in an iframe
-		      top.exports.setEditorFocus(false);
+		      top.exit_fullscreen();
 		    }
 			}
 			
