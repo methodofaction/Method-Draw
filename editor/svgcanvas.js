@@ -4253,7 +4253,7 @@ var pathActions = canvas.pathActions = function() {
 						element = newpath;
 						drawn_path = null;
 						started = false;
-						
+
 						if(subpath) {
 							if(svgedit.path.path.matrix) {
 								remapElement(newpath, {}, svgedit.path.path.matrix.inverse());

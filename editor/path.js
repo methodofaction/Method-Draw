@@ -313,7 +313,8 @@ svgedit.path.getSegSelector = function(seg, update) {
 			'id': "segline_" + index,
 			'display': 'none',
 			'fill': "none",
-			'stroke': "#0FF",
+			'stroke': "#0ff",
+			"shape-rendering": "crispEdges",
 			'stroke-width': 2,
 			'style':'pointer-events:none',
 			'd': 'M0,0 0,0'

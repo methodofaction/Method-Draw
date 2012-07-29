@@ -537,39 +537,33 @@
 			};
 			
 			// called when we've selected a different element
-			var selectedChanged = function(window,elems) {
-			  			  
+			var selectedChanged = function(window,elems) {			  
 				var mode = svgCanvas.getMode();
 				if(mode === "select") setSelectMode();
-				var is_node = (mode == "pathedit");
+				if (mode === "pathedit") return updateContextPanel();
 				// if elems[1] is present, then we have more than one element
-				if (!is_node) {
-  				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
-  				elems = elems.filter(Boolean)
-  				multiselected = (elems.length >= 2) ? elems : false;
-  				if (svgCanvas.elementsAreSame(multiselected)) selectedElement = multiselected[0]
-				
-  				if (selectedElement != null) {
-  					if (!is_node) {
-  					  $('#multiselected_panel').hide()
-  						updateToolbar();
-  					} 
-  					if (multiselected.length) {//multiselected elements are the same
-  					  $('#tools_top').addClass('multiselected')
-  					}
-  				}
-  				else if (multiselected.length) {
-  				  $('.context_panel').hide()
-  				  $('#tools_top').removeClass('multiselected')
-  				  $('#multiselected_panel').show()
-  				}
-  				else {
-  				  $('.context_panel').hide()
-  				  $('#canvas_panel').show()
-  				  $('#tools_top').removeClass('multiselected')
-  				}
+				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
+				elems = elems.filter(Boolean)
+				multiselected = (elems.length >= 2) ? elems : false;
+				if (svgCanvas.elementsAreSame(multiselected)) selectedElement = multiselected[0]
+			
+				if (selectedElement != null) {
+				  $('#multiselected_panel').hide()
+					updateToolbar();
+					if (multiselected.length) {//multiselected elements are the same
+					  $('#tools_top').addClass('multiselected')
+					}
 				}
-				togglePathEditMode(is_node, elems);
+				else if (multiselected.length) {
+				  $('.context_panel').hide()
+				  $('#tools_top').removeClass('multiselected')
+				  $('#multiselected_panel').show()
+				}
+				else {
+				  $('.context_panel').hide()
+				  $('#canvas_panel').show()
+				  $('#tools_top').removeClass('multiselected')
+				}
 				svgCanvas.runExtensions("selectedChanged", {
 					elems: elems,
 					selectedElement: selectedElement,
@@ -1388,7 +1382,7 @@
 		
 			// updates the context panel tools based on the selected element
 			var updateContextPanel = function(e) {
-				var elem = selectedElement;
+			var elem = selectedElement;
 				// If element has just been deleted, consider it null
 				if(elem != null && !elem.parentNode) elem = null;
 				if (multiselected && multiselected[0] != null && !multiselected[0].parentNode) multiselected = false;
@@ -1396,8 +1390,40 @@
 				var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
 				var currentMode = svgCanvas.getMode();
 				var unit = curConfig.baseUnit !== 'px' ? curConfig.baseUnit : null;
-				
 				var is_node = currentMode == 'pathedit'; //elem ? (elem.id && elem.id.indexOf('pathpointgrip') == 0) : false;
+				
+				
+				if (is_node) {
+				  $('.context_panel').hide();
+				  $('#path_node_panel').show();
+				  $('#stroke_panel').hide();
+					var point = path.getNodePoint();
+					$('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
+					$('#tool_node_delete').toggleClass('disabled', !path.canDeleteNodes);
+					
+					// Show open/close button based on selected point
+					setIcon('#tool_openclose_path', path.closed_subpath ? 'open_path' : 'close_path');
+					
+					if(point) {
+						var seg_type = $('#seg_type');
+						if(unit) {
+							point.x = svgedit.units.convertUnit(point.x);
+							point.y = svgedit.units.convertUnit(point.y);
+						}
+						$('#path_node_x').val(Math.round(point.x));
+						$('#path_node_y').val(Math.round(point.y));
+						if(point.type) {
+							seg_type.val(point.type).removeAttr('disabled');
+						} else {
+							seg_type.val(4).attr('disabled','disabled');
+						}
+					}
+					$("#tools_top").removeClass("multiselected")			  
+          $("#stroke_panel").hide();
+          $("#canvas_panel").hide();
+					return;
+				}
+				
 				var menu_items = $('#cmenu_canvas li');
 				$('.context_panel').hide();
 				$('.menu_item', '#edit_menu').addClass('disabled');
@@ -1410,13 +1436,12 @@
           elem = (svgCanvas.elementsAreSame(multiselected)) ? multiselected[0] : null
           if (elem) $("#tools_top").addClass("multiselected")
         }
-        
+
         if (!elem && !multiselected) {
           $("#tools_top").removeClass("multiselected")			  
           $("#stroke_panel").hide();
           $("#canvas_panel").show();
 				}
-    
 		
 				if (elem != null) {
 				  $("#stroke_panel").show();
@@ -1426,7 +1451,6 @@
 					
 					var blurval = svgCanvas.getBlur(elem);
 					$('#blur').val(blurval);
-					
 					if(!is_node && currentMode != 'pathedit') {
 						$('#selected_panel').show();
 						$('.action_selected').removeClass('disabled');
@@ -1458,31 +1482,6 @@
   					if (no_path) $('.action_path_convert_selected').removeClass('disabled');
   					if (elname === "path") $('.action_path_selected').removeClass('disabled');
   
-					} else {
-					  $('#path_node_panel').show();
-					  $('#stroke_panel').hide();
-						var point = path.getNodePoint();
-						$('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
-						$('#tool_node_delete').toggleClass('disabled', !path.canDeleteNodes);
-						
-						// Show open/close button based on selected point
-						setIcon('#tool_openclose_path', path.closed_subpath ? 'open_path' : 'close_path');
-						
-						if(point) {
-							var seg_type = $('#seg_type');
-							if(unit) {
-								point.x = svgedit.units.convertUnit(point.x);
-								point.y = svgedit.units.convertUnit(point.y);
-							}
-							$('#path_node_x').val(Math.round(point.x));
-							$('#path_node_y').val(Math.round(point.y));
-							if(point.type) {
-								seg_type.val(point.type).removeAttr('disabled');
-							} else {
-								seg_type.val(4).attr('disabled','disabled');
-							}
-						}
-						return;
 					}
 					
 					var link_href = null;
@@ -2249,7 +2248,7 @@
 					svgCanvas.setMode("pathedit")
 					path.toEditMode(elems[0]);
 					svgCanvas.clearSelection();
-          selectedChanged()
+          updateContextPanel();
 				}
 			}
 			
