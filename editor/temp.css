@@ -1836,55 +1836,46 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 #svg_source_editor #svg_source_container {
 	position: absolute;
 	top: 30px;
-	left: 30px;
-	right: 30px;
+	left: 100px;
+	right: 100px;
 	bottom: 30px;
 	background-color: #fff;
 	border-radius: 3px;
 	opacity: 1.0;
 	text-align: center;
 	z-index: 6;
-	padding: 20px 0;
+	padding: 15px 0;
 }
 
 #svg_source_editor #svg_source_textarea {
-	position: relative;
-	width: 95%;
-	top: 5px;
-	height: 250px;
+	position: absolute;
+	top: 15px;
+	bottom: 55px;
+	left: 15px;
+	right: 12px;
 	padding: 5px;
 	font-size: 12px;
 }
 
 #svg_source_editor #tool_source_back {
-	text-align: left;
-	padding: 10px 0 0 20px;
-	position: relative;
+  position: absolute;
+  bottom: 45px;
+  left: 15px;
+	right: 15px;
 }
 
 #svg_source_editor #tool_source_back #tool_source_save {
-  position: absolute;
-  right: 20px;
-  top: 7px;
-}
-
-#svg_prefs_container div.color_block {
-	float: left;
-	margin: 2px;
-	padding: 20px;
-}
-
-#svg_prefs_container div.cur_background {
-	box-shadow: 0 0 8px rgba(0, 50, 255, 1);
-}
-
-#background_img {
+	display: block;
 	position: absolute;
-	top: 0;
-	left: 0;
-	text-align: left;
+	right: 0;
 }
 
+
+#svg_source_editor #tool_source_back #tool_source_cancel {
+	display: block;
+	position: absolute;
+	left: 0;
+}
 
 
  button.cancel,  input.Cancel,  input.cancel,  input.jGraduate_Cancel, button.cancel {

@@ -2530,14 +2530,7 @@
 				var str = orig_source = svgCanvas.getSvgString();
 				$('#svg_source_textarea').val(str);
 				$('#svg_source_editor').fadeIn();
-				properlySourceSizeTextArea();
-				$('#svg_source_textarea').focus();
-			};
-						
-			var properlySourceSizeTextArea = function(){
-				// TODO: remove magic numbers here and get values from CSS
-				var height = $('#svg_source_container').height() - 50;
-				$('#svg_source_textarea').css('height', height);
+				$('#svg_source_textarea').focus().select();
 			};
 			
 			var clickSave = function(){

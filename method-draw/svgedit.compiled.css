@@ -282,13 +282,11 @@ ul li.current{background-color:#f4e284}
 #copyright{text-align:right;padding-right:.3em}
 #svg_source_editor{display:none}
 #svg_source_editor #svg_source_overlay{position:absolute;top:0;right:0;left:0;bottom:0;background-color:black;opacity:.6;z-index:5}
-#svg_source_editor #svg_source_container{position:absolute;top:30px;left:30px;right:30px;bottom:30px;background-color:#fff;border-radius:3px;opacity:1.0;text-align:center;z-index:6;padding:20px 0}
-#svg_source_editor #svg_source_textarea{position:relative;width:95%;top:5px;height:250px;padding:5px;font-size:12px}
-#svg_source_editor #tool_source_back{text-align:left;padding:10px 0 0 20px;position:relative}
-#svg_source_editor #tool_source_back #tool_source_save{position:absolute;right:20px;top:7px}
-#svg_prefs_container div.color_block{float:left;margin:2px;padding:20px}
-#svg_prefs_container div.cur_background{box-shadow:0 0 8px rgba(0,50,255,1)}
-#background_img{position:absolute;top:0;left:0;text-align:left}
+#svg_source_editor #svg_source_container{position:absolute;top:30px;left:100px;right:100px;bottom:30px;background-color:#fff;border-radius:3px;opacity:1.0;text-align:center;z-index:6;padding:15px 0}
+#svg_source_editor #svg_source_textarea{position:absolute;top:15px;bottom:55px;left:15px;right:12px;padding:5px;font-size:12px}
+#svg_source_editor #tool_source_back{position:absolute;bottom:45px;left:15px;right:15px}
+#svg_source_editor #tool_source_back #tool_source_save{display:block;position:absolute;right:0}
+#svg_source_editor #tool_source_back #tool_source_cancel{display:block;position:absolute;left:0}
 button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-webkit-appearance:none;background-color:#999;box-shadow:0 0 1px rgba(0,0,0,0.5);margin:0}
 #shape_buttons{overflow:auto;top:0;bottom:0;left:110px;right:0;position:absolute;vertical-align:top}
 #shape_cats{min-width:110px;display:block;position:absolute;left:0;top:0;height:300px;background:#eee;border-radius:3px 0 0 3px;z-index:2}
