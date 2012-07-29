@@ -1338,15 +1338,15 @@
 						}
 						
 						$('#stroke_width').val(gWidth === null ? "" : gWidth);
-						
-						Editor.paintBox.fill.update(true);
-						Editor.paintBox.stroke.update(true);
-
+            //Editor.paintBox.fill.update(false);
+						//Editor.paintBox.stroke.update(false);
+            
 						
 						break;
 					default:
-						Editor.paintBox.fill.update(true);
-						Editor.paintBox.stroke.update(true);
+						//removed because multiselect shouldnt set color
+						//Editor.paintBox.fill.update(false);
+						//Editor.paintBox.stroke.update(false);
 						
 						$('#stroke_width').val(selectedElement.getAttribute("stroke-width") || 1);
 						var dash = selectedElement.getAttribute("stroke-dasharray") || "none"
@@ -2941,7 +2941,6 @@
 
 				this.setPaint = function(paint, apply) {
 					this.paint = paint;
-					
 					var fillAttr = "none";
 					var ptype = paint.type;
 					var opac = paint.alpha / 100;
