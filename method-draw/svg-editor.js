@@ -431,19 +431,15 @@
 		  }
 			
 			var togglePathEditMode = function(editmode, elems) {
-				$('#path_node_panel').toggle(editmode);
 				$('#tools_bottom_2,#tools_bottom_3').toggle(!editmode);
 				if(editmode) {
 					// Change select icon
-					
+					$('.context_panel').hide();
+					$('#path_node_panel').show();
 					$('.tool_button_current').removeClass('tool_button_current').addClass('tool_button');
-					$('#tool_canvas').hide();
 					$('#tool_select').addClass('tool_button_current').removeClass('tool_button');
 					setIcon('#tool_select', 'select_node');
 					multiselected = false;
-					if(elems.length) {
-						selectedElement = elems[0];
-					}
 				} else {
 				  if (elems[0]) {
 				    var selector = svgCanvas.selectorManager.requestSelector(elems[0])
@@ -547,31 +543,32 @@
 				if(mode === "select") setSelectMode();
 				var is_node = (mode == "pathedit");
 				// if elems[1] is present, then we have more than one element
-				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
-				elems = elems.filter(Boolean)
-				multiselected = (elems.length >= 2) ? elems : false;
-				if (svgCanvas.elementsAreSame(multiselected)) selectedElement = multiselected[0]
+				if (!is_node) {
+  				selectedElement = (elems.length == 1 || elems[1] == null ? elems[0] : null);
+  				elems = elems.filter(Boolean)
+  				multiselected = (elems.length >= 2) ? elems : false;
+  				if (svgCanvas.elementsAreSame(multiselected)) selectedElement = multiselected[0]
 				
-				if (selectedElement != null) {
-					if (!is_node) {
-					  $('#multiselected_panel').hide()
-						updateToolbar();
-					} 
-					if (multiselected.length) {//multiselected elements are the same
-					  $('#tools_top').addClass('multiselected')
-					}
+  				if (selectedElement != null) {
+  					if (!is_node) {
+  					  $('#multiselected_panel').hide()
+  						updateToolbar();
+  					} 
+  					if (multiselected.length) {//multiselected elements are the same
+  					  $('#tools_top').addClass('multiselected')
+  					}
+  				}
+  				else if (multiselected.length) {
+  				  $('.context_panel').hide()
+  				  $('#tools_top').removeClass('multiselected')
+  				  $('#multiselected_panel').show()
+  				}
+  				else {
+  				  $('.context_panel').hide()
+  				  $('#canvas_panel').show()
+  				  $('#tools_top').removeClass('multiselected')
+  				}
 				}
-				else if (multiselected.length) {
-				  $('.context_panel').hide()
-				  $('#tools_top').removeClass('multiselected')
-				  $('#multiselected_panel').show()
-				}
-				else {
-				  $('.context_panel').hide()
-				  $('#canvas_panel').show()
-				  $('#tools_top').removeClass('multiselected')
-				}
-				
 				togglePathEditMode(is_node, elems);
 				svgCanvas.runExtensions("selectedChanged", {
 					elems: elems,
@@ -2252,6 +2249,7 @@
 					svgCanvas.setMode("pathedit")
 					path.toEditMode(elems[0]);
 					svgCanvas.clearSelection();
+          selectedChanged()
 				}
 			}
 			
@@ -2823,10 +2821,11 @@
 				
 				var title = (picker == 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
 				var was_none = false;
-				var pos = is_background ? {'right': 200, 'top': 50} : {'left': 45, 'bottom': 50}
+				var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
 				
 				$("#color_picker")
 					.draggable({cancel:'.jGraduate_tabs, .jGraduate_colPick, .jGraduate_gradPick, .jPicker', containment: 'window'})
+					.removeAttr("style")
 					.css(pos)
 					.jGraduate(
 					{ 

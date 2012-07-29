@@ -967,10 +967,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	opacity: 0;
 }
 
- #tool_italic {
-	font-weight: normal;
-	font-style: italic;
-}
+
 
 #url_notice {
 	padding-top: 4px;
@@ -1806,6 +1803,9 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 #tool_italic {
 	border-top: solid #2f2f2c 2px;
 	top: 35px;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 24px;
 }
 
 
