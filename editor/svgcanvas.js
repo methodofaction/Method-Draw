@@ -3886,7 +3886,7 @@ var textActions = canvas.textActions = function() {
 		  selectOnly([curtext], false)
 			allow_dbl = false;
 			current_mode = "textedit";
-    	//selectorManager.requestSelector(curtext).showGrips(false);
+    	selectorManager.requestSelector(curtext).showGrips(false);
 		
 			// Make selector group accept clicks
 			var sel = selectorManager.requestSelector(curtext).selectorRect;
