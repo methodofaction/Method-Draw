@@ -3207,7 +3207,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	{
 	  canvas.addClones = false;
 	  window.removeEventListener("keyup", canvas.removeClones)
-	  
+	  selectedElements = selectedElements.filter(Boolean)
 		if(evt.button === 2) return;
 		var tempJustSelected = justSelected;
 		justSelected = null;
@@ -3239,7 +3239,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 			case "select":
 				if (selectedElements[0] != null) {
 					// if we only have one selected element
-					if (selectedElements[1] == null) {
+					if (selectedElements.length == 1) {
 						// set our current stroke/fill properties to the element's
 						var selected = selectedElements[0];
 						switch ( selected.tagName ) {
