@@ -376,19 +376,6 @@ $(function() {
 				
 				var old_val = 'url(#' + id + ')';
 				var new_val = 'url(#' + new_id + ')';
-				
-				// Selector method, possibly faster but fails in Opera / jQuery 1.4.3
-// 				svg_el.find('[fill="url(#' + id + ')"]').each(function() {
-// 					this.setAttribute('fill', 'url(#' + new_id + ')');
-// 				}).end().find('[stroke="url(#' + id + ')"]').each(function() {
-// 					this.setAttribute('stroke', 'url(#' + new_id + ')');
-// 				}).end().find('use').each(function() {
-// 					if(this.getAttribute('xlink:href') == '#' + id) {
-// 						this.setAttributeNS(xlinkns,'href','#' + new_id);
-// 					}
-// 				}).end().find('[filter="url(#' + id + ')"]').each(function() {
-// 					this.setAttribute('filter', 'url(#' + new_id + ')');
-// 				});
 
 				for(var i = 0; i < len; i++) {
 					var elem = all_elems[i];
