@@ -157,7 +157,7 @@ div#palette_holder #palette .palette_item{cursor:pointer}
 .touch #tool_fill .color_block svg{width:36px!important;height:36px!important}
 .touch #tool_switch{display:none}
 #path_node_panel .tool_button{color:#999;border:solid #3f3f3c 1px;border-radius:3px;padding:3px 10px 3px 40px;background:transparent;position:relative;margin-top:10px;width:90px;height:23px;line-height:24px}
-#path_node_panel .tool_button img{position:absolute;left:5px;top:3px}
+#path_node_panel .tool_button img,#path_node_panel .tool_button svg{position:absolute;left:5px;top:3px}
 #color_tools #tool_fill .color_block:hover,#color_tools #tool_stroke .color_block:hover{border-color:#fff}
 #color_tools #tool_fill .color_block>div{position:absolute;top:0;left:0}
 .touch #color_tools #tool_fill .color_block>div{position:relative}
@@ -398,7 +398,8 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 .draginput .push_bottom{bottom:0;position:absolute}
 #zoom_label{height:20px;background:transparent;cursor:default!important;width:auto;padding:0 10px;margin:0}
 #zoom_panel{padding:9px 0;right:175px;position:absolute}
-#zoom_label img{width:16px;height:16px}
+#zoom_label img,#zoom_label svg{width:16px;height:16px}
+#logo svg{pointer-events:none}
 #zoomLabel{width:16px;height:16px;cursor:pointer;background:#ccc}
 #zoomLabel:after{content:'';position:absolute;border-left:solid #2f2f2c 1px;left:0;height:16px}
 #zoom_label input{color:#ccc;font-size:13px;height:auto;width:auto;padding:0;cursor:default;position:static}

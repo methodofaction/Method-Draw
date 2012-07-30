@@ -387,7 +387,7 @@ html, body {
 	line-height: 24px;
 }
 
- #path_node_panel .tool_button img {
+ #path_node_panel .tool_button img,  #path_node_panel .tool_button svg {
 	position: absolute;
 	left: 5px;
 	top: 3px;
@@ -1935,9 +1935,13 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   position: absolute;
 }
 
-#zoom_label img {
+#zoom_label img, #zoom_label svg {
 	width: 16px;
 	height: 16px;
+}
+
+#logo svg {
+	pointer-events: none;
 }
 
 #zoomLabel {

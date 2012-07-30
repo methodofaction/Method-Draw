@@ -1890,8 +1890,6 @@
         }  
       }
       
-
-      
       $('.menu_item').on('mousedown touchstart', function(e){blinker(e)});
       $("svg, body").on('mousedown  touchstart', function(e){closer(e)});
       var accumulatedDelta = 0
@@ -1920,6 +1918,7 @@
            menus.removeClass('open');
            $(this).parent().addClass('open');
          });
+
 			
 			// Made public for UI customization.
 			// TODO: Group UI functions into a public svgEditor.ui interface.
