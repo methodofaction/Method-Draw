@@ -2948,7 +2948,14 @@
 					if (this.type == "canvas") {
 					  //recache background in case it changed
 					  var background = document.getElementById("canvas_background");
-					  if (background) background.setAttribute('fill', fillAttr)
+					  if (background) {
+					    res = svgCanvas.getResolution()
+					    background.setAttribute("x", -1);
+					    background.setAttribute("y", -1);
+					    background.setAttribute("width", res.w+2);
+					    background.setAttribute("height", res.h+2);
+					    background.setAttribute('fill', fillAttr)
+					  }
 					  else createBackground(fillAttr)
 					}
 					
