@@ -38,7 +38,6 @@ JS_FILES=\
 	taphold.js
 
 CSS_FILES=\
-  fonts.css \
 	jgraduate/css/jPicker.css \
   jgraduate/css/jgraduate.css \
   svg-editor.css \
