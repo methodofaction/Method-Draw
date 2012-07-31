@@ -75,19 +75,19 @@ var supportsPathInsertItemBefore_ = (function() {
 
 // text character positioning (for IE9)
 var supportsGoodTextCharPos_ = (function() {
- // var retValue = false;
- // var svgroot = document.createElementNS(svgns, 'svg');
- // var svgcontent = document.createElementNS(svgns, 'svg');
- // document.documentElement.appendChild(svgroot);
- // svgcontent.setAttribute('x', 5);
- // svgroot.appendChild(svgcontent);
- // var text = document.createElementNS(svgns,'text');
- // text.textContent = 'a';
- // svgcontent.appendChild(text);
- // var pos = text.getStartPositionOfChar(0)
- // pos = pos.x; //if you put it on one line it fails when compiled
- // document.documentElement.removeChild(svgroot);
- // return (pos === 0);
+   var retValue = false;
+   var svgroot = document.createElementNS(svgns, 'svg');
+   var svgcontent = document.createElementNS(svgns, 'svg');
+   document.documentElement.appendChild(svgroot);
+   svgcontent.setAttribute('x', 5);
+   svgroot.appendChild(svgcontent);
+   var text = document.createElementNS(svgns,'text');
+   text.textContent = 'a';
+   svgcontent.appendChild(text);
+   var pos = text.getStartPositionOfChar(0)
+   pos = pos.x; //if you put it on one line it fails when compiled
+   document.documentElement.removeChild(svgroot);
+   return (pos === 0);
 })();
 
 var supportsPathBBox_ = (function() {
