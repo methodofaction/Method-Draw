@@ -126,13 +126,6 @@ svgEditor.addExtension("shapes", function() {
 		for(var id in data) {
 			var path_d = data[id];
 			var icon = svg_elem.clone();
-			if (path_d.charAt(path_d.length-1) == "x") {
-			  var size = 32;
-			  var off = size * .05;
-			  var vb = [-off, -off, size + off*2, size + off*2].join(' ')
-			  icon.find('svg').attr('viewBox', vb)
-			  path_d.replace("x", "")
-			}
 			icon.find('path').attr('d', path_d);
 			
 			var icon_btn = icon.wrap('<div class="tool_button">').parent().attr({
