@@ -660,7 +660,7 @@
 					changeZoom({value: .1});
 					return;
 				}
-				
+				if (typeof animatedZoom != 'undefined') window.cancelAnimationFrame(animatedZoom)
 				//animate
 				var start = Date.now();
 				var duration = 500;
@@ -674,12 +674,12 @@
           svgCanvas.setZoom(current_zoom + (diff*tick));
 				  updateCanvas();
 				  if (tick < 1) {
-            requestAnimationFrame(animateZoom)
+            window.animatedZoom = requestAnimationFrame(animateZoom)
 				  }
 				  else {
-				    $("#zoom").val(zoomlevel*100)
+				    $("#zoom").val(parseInt(zoomlevel*100))
 				    $("option", "#zoom_select").removeAttr("selected")
-				    $("option[value="+ zoomlevel*100 +"]", "#zoom_select").attr("selected", "selected")
+				    $("option[value="+ parseInt(zoomlevel*100) +"]", "#zoom_select").attr("selected", "selected")
 				  }
 				}
 				animateZoom(Date.now())
@@ -1892,19 +1892,13 @@
       
       $('.menu_item').on('mousedown touchstart', function(e){blinker(e)});
       $("svg, body").on('mousedown  touchstart', function(e){closer(e)});
+      
       var accumulatedDelta = 0
-      var zoomSteps = [6, 12, 16, 33, 50, 66, 100, 150, 200, 300, 400, 600, 800, 1200]
       $('#workarea').on('mousewheel', function(e, delta, deltaX, deltaY){
         if (e.altKey) {
           e.preventDefault();
-          var currentZoom = svgCanvas.getZoom()*100;
-          var arr_length = zoomSteps.length;
-          for (i=0; i<arr_length; i++) {
-            var max = Math.min(arr_length, i+1);
-            if (deltaY > 0) zoom = (zoomSteps[i] <= currentZoom) ? zoomSteps[max] : zoom;
-            if (deltaY < 0) zoom = (zoomSteps[i] < currentZoom) ? zoomSteps[i] : zoom;
-          }
-          if (zoom) changeZoom({value: zoom});
+          zoom = parseInt($("#zoom").val())
+          $("#zoom").val(parseInt(zoom + deltaY*10)).change()
         }
       })
 			$('.menu_title')
