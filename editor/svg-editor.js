@@ -1812,29 +1812,33 @@
 				var last_x = null, last_y = null, w_area = workarea[0], 
 					panning = false, keypan = false;
 				
-				$('#svgcanvas').bind('mousemove mouseup touchend', function(evt) {
-					if(panning === false) return;
-					w_area.scrollLeft -= (evt.clientX - last_x);
-					w_area.scrollTop -= (evt.clientY - last_y);
-					
-					last_x = evt.clientX;
-					last_y = evt.clientY;
-					
-					if(evt.type === 'mouseup' || evt.type === 'touchend') panning = false;
-					return false;
-				})
-				.on("mousedown touchmove", function(evt) {
-					if(evt.button === 1 || keypan === true || (evt.originalEvent.touches && evt.originalEvent.touches.length >= 2)) {
-						panning = true;
-						last_x = evt.clientX;
-						last_y = evt.clientY;
-						return false;
-					}
-				});
+				var move_pan = function(evt) {    
+  					if(panning === false) return;
+
+  				  w_area.scrollLeft -= (evt.clientX - last_x);
+  					w_area.scrollTop -= (evt.clientY - last_y);
+  					last_x = evt.clientX;
+  					last_y = evt.clientY;
+
+  					if(evt.type === 'mouseup' || evt.type === 'touchend') panning = false;
+  					return false;
+  			}
+  			
+  			var start_pan = function(evt) {
+  				if(evt.button === 1 || keypan === true || (evt.originalEvent.touches && evt.originalEvent.touches.length >= 2)) {
+  					panning = true;
+  					last_x = evt.clientX;
+  					last_y = evt.clientY;
+  					return false;
+  				}
+			  }
+				
+				$('#svgcanvas')
+				  .on('mousemove mouseup touchend', move_pan)
+				  .on("mousedown touchmove", start_pan)
 				
 				$(window).mouseup(function() {
 					panning = false;
-					$('body').removeClass('dragging')
 				});
 				
 				$(document).bind('keydown', 'space', function(evt) {
@@ -3752,19 +3756,10 @@
 			}
 			
 			function updateRulers(scanvas, zoom) {
-			  var ruler_x_cursor = document.getElementById("ruler_x_cursor");
-			  var ruler_y_cursor = document.getElementById("ruler_y_cursor");
 			  var workarea = document.getElementById("workarea");
 			  var title_show = document.getElementById("title_show");
 			  var offset_x = 66;
 			  var offset_y = 48;
-			  if (svgedit.browser.isTouch()) {
-  			  $("#workarea").unbind("mousemove.rulers").bind("mousemove.rulers", function(e){
-  			    e.stopPropagation();
-            ruler_x_cursor.style.left = (e.pageX-offset_x+workarea.scrollLeft) + "px";
-            ruler_y_cursor.style.top = (e.pageY-offset_y+workarea.scrollTop) + "px";
-          })
-        }
 				if(!zoom) zoom = svgCanvas.getZoom();
 				if(!scanvas) scanvas = $("#svgcanvas");
 				
