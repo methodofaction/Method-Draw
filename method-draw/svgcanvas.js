@@ -7803,7 +7803,6 @@ this.convertToPath = function(elem, getBBox) {
 		var b = elem.getBBox();
 		var x = b.x, y = b.y, w = b.width, h = b.height;
 		var num = 4-num; // Why? Because!
-		
 		if(!rx && !ry) {
 			// Regular rect
 			joinSegs([
@@ -7815,6 +7814,7 @@ this.convertToPath = function(elem, getBBox) {
 				['Z',[]]
 			]);
 		} else {
+		  if (!ry) ry = rx
 			joinSegs([
 				['M',[x, y+ry]],
 				['C',[x,y+ry/num, x+rx/num,y, x+rx,y]],
