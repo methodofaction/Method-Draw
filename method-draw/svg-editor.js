@@ -148,8 +148,6 @@
 			})();
 
 			(function() {
-			  $("#canvas_width").val(curConfig.dimensions[0]);
-  			$("#canvas_height").val(curConfig.dimensions[1]);
   			$("body").toggleClass("touch", svgedit.browser.isTouch());
 				// Load config/data from URL if given
 				var urldata = $.deparam.querystring(true);
@@ -193,6 +191,9 @@
 					}
 				}
 			})();
+			
+			$("#canvas_width").val(curConfig.dimensions[0]);
+			$("#canvas_height").val(curConfig.dimensions[1]);
 			
 			var extFunc = function() {
 				$.each(curConfig.extensions, function() {
