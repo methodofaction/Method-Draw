@@ -2762,7 +2762,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						dy = snapToGrid(dy);
 					}
       	  
-      	  if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x,y); x=xya.x; y=xya.y; }
+      	  if(evt.shiftKey) { 
+      	    var xya = snapToAngle(start_x,start_y,x,y); x=xya.x; y=xya.y;
+      	 }
 					if (dx != 0 || dy != 0) {
 						var len = selectedElements.length;
 						for (var i = 0; i < len; ++i) {
@@ -2781,6 +2783,10 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 							// Note that if Webkit and there's no ID for this
 							// element, the dummy transform may have gotten lost.
 							// This results in unexpected behaviour
+							if (xya) {
+							  dx = xya.x - start_x
+							  dy = xya.y - start_y
+							}
 							xform.setTranslate(dx,dy);
 							if(tlist.numberOfItems) {
 								tlist.replaceItem(xform, 0);
