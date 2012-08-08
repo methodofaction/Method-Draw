@@ -171,7 +171,7 @@ svgEditor.addExtension("view_grid", function(s) {
                     if (gr) {
                         svgEditor.curConfig.showGrid = showGrid = true;
                         $('#view_grid').addClass('push_button_pressed');
-                        $('#canvasGrid').attr('display', 'normal');
+                        $('#canvasGrid').attr('display', 'inline');
                         updateGrid(svgCanvas.getZoom());
                     }
                     else {

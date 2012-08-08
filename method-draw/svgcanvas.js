@@ -5199,6 +5199,9 @@ this.svgCanvasToString = function() {
 		selectOnly([current_group]);
 	}
 	
+	//hide grid, otherwise shows a black canvas
+	$('#canvasGrid').attr('display', 'none');
+	
 	var naked_svgs = [];
 	
 	// Unwrap gsvg if it has no special attributes (only id and style)
