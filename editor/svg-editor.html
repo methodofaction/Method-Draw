@@ -55,7 +55,6 @@
   <script type="text/javascript" src="extensions/ext-grid.js"></script>
   <script type="text/javascript" src="requestanimationframe.js"></script>
   <script type="text/javascript" src="taphold.js"></script>
-  <script type="text/javascript" src="extensions/ext-server_opensave.js"></script>
 <!--{endif}-->
 
 
@@ -99,9 +98,9 @@
   <div class="menu">
   	<div class="menu_title">File</div>
   	<div class="menu_list" id="file_menu"> 
-  		<div id="tool_clear" class="menu_item">New Image</div>
-  		<div id="tool_open" class="menu_item"><div id="fileinputs"></div>Open SVG...</div>
-  		<div id="tool_import" class="menu_item"><div id="fileinputs_import"></div>Place SVG...</div>
+  		<div id="tool_clear" class="menu_item">New Document</div>
+  		<div id="tool_open" class="menu_item" style="display: none;"><div id="fileinputs"></div>Open SVG...</div>
+  		<div id="tool_import" class="menu_item" style="display: none;"><div id="fileinputs_import"></div>Import Image...</div>
   		<div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
   		<div id="tool_export" class="menu_item">Export as PNG</div>
   	</div>
@@ -357,17 +356,17 @@
 	</div>
 	
 	<div id="use_panel" class="context_panel clearfix">
-		<div class="push_button" id="tool_unlink_use" data-title="Break link to reference element (make unique)"></div>
+		<div class="tool_button clearfix" id="tool_unlink_use" data-title="Break link to reference element (make unique)">Break link reference</div>
 	</div>
 	
 	<div id="g_panel" class="context_panel clearfix">
 		<h4>Group</h4>
 		<label>
-		  <input id="g_x" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+		  <input id="g_x" class="attr_changer" data-title="Change groups's x coordinate" size="3" data-attr="x" pattern="[0-9]*" />
 		  <span>X</span>
 		</label>
 		<label>
-		  <input id="g_y" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+		  <input id="g_y" class="attr_changer" data-title="Change groups's y coordinate" size="3" data-attr="y" pattern="[0-9]*" />
 		  <span>Y</span>
 		</label>
 	</div>

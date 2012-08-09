@@ -71,8 +71,8 @@
 					"enterNewLayerName":"Please enter the new layer name",
 					"layerHasThatName":"Layer already has that name",
 					"QmoveElemsToLayer":"Move selected elements to layer \"%s\"?",
-					"QwantToClear":"Do you want to clear the drawing?\nThis will also erase your undo history!",
-					"QwantToOpen":"Do you want to open a new file?\nThis will also erase your undo history!",
+					"QwantToClear":"<strong>Do you want to clear the drawing?</strong>\nThis will also erase your undo history",
+					"QwantToOpen":"Do you want to open a new file?\nThis will also erase your undo history",
 					"QerrorsRevertToSource":"There were parsing errors in your SVG source.\nRevert back to original SVG source?",
 					"QignoreSourceChanges":"Ignore changes made to SVG source?",
 					"featNotSupported":"Feature not supported",
@@ -383,7 +383,7 @@
 					if(type != 'alert') {
 						$('<input type="button" value="' + uiStrings.common.cancel + '">')
 							.appendTo(btn_holder)
-							.on("click, touchstart", function() { box.hide();callback(false)});
+							.on("click touchstart", function() { box.hide();callback(false)});
 					}
 					
 					if(type == 'prompt') {
@@ -475,7 +475,7 @@
 
 				// Chrome 5 (and 6?) don't allow saving, show source instead ( http://code.google.com/p/chromium/issues/detail?id=46735 )
 				// IE9 doesn't allow standalone Data URLs ( https://connect.microsoft.com/IE/feedback/details/542600/data-uri-images-fail-when-loaded-by-themselves )
-				if((~ua.indexOf('Chrome') && $.browser.version >= 533) || ~ua.indexOf('MSIE')) {
+				if(~ua.indexOf('MSIE')) {
 					showSourceEditor(0,true);
 					return;	
 				}
@@ -547,7 +547,6 @@
 				elems = elems.filter(Boolean)
 				multiselected = (elems.length >= 2) ? elems : false;
 				if (svgCanvas.elementsAreSame(multiselected)) selectedElement = multiselected[0]
-			
 				if (selectedElement != null) {
 				  $('#multiselected_panel').hide()
 					updateToolbar();
@@ -1306,22 +1305,26 @@
 			// This function also updates the opacity and id elements that are in the context panel
 			var updateToolbar = function() {
 				if (selectedElement != null) {
-				
 					switch ( selectedElement.tagName ) {
 					case 'use':
+					  $(".context_panel").hide();
+					  $("#use_panel").show();
+					  break;
 					case 'image':
+  					$(".context_panel").hide();
+  				  $("#image_panel").show();
+  				  break;
 					case 'foreignObject':
+  					$(".context_panel").hide();
 						break;
 					case 'g':
 					case 'a':
 						// Look for common styles
-						
 						var gWidth = null;
 						
 						var childs = selectedElement.getElementsByTagName('*');
 						for(var i = 0, len = childs.length; i < len; i++) {
 							var swidth = childs[i].getAttribute("stroke-width");
-							
 							if(i === 0) {
 								gWidth = swidth;
 							} else if(gWidth !== swidth) {
@@ -1329,18 +1332,15 @@
 							}
 						}
 						
-						$('#stroke_width').val(gWidth === null ? "" : gWidth);
-            //Editor.paintBox.fill.update(false);
-						//Editor.paintBox.stroke.update(false);
-            
-						
+						$('#stroke_width').val(gWidth === null ? "0" : gWidth);
+            updateContextPanel();
 						break;
 					default:
 						//removed because multiselect shouldnt set color
 						//Editor.paintBox.fill.update(false);
 						//Editor.paintBox.stroke.update(false);
 						
-						$('#stroke_width').val(selectedElement.getAttribute("stroke-width") || 1);
+						$('#stroke_width').val(selectedElement.getAttribute("stroke-width") || 0);
 						var dash = selectedElement.getAttribute("stroke-dasharray") || "none"
 						$('option', '#stroke_style').removeAttr('selected');
 						$('#stroke_style option[value="'+ dash +'"]').attr("selected", "selected");
@@ -1365,8 +1365,6 @@
 					$('#group_opacity').val(opac_perc);
 					$.fn.dragInput.updateCursor($('#group_opacity')[0])
 				}
-				
-				updateToolButtonState();
 			};
 		
 			var setImageURL = Editor.setImageURL = function(url) {
@@ -1393,7 +1391,6 @@
 				var unit = curConfig.baseUnit !== 'px' ? curConfig.baseUnit : null;
 				var is_node = currentMode == 'pathedit'; //elem ? (elem.id && elem.id.indexOf('pathpointgrip') == 0) : false;
 				
-				
 				if (is_node) {
 				  $('.context_panel').hide();
 				  $('#path_node_panel').show();
@@ -1415,6 +1412,7 @@
 						$('#path_node_y').val(Math.round(point.y));
 						if(point.type) {
 							seg_type.val(point.type).removeAttr('disabled');
+							$("#seg_type_label").html(point.type == 4 ? "Straight" : "Curve")
 						} else {
 							seg_type.val(4).attr('disabled','disabled');
 						}
@@ -1887,7 +1885,7 @@
         return false;
       }
       var closer = function(e){
-        if (e.target.nodeName.toLowerCase() === "input") return false;
+        if (e.target.nodeName && e.target.nodeName.toLowerCase() === "input") return false;
         if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
           if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blinker(e)
           else $('#menu_bar').removeClass('active')
@@ -2835,65 +2833,6 @@
 					});
 			};
 		
-			var updateToolButtonState = function() {
-			  /*
-				var bNoFill = (svgCanvas.getColor('fill') == 'none');
-				var bNoStroke = (svgCanvas.getColor('stroke') == 'none');
-				var buttonsNeedingStroke = [ '#tool_fhpath', '#tool_line' ];
-				var buttonsNeedingFillAndStroke = [ '#tools_rect .tool_button', '#tools_ellipse .tool_button', '#tool_text', '#tool_path'];
-				if (bNoStroke) {
-					for (var index in buttonsNeedingStroke) {
-						var button = buttonsNeedingStroke[index];
-						if ($(button).hasClass('tool_button_current')) {
-							clickSelect();
-						}
-						$(button).addClass('disabled');
-					}
-				}
-				else {
-					for (var index in buttonsNeedingStroke) {
-						var button = buttonsNeedingStroke[index];
-						$(button).removeClass('disabled');
-					}
-				}
-		
-				if (bNoStroke && bNoFill) {
-					for (var index in buttonsNeedingFillAndStroke) {
-						var button = buttonsNeedingFillAndStroke[index];
-						if ($(button).hasClass('tool_button_current')) {
-							clickSelect();
-						}
-						$(button).addClass('disabled');
-					}
-				}
-				else {
-					for (var index in buttonsNeedingFillAndStroke) {
-						var button = buttonsNeedingFillAndStroke[index];
-						$(button).removeClass('disabled');
-					}
-				}
-
-				svgCanvas.runExtensions("toolButtonStateUpdate", {
-					nofill: bNoFill,
-					nostroke: bNoStroke
-				});
-				
-				// Disable flyouts if all inside are disabled
-				$('.tools_flyout').each(function() {
-					var shower = $('#' + this.id + '_show');
-					var has_enabled = false;
-					$(this).children().each(function() {
-						if(!$(this).hasClass('disabled')) {
-							has_enabled = true;
-						}
-					});
-					shower.toggleClass('disabled', !has_enabled);
-				});
-		
-				operaRepaint();
-				*/
-			};
-
 			var PaintBox = function(container, type) {
 			  var background = document.getElementById("canvas_background");
 			  var cur = {color: "fff", opacity: 1}
@@ -3636,13 +3575,109 @@
 					$.confirm(uiStrings.notification.QwantToOpen, func);
 				}
 			}
-			
-			// use HTML5 File API: http://www.w3.org/TR/FileAPI/
-			// if browser has HTML5 File API support, then we will show the open menu item
-			// and provide a file input to click.  When that change event fires, it will
-			// get the text contents of the file and send it to the canvas
+						
 			if (window.FileReader) {
-				var inp = $('<input type="file">').change(function() {
+			  
+			  var import_image = function(e) {
+			    e.stopPropagation();
+          e.preventDefault();
+          $("#workarea").removeAttr("style");
+					$('#main_menu').hide();
+					var file = null;
+					if (e.type == "drop") file = e.dataTransfer.files[0]
+					else file = this.files[0];
+					if (file) {
+					  if(file.type.indexOf("image") != -1) {
+					    //detected an image
+					  
+					    //svg handing
+  				  	if(file.type.indexOf("svg") != -1) {
+  				  		var reader = new FileReader();
+  				  		reader.onloadend = function(e) {
+  				  			svgCanvas.importSvgString(e.target.result, true);
+  				  			svgCanvas.ungroupSelectedElement()
+  				  			svgCanvas.ungroupSelectedElement()
+  				  			svgCanvas.groupSelectedElements()
+  				  			svgCanvas.alignSelectedElements("m", "page")
+  				  			svgCanvas.alignSelectedElements("c", "page")
+  				  		};
+  				  		reader.readAsText(file);
+  				  	}
+					
+					    //image handling
+					    else {
+					      var reader = new FileReader();
+  				  		reader.onloadend = function(e) {
+                  // lets insert the new image until we know its dimensions
+  				  			insertNewImage = function(img_width, img_height){
+    			  				  var newImage = svgCanvas.addSvgElementFromJson({
+            					"element": "image",
+            					"attr": {
+            						"x": 0,
+            						"y": 0,
+            						"width": img_width,
+            						"height": img_height,
+            						"id": svgCanvas.getNextId(),
+            						"style": "pointer-events:inherit"
+            					}
+            				});
+            				svgCanvas.setHref(newImage, e.target.result);
+            				svgCanvas.selectOnly([newImage])
+            				svgCanvas.alignSelectedElements("m", "page")
+    				  			svgCanvas.alignSelectedElements("c", "page")
+            				updateContextPanel();
+        	  			}
+  				  		  // put a placeholder img so we know the default dimensions
+  				  		  var img_width = 100;
+  				  		  var img_height = 100;
+  				  		  var img = new Image()
+  				  		  img.src = e.target.result
+                  document.body.appendChild(img);
+                  img.onload = function() {
+                    img_width = img.offsetWidth
+                    img_height = img.offsetHeight
+                    insertNewImage(img_width, img_height);
+                    document.body.removeChild(img);
+                  }
+  				  		};
+  				  		reader.readAsDataURL(file)
+					    }
+					  }
+					}
+				}
+			  
+			  var workarea = $("#workarea")
+			  
+			  function onDragEnter(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          workarea.css({
+            "-webkit-transform": "scale3d(1.1,1.1,1)",
+            "-moz-transform": "scale3d(1.1,1.1,1)",
+            "-o-transform": "scale(1.1)",
+            "-ms-transform": "scale3d(1.1,1.1,1)",
+            "transform": "scale3d(1.1,1.1,1)"
+          })
+
+        }
+
+        function onDragOver(e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+
+        function onDragLeave(e) {
+          workarea.removeAttr("style")
+          e.stopPropagation();
+          e.preventDefault();
+        }
+
+  			workarea[0].addEventListener('dragenter', onDragEnter, false);
+        workarea[0].addEventListener('dragover', onDragOver, false);
+        workarea[0].addEventListener('dragleave', onDragLeave, false);
+        workarea[0].addEventListener('drop', import_image, false);
+			  
+				var open = $('<input type="file">').change(function() {
 					var f = this;
 					Editor.openPrep(function(ok) {
 						if(!ok) return;
@@ -3657,20 +3692,12 @@
 						}
 					});
 				});
-				$("#tool_open").show().prepend(inp);
-				var inp2 = $('<input type="file">').change(function() {
-					$('#main_menu').hide();
-					if(this.files.length==1) {
-						var reader = new FileReader();
-						reader.onloadend = function(e) {
-							svgCanvas.importSvgString(e.target.result, true);
-							updateCanvas();
-						};
-						reader.readAsText(this.files[0]);
-					}
-				});
-				$("#tool_import").show().prepend(inp2);
+				$("#tool_open").show().prepend(open);
+				
+				var img_import = $('<input type="file">').change(import_image);
+				$("#tool_import").show().prepend(img_import);
 			}
+
 			
 			var updateCanvas = Editor.updateCanvas = function(center, new_ctr) {
 				var w = workarea.width(), h = workarea.height();

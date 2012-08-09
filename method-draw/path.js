@@ -886,7 +886,7 @@ svgedit.path.removePath_ = function(id) {
 	if(id in pathData) delete pathData[id];
 };
 
-var getRotVals = function(x, y) {
+var getRotVals = function(x, y, oldcx, oldcy, newcx, newcy, angle) {
 	dx = x - oldcx;
 	dy = y - oldcy;
 	
@@ -905,7 +905,6 @@ var getRotVals = function(x, y) {
 	
 	r = Math.sqrt(dx*dx + dy*dy);
 	theta = Math.atan2(dy,dx) - angle;
-	
 	return {'x':(r * Math.cos(theta) + newcx)/1,
 		'y':(r * Math.sin(theta) + newcy)/1};
 };
@@ -928,7 +927,7 @@ svgedit.path.recalcRotatedPath = function() {
 		oldcy = oldbox.y + oldbox.height/2,
 		newcx = box.x + box.width/2,
 		newcy = box.y + box.height/2,
-	
+		
 	// un-rotate the new center to the proper position
 		dx = newcx - oldcx,
 		dy = newcy - oldcy,
@@ -946,11 +945,11 @@ svgedit.path.recalcRotatedPath = function() {
 			type = seg.pathSegType;
 		if(type == 1) continue;
 		
-		var rvals = getRotVals(seg.x,seg.y),
+		var rvals = getRotVals(seg.x,seg.y, oldcx, oldcy, newcx, newcy, angle),
 			points = [rvals.x, rvals.y];
 		if(seg.x1 != null && seg.x2 != null) {
-			c_vals1 = getRotVals(seg.x1, seg.y1);
-			c_vals2 = getRotVals(seg.x2, seg.y2);
+			c_vals1 = getRotVals(seg.x1, seg.y1, oldcx, oldcy, newcx, newcy, angle);
+			c_vals2 = getRotVals(seg.x2, seg.y2, oldcx, oldcy, newcx, newcy, angle);
 			points.splice(points.length, 0, c_vals1.x , c_vals1.y, c_vals2.x, c_vals2.y);
 		}
 		svgedit.path.replacePathSeg(type, i, points);

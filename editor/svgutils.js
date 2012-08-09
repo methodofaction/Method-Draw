@@ -463,7 +463,7 @@ function groupBBFix(selected) {
 // Parameters:
 // elem - Optional DOM element to get the BBox for
 svgedit.utilities.getBBox = function(elem) {
-	var selected = elem || editorContext_.geSelectedElements()[0];
+	var selected = elem || editorContext_.getSelectedElements()[0];
 	if (elem.nodeType != 1) return null;
 	var ret = null;
 	var elname = selected.nodeName;

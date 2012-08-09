@@ -10,70 +10,70 @@
 svgEditor.addExtension("server_opensave", {
 	callback: function() {
 
-		var save_svg_action = 'extensions/filesave.php';
-		var save_png_action = 'extensions/filesave.php';
+		//var save_svg_action = 'extensions/filesave.php';
+		//var save_png_action = 'extensions/filesave.php';
 	
 		// Create upload target (hidden iframe)
 		var target = $('<iframe name="output_frame" />').hide().appendTo('body');
 	
-		svgEditor.setCustomHandlers({
-			save: function(win, data) {
-				var svg = "<?xml version=\"1.0\"?>\n" + data;
-				
-				var title = svgCanvas.getDocumentTitle();
-				var filename = title.replace(/[^a-z0-9\.\_\-]+/gi, '_');
-				
-				var form = $('<form>').attr({
-					method: 'post',
-					action: save_svg_action,
-					target: 'output_frame'
-				})	.append('<input type="hidden" name="output_svg" value="' + encodeURI(svg) + '">')
-					.append('<input type="hidden" name="filename" value="' + filename + '">')
-					.appendTo('body')
-					.submit().remove();
-			},
-			pngsave: function(win, data) {
-				var issues = data.issues;
-				
-				if(!$('#export_canvas').length) {
-					$('<canvas>', {id: 'export_canvas'}).hide().appendTo('body');
-				}
-				var c = $('#export_canvas')[0];
-				
-				c.width = svgCanvas.contentW;
-				c.height = svgCanvas.contentH;
-				canvg(c, data.svg, {renderCallback: function() {
-					var datauri = c.toDataURL('image/png');
-					
-					var uiStrings = svgEditor.uiStrings;
-					var note = '';
-					
-					// Check if there's issues
-					if(issues.length) {
-						var pre = "\n \u2022 ";
-						note += ("\n\n" + pre + issues.join(pre));
-					} 
-					
-					if(note.length) {
-						alert(note);
-					}
-					
-					var title = svgCanvas.getDocumentTitle();
-					var filename = title.replace(/[^a-z0-9\.\_\-]+/gi, '_');
-					
-					var form = $('<form>').attr({
-						method: 'post',
-						action: save_png_action,
-						target: 'output_frame'
-					})	.append('<input type="hidden" name="output_png" value="' + datauri + '">')
-						.append('<input type="hidden" name="filename" value="' + filename + '">')
-						.appendTo('body')
-						.submit().remove();
-				}});
-	
-				
-			}
-		});
+		//svgEditor.setCustomHandlers({
+		//	save: function(win, data) {
+		//		var svg = "<?xml version=\"1.0\"?>\n" + data;
+		//		
+		//		var title = svgCanvas.getDocumentTitle();
+		//		var filename = title.replace(/[^a-z0-9\.\_\-]+/gi, '_');
+		//		
+		//		var form = $('<form>').attr({
+		//			method: 'post',
+		//			action: save_svg_action,
+		//			target: 'output_frame'
+		//		})	.append('<input type="hidden" name="output_svg" value="' + encodeURI(svg) + '">')
+		//			.append('<input type="hidden" name="filename" value="' + filename + '">')
+		//			.appendTo('body')
+		//			.submit().remove();
+		//	},
+		//	pngsave: function(win, data) {
+		//		var issues = data.issues;
+		//		
+		//		if(!$('#export_canvas').length) {
+		//			$('<canvas>', {id: 'export_canvas'}).hide().appendTo('body');
+		//		}
+		//		var c = $('#export_canvas')[0];
+		//		
+		//		c.width = svgCanvas.contentW;
+		//		c.height = svgCanvas.contentH;
+		//		canvg(c, data.svg, {renderCallback: function() {
+		//			var datauri = c.toDataURL('image/png');
+		//			
+		//			var uiStrings = svgEditor.uiStrings;
+		//			var note = '';
+		//			
+		//			// Check if there's issues
+		//			if(issues.length) {
+		//				var pre = "\n \u2022 ";
+		//				note += ("\n\n" + pre + issues.join(pre));
+		//			} 
+		//			
+		//			if(note.length) {
+		//				alert(note);
+		//			}
+		//			
+		//			var title = svgCanvas.getDocumentTitle();
+		//			var filename = title.replace(/[^a-z0-9\.\_\-]+/gi, '_');
+		//			
+		//			var form = $('<form>').attr({
+		//				method: 'post',
+		//				action: save_png_action,
+		//				target: 'output_frame'
+		//			})	.append('<input type="hidden" name="output_png" value="' + datauri + '">')
+		//				.append('<input type="hidden" name="filename" value="' + filename + '">')
+		//				.appendTo('body')
+		//				.submit().remove();
+		//		}});
+	  //
+		//		
+		//	}
+		//});
 	
 		// Do nothing if client support is found
 		if(window.FileReader) return;

@@ -1016,6 +1016,7 @@ this.setRotationAngle = function(val, preventUndo) {
 	// ensure val is the proper type
 	val = parseFloat(val);
 	var elem = selectedElements[0];
+	if (!elem) return;
 	var oldTransform = elem.getAttribute("transform");
 	var bbox = svgedit.utilities.getBBox(elem);
 	var cx = bbox.x+bbox.width/2, cy = bbox.y+bbox.height/2;
@@ -3682,7 +3683,7 @@ var textActions = canvas.textActions = function() {
 			display: 'inline'
 		});
 		
-		if(selblock) selblock.setAttribute('d', '');
+		if(selblock) selblock.setAttribute('d', 'M 0 0');
 	}
 	
 	function setSelection(start, end, skipInput) {
@@ -4319,7 +4320,7 @@ var pathActions = canvas.pathActions = function() {
 						if(subpath) index += svgedit.path.path.segs.length;
 						svgedit.path.addPointGrip(index, x, y);
 					}
-// 					keep = true;
+ // 					keep = true;
 				}
 				
 				return;
@@ -4766,7 +4767,7 @@ var pathActions = canvas.pathActions = function() {
 				var newseg = elem.createSVGPathSegLinetoAbs(start_item.x, start_item.y);
 			
 				var closer = elem.createSVGPathSegClosePath();
-				if(open_pt == svgedit.path.path.segs.length - 1) {
+				if(open_pt == svgedit.path.path.segs.length) {
 					list.appendItem(newseg);
 					list.appendItem(closer);
 				} else {

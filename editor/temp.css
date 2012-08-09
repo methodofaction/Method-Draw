@@ -583,7 +583,7 @@ div.jGraduate_Slider img {
 /* Comment to prevent wrong concat */
 
 body {
-	background: #2F2F2C;
+	background: #3f3f3c;
 	font: 13px/120% 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
 	-webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -639,8 +639,15 @@ html, body {
 	left: 0;
 }
 
+#svg_editor {
+	background: #2f2f2c;
+}
+
  #menu_bar {
-  margin: 0 0 0 50px
+  padding: 0 0 0 50px;
+	background: #2f2f2c;
+	position: relative;
+	z-index: 1;
 }
 
  #menu_bar.active .menu.open .menu_list {
@@ -955,7 +962,7 @@ html, body {
 	display: none;
 } 
 
- #path_node_panel .tool_button {
+#use_panel .tool_button, #path_node_panel .tool_button {
 	color: #999;
 	border: solid #3F3F3C 1px;
 	border-radius: 3px;
@@ -967,6 +974,12 @@ html, body {
 	width: 90px;
 	height: 23px;
 	line-height: 24px;
+}
+
+#use_panel .tool_button {
+	padding-left: 10px;
+	margin-bottom: 10px;
+	width: 124px;
 }
 
  #path_node_panel .tool_button img,  #path_node_panel .tool_button svg {
@@ -1104,6 +1117,11 @@ html, body {
 	background-color: #444;
 	overflow: auto;
 	text-align: center;
+	-webkit-transition: -webkit-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+	-moz-transition: -moz-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+	-o-transition: -o-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+	-ms-transition: -ms-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+	transition: transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
 }
 
 .touch  div#workarea {
@@ -1174,11 +1192,13 @@ html, body {
  #tools_top {
 	position: absolute;
 	width: 160px;
+	height: 100%;
+	background: #2f2f2c;
 	right: 0;
 	top: 20px;
 	border-bottom: none;
 	overflow: visible;
-	padding: 0 0 0 10px;
+	padding: 0 0 0 15px;
 }
 
 .touch  #tools_top {
@@ -1291,6 +1311,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	border-right: none;
 	width: 50px;
 	top: 30px;
+	bottom: 0;
 	left: 0;
 	background: #2F2F2C; /* Needed so flyout icons don't appear on the left */
 	z-index: 4;
@@ -1516,7 +1537,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 
 #tool_open input, 
 #tool_import input,
-#tool_image input {
+#tool_import_bitmap input {
 	position: absolute;
 	opacity: 0;
 	font-size: 10em;
@@ -1601,6 +1622,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	bottom: 0;
 	height: 40px;
 	overflow: visible;
+	background: #2f2f2c;
 }
 
  #tools_bottom_1 {
@@ -1904,10 +1926,22 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 #dialog_content {
 	height: 95px;
 	margin: 10px 10px 5px 10px;
-	background: #DDD;
 	overflow: auto;
 	text-align: left;
-	border: 1px solid #B0B0B0;
+	font-size: 13px;
+}
+
+#dialog_buttons input:last-child {
+	background: #999 !important;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}
+
+#dialog_buttons input:first-child {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
 }
 
 #dialog_content.prompt {
@@ -1921,8 +1955,6 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 
 #dialog_container {
 	position: absolute;
-	font-family: Verdana;
-	text-align: center;
 	left: 50%;
 	top: 50%;
 	width: 300px;
@@ -1931,16 +1963,12 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	margin-top: -80px;
 	position:fixed;
 	z-index:50001;
-	background: #CCC;
-	border: 1px outset #777;
-	font-family:Verdana,Helvetica,sans-serif;
-	font-size:0.8em;
+	background: #fff;
 }
 
+
 #dialog_container, #dialog_content {
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border-radius: 3px;
 }
 
 #dialog_buttons input[type=text] {
