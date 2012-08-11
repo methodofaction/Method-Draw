@@ -1776,7 +1776,6 @@
 						svgCanvas.setPaintOpacity('fill', 1.0);
 					}
 				}
-				updateToolButtonState();
 			}).bind('contextmenu', function(e) {e.preventDefault()});
 		
 			$("#toggle_stroke_tools").toggle(function() {
@@ -2180,20 +2179,20 @@
 		
 			var cutSelected = function() {
 				if (selectedElement != null || multiselected) {
-					if (window.event.type === "keydown") flash($('#edit_menu'));
+					if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
 					svgCanvas.cutSelectedElements();
 				}
 			};
 			
 			var copySelected = function() {
 				if (selectedElement != null || multiselected) {
-				  if (window.event.type === "keydown") flash($('#edit_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
 					svgCanvas.copySelectedElements();
 				}
 			};
 			
 			var pasteSelected = function() {
-			  if (window.event.type === "keydown") flash($('#edit_menu'));
+			  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
 				var zoom = svgCanvas.getZoom();				
 				var x = (workarea[0].scrollLeft + workarea.width()/2)/zoom  - svgCanvas.contentW; 
 				var y = (workarea[0].scrollTop + workarea.height()/2)/zoom  - svgCanvas.contentH;
@@ -2202,35 +2201,35 @@
 			
 			var moveToTopSelected = function() {
 				if (selectedElement != null) {
-				  if (window.event.type === "keydown") flash($('#object_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveToTopSelectedElement();
 				}
 			};
 			
 			var moveToBottomSelected = function() {
 				if (selectedElement != null) {
-				  if (window.event.type === "keydown") flash($('#object_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveToBottomSelectedElement();
 				}
 			};
 			
 			var moveUpSelected = function() {
 				if (selectedElement != null) {
-			  if (window.event.type === "keydown") flash($('#object_menu'));
+			  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected("Up");
 				}
 			};
 
 			var moveDownSelected = function() {
 				if (selectedElement != null) {
-				  if (window.event.type === "keydown") flash($('#object_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected("Down");
 				}
 			};
 			
 			var moveUpDownSelected = function(dir) {
 				if (selectedElement != null) {
-				  if (window.event.type === "keydown") flash($('#object_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected(dir);
 				}
 			};
@@ -2390,14 +2389,14 @@
 		  
 			var clickUndo = function(){
 				if (undoMgr.getUndoStackSize() > 0) {
-				  if (window.event.type === "keydown") flash($('#edit_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
 					undoMgr.undo();
 				}
 			};
 		
 			var clickRedo = function(){
 				if (undoMgr.getRedoStackSize() > 0) {
-				  if (window.event.type === "keydown") flash($('#edit_menu'));
+				  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
 					undoMgr.redo();
 				}
 			};
@@ -2414,7 +2413,7 @@
 			};
 			
 			var clickClone = function(){
-			  if (window.event.type === "keydown") flash($('#edit_menu'));
+			  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
 				svgCanvas.cloneSelectedElements(20,20);
 			};
 			
@@ -3011,7 +3010,6 @@
 			$('#tool_fill').click(function(){
 			  if ($('#tool_fill').hasClass('active')) {
 				  colorPicker($('#fill_color'));
-				  updateToolButtonState();
 				}
 				else {
 				  $('#tool_fill').addClass('active');
@@ -3022,7 +3020,6 @@
 			$('#tool_stroke').on("click", function(){
 			  if ($('#tool_stroke').hasClass('active')) {
 				  colorPicker($('#stroke_color'));
-				  updateToolButtonState();
 				}
 				else {
 				  $('#tool_stroke').addClass('active');
@@ -3032,21 +3029,18 @@
 			
 			$('#tool_canvas').on("click touchstart", function(){
 				  colorPicker($('#canvas_color'));
-				  updateToolButtonState();
 			});
 			
 			$('#tool_stroke').on("touchstart", function(){
 			    $('#tool_stroke').addClass('active');
 				  $("#tool_fill").removeClass('active');
 				  colorPicker($('#stroke_color'));
-				  updateToolButtonState();
 			});
 
       $('#tool_fill').on("touchstart", function(){
 			    $('#tool_fill').addClass('active');
 				  $("#tool_stroke").removeClass('active');
 				  colorPicker($('#fill_color'));
-				  updateToolButtonState();
 			});
 			
 			$('#zoom_select').on("change", function() {
@@ -3606,41 +3600,42 @@
 					
 					    //image handling
 					    else {
-					      var reader = new FileReader();
-  				  		reader.onloadend = function(e) {
-                  // lets insert the new image until we know its dimensions
-  				  			insertNewImage = function(img_width, img_height){
-    			  				  var newImage = svgCanvas.addSvgElementFromJson({
-            					"element": "image",
-            					"attr": {
-            						"x": 0,
-            						"y": 0,
-            						"width": img_width,
-            						"height": img_height,
-            						"id": svgCanvas.getNextId(),
-            						"style": "pointer-events:inherit"
-            					}
-            				});
-            				svgCanvas.setHref(newImage, e.target.result);
-            				svgCanvas.selectOnly([newImage])
-            				svgCanvas.alignSelectedElements("m", "page")
-    				  			svgCanvas.alignSelectedElements("c", "page")
-            				updateContextPanel();
-        	  			}
-  				  		  // put a placeholder img so we know the default dimensions
-  				  		  var img_width = 100;
-  				  		  var img_height = 100;
-  				  		  var img = new Image()
-  				  		  img.src = e.target.result
-                  document.body.appendChild(img);
-                  img.onload = function() {
-                    img_width = img.offsetWidth
-                    img_height = img.offsetHeight
-                    insertNewImage(img_width, img_height);
-                    document.body.removeChild(img);
-                  }
-  				  		};
-  				  		reader.readAsDataURL(file)
+								alert("sorry, bitmap import is temporalily disabled")
+					      //var reader = new FileReader();
+  				  		//reader.onloadend = function(e) {
+                //  // lets insert the new image until we know its dimensions
+  				  		//	insertNewImage = function(img_width, img_height){
+    			  		//		  var newImage = svgCanvas.addSvgElementFromJson({
+            		//			"element": "image",
+            		//			"attr": {
+            		//				"x": 0,
+            		//				"y": 0,
+            		//				"width": img_width,
+            		//				"height": img_height,
+            		//				"id": svgCanvas.getNextId(),
+            		//				"style": "pointer-events:inherit"
+            		//			}
+            		//		});
+            		//		svgCanvas.setHref(newImage, e.target.result);
+            		//		svgCanvas.selectOnly([newImage])
+            		//		svgCanvas.alignSelectedElements("m", "page")
+    				  	//		svgCanvas.alignSelectedElements("c", "page")
+            		//		updateContextPanel();
+        	  		//	}
+  				  		//  // put a placeholder img so we know the default dimensions
+  				  		//  var img_width = 100;
+  				  		//  var img_height = 100;
+  				  		//  var img = new Image()
+  				  		//  img.src = e.target.result
+                //  document.body.appendChild(img);
+                //  img.onload = function() {
+                //    img_width = img.offsetWidth
+                //    img_height = img.offsetHeight
+                //    insertNewImage(img_width, img_height);
+                //    document.body.removeChild(img);
+                //  }
+  				  		//};
+  				  		//reader.readAsDataURL(file)
 					    }
 					  }
 					}
