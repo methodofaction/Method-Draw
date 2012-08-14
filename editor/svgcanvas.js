@@ -2729,7 +2729,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	// in this function we do not record any state changes yet (but we do update
 	// any elements that are still being created, moved or resized on the canvas)
 	var mouseMove = function(evt) {
-	  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
+	  	if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 		if (!started) return;
 		if(evt.button === 1 || canvas.spaceKey) return;
 		var selected = selectedElements[0],
@@ -8637,13 +8637,17 @@ this.cloneSelectedElements = function(x,y, drag) {
 		// clone each element and replace it within copiedElements
 		var elem = copiedElements[i] 
 		var clone = copyElem(copiedElements[i]);
+		var parent = (current_group || getCurrentDrawing().getCurrentLayer())
 		if (drag) {
 		  //removed the dragged transform until that moment
 		  tlist = getTransformList(clone)
-      tlist.removeItem(drag)
+      	  tlist.removeItem(drag)
 		  recalculateDimensions(clone)
+		  parent.insertBefore(clone, elem);
 		}
-		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(clone);
+		else {
+			parent.appendChild(clone);
+		}
 		clones.push(clone)
 		batchCmd.addSubCommand(new InsertElementCommand(clone));
 	}

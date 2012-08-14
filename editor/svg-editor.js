@@ -1817,7 +1817,6 @@
   					w_area.scrollTop -= (evt.clientY - last_y);
   					last_x = evt.clientX;
   					last_y = evt.clientY;
-
   					if(evt.type === 'mouseup' || evt.type === 'touchend') panning = false;
   					return false;
   			}
