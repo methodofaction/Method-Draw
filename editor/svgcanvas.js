@@ -5920,11 +5920,9 @@ this.setSvgString = function(xmlString) {
 			}
 		});
 		
-		// For Firefox: Put all paint elems in defs
-		if(svgedit.browser.isGecko()) {
-			content.find('linearGradient, radialGradient, pattern').appendTo(findDefs());
-		}
-
+		// Put all paint elems in defs
+		
+		content.find('linearGradient, radialGradient, pattern').appendTo(findDefs());
 		
 		// Set ref element for <use> elements
 		
@@ -5984,13 +5982,27 @@ this.setSvgString = function(xmlString) {
 		
 		// Just in case negative numbers are given or 
 		// result from the percs calculation
-		if(attrs.width <= 0) attrs.width = 100;
-		if(attrs.height <= 0) attrs.height = 100;
+		if(attrs.width <= 0) attrs.width = 200;
+		if(attrs.height <= 0) attrs.height = 200;
 		
 		content.attr(attrs);
 		this.contentW = attrs['width'];
 		this.contentH = attrs['height'];
 		
+		$("#canvas_width").val(this.contentW)
+		$("#canvas_height").val(this.contentH)
+		var background = $("#canvas_background")
+		if (background.length) {
+			var opacity = background.attr("fill-opacity")
+			opacity = opacity ? parseInt(opacity)*100 : 100
+			fill = this.getPaint(background.attr("fill"), opacity, "canvas")
+			svgEditor.paintBox.canvas.setPaint(fill)
+		}
+		else {
+			fill = this.getPaint("none", 100, "canvas")
+			svgEditor.paintBox.canvas.setPaint(fill)
+		}
+
 		batchCmd.addSubCommand(new InsertElementCommand(svgcontent));
 		// update root to the correct size
 		var changes = content.attr(["width", "height"]);
@@ -6013,6 +6025,36 @@ this.setSvgString = function(xmlString) {
 	}
 
 	return true;
+};
+
+
+this.getPaint = function(color, opac, type) {
+	// update the editor's fill paint
+	var opts = null;
+	if (color.indexOf("url(#") === 0) {
+		var refElem = svgCanvas.getRefElem(color);
+		if(refElem) {
+			refElem = refElem.cloneNode(true);
+		} else {
+			refElem =  $("#" + type + "_color defs *")[0];
+		}
+
+		opts = { alpha: opac };
+		opts[refElem.tagName] = refElem;
+	} 
+	else if (color.indexOf("#") === 0) {
+		opts = {
+			alpha: opac,
+			solidColor: color.substr(1)
+		};
+	}
+	else {
+		opts = {
+			alpha: opac,
+			solidColor: 'none'
+		};
+	}
+	return new $.jGraduate.Paint(opts);
 };
 
 // Function: importSvgString

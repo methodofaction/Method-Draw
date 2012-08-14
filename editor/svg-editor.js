@@ -2838,13 +2838,13 @@
 			  if (type == "stroke") cur = curConfig['initStroke'];
 			  if (type == "fill") cur = curConfig['initFill'];
 			  if (type == "canvas" && background) {
-          var rgb = background.getAttribute("fill").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-          if (rgb) {
-            var hex = ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-                           ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-                           ("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
-            cur = {color: hex, opacity: 1}
-          }
+          		var rgb = background.getAttribute("fill").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+          		if (rgb) {
+            		var hex = 	("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+                           		("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+                           		("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
+            		cur = {color: hex, opacity: 1}
+          		}
 			  }
 
 				// set up gradients to be used for the buttons
