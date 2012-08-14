@@ -2371,7 +2371,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   and do nothing else
 	var mouseDown = function(evt)
 	{
-		if (evt.originalEvent.touches && evt.originalEvent.touches > 1) return;
+		if (canvas.spaceKey) return;
 		var right_click = evt.button === 2;
 		
 		root_sctm = svgcontent.getScreenCTM().inverse();
