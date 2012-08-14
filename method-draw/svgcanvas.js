@@ -217,8 +217,6 @@ var all_properties = {
 		stroke_opacity: curConfig.initStroke.opacity,
 		stroke_width: curConfig.initStroke.width,
 		stroke_dasharray: 'none',
-		stroke_linejoin: 'miter',
-		stroke_linecap: 'butt',
 		opacity: curConfig.initOpacity
 	}
 };
@@ -269,8 +267,6 @@ var addSvgElementFromJson = this.addSvgElementFromJson = function(data) {
 			"stroke": cur_shape.stroke,
 			"stroke-width": cur_shape.stroke_width,
 			"stroke-dasharray": cur_shape.stroke_dasharray,
-			"stroke-linejoin": cur_shape.stroke_linejoin,
-			"stroke-linecap": cur_shape.stroke_linecap,
 			"stroke-opacity": cur_shape.stroke_opacity,
 			"fill-opacity": cur_shape.fill_opacity,
 			"opacity": cur_shape.opacity / 2,
@@ -2371,7 +2367,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   and do nothing else
 	var mouseDown = function(evt)
 	{
-		if (evt.originalEvent.touches && evt.originalEvent.touches > 1) return;
+		if (canvas.spaceKey) return;
 		var right_click = evt.button === 2;
 		
 		root_sctm = svgcontent.getScreenCTM().inverse();
@@ -2729,7 +2725,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	// in this function we do not record any state changes yet (but we do update
 	// any elements that are still being created, moved or resized on the canvas)
 	var mouseMove = function(evt) {
-	  if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
+	  	if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 		if (!started) return;
 		if(evt.button === 1 || canvas.spaceKey) return;
 		var selected = selectedElements[0],
@@ -5920,11 +5916,9 @@ this.setSvgString = function(xmlString) {
 			}
 		});
 		
-		// For Firefox: Put all paint elems in defs
-		if(svgedit.browser.isGecko()) {
-			content.find('linearGradient, radialGradient, pattern').appendTo(findDefs());
-		}
-
+		// Put all paint elems in defs
+		
+		content.find('linearGradient, radialGradient, pattern').appendTo(findDefs());
 		
 		// Set ref element for <use> elements
 		
@@ -5984,13 +5978,27 @@ this.setSvgString = function(xmlString) {
 		
 		// Just in case negative numbers are given or 
 		// result from the percs calculation
-		if(attrs.width <= 0) attrs.width = 100;
-		if(attrs.height <= 0) attrs.height = 100;
+		if(attrs.width <= 0) attrs.width = 200;
+		if(attrs.height <= 0) attrs.height = 200;
 		
 		content.attr(attrs);
 		this.contentW = attrs['width'];
 		this.contentH = attrs['height'];
 		
+		$("#canvas_width").val(this.contentW)
+		$("#canvas_height").val(this.contentH)
+		var background = $("#canvas_background")
+		if (background.length) {
+			var opacity = background.attr("fill-opacity")
+			opacity = opacity ? parseInt(opacity)*100 : 100
+			fill = this.getPaint(background.attr("fill"), opacity, "canvas")
+			svgEditor.paintBox.canvas.setPaint(fill)
+		}
+		else {
+			fill = this.getPaint("none", 100, "canvas")
+			svgEditor.paintBox.canvas.setPaint(fill)
+		}
+
 		batchCmd.addSubCommand(new InsertElementCommand(svgcontent));
 		// update root to the correct size
 		var changes = content.attr(["width", "height"]);
@@ -6013,6 +6021,36 @@ this.setSvgString = function(xmlString) {
 	}
 
 	return true;
+};
+
+
+this.getPaint = function(color, opac, type) {
+	// update the editor's fill paint
+	var opts = null;
+	if (color.indexOf("url(#") === 0) {
+		var refElem = svgCanvas.getRefElem(color);
+		if(refElem) {
+			refElem = refElem.cloneNode(true);
+		} else {
+			refElem =  $("#" + type + "_color defs *")[0];
+		}
+
+		opts = { alpha: opac };
+		opts[refElem.tagName] = refElem;
+	} 
+	else if (color.indexOf("#") === 0) {
+		opts = {
+			alpha: opac,
+			solidColor: color.substr(1)
+		};
+	}
+	else {
+		opts = {
+			alpha: opac,
+			solidColor: 'none'
+		};
+	}
+	return new $.jGraduate.Paint(opts);
 };
 
 // Function: importSvgString
@@ -8595,13 +8633,17 @@ this.cloneSelectedElements = function(x,y, drag) {
 		// clone each element and replace it within copiedElements
 		var elem = copiedElements[i] 
 		var clone = copyElem(copiedElements[i]);
+		var parent = (current_group || getCurrentDrawing().getCurrentLayer())
 		if (drag) {
 		  //removed the dragged transform until that moment
 		  tlist = getTransformList(clone)
-      tlist.removeItem(drag)
+      	  tlist.removeItem(drag)
 		  recalculateDimensions(clone)
+		  parent.insertBefore(clone, elem);
 		}
-		(current_group || getCurrentDrawing().getCurrentLayer()).appendChild(clone);
+		else {
+			parent.appendChild(clone);
+		}
 		clones.push(clone)
 		batchCmd.addSubCommand(new InsertElementCommand(clone));
 	}

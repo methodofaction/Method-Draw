@@ -1345,16 +1345,8 @@
 						$('option', '#stroke_style').removeAttr('selected');
 						$('#stroke_style option[value="'+ dash +'"]').attr("selected", "selected");
 						$('#stroke_style').trigger('change');
+
 	          $.fn.dragInput.updateCursor($('#stroke_width')[0])
-						var attr = selectedElement.getAttribute("stroke-linejoin") || 'miter';
-						
-						if ($('#linejoin_' + attr).length != 0)
-							setStrokeOpt($('#linejoin_' + attr)[0]);
-						
-						attr = selectedElement.getAttribute("stroke-linecap") || 'butt';
-						
-						if ($('#linecap_' + attr).length != 0)
-							setStrokeOpt($('#linecap_' + attr)[0]);
 					}
 	
 				}
@@ -1817,7 +1809,6 @@
   					w_area.scrollTop -= (evt.clientY - last_y);
   					last_x = evt.clientX;
   					last_y = evt.clientY;
-
   					if(evt.type === 'mouseup' || evt.type === 'touchend') panning = false;
   					return false;
   			}
@@ -2838,13 +2829,13 @@
 			  if (type == "stroke") cur = curConfig['initStroke'];
 			  if (type == "fill") cur = curConfig['initFill'];
 			  if (type == "canvas" && background) {
-          var rgb = background.getAttribute("fill").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-          if (rgb) {
-            var hex = ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-                           ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-                           ("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
-            cur = {color: hex, opacity: 1}
-          }
+          		var rgb = background.getAttribute("fill").match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+          		if (rgb) {
+            		var hex = 	("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+                           		("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+                           		("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
+            		cur = {color: hex, opacity: 1}
+          		}
 			  }
 
 				// set up gradients to be used for the buttons

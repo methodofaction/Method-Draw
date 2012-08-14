@@ -404,7 +404,12 @@ svgedit.draw.Drawing.prototype.identifyLayers = function() {
 		this.all_layers.push( [newname, a_layer] );
 	}
 	svgedit.utilities.walkTree(a_layer, function(e){e.setAttribute("style","pointer-events:inherit");});
-	this.current_layer = a_layer;
+	if (a_layer.getAttribute("data-locked") === "true") {
+		this.current_layer = this.all_layers.slice(-2)[0][1]
+	}
+	else {
+		this.current_layer = a_layer
+	}
 	this.current_layer.setAttribute("style","pointer-events:all");
 };
 

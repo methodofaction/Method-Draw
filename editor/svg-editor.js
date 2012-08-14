@@ -1345,16 +1345,8 @@
 						$('option', '#stroke_style').removeAttr('selected');
 						$('#stroke_style option[value="'+ dash +'"]').attr("selected", "selected");
 						$('#stroke_style').trigger('change');
+
 	          $.fn.dragInput.updateCursor($('#stroke_width')[0])
-						var attr = selectedElement.getAttribute("stroke-linejoin") || 'miter';
-						
-						if ($('#linejoin_' + attr).length != 0)
-							setStrokeOpt($('#linejoin_' + attr)[0]);
-						
-						attr = selectedElement.getAttribute("stroke-linecap") || 'butt';
-						
-						if ($('#linecap_' + attr).length != 0)
-							setStrokeOpt($('#linecap_' + attr)[0]);
 					}
 	
 				}

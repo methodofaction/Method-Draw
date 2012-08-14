@@ -216,6 +216,7 @@ var all_properties = {
 		stroke_paint: null,
 		stroke_opacity: curConfig.initStroke.opacity,
 		stroke_width: curConfig.initStroke.width,
+		stroke_dasharray: 'none',
 		opacity: curConfig.initOpacity
 	}
 };
@@ -2618,6 +2619,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						"stroke": cur_shape.stroke,
 						"stroke-width": stroke_w,
 						"stroke-dasharray": cur_shape.stroke_dasharray,
+						"stroke-linejoin": cur_shape.stroke_linejoin,
+						"stroke-linecap": cur_shape.stroke_linecap,
 						"stroke-opacity": cur_shape.stroke_opacity,
 						"fill": "none",
 						"opacity": cur_shape.opacity / 2,
@@ -3255,6 +3258,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 								cur_properties.stroke_opacity = selected.getAttribute("stroke-opacity");
 								cur_properties.stroke_width = selected.getAttribute("stroke-width");
 								cur_properties.stroke_dasharray = selected.getAttribute("stroke-dasharray");
+								cur_properties.stroke_linejoin = selected.getAttribute("stroke-linejoin");
+								cur_properties.stroke_linecap = selected.getAttribute("stroke-linecap");
 						}
 
 						if (selected.tagName == "text") {
