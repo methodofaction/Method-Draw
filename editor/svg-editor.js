@@ -3658,7 +3658,7 @@
           e.preventDefault();
         }
 
-  			workarea[0].addEventListener('dragenter', onDragEnter, false);
+  		workarea[0].addEventListener('dragenter', onDragEnter, false);
         workarea[0].addEventListener('dragover', onDragOver, false);
         workarea[0].addEventListener('dragleave', onDragLeave, false);
         workarea[0].addEventListener('drop', import_image, false);
