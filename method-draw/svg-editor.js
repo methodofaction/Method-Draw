@@ -2873,11 +2873,7 @@
 					}
 					this.rect.setAttribute('fill', fillAttr);
 					this.rect.setAttribute('opacity', opac);
-					
-					if(apply) {
-						svgCanvas.setColor(this.type, fillAttr, true);
-						svgCanvas.setPaintOpacity(this.type, opac, true);
-					}
+
 					if (this.type == "canvas") {
 					  //recache background in case it changed
 					  var background = document.getElementById("canvas_background");
@@ -2887,9 +2883,14 @@
 					    background.setAttribute("y", -1);
 					    background.setAttribute("width", res.w+2);
 					    background.setAttribute("height", res.h+2);
-					    //background.setAttribute('fill', fillAttr)
+					    if (fillAttr.indexOf("url") == -1) background.setAttribute('fill', fillAttr)
 					  }
 					  else createBackground(fillAttr)
+					}
+					
+					if(apply) {
+						svgCanvas.setColor(this.type, fillAttr, true);
+						svgCanvas.setPaintOpacity(this.type, opac, true);
 					}
 					
 				}
