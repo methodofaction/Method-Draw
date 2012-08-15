@@ -3898,11 +3898,6 @@ var textActions = canvas.textActions = function() {
 
 			$(curtext).css('cursor', 'text');
 			
-// 				if(svgedit.browser.supportsEditableText()) {
-// 					curtext.setAttribute('editable', 'simple');
-// 					return;
-// 				}
-			
 			if(!arguments.length) {
 				setCursor();
 			} else {
