@@ -2871,7 +2871,6 @@
 							var id = this.grad.id = 'gradbox_' + this.type;
 							fillAttr = "url(#" + id + ')';
 					}
-					
 					this.rect.setAttribute('fill', fillAttr);
 					this.rect.setAttribute('opacity', opac);
 					
@@ -2888,7 +2887,7 @@
 					    background.setAttribute("y", -1);
 					    background.setAttribute("width", res.w+2);
 					    background.setAttribute("height", res.h+2);
-					    background.setAttribute('fill', fillAttr)
+					    //background.setAttribute('fill', fillAttr)
 					  }
 					  else createBackground(fillAttr)
 					}
