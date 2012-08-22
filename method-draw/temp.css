@@ -604,7 +604,6 @@ html, body {
   	height: 100%;
 }
 
-
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -857,29 +856,46 @@ html, body {
 	overflow: hidden;
 }
 
- div#palette_holder {
+ #palette {
 	display: block;
-	overflow: hidden;
-	height: 31px;
-	margin-top: 10px;
-	position: relative;
+	position: absolute;
 	z-index: 2;
+	left: 10px;
+	bottom: 5px;
+	width: 400px;
+	right: 145px;
+	height: 30px;
+}
+
+ .palette_item {
+	height: 20%;
+	width: 5.4%;
 	float: left;
+	cursor: url(images/eyedropper.png) 0 16, crosshair;
 }
 
-.touch  div#palette_holder {
-	height: 40px;
-	margin-top: 0;
-}
-
- div#palette_holder #palette .palette_item:first-child {
+.palette_item.transparent, .palette_item.white, .palette_item.black {
   background: #fff;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: -10px;
+  top: 0;
 }
 
- div#palette_holder #palette .palette_item {
-  cursor: pointer;
+.palette_item.transparent {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAVdEVYdENyZWF0aW9uIFRpbWUAOC8yMi8xMg1cp6sAAABESURBVBiVjdBBCgAgCETRr/e/87SJKFPLnfIcQRMIwMBIShIAvgZzoSrfkzrs8WyF1+kX9r3p8AE7nL7kSpSshN+JEQ8GixkF0mSevgAAAABJRU5ErkJggg==);
 }
 
+.palette_item.black {
+  background: #000;
+  top: 10px;
+}
+
+.palette_item.white {
+  background: #fff;
+  top: 20px;
+}
 
  #color_tools {
   position: relative;
@@ -1008,7 +1024,6 @@ html, body {
   left: 1px;
   bottom: 1px;
   right: 1px;
-  background: #fff;
 }
 
 .touch  #color_tools #tool_fill .color_block #fill_bg, .touch  #color_tools #tool_stroke .color_block #stroke_bg {
@@ -1102,11 +1117,6 @@ html, body {
 	padding-top: 4px;
 }
 
- div#palette {
-	float: left;
-	height: 16px;
-}
-
  div#workarea {
 	display: inline-table-cell;
 	position:absolute;
@@ -1126,20 +1136,6 @@ html, body {
 
 .touch  div#workarea {
 	top: 40px;
-}
-
- div.palette_item {
-	height: 16px;
-	width: 16px;
-	float: left;
-}
-
-.touch  div.palette_item {
-	height: 30px;
-	border-top: solid #2f2f2c 5px;
-	border-bottom: solid #2f2f2c 5px;
-	width: 19px;
-	float: left;
 }
 
  .menu .menu_list {
@@ -2600,8 +2596,11 @@ input[readonly=readonly]:focus {
 	box-shadow: none;
 }
 
-#color_canvas_tools {
+#color_canvas_tools, #fill_bg, #stroke_bg {
 	background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMAQMAAABsu86kAAAAA3NCSVQICAjb4U/gAAAABlBMVEXu7u7///8o06qaAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADcvMjIvMTL7FNdCAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABFJREFUCJljYP7AgIb+MKAhAM8/C5vWL6zSAAAAAElFTkSuQmCC) top left repeat;
+}
+
+#color_canvas_tools {
 	width: 60px;
 	height: 40px;
 	margin: 23px 5px 5px 5px;
