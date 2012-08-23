@@ -1676,7 +1676,8 @@
 			}
 			
 			var changeRotationAngle = function(ctl) {
-				svgCanvas.setRotationAngle(ctl.value);
+			  var preventUndo = true;
+				svgCanvas.setRotationAngle(ctl.value, preventUndo);
 				rotateCursor(ctl.value)
 				$('#tool_reorient').toggleClass('disabled', ctl.value == 0);
 			}

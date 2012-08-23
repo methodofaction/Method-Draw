@@ -36,7 +36,6 @@ $.fn.dragInput = function(cfg){
     var lastY = 0;
     var attr = this.getAttribute("data-attr");
     var canvas = svgEditor.canvas
-    var selectedElems = canvas.getSelectedElems();
     var isTouch = svgedit.browser.isTouch();
     var completed = true //for mousewheel
     var $cursor = (area && this.dragCfg.cursor)
@@ -53,7 +52,6 @@ $.fn.dragInput = function(cfg){
 				v = this.dragCfg.reset;
 			} else if($.isFunction(this.dragCfg.stepfunc)) {
 				v = this.dragCfg.stepfunc(this, i);
-				console.log(v);
 			} else {
 				v = Number((Number(this.value) + Number(i)).toFixed(5));
 			}
@@ -85,6 +83,7 @@ $.fn.dragInput = function(cfg){
   	
   	//when the mouse is released
   	this.stop = function() {
+  	  var selectedElems = canvas.getSelectedElems();
   	  $('body').removeClass('dragging');
   	  $label.removeClass("active");
   	  completed = true;
@@ -104,6 +103,7 @@ $.fn.dragInput = function(cfg){
   	}
   	
   	this.start = function(e) {
+  	  var selectedElems = canvas.getSelectedElems();
   	  if (isTouch) e = e.originalEvent.touches[0]
 		  var oy = e.pageY;
 		  var val = this.value;
@@ -148,12 +148,13 @@ $.fn.dragInput = function(cfg){
 		})
 		
 		.bind("mousewheel", function(e, delta, deltaX, deltaY){
+		  var selectedElems = canvas.getSelectedElems();
       if (completed) canvas.undoMgr.beginUndoableChange(attr, selectedElems)
 		  completed = false
       clearTimeout(window.undoTimeout)
   	  window.undoTimeout = setTimeout(function(){
   	    wheel_input.stop()
-  	  },1000)
+  	  },500)
   	  
 		  var wheel_input = this;
 			if (deltaY > 0)
