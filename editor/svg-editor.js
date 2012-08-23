@@ -2407,14 +2407,14 @@
 		  
 			var clickUndo = function(){
 				if (undoMgr.getUndoStackSize() > 0) {
-				  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
+				  flash($('#edit_menu'));
 					undoMgr.undo();
 				}
 			};
 		
 			var clickRedo = function(){
 				if (undoMgr.getRedoStackSize() > 0) {
-				  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
+				  flash($('#edit_menu'));
 					undoMgr.redo();
 				}
 			};
@@ -2422,16 +2422,18 @@
 			var clickGroup = function(){
 				// group
 				if (multiselected) {
+				  flash($('#object_menu'));
 					svgCanvas.groupSelectedElements();
 				}
 				// ungroup
 				else if(selectedElement){
+				  flash($('#object_menu'));
 					svgCanvas.ungroupSelectedElement();
 				}
 			};
 			
 			var clickClone = function(){
-			  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
+			  flash($('#edit_menu'));
 				svgCanvas.cloneSelectedElements(20,20);
 			};
 			
@@ -2473,6 +2475,7 @@
 			}
 		
 			var clickWireframe = function() {
+			  flash($('#view_menu'));
 				var wf = !$('#tool_wireframe').hasClass('push_button_pressed');
 				if (wf) 
 					$('#tool_wireframe').addClass('push_button_pressed');
@@ -2492,6 +2495,7 @@
 			}
 			
 			var clickSnapGrid = function() {
+			  flash($('#view_menu'));
 				var sg = !$('#tool_snap').hasClass('push_button_pressed');
 				if (sg) 
 					$('#tool_snap').addClass('push_button_pressed');
@@ -2508,6 +2512,7 @@
 			}
 			
 			var clickRulers = function() {
+			  flash($('#view_menu'));
 				var rulers = !$('#tool_rulers').hasClass('push_button_pressed');
 				if (rulers) {
 					$('#tool_rulers').addClass('push_button_pressed');
@@ -2532,6 +2537,7 @@
 		
 			var showSourceEditor = function(e, forSaving){
 				if (editingsource) return;
+				flash($('#view_menu'));
 				editingsource = true;
 				
 				$('#save_output_btns').toggle(!!forSaving);
@@ -2544,6 +2550,7 @@
 			};
 			
 			var clickSave = function(){
+			  flash($('#file_menu'));
 				// In the future, more options can be provided here
 				var saveOpts = {
 					'images': curPrefs.img_save,

@@ -276,7 +276,8 @@ ul li.current{background-color:#f4e284}
 #svg_source_editor{display:none}
 #svg_source_editor #svg_source_overlay{position:absolute;top:0;right:0;left:0;bottom:0;background-color:black;opacity:.6;z-index:5}
 #svg_source_editor #svg_source_container{position:absolute;top:30px;left:100px;right:100px;bottom:30px;background-color:#fff;border-radius:3px;opacity:1.0;text-align:center;z-index:6;padding:15px 0}
-#svg_source_editor #svg_source_textarea{position:absolute;top:15px;bottom:55px;left:15px;right:12px;padding:5px;font-size:12px}
+#svg_source_editor form{position:absolute;display:block;top:15px;bottom:55px;left:15px;right:12px;padding:5px;font-size:12px}
+#svg_source_textarea{width:100%;height:100%;line-height:140%;font-family:'Lucida Sans','Lucida Grande','Lucida Sans Unicode',sans-serif;font-size:12px}
 #svg_source_editor #tool_source_back{position:absolute;bottom:45px;left:15px;right:15px}
 #svg_source_editor #tool_source_back #tool_source_save{display:block;position:absolute;right:0}
 #svg_source_editor #tool_source_back #tool_source_cancel{display:block;position:absolute;left:0}

@@ -1802,14 +1802,23 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	padding: 15px 0;
 }
 
-#svg_source_editor #svg_source_textarea {
+#svg_source_editor form {
 	position: absolute;
+	display: block;
 	top: 15px;
 	bottom: 55px;
 	left: 15px;
 	right: 12px;
 	padding: 5px;
 	font-size: 12px;
+}
+
+#svg_source_textarea {
+  width: 100%;
+  height: 100%;
+  line-height: 140%;
+  font-family: 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-size: 12px;
 }
 
 #svg_source_editor #tool_source_back {
