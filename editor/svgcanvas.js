@@ -7453,14 +7453,12 @@ this.getBlur = function(elem) {
 // Returns:
 // Boolean indicating whether or not element is bold
 this.getBold = function() {
-	// should only have one element selected
-	var selected = selectedElements[0];
-	if (selected != null && selected.tagName  == "text" &&
-		selectedElements[1] == null) 
-	{
-		return (selected.getAttribute("font-weight") == "bold");
-	}
-	return false;
+	var selectedElems = selectedElements.filter(Boolean)
+	var isBold = true
+	selectedElems.forEach(function(el){
+	  if (el.getAttribute("font-weight") != "bold") isBold = false;
+	});
+	return isBold;
 };
 
 // Function: setBold
@@ -7469,15 +7467,11 @@ this.getBold = function() {
 // Parameters:
 // b - Boolean indicating bold (true) or normal (false)
 this.setBold = function(b) {
-	var selected = selectedElements[0];
-	if (selected != null && selected.tagName  == "text" &&
-		selectedElements[1] == null) 
-	{
-		changeSelectedAttribute("font-weight", b ? "bold" : "normal");
-	}
-	if(!selectedElements[0].textContent) {
-		textActions.setCursor();
-	}
+	var selectedElems = selectedElements.filter(Boolean)
+	selectedElems.forEach(function(selected){
+	  if (selected != null && selected.tagName  == "text") changeSelectedAttribute("font-weight", b ? "bold" : "normal");
+  });
+	if (!selectedElems[0].textContent)	textActions.setCursor();
 };
 
 // Function: getItalic
@@ -7486,13 +7480,12 @@ this.setBold = function(b) {
 // Returns:
 // Boolean indicating whether or not element is italic
 this.getItalic = function() {
-	var selected = selectedElements[0];
-	if (selected != null && selected.tagName  == "text" &&
-		selectedElements[1] == null) 
-	{
-		return (selected.getAttribute("font-style") == "italic");
-	}
-	return false;
+	var selectedElems = selectedElements.filter(Boolean)
+	var isItalic = true
+	selectedElems.forEach(function(el){
+	  if (el.getAttribute("font-style") != "italic") isItalic = false;
+	});
+	return isItalic;
 };
 
 // Function: setItalic
@@ -7501,15 +7494,11 @@ this.getItalic = function() {
 // Parameters:
 // b - Boolean indicating italic (true) or normal (false)
 this.setItalic = function(i) {
-	var selected = selectedElements[0];
-	if (selected != null && selected.tagName  == "text" &&
-		selectedElements[1] == null) 
-	{
-		changeSelectedAttribute("font-style", i ? "italic" : "normal");
-	}
-	if(!selectedElements[0].textContent) {
-		textActions.setCursor();
-	}
+	var selectedElems = selectedElements.filter(Boolean)
+	selectedElems.forEach(function(selected){
+	  if (selected != null && selected.tagName  == "text") changeSelectedAttribute("font-style", i ? "italic" : "normal");
+  });
+	if (!selectedElems[0].textContent) textActions.setCursor();
 };
 
 // Function: getFontFamily
