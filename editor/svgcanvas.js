@@ -8454,28 +8454,31 @@ this.ungroupSelectedElement = function() {
 // Repositions the selected element to the bottom in the DOM to appear on top of
 // other elements
 this.moveToTopSelectedElement = function() {
-	var selected = selectedElements[0];
-	if (selected != null) {
-		var t = selected;
+	var selected = selectedElements.filter(Boolean).reverse();
+	var batchCmd = new BatchCommand("Move to top");
+	selected.forEach(function(element){
+		var t = element;
 		var oldParent = t.parentNode;
 		var oldNextSibling = t.nextSibling;
 		t = t.parentNode.appendChild(t);
 		// If the element actually moved position, add the command and fire the changed
 		// event handler.
 		if (oldNextSibling != t.nextSibling) {
-			addCommandToHistory(new MoveElementCommand(t, oldNextSibling, oldParent, "top"));
+			batchCmd.addSubCommand(new MoveElementCommand(t, oldNextSibling, oldParent, "top"));
 			call("changed", [t]);
 		}
-	}
+		if (!batchCmd.isEmpty()) addCommandToHistory(batchCmd);
+	})
 };
 
 // Function: moveToBottomSelectedElement
 // Repositions the selected element to the top in the DOM to appear under 
 // other elements
 this.moveToBottomSelectedElement = function() {
-	var selected = selectedElements[0];
-	if (selected != null) {
-		var t = selected;
+	var selected = selectedElements.filter(Boolean).reverse();
+	var batchCmd = new BatchCommand("Move to top");
+	selected.forEach(function(element){
+		var t = element;
 		var oldParent = t.parentNode;
 		var oldNextSibling = t.nextSibling;
 		var firstChild = t.parentNode.firstChild;
@@ -8491,10 +8494,11 @@ this.moveToBottomSelectedElement = function() {
 		// If the element actually moved position, add the command and fire the changed
 		// event handler.
 		if (oldNextSibling != t.nextSibling) {
-			addCommandToHistory(new MoveElementCommand(t, oldNextSibling, oldParent, "bottom"));
+			batchCmd.addSubCommand(new MoveElementCommand(t, oldNextSibling, oldParent, "bottom"));
 			call("changed", [t]);
 		}
-	}
+	})
+	if (!batchCmd.isEmpty()) addCommandToHistory(batchCmd);
 };
 
 // Function: moveUpDownSelected
@@ -8504,36 +8508,40 @@ this.moveToBottomSelectedElement = function() {
 // Parameters: 
 // dir - String that's either 'Up' or 'Down'
 this.moveUpDownSelected = function(dir) {
-	var selected = selectedElements[0];
-	if (!selected) return;
-	curBBoxes = [];
-	var closest, found_cur;
-	// jQuery sorts this list
-	var list = $(getIntersectionList(getStrokedBBox([selected]))).toArray();
-	if(dir == 'Down') list.reverse();
+	var selected = selectedElements.filter(Boolean);
+	if(dir == 'Down') selected.reverse();
+	var batchCmd = new BatchCommand("Move " + dir);
+	selected.forEach(function(selected){
+		curBBoxes = [];
+		var closest, found_cur;
+		// jQuery sorts this list
+		var list = $(getIntersectionList(getStrokedBBox([selected]))).toArray();
+		if(dir == 'Down') list.reverse();
 
-	$.each(list, function() {
-		if(!found_cur) {
-			if(this == selected) {
-				found_cur = true;
+		$.each(list, function() {
+			if(!found_cur) {
+				if(this == selected) {
+					found_cur = true;
+				}
+				return;
 			}
-			return;
+			closest = this;
+			return false;
+		});
+		if(!closest) return;
+		
+		var t = selected;
+		var oldParent = t.parentNode;
+		var oldNextSibling = t.nextSibling;
+		$(closest)[dir == 'Down'?'before':'after'](t);
+		// If the element actually moved position, add the command and fire the changed
+		// event handler.
+		if (oldNextSibling != t.nextSibling) {
+			batchCmd.addSubCommand(new MoveElementCommand(t, oldNextSibling, oldParent, "Move " + dir));
+			call("changed", [t]);
 		}
-		closest = this;
-		return false;
 	});
-	if(!closest) return;
-	
-	var t = selected;
-	var oldParent = t.parentNode;
-	var oldNextSibling = t.nextSibling;
-	$(closest)[dir == 'Down'?'before':'after'](t);
-	// If the element actually moved position, add the command and fire the changed
-	// event handler.
-	if (oldNextSibling != t.nextSibling) {
-		addCommandToHistory(new MoveElementCommand(t, oldNextSibling, oldParent, "Move " + dir));
-		call("changed", [t]);
-	}
+	if (!batchCmd.isEmpty()) addCommandToHistory(batchCmd);
 };
 
 // Function: moveSelectedElements
