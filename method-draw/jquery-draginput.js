@@ -154,7 +154,7 @@ $.fn.dragInput = function(cfg){
       clearTimeout(window.undoTimeout)
   	  window.undoTimeout = setTimeout(function(){
   	    wheel_input.stop()
-  	  },500)
+  	  },200)
   	  
 		  var wheel_input = this;
 			if (deltaY > 0)

@@ -1360,6 +1360,7 @@
 						$('#stroke_style').trigger('change');
 
 	          $.fn.dragInput.updateCursor($('#stroke_width')[0])
+	          $.fn.dragInput.updateCursor($('#blur')[0])
 					}
 	
 				}
@@ -1703,7 +1704,12 @@
 			var changeBlur = function(ctl, completed) {
 				val = ctl.value;
 				$('#blur').val(val);
-				svgCanvas.setBlur(val, true);
+				if (completed) {
+				  svgCanvas.setBlur(val, true);
+				}
+				else {
+				  svgCanvas.setBlurNoUndo(val);
+				}
 			}
 		
 			var operaRepaint = function() {
@@ -2188,20 +2194,20 @@
 		
 			var cutSelected = function() {
 				if (selectedElement != null || multiselected) {
-					if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
+					flash($('#edit_menu'));
 					svgCanvas.cutSelectedElements();
 				}
 			};
 			
 			var copySelected = function() {
 				if (selectedElement != null || multiselected) {
-				  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
+				  flash($('#edit_menu'));
 					svgCanvas.copySelectedElements();
 				}
 			};
 			
 			var pasteSelected = function() {
-			  if (window.event && window.event.type === "keydown") flash($('#edit_menu'));
+			  flash($('#edit_menu'));
 				var zoom = svgCanvas.getZoom();				
 				var x = (workarea[0].scrollLeft + workarea.width()/2)/zoom  - svgCanvas.contentW; 
 				var y = (workarea[0].scrollTop + workarea.height()/2)/zoom  - svgCanvas.contentH;
@@ -2210,35 +2216,35 @@
 			
 			var moveToTopSelected = function() {
 				if (selectedElement != null) {
-				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
+				  flash($('#object_menu'));
 					svgCanvas.moveToTopSelectedElement();
 				}
 			};
 			
 			var moveToBottomSelected = function() {
 				if (selectedElement != null) {
-				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
+				  flash($('#object_menu'));
 					svgCanvas.moveToBottomSelectedElement();
 				}
 			};
 			
 			var moveUpSelected = function() {
 				if (selectedElement != null) {
-			  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
+			  flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected("Up");
 				}
 			};
 
 			var moveDownSelected = function() {
 				if (selectedElement != null) {
-				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
+				  flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected("Down");
 				}
 			};
 			
 			var moveUpDownSelected = function(dir) {
 				if (selectedElement != null) {
-				  if (window.event && window.event.type === "keydown") flash($('#object_menu'));
+				  flash($('#object_menu'));
 					svgCanvas.moveUpDownSelected(dir);
 				}
 			};
@@ -2392,8 +2398,11 @@
 			
 		  var flash = function($menu){
 		    var menu_title = $menu.prev();
-		    menu_title.css("background", "#09f");
-		    setTimeout(function(){menu_title.css("background", "")}, 200);
+		    menu_title.css({
+		      "background": "white",
+		      "color": "black"
+		    });
+		    setTimeout(function(){menu_title.removeAttr("style")}, 200);
 		  }
 		  
 			var clickUndo = function(){
