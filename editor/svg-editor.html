@@ -123,10 +123,10 @@
   <div class="menu">
     <div class="menu_title">Object</div>
   	<div class="menu_list"  id="object_menu">
-			<div class="menu_item action_selected disabled" id="tool_move_top">Bring to Front <span class="shortcut">⌘⇧&uarr;</span></div>
-			<div class="menu_item action_selected disabled" id="tool_move_up">Bring Forward <span class="shortcut">⌘&uarr;</span></div>
-			<div class="menu_item action_selected disabled" id="tool_move_down">Send Backward <span class="shortcut">⌘&darr;</span></div>
-			<div class="menu_item action_selected disabled" id="tool_move_bottom">Send to Back <span class="shortcut">⌘⇧&darr;</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_top">Bring to Front <span class="shortcut">⌘⇧↑</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_up">Bring Forward <span class="shortcut">⌘↑</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_down">Send Backward <span class="shortcut">⌘↓</span></div>
+			<div class="menu_item action_selected disabled" id="tool_move_bottom">Send to Back <span class="shortcut">⌘⇧↓</span></div>
 			<div class="separator"></div>
 			<div class="menu_item action_multi_selected disabled" id="tool_group">Group Elements <span class="shortcut">⌘G</span></div>
 			<div class="menu_item action_group_selected disabled" id="tool_ungroup">Ungroup Elements <span class="shortcut">⌘⇧G</span></div>
@@ -322,7 +322,7 @@
 		  <div class="caret"></div>
 			<input id="font_family" data-title="Change Font Family" size="12" type="hidden" />
 			<select id="font_family_dropdown">
-				  <option value="Helvetica, Arial, sans-serif" selected>Helvetica</option>
+				  <option value="Helvetica, Arial, sans-serif" selected="selected">Helvetica</option>
 					<!--<option value="Arvo, sans-serif">Arvo</option>
 					<option value="Euphoria, sans-serif">Euphoria</option>
 					<option value="Oswald, sans-serif">Oswald</option>
@@ -348,10 +348,6 @@
 
 	<!-- formerly gsvg_panel -->
 	<div id="container_panel" class="context_panel clearfix">
-
-		<!-- Add viewBox field here? -->
-
-		<label id="group_title" data-title="Group identification label">
 		  <h4>Group</h4>
 	</div>
 	
@@ -395,7 +391,7 @@
 		
 		<label class="draginput checkbox" id="tool_node_link" data-title="Link Control Points">
 		  <span>Linked Control Points</span>
-		  <div class="push_bottom"><input type="checkbox" checked></div>
+		  <div class="push_bottom"><input type="checkbox" checked="checked" /></div>
 		</label>
 		
 		<div class="clearfix"></div>
@@ -462,7 +458,7 @@
   			<option id="page" value="page">Align to page</option>
   			</select>
   		</label>
-		  <h4>&nbsp;</h4>
+		  <h4> </h4>
     		<div class="col last clear">
       		<div class="draginput_cell" id="tool_alignleft" title="Align Left"></div>
       		<div class="draginput_cell" id="tool_aligncenter" title="Align Center"></div>
@@ -488,14 +484,14 @@
   	<div class="stroke_tool draginput"> 
   	  <span>Stroke Dash</span>
   		<select id="stroke_style" data-title="Change stroke dash style">
-  			<option selected="selected" value="none">&mdash;</option>
+  			<option selected="selected" value="none">—</option>
   			<option value="2,2">···</option>
   			<option value="5,5">- -</option>
   			<option value="5,2,2,2">-·-</option>
   			<option value="5,2,2,2,2,2">-··-</option>
   		</select>
   		<div class="caret"></div>
-  		<label id="stroke_style_label">&mdash;</label>
+  		<label id="stroke_style_label">—</label>
   	</div>
 		
     <label style="display: none;">
@@ -556,7 +552,7 @@
   		  <option value="25">25%</option>
   		  <option value="50">50%</option>
   		  <option value="75">75%</option>
-  		  <option selected value="100">100%</option>
+  		  <option value="100"  selected="selected">100%</option>
   		  <option value="150">150%</option>
   		  <option value="200">200%</option>
   		  <option value="300">300%</option>
@@ -625,10 +621,10 @@
 	<li class="separator"><a href="#delete">Delete<span class="shortcut">⌫</span></a></li>
 	<li class="separator"><a href="#group">Group<span class="shortcut">⌘G</span></a></li>
 	<li><a href="#ungroup">Ungroup<span class="shortcut">⌘⇧G</span></a></li>
-  <li class="separator"><a href="#move_front">Bring to Front<span class="shortcut">⌘⇧&uarr;</span></a></li>
-	<li><a href="#move_up">Bring Forward<span class="shortcut">⌘&uarr;</span></a></li>
-	<li><a href="#move_down">Send Backward<span class="shortcut">⌘&darr;</span></a></li>
-  <li><a href="#move_back">Send to Back<span class="shortcut">⌘⇧&darr;</span></a></li>
+  <li class="separator"><a href="#move_front">Bring to Front<span class="shortcut">⌘⇧↑</span></a></li>
+	<li><a href="#move_up">Bring Forward<span class="shortcut">⌘↑</span></a></li>
+	<li><a href="#move_down">Send Backward<span class="shortcut">⌘↓</span></a></li>
+  <li><a href="#move_back">Send to Back<span class="shortcut">⌘⇧↓</span></a></li>
 </ul>
 
 </body>

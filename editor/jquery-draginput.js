@@ -97,14 +97,14 @@ $.fn.dragInput = function(cfg){
   	}
   	
   	this.updateCursor = function(){
-  	  var value = parseFloat(this.value)
-  		var pos = (value*-1)/scale+cursorHeight
-  		$cursor.css("top", pos)
+  	  var value = parseFloat(this.value);
+  		var pos = (value*-1)/scale+cursorHeight;
+  		$cursor.css("top", pos);
   	}
   	
-  	this.start = function(e) {
+  	this.launch = function(e) {
   	  var selectedElems = canvas.getSelectedElems();
-  	  if (isTouch) e = e.originalEvent.touches[0]
+  	  if (isTouch) e = e.originalEvent.touches[0];
 		  var oy = e.pageY;
 		  var val = this.value;
 		  var el = this;
@@ -123,7 +123,7 @@ $.fn.dragInput = function(cfg){
 		  		
 		.bind("mousedown touchstart", function(e){
 		  this.blur();
-		  this.start(e);
+		  this.launch(e);
 		})
 		
 		.bind("dblclick taphold", function(e) {

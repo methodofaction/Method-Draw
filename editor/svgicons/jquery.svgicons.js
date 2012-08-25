@@ -173,7 +173,6 @@ $(function() {
 						} else {
 							if(err.responseText) {
 								svgdoc = parser.parseFromString(err.responseText, "text/xml");
-
 								if(!svgdoc.childNodes.length) {
 									$(useFallback);									
 								}
