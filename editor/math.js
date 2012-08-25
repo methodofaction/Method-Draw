@@ -236,7 +236,7 @@ svgedit.math.snapToAngle = function(x1,y1,x2,y2) {
 // Returns:
 // Boolean that's true if rectangles intersect
 svgedit.math.rectsIntersect = function(r1, r2) {
-  if (typeof r1 == 'undefined' || typeof r2 == 'undefined') return false;
+  if (!r1 || !r2) return false;
 	return r2.x < (r1.x+r1.width) && 
 		(r2.x+r2.width) > r1.x &&
 		r2.y < (r1.y+r1.height) &&

@@ -2444,6 +2444,8 @@
 			
 			var clickSwitch = function() {
 				var stroke_rect = document.querySelector('#tool_stroke rect');
+				$("#tool_stroke").toggleClass('active')
+				$("#tool_fill").toggleClass('active')
 				var fill_rect = document.querySelector('#tool_fill rect');
 				var fill_color = fill_rect.getAttribute("fill");
 				var stroke_color = stroke_rect.getAttribute("fill");

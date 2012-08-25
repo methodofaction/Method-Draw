@@ -733,7 +733,6 @@ getStrokedBBox = this.getStrokedBBox = function(elems) {
 			return bb;
 		} catch(e) { 
 			console.log(elem, e);
-			return null;
 		} 
 	};
 
@@ -2293,7 +2292,7 @@ this.selectAllInCurrentLayer = function() {
 // Returns:
 // DOM element we want
 var getMouseTarget = this.getMouseTarget = function(evt) {
-	if (evt == null) {
+	if (evt == null || evt.target == null) {
 		return null;
 	}
 	var mouse_target = evt.target;
@@ -2328,7 +2327,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 		return selectorManager.selectorParentGroup;
 	}
 
-	while (mouse_target.parentNode !== (current_group || current_layer)) {
+	while (mouse_target.parentNode && mouse_target.parentNode !== (current_group || current_layer)) {
 		mouse_target = mouse_target.parentNode;
 	}
 	
@@ -5137,9 +5136,11 @@ var removeUnusedDefElems = this.removeUnusedDefElems = function() {
 	for(var i=0; i<all_len; i++) {
 		var el = all_els[i];
 		for(var j = 0; j < alen; j++) {
-			var ref = getUrlFromAttr(el.getAttribute(attrs[j]));
-			if(ref) {
-				defelem_uses.push(ref.substr(1));
+		  if(el) {
+  			var ref = getUrlFromAttr(el.getAttribute(attrs[j]));
+  			if(ref) {
+  				defelem_uses.push(ref.substr(1));
+  			}
 			}
 		}
 		
