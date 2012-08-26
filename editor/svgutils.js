@@ -298,7 +298,7 @@ svgedit.utilities.getUrlFromAttr = function(attrVal) {
 // Function: svgedit.utilities.getHref
 // Returns the given element's xlink:href value
 svgedit.utilities.getHref = function(elem) {
-	return elem.getAttributeNS(XLINKNS, "href");
+	if (elem) return elem.getAttributeNS(XLINKNS, "href");
 }
 
 // Function: svgedit.utilities.setHref
