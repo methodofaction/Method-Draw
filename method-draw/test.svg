@@ -1,0 +1,17 @@
+  <svg version="1.1" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="150px" height="125px" viewBox="0 0 150 125" enable-background="new 0 0 150 125" xml:space="preserve">
+<path fill="none" stroke="#E26161" d="M1.295,1"/>
+<path fill="none" stroke="#E26161" d="M1.295,125"/>
+<path fill="none" stroke="#000000" d="M-9.681-16.75"/>
+<path fill="none" stroke="#000000" d="M93.751,21.722"/>
+<path fill="none" stroke="#000000" d="M151.887,123.541"/>
+<path fill="none" stroke="#000000" d="M77.072,62.437"/>
+<path fill="none" stroke="#000000" d="M2.328,1.391"/>
+<path fill="none" stroke="#E26161" d="M77.072,62.437"/>
+<path fill="none" stroke="#E26161" d="M1.295,0.667"/>
+<line fill="none" stroke="#E26161" x1="149.043" y1="125" x2="149.043" y2="0"/>
+<line fill="none" stroke="#E26161" x1="75.022" y1="62.5" x2="149.043" y2="0"/>
+<line fill="none" stroke="#111111" x1="1" y1="124.938" x2="75.022" y2="62.437"/>
+<line fill="none" stroke="#E26161" x1="1" y1="0" x2="75.28" y2="62.906"/>
+<line fill="none" stroke="#E26161" x1="1" y1="125" x2="1" y2="0"/>
+</svg>
