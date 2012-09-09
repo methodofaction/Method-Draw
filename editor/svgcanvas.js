@@ -4682,6 +4682,7 @@ var pathActions = canvas.pathActions = function() {
 			}
 		},
 		getNodePoint: function() {
+			if (!svgedit.path.path) return;
 			var sel_pt = svgedit.path.path.selected_pts.length ? svgedit.path.path.selected_pts[0] : 1;
 
 			var seg = svgedit.path.path.segs[sel_pt];
@@ -4886,7 +4887,7 @@ var pathActions = canvas.pathActions = function() {
 			
 			// Completely delete a path with 1 or 0 segments
 			if(svgedit.path.path.elem.pathSegList.numberOfItems <= 1) {
-				pathActions.toSelectMode(svgedit.path.path.elem);
+				canvas.setMode("select")
 				canvas.deleteSelectedElements();
 				return;
 			}

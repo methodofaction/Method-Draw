@@ -330,25 +330,25 @@
 			Editor.canvas = svgCanvas = new $.SvgCanvas(document.getElementById("svgcanvas"), curConfig);
 			Editor.show_save_warning = false;
 			Editor.paintBox = {fill: null, stroke:null, canvas:null};
-			var palette = ["#482816", "#422C10", "#3B2F0E", "#32320F", 
+			var palette = ["#444444", "#482816", "#422C10", "#3B2F0E", "#32320F", 
 										 "#293414", "#1F361B", "#153723", "#0C372C", 
 										 "#083734", "#0E353B", "#1A333F", "#273141", 
 										 "#332D40", "#3E2A3C", "#462735", "#4B252D", 
-										 "#4D2425", "#4C261D", "#845335", "#7B572D", 
+										 "#4D2425", "#4C261D", "#666666", "#845335", "#7B572D", 
 										 "#6F5C2A", "#62612C", "#546433", "#46673D", 
 										 "#396849", "#306856", "#2D6862", "#33666C", 
 										 "#426373", "#535F75", "#645A73", "#74556D", 
 										 "#805064", "#884D58", "#8B4D4B", "#894F3F", 
-										 "#C48157", "#B8874D", "#A98E49", "#97944B", 
+										 "#999999", "#C48157", "#B8874D", "#A98E49", "#97944B", 
 										 "#849854", "#729C62", "#619E73", "#559E84", 
 										 "#529D94", "#5B9BA2", "#6D97AB", "#8391AE", 
 										 "#9A8AAB", "#AF84A3", "#BF7E96", "#C97A86", 
-										 "#CE7975", "#CC7C65", "#FFB27C", "#FABA6F", 
+										 "#CE7975", "#CC7C65", "#BBBBBB", "#FFB27C", "#FABA6F", 
 										 "#E6C36A", "#CFCA6D", "#B8D078", "#A0D58A",
 										 "#8CD79F", "#7DD8B5", "#7AD6CA", "#84D3DB", 
 										 "#9ACEE6", "#B6C7EA", "#D3BEE7", "#EDB6DC", 
 										 "#FFAFCC", "#FFAAB8", "#FFA9A2", "#FFAC8D", 
-										 "#FFE7A2", "#FFF093", "#FFFA8D", "#FFFF91", 
+										 "#DDDDDD", "#FFE7A2", "#FFF093", "#FFFA8D", "#FFFF91", 
 										 "#EEFF9F", "#D1FFB4", "#B9FFCE", "#A8FFE9", 
 										 "#A4FFFF", "#B1FFFF", "#CBFFFF", "#EDFFFF", 
 										 "#FFF5FF", "#FFEBFF", "#FFE2FF", "#FFDCEC", 
@@ -2183,12 +2183,15 @@
 					svgCanvas.setMode('path');
 				}
 			};
-			
+			console.log(path.getNodePoint());
 			// Delete is a contextual tool that only appears in the ribbon if
 			// an element has been selected
 			var deleteSelected = function() {
 				if (selectedElement != null || multiselected) {
 					svgCanvas.deleteSelectedElements();
+				}
+				if (path.getNodePoint()) {
+					path.deletePathNode();
 				}
 			};
 		
@@ -2290,12 +2293,7 @@
 			};
 		
 			var linkControlPoints = function() {
-				var linked = !$('#tool_node_link').hasClass('checked');
-				if (linked)
-					$('#tool_node_link').addClass('checked').find("input").attr("checked", true);
-				else
-					$('#tool_node_link').removeClass('checked').find("input").attr("checked", false);
-					
+				var linked = !$('#tool_node_link').hasClass('checked');					
 				path.linkControlPoints(linked);
 			}
 		

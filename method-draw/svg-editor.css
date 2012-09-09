@@ -287,7 +287,7 @@ html, body {
 
  .palette_item {
 	height: 20%;
-	width: 5.4%;
+	width: 5.2%;
 	float: left;
 	cursor: url(images/eyedropper.png) 0 16, crosshair;
 }
@@ -1870,6 +1870,10 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 	  cursor: url(images/drag.png), move;
 	  cursor: -webkit-grab;
 		cursor: -moz-grab;
+}
+
+.draginput input[type="checkbox"], .draginput input[type="checkbox"]:hover, .draginput input[type="checkbox"]:active {  
+	  cursor: default;
 }
 
 .draginput.active input, .draginput.active input:hover, .draginput.active input:active {  

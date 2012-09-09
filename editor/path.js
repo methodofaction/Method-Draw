@@ -314,6 +314,7 @@ svgedit.path.getSegSelector = function(seg, update) {
 			'display': 'none',
 			'fill': "none",
 			'stroke': "#0ff",
+			'stroke-opacity': 1,
 			"shape-rendering": "crispEdges",
 			'stroke-width': 2,
 			'style':'pointer-events:none',
@@ -429,7 +430,8 @@ svgedit.path.Segment.prototype.show = function(y) {
 
 svgedit.path.Segment.prototype.select = function(y) {
 	if(this.ptgrip) {
-		this.ptgrip.setAttribute("stroke", y ? "#0FF" : "#00F");
+		this.ptgrip.setAttribute("stroke", y ? "#4F80FF" : "#4F80FF");
+		this.ptgrip.setAttribute("fill", y ? "#4F80FF" : "#fff");
 		this.segsel.setAttribute("display", y ? "inline" : "none");
 		if(this.ctrlpts) {
 			this.selectCtrls(y);
