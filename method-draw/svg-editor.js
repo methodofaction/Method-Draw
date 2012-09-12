@@ -2183,7 +2183,7 @@
 					svgCanvas.setMode('path');
 				}
 			};
-			console.log(path.getNodePoint());
+
 			// Delete is a contextual tool that only appears in the ribbon if
 			// an element has been selected
 			var deleteSelected = function() {
@@ -2293,7 +2293,8 @@
 			};
 		
 			var linkControlPoints = function() {
-				var linked = !$('#tool_node_link').hasClass('checked');					
+				var linked = document.getElementById('tool_node_link').checked;
+				console.log(linked);
 				path.linkControlPoints(linked);
 			}
 		
@@ -3253,7 +3254,7 @@
 					{sel:'#tool_source_save', fn: saveSourceEditor, evt: 'click'},
 					{sel:'#tool_delete,#tool_delete_multi', fn: deleteSelected, evt: 'click', key: ['del/backspace', true]},
 					{sel:'#tool_reorient', fn: reorientPath, evt: 'click'},
-					{sel:'#tool_node_link', fn: linkControlPoints, evt: 'click'},
+					{sel:'#tool_node_link', fn: linkControlPoints, evt: 'change'},
 					{sel:'#tool_node_clone', fn: clonePathNode, evt: 'click'},
 					{sel:'#tool_node_delete', fn: deletePathNode, evt: 'click'},
 					{sel:'#tool_openclose_path', fn: opencloseSubPath, evt: 'click'},

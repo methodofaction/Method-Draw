@@ -4625,7 +4625,7 @@ var pathActions = canvas.pathActions = function() {
 			if (drawn_path) {
 				var elem = getElem(getId());
 				$(getElem("path_stretch_line")).remove();
-				$(elem).remove();
+				if (remove) $(elem).remove();
 				$(getElem("pathpointgrip_container")).find('*').attr('display', 'none');
 				drawn_path = firstCtrl = null;
 				started = false;
@@ -6896,7 +6896,8 @@ this.getMode = function() {
 // Parameters:
 // name - String with the new mode to change to
 this.setMode = function(name) {
-	pathActions.clear(true);
+	
+	pathActions.clear();
 	textActions.clear();
 	$("#workarea").attr("class", name);
 	cur_properties = (selectedElements[0] && selectedElements[0].nodeName == 'text') ? cur_text : cur_shape;

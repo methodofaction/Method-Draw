@@ -1873,7 +1873,11 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 .draginput input[type="checkbox"], .draginput input[type="checkbox"]:hover, .draginput input[type="checkbox"]:active {  
-	  cursor: default;
+	  cursor: pointer;
+}
+
+.draginput.checkbox {
+	cursor: pointer;
 }
 
 .draginput.active input, .draginput.active input:hover, .draginput.active input:active {  

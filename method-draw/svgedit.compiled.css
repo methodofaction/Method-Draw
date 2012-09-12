@@ -381,7 +381,8 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 #preview_font{font-size:20px;color:#fff;height:70px;line-height:75px;padding:0 0 0 10px;white-space:nowrap;width:100px;overflow:hidden;border-right:solid #2f2f2c 2px;position:relative}
 #preview_font:after{content:'';position:absolute;right:0;top:3px;bottom:3px;width:15px;border-right:solid #3f3f3c 10px;background:transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iZzU4MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBzdG9wLWNvbG9yPSIjM2YzZjNjIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzZjNmM2MiIG9mZnNldD0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c1ODApIiAvPjwvc3ZnPg==)}
 .draginput input,.draginput input:hover,.draginput input:active{cursor:url(images/drag.png),move;cursor:-webkit-grab;cursor:-moz-grab}
-.draginput input[type="checkbox"],.draginput input[type="checkbox"]:hover,.draginput input[type="checkbox"]:active{cursor:default}
+.draginput input[type="checkbox"],.draginput input[type="checkbox"]:hover,.draginput input[type="checkbox"]:active{cursor:pointer}
+.draginput.checkbox{cursor:pointer}
 .draginput.active input,.draginput.active input:hover,.draginput.active input:active{cursor:url(images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
 .draginput span{font:11px/130% sans-serif;color:#ccc;display:block;position:absolute;top:5px;left:5px;text-align:left}
 .draginput.error{background:#900}
