@@ -76,6 +76,7 @@ svgedit.path.insertItemBefore = function(elem, newseg, index) {
 		list.insertItemBefore(newseg, index);
 		return;
 	}
+	//TODO!!!
 	var len = list.numberOfItems;
 	var arr = [];
 	for(var i=0; i<len; i++) {
