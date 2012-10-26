@@ -3260,7 +3260,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 								cur_properties.stroke_linejoin = selected.getAttribute("stroke-linejoin");
 								cur_properties.stroke_linecap = selected.getAttribute("stroke-linecap");
 						}
-
 						if (selected.tagName == "text") {
 							cur_text.font_size = selected.getAttribute("font-size");
 							cur_text.font_family = selected.getAttribute("font-family");
@@ -3272,8 +3271,16 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					}
 					// always recalculate dimensions to strip off stray identity transforms
 					recalculateAllSelectedDimensions();
+
 					// if it was being dragged/resized
-					if (real_x != r_start_x || real_y != r_start_y) {
+					var isBotchedZoom = svgedit.browser.isGecko();
+					r_start_x = isBotchedZoom ? r_start_x * current_zoom : r_start_x; 
+					r_start_y = isBotchedZoom ? r_start_y * current_zoom : r_start_y; 
+					var difference_x = Math.abs(real_x-r_start_x);
+					var difference_y = Math.abs(real_y-r_start_y);
+
+					console.log(difference_x, difference_y)
+					if (difference_y > 1 || difference_y > 1) {
 						var len = selectedElements.length;
 						for	(var i = 0; i < len; ++i) {
 							if (selectedElements[i] == null) break;
@@ -3407,7 +3414,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 				started = true;
 				
 				var res = pathActions.mouseUp(evt, element, mouse_x, mouse_y);
-				element = res.element
+				element = res.element;
 				keep = res.keep;
 				break;
 			case "pathedit":
@@ -3523,12 +3530,10 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	var dblClick = function(evt) {
 		var evt_target = evt.target;
 		var parent = evt_target.parentNode;
-		
-		// Do nothing if already in current group
-		if(parent === current_group) return;
-		
 		var mouse_target = getMouseTarget(evt);
 		var tagName = mouse_target.tagName;
+
+		if(parent === current_group) return;
 		
 		if(tagName === 'text' && current_mode !== 'textedit') {
 			var pt = transformPoint( evt.pageX, evt.pageY, root_sctm );
@@ -4064,7 +4069,10 @@ var pathActions = canvas.pathActions = function() {
 
 	var current_path = null,
 		drawn_path = null,
-		hasMoved = false;
+		hasMoved = false,
+		stretchy = null;
+
+	this.lastCtrlPoint = [0, 0];
 	
 	// This function converts a polyline (created by the fh_path tool) into
 	// a path element and coverts every three line segments into a single bezier
@@ -4164,6 +4172,8 @@ var pathActions = canvas.pathActions = function() {
 					stretchy = getElem("selectorParentGroup").appendChild(stretchy);
 				}
 				stretchy.setAttribute("display", "inline");
+
+				this.stretchy = stretchy;
 				
 				var keep = null;
 				
@@ -4183,6 +4193,7 @@ var pathActions = canvas.pathActions = function() {
 					stretchy.setAttribute('d', ['M', mouse_x, mouse_y, mouse_x, mouse_y].join(' '));
 					var index = subpath ? svgedit.path.path.segs.length : 0;
 					svgedit.path.addPointGrip(index, mouse_x, mouse_y);
+					svgedit.path.first_grip = null;
 				}
 				else {
 					// determine if we clicked on an existing point
@@ -4218,9 +4229,12 @@ var pathActions = canvas.pathActions = function() {
 						// then leave the path open
 						// otherwise, close the path
 						if (i <= 1 && len >= 2) {
+
 							// Create end segment
 							var abs_x = seglist.getItem(0).x;
 							var abs_y = seglist.getItem(0).y;
+							var grip_x = svgedit.path.first_grip ? svgedit.path.first_grip[0]/current_zoom : seglist.getItem(0).x;
+							var grip_y = svgedit.path.first_grip ? svgedit.path.first_grip[1]/current_zoom : seglist.getItem(0).y;
 							
 
 							var s_seg = stretchy.pathSegList.getItem(1);
@@ -4232,11 +4246,10 @@ var pathActions = canvas.pathActions = function() {
 									abs_y,
 									s_seg.x1 / current_zoom,
 									s_seg.y1 / current_zoom,
-									abs_x,
-									abs_y
+									grip_x,
+									grip_y
 								);
 							}
-							
 							var endseg = drawn_path.createSVGPathSegClosePath();
 							seglist.appendItem(newseg);
 							seglist.appendItem(endseg);
@@ -4250,8 +4263,8 @@ var pathActions = canvas.pathActions = function() {
 						element = newpath;
 						drawn_path = null;
 						started = false;
-
 						if(subpath) {
+
 							if(svgedit.path.path.matrix) {
 								remapElement(newpath, {}, svgedit.path.path.matrix.inverse());
 							}
@@ -4268,6 +4281,7 @@ var pathActions = canvas.pathActions = function() {
 							svgedit.path.path.selectPt();
 							return false;
 						}
+
 					}
 					// else, create a new point, update path element
 					else {
@@ -4304,15 +4318,34 @@ var pathActions = canvas.pathActions = function() {
 						x *= current_zoom;
 						y *= current_zoom;
 						
-						// set stretchy line to latest point
+						// update everything to the latest point
 						stretchy.setAttribute('d', ['M', x, y, x, y].join(' '));
+						var pointGrip1 = svgedit.path.addCtrlGrip('1c1');
+						var pointGrip2 = svgedit.path.addCtrlGrip('0c2');
+						var ctrlLine = svgedit.path.getCtrlLine(1);
+						var ctrlLine2 = svgedit.path.getCtrlLine(2);
+
+						pointGrip1.setAttribute('cx', x);
+						pointGrip1.setAttribute('cy', y);
+						pointGrip2.setAttribute('cx', x);
+						pointGrip2.setAttribute('cy', y);
+
+						ctrlLine.setAttribute('x1', x);
+						ctrlLine.setAttribute('x2', x);
+						ctrlLine.setAttribute('y1', y);
+						ctrlLine.setAttribute('y2', y);
+
+						ctrlLine2.setAttribute('x1', x);
+						ctrlLine2.setAttribute('x2', x);
+						ctrlLine2.setAttribute('y1', y);
+						ctrlLine2.setAttribute('y2', y);
+
 						var index = num;
 						if(subpath) index += svgedit.path.path.segs.length;
 						svgedit.path.addPointGrip(index, x, y);
 					}
- // 					keep = true;
+   					keep = true;
 				}
-				
 				return;
 			}
 			
@@ -4346,7 +4379,82 @@ var pathActions = canvas.pathActions = function() {
 				var parts = id.split('_')[1].split('c');
 				var cur_pt = parts[0]-0;
 				var ctrl_num = parts[1]-0;
+				var num = ctrl_num;
+				var path = svgedit.path.path.segs[cur_pt];
+
 				svgedit.path.path.selectPt(cur_pt, ctrl_num);
+
+				/////////////////
+				//check if linked
+				var seg, anum, pt;
+				if (num == 2) {
+					anum = 1;
+					seg = path.next;
+					if(!seg) return;
+					pt = path.item;
+				} else {
+					anum = 2;
+					seg = path.prev;
+					if(!seg) return;
+					pt = seg.item;
+				}
+
+				var get_distance = function(pt1, pt2) {
+					var a = pt1.x - pt2.x;
+					var b = pt1.y - pt2.y;
+					return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+				}
+
+				function get_angle(pt1, pt2)
+				{
+					var dy = pt1.y - pt2.y;
+					var dx = pt1.x - pt2.x;
+					var theta = Math.atan2(dy, dx);
+					return theta *= 180/Math.PI // rads to degs
+				}
+
+				var grip = {
+					x: path.item["x" + num],
+					y: path.item["y" + num]
+				}
+
+				if (num == 2) {
+					var node = {
+						x: path.item["x"],
+						y: path.item["y"]
+					}
+				}
+				else {
+					var node = {
+						x: seg.item["x"],
+						y: seg.item["y"]
+					}
+				}
+
+				var pair = {
+					x: seg.item["x" + anum],
+					y: seg.item["y" + anum]
+				}
+
+				var distance_between_node_grip = get_distance(grip, node);
+				var distance_between_pair_grip = get_distance(pair, node);
+				var angle_grip = Math.round(get_angle(grip, node), 0);
+				var angle_pair = Math.round(get_angle(pair, node), 0);
+				var is_complementary = (Math.abs(angle_grip - angle_pair) == 180);
+				//console.log("distance: " + Math.abs(distance_between_node_grip - distance_between_pair_grip) + " angle = " + (Math.round(Math.abs(get_angle(grip, node)) + Math.abs(get_angle(pair, node)), 0)))
+				if (Math.abs(distance_between_node_grip - distance_between_pair_grip) < 5 && is_complementary) {
+					svgedit.path.setLinkControlPoints(true);
+					svgedit.path.is_linked = true;
+				}
+				else {
+					svgedit.path.setLinkControlPoints(false);
+					svgedit.path.is_linked = false;
+				}
+
+
+				///////
+
+
 			}
 
 			// Start selection box
@@ -4365,20 +4473,21 @@ var pathActions = canvas.pathActions = function() {
 		},
 		mouseMove: function(evt, mouse_x, mouse_y) {
 			hasMoved = true;
+			var is_linked = !evt.altKey;
 			if(current_mode === "path") {
 				if(!drawn_path) return;
 				var seglist = drawn_path.pathSegList;
 				var index = seglist.numberOfItems - 1;
+				var pointGrip1 = svgedit.path.addCtrlGrip('1c1'); 
+				var pointGrip2 = svgedit.path.addCtrlGrip('0c2');
 
 				if(newPoint) {
 					// First point
-// 					if(!index) return;
 
 					// Set control points
-					var pointGrip1 = svgedit.path.addCtrlGrip('1c1'); 
-					var pointGrip2 = svgedit.path.addCtrlGrip('0c2');
-					var current_pointGrip2_x = pointGrip2.getAttribute('cx') || 0;
-					var current_pointGrip2_y = pointGrip2.getAttribute('cy') || 0;
+					var current_pointGrip2_x = pointGrip2.getAttribute('cx') / current_zoom || 0;
+					var current_pointGrip2_y = pointGrip2.getAttribute('cy') / current_zoom || 0;
+
 					// dragging pointGrip1
 					pointGrip1.setAttribute('cx', mouse_x);
 					pointGrip1.setAttribute('cy', mouse_y);
@@ -4391,8 +4500,8 @@ var pathActions = canvas.pathActions = function() {
 					var seg = seglist.getItem(index);
 					var cur_x = mouse_x / current_zoom;
 					var cur_y = mouse_y / current_zoom;
-				  var alt_x = (pt_x + (pt_x - cur_x));
-				  var alt_y = (pt_y + (pt_y - cur_y));
+				  var alt_x = (is_linked) ?  (pt_x + (pt_x - cur_x)) : current_pointGrip2_x;
+				  var alt_y = (is_linked) ?  (pt_y + (pt_y - cur_y)) : current_pointGrip2_y;
 					
 					
 				  pointGrip2.setAttribute('cx', alt_x * current_zoom);
@@ -4436,16 +4545,26 @@ var pathActions = canvas.pathActions = function() {
 							last_x = firstCtrl[0]/current_zoom;
 							last_y = firstCtrl[1]/current_zoom;
 						}
-						svgedit.path.replacePathSeg(6, index, [pt_x, pt_y, last_x, last_y, alt_x, alt_y], drawn_path);
+						svgedit.path.replacePathSeg(6, index, [pt_x, pt_y, this.lastCtrlPoint[0]/current_zoom, this.lastCtrlPoint[1]/current_zoom, alt_x, alt_y], drawn_path);
 					}
 				} else {
-					var stretchy = getElem("path_stretch_line");
+					var stretchy = this.stretchy;
 					if (stretchy) {
 						var prev = seglist.getItem(index);
+						var lastpoint = (evt.target.id === 'pathpointgrip_0');
+
+						var lastgripx = mouse_x;
+						var lastgripy = mouse_y;
+
+						if (lastpoint && svgedit.path.first_grip) {
+							lastgripx = svgedit.path.first_grip[0];
+							lastgripy = svgedit.path.first_grip[1];
+						}
+
 						if(prev.pathSegType === 6) {
-							var prev_x = prev.x + (prev.x - prev.x2);
-							var prev_y = prev.y + (prev.y - prev.y2);
-							svgedit.path.replacePathSeg(6, 1, [mouse_x, mouse_y, prev_x * current_zoom, prev_y * current_zoom, mouse_x, mouse_y], stretchy);							
+							var prev_x = this.lastCtrlPoint[0]/current_zoom || prev.x + (prev.x - prev.x2);
+							var prev_y = this.lastCtrlPoint[1]/current_zoom || prev.y + (prev.y - prev.y2);
+							svgedit.path.replacePathSeg(6, 1, [mouse_x, mouse_y, prev_x * current_zoom, prev_y * current_zoom, lastgripx, lastgripy], stretchy);							
 						} else if(firstCtrl) {
 							svgedit.path.replacePathSeg(6, 1, [mouse_x, mouse_y, firstCtrl[0], firstCtrl[1], mouse_x, mouse_y], stretchy);
 						} else {
@@ -4467,19 +4586,22 @@ var pathActions = canvas.pathActions = function() {
 				}, svgedit.path.path);
 				var diff_x = mpt.x - pt.x;
 				var diff_y = mpt.y - pt.y;
+
 				svgedit.path.path.dragging = [mouse_x, mouse_y];
-				
+				if (!is_linked || !svgedit.path.is_linked) svgedit.path.setLinkControlPoints(false);
+				else svgedit.path.setLinkControlPoints(true);
+
 				if(svgedit.path.path.dragctrl) {
 					svgedit.path.path.moveCtrl(diff_x, diff_y);
 				} else {
 					svgedit.path.path.movePts(diff_x, diff_y);
 				}
 			} else {
+				//select
 				svgedit.path.path.selected_pts = [];
 				svgedit.path.path.eachSeg(function(i) {
 					var seg = this;
 					if(!seg.next && !seg.prev) return;
-						
 					var item = seg.item;
 					var rbb = rubberBox.getBBox();
 					
@@ -4501,7 +4623,15 @@ var pathActions = canvas.pathActions = function() {
 			}
 		}, 
 		mouseUp: function(evt, element, mouse_x, mouse_y) {
-			
+			var lastpointgrip = getElem('ctrlpointgrip_1c1');
+			var firstpointgrip = getElem('ctrlpointgrip_0c2');
+			if (lastpointgrip)
+				this.lastCtrlPoint = [lastpointgrip.getAttribute('cx'), lastpointgrip.getAttribute('cy')];
+			else
+				this.lastCtrlPoint = [mouse_x, mouse_y]
+			if (!svgedit.path.first_grip && firstpointgrip) {
+				svgedit.path.first_grip = [firstpointgrip.getAttribute('cx'), firstpointgrip.getAttribute('cy')];
+			}
 			// Create mode
 			if(current_mode === "path") {
 				newPoint = null;
@@ -4710,6 +4840,7 @@ var pathActions = canvas.pathActions = function() {
 				nums.push(pt + i);
 				nums.push(pt + i + 1);
 			}
+			
 			svgedit.path.path.init().addPtsToSelection(nums);
 
 			svgedit.path.path.endChanges("Clone path node(s)");
