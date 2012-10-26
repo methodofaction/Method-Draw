@@ -42,7 +42,7 @@ var segData = {
 
 var pathFuncs = [];
 
-var link_control_pts = true;
+var link_control_pts = false;
 
 // Stores references to paths via IDs.
 // TODO: Make this cross-document happy.
@@ -196,6 +196,9 @@ svgedit.path.addCtrlGrip = function(id) {
 		'display': "none",
 		'r': svgedit.browser.isTouch() ? 15 : 3,
 		'fill': "#4F80FF",
+		'stroke': '#4F80FF',
+		'stroke-opacity': 0,
+		'stroke-width': '3',
 		'cursor': 'move',
 		'style': 'pointer-events:all',
 		'xlink:title': uiStrings.pathCtrlPtTooltip
@@ -237,7 +240,7 @@ svgedit.path.getPointGrip = function(seg, update) {
 svgedit.path.getControlPoints = function(seg) {
 	var item = seg.item;
 	var index = seg.index;
-	if(!("x1" in item) || !("x2" in item)) return null;
+	if(!item || !("x1" in item) || !("x2" in item)) return null;
 	var cpt = {};			
 	var pointGripContainer = svgedit.path.getGripContainer();
 
@@ -468,7 +471,6 @@ svgedit.path.Segment.prototype.update = function(full) {
 
 svgedit.path.Segment.prototype.move = function(dx, dy) {
 	var item = this.item;
-
 	if(this.ctrlpts) {
 		var cur_pts = [item.x += dx, item.y += dy, 
 			item.x1, item.y1, item.x2 += dx, item.y2 += dy];
@@ -512,14 +514,12 @@ svgedit.path.Segment.prototype.setLinked = function(num) {
 	}
 
 	var item = seg.item;
-
-	item['x' + anum] = pt.x + (pt.x - this.item['x' + num]);
-	item['y' + anum] = pt.y + (pt.y - this.item['y' + num]);
+	item['x' + anum] = pt.x + pt.x - this.item['x' + num];
+	item['y' + anum] = pt.y + pt.y - this.item['y' + num];
 
 	var pts = [item.x, item.y,
 		item.x1, item.y1,
 		item.x2, item.y2];
-
 	svgedit.path.replacePathSeg(seg.type, seg.index, pts);
 	seg.update(true);
 };

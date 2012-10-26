@@ -89,6 +89,7 @@
 				}
 			};
 		
+
 		var curPrefs = {}; //$.extend({}, defaultPrefs);
 		var customHandlers = {};
 		Editor.curConfig = curConfig;
@@ -2255,7 +2256,7 @@
 			var convertToPath = function() {
 				if (selectedElement != null) {
 					svgCanvas.convertToPath();
-					elems = svgCanvas.getSelectedElems()
+					var elems = svgCanvas.getSelectedElems()
 					svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0])
 					svgCanvas.selectorManager.requestSelector(elems[0]).selectorRect.setAttribute("display", "none");
 					svgCanvas.setMode("pathedit")
@@ -2293,9 +2294,8 @@
 			};
 		
 			var linkControlPoints = function() {
-				var linked = document.getElementById('tool_node_link').checked;
-				console.log(linked);
-				path.linkControlPoints(linked);
+			//	var linked = document.getElementById('tool_node_link').checked;
+			//	path.linkControlPoints(linked);
 			}
 		
 			var clonePathNode = function() {
@@ -4136,4 +4136,5 @@
 	// Run init once DOM is loaded
 	$(svgEditor.init);
 	
+
 })();
