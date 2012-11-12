@@ -3625,41 +3625,42 @@
 					
 					    //image handling
 					    else {
-					      var reader = new FileReader();
-  				  		reader.onloadend = function(e) {
-                  // lets insert the new image until we know its dimensions
-  				  			insertNewImage = function(img_width, img_height){
-    			  				  var newImage = svgCanvas.addSvgElementFromJson({
-            					"element": "image",
-            					"attr": {
-            						"x": 0,
-            						"y": 0,
-            						"width": img_width,
-            						"height": img_height,
-            						"id": svgCanvas.getNextId(),
-            						"style": "pointer-events:inherit"
-            					}
-            				});
-            				svgCanvas.setHref(newImage, e.target.result);
-            				svgCanvas.selectOnly([newImage])
-            				svgCanvas.alignSelectedElements("m", "page")
-    				  			svgCanvas.alignSelectedElements("c", "page")
-            				updateContextPanel();
-        	  			}
-  				  		  // put a placeholder img so we know the default dimensions
-  				  		  var img_width = 100;
-  				  		  var img_height = 100;
-  				  		  var img = new Image()
-  				  		  img.src = e.target.result
-                  document.body.appendChild(img);
-                  img.onload = function() {
-                    img_width = img.offsetWidth
-                    img_height = img.offsetHeight
-                    insertNewImage(img_width, img_height);
-                    document.body.removeChild(img);
-                  }
-  				  		};
-  				  		reader.readAsDataURL(file)
+								alert("sorry, bitmap import is temporalily disabled")
+					      //var reader = new FileReader();
+  				  		//reader.onloadend = function(e) {
+                //  // lets insert the new image until we know its dimensions
+  				  		//	insertNewImage = function(img_width, img_height){
+    			  		//		  var newImage = svgCanvas.addSvgElementFromJson({
+            		//			"element": "image",
+            		//			"attr": {
+            		//				"x": 0,
+            		//				"y": 0,
+            		//				"width": img_width,
+            		//				"height": img_height,
+            		//				"id": svgCanvas.getNextId(),
+            		//				"style": "pointer-events:inherit"
+            		//			}
+            		//		});
+            		//		svgCanvas.setHref(newImage, e.target.result);
+            		//		svgCanvas.selectOnly([newImage])
+            		//		svgCanvas.alignSelectedElements("m", "page")
+    				  	//		svgCanvas.alignSelectedElements("c", "page")
+            		//		updateContextPanel();
+        	  		//	}
+  				  		//  // put a placeholder img so we know the default dimensions
+  				  		//  var img_width = 100;
+  				  		//  var img_height = 100;
+  				  		//  var img = new Image()
+  				  		//  img.src = e.target.result
+                //  document.body.appendChild(img);
+                //  img.onload = function() {
+                //    img_width = img.offsetWidth
+                //    img_height = img.offsetHeight
+                //    insertNewImage(img_width, img_height);
+                //    document.body.removeChild(img);
+                //  }
+  				  		//};
+  				  		//reader.readAsDataURL(file)
 					    }
 					  }
 					}
