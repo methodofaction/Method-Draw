@@ -376,15 +376,15 @@ canvas.undoMgr = new svgedit.history.UndoManager({
 				}
 				
 				// Remove & Re-add hack for Webkit (issue 775) 
-				if(cmd.elem.tagName === 'use' && svgedit.browser.isWebkit()) {
-					var elem = cmd.elem;
-					if(!elem.getAttribute('x') && !elem.getAttribute('y')) {
-						var parent = elem.parentNode;
-						var sib = elem.nextSibling;
-						parent.removeChild(elem);
-						parent.insertBefore(elem, sib);
-					}
-				}
+				//if(cmd.elem.tagName === 'use' && svgedit.browser.isWebkit()) {
+				//	var elem = cmd.elem;
+				//	if(!elem.getAttribute('x') && !elem.getAttribute('y')) {
+				//		var parent = elem.parentNode;
+				//		var sib = elem.nextSibling;
+				//		parent.removeChild(elem);
+				//		parent.insertBefore(elem, sib);
+				//	}
+				//}
 			}
 		}
 	}
@@ -2519,26 +2519,26 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					tlist.appendItem(svgroot.createSVGTransform());
 					
 					if(svgedit.browser.supportsNonScalingStroke()) {
-						//Handle crash for newer Chrome: https://code.google.com/p/svg-edit/issues/detail?id=904
+						//Handle crash for newer Webkit: https://code.google.com/p/svg-edit/issues/detail?id=904
 						//Chromium issue: https://code.google.com/p/chromium/issues/detail?id=114625
 						// TODO: Remove this workaround (all isChrome blocks) once vendor fixes the issue
-						var isChrome = svgedit.browser.isChrome();
-						if(isChrome) {
+						var isWebkit = svgedit.browser.isWebkit();
+						if(isWebkit) {
 							var delayedStroke = function(ele) {
 								var _stroke = ele.getAttributeNS(null, 'stroke');
 								ele.removeAttributeNS(null, 'stroke');
 								//Re-apply stroke after delay. Anything higher than 1 seems to cause flicker
-								setTimeout(function() { ele.setAttributeNS(null, 'stroke', _stroke) }, 1);
+								setTimeout(function() { ele.setAttributeNS(null, 'stroke', _stroke) }, 0);
 							}
 						}
 						mouse_target.style.vectorEffect = 'non-scaling-stroke';
-						if(isChrome) delayedStroke(mouse_target);
+						if(isWebkit) delayedStroke(mouse_target);
 
 						var all = mouse_target.getElementsByTagName('*'),
 						    len = all.length;
 						for(var i = 0; i < len; i++) {
 							all[i].style.vectorEffect = 'non-scaling-stroke';
-							if(isChrome) delayedStroke(all[i]);
+							if(isWebkit) delayedStroke(all[i]);
 						}
 					}
 				}
