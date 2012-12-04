@@ -721,6 +721,7 @@
 				} else {
 					svgCanvas.setContext(link.text());
 				}
+				svgCanvas.clearSelection();
 				return false;
 			});
 			

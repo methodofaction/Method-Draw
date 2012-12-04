@@ -3279,7 +3279,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					var difference_x = Math.abs(real_x-r_start_x);
 					var difference_y = Math.abs(real_y-r_start_y);
 
-					console.log(difference_x, difference_y)
 					if (difference_y > 1 || difference_y > 1) {
 						var len = selectedElements.length;
 						for	(var i = 0; i < len; ++i) {
