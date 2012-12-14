@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Arvo';
+    src: url('font-files/arvo-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Arvo';
+    src: url('font-files/arvo-bolditalic-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arvo';
+    src: url('font-files/arvo-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Arvo';
+    src: url('font-files/arvo-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Euphoria';
+    src: url('font-files/euphoriascript-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Oswald';
+    src: url('font-files/oswald-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Oswald';
+    src: url('font-files/oswald-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Shadows Into Light';
+    src: url('font-files/shadowsintolight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Simonetta';
+    src: url('font-files/simonetta-black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Simonetta';
+    src: url('font-files/simonetta-blackitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Simonetta';
+    src: url('font-files/simonetta-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Simonetta';
+    src: url('font-files/simonetta-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

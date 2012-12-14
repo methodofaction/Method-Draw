@@ -13,11 +13,11 @@
 // 3) svg_editor.js
 // 4) svgcanvas.js
 
-svgEditor.addExtension("eyedropper", function(S) {
+methodDraw.addExtension("eyedropper", function(S) {
 		var svgcontent = S.svgcontent,
 			svgns = "http://www.w3.org/2000/svg",
 			svgdoc = S.svgroot.parentNode.ownerDocument,
-			svgCanvas = svgEditor.canvas,
+			svgCanvas = methodDraw.canvas,
 			ChangeElementCommand = svgedit.history.ChangeElementCommand,
 			addToHistory = function(cmd) { svgCanvas.undoMgr.addCommandToHistory(cmd); },
 			currentStyle = {fillPaint: "red", fillOpacity: 1.0,
@@ -99,8 +99,8 @@ svgEditor.addExtension("eyedropper", function(S) {
 				  if (!opts.selectedElements.length) { //nothing selected, just update colors
   			    var fill = getPaint(currentStyle.fillPaint, currentStyle.fillOpacity*100, "fill");
   					var stroke = getPaint(currentStyle.strokePaint, currentStyle.strokeOpacity*100, "stroke");
-  					svgEditor.paintBox.fill.setPaint(fill)
-  					svgEditor.paintBox.stroke.setPaint(stroke)
+  					methodDraw.paintBox.fill.setPaint(fill)
+  					methodDraw.paintBox.stroke.setPaint(stroke)
   			    return;
   			  }
 					if ($.inArray(opts.selectedElements.nodeName, ['g', 'use']) == -1) {
@@ -125,8 +125,8 @@ svgEditor.addExtension("eyedropper", function(S) {
 						});
 						var fill = getPaint(currentStyle.fillPaint, currentStyle.fillOpacity*100, "fill")
 						var stroke = getPaint(currentStyle.strokePaint, currentStyle.strokeOpacity*100, "stroke")
-						svgEditor.paintBox.fill.update(true)
-						svgEditor.paintBox.stroke.update(true)
+						methodDraw.paintBox.fill.update(true)
+						methodDraw.paintBox.stroke.update(true)
 						addToHistory(batchCmd);
 					}
 				}

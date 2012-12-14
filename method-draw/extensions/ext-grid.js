@@ -12,13 +12,13 @@
 // 1) units.js
 // 2) everything else
 
-svgEditor.addExtension("view_grid", function(s) {
+methodDraw.addExtension("view_grid", function(s) {
     if (!document.getElementById("canvasGrid")){
     var svgdoc = document.getElementById("svgcanvas").ownerDocument,
 			svgns = "http://www.w3.org/2000/svg",
-			dims = svgEditor.curConfig.dimensions,
+			dims = methodDraw.curConfig.dimensions,
 			svgroot = s.svgroot;
-
+    var svgCanvas = methodDraw.canvas;
 	var showGrid = false;
     var assignAttributes = s.assignAttributes;
     
@@ -86,7 +86,7 @@ svgEditor.addExtension("view_grid", function(s) {
 		var bgheight = +canvBG.attr('height');
 		
 		var units = svgedit.units.getTypeMap();
-		var unit = units[svgEditor.curConfig.baseUnit]; // 1 = 1px
+		var unit = units[methodDraw.curConfig.baseUnit]; // 1 = 1px
 		var r_intervals = [.01, .1, 1, 10, 100, 1000];
 	
 		var d = 0;
@@ -169,13 +169,13 @@ svgEditor.addExtension("view_grid", function(s) {
                 'click': function() {
                     var gr = !$('#view_grid').hasClass('push_button_pressed');
                     if (gr) {
-                        svgEditor.curConfig.showGrid = showGrid = true;
+                        methodDraw.curConfig.showGrid = showGrid = true;
                         $('#view_grid').addClass('push_button_pressed');
                         $('#canvasGrid').attr('display', 'inline');
                         updateGrid(svgCanvas.getZoom());
                     }
                     else {
-                        svgEditor.curConfig.showGrid = showGrid = false;
+                        methodDraw.curConfig.showGrid = showGrid = false;
                         $('#view_grid').removeClass('push_button_pressed');
                         $('#canvasGrid').attr('display', 'none');
                     }

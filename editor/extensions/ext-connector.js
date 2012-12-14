@@ -7,14 +7,14 @@
  *
  */
  
-svgEditor.addExtension("Connector", function(S) {
+methodDraw.addExtension("Connector", function(S) {
 	var svgcontent = S.svgcontent,
 		svgroot = S.svgroot,
 		getNextId = S.getNextId,
 		getElem = S.getElem,
 		addElem = S.addSvgElementFromJson,
 		selManager = S.selectorManager,
-		curConfig = svgEditor.curConfig,
+		curConfig = methodDraw.curConfig,
 		started = false,
 		start_x,
 		start_y,

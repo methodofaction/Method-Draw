@@ -8,48 +8,47 @@ YUICOMPRESSOR=build/tools/yuicompressor-2.4.7.jar
 # All files that will be compiled by the Closure compiler.
 
 JS_FILES=\
-  touch.js \
-  js-hotkeys/jquery.hotkeys.min.js \
-  jquerybbq/jquery.bbq.min.js \
-  svgicons/jquery.svgicons.js \
-  jgraduate/jquery.jgraduate.js \
-  contextmenu/jquery.contextmenu.js \
-  browser.js \
-  svgtransformlist.js \
-  math.js \
-  units.js \
-  svgutils.js \
-  sanitize.js \
-  history.js \
-  select.js \
-  draw.js \
-  path.js \
-  svgcanvas.js \
-  svg-editor.js \
-  jquery-draginput.js \
-  contextmenu.js \
-  jquery-ui/jquery-ui-1.8.17.custom.min.js \
-  jgraduate/jpicker.min.js \
-  mousewheel.js \
+  lib/touch.js \
+  lib/js-hotkeys/jquery.hotkeys.min.js \
+  lib/jquerybbq/jquery.bbq.min.js \
+  icons/jquery.svgicons.js \
+  lib/jgraduate/jquery.jgraduate.js \
+  lib/contextmenu/jquery.contextmenu.js \
+  src/browser.js \
+  src/svgtransformlist.js \
+  src/math.js \
+  src/units.js \
+  src/svgutils.js \
+  src/sanitize.js \
+  src/history.js \
+  src/select.js \
+  src/draw.js \
+  src/path.js \
+  src/svgcanvas.js \
+  src/method-draw.js \
+  lib/jquery-draginput.js \
+  lib/contextmenu.js \
+  lib/jquery-ui/jquery-ui-1.8.17.custom.min.js \
+  lib/jgraduate/jpicker.min.js \
+  lib/mousewheel.js \
 	extensions/ext-eyedropper.js \
 	extensions/ext-grid.js \
 	extensions/ext-shapes.js \
-	requestanimationframe.js \
-	taphold.js
+	lib/requestanimationframe.js \
+	lib/taphold.js
 
 CSS_FILES=\
-	jgraduate/css/jPicker.css \
-  jgraduate/css/jgraduate.css \
-  svg-editor.css \
-  spinbtn/JQuerySpinBtn.css \
+	lib/jgraduate/css/jPicker.css \
+  lib/jgraduate/css/jgraduate.css \
+  css/method-draw.css \
 
 JS_INPUT_FILES=$(addprefix editor/, $(JS_FILES))
 CSS_INPUT_FILES=$(addprefix editor/, $(CSS_FILES))
 JS_BUILD_FILES=$(addprefix $(PACKAGE)/, $(JS_FILES))
 CSS_BUILD_FILES=$(addprefix $(PACKAGE)/, $(CSS_FILES))
 CLOSURE_JS_ARGS=$(addprefix --js , $(JS_INPUT_FILES))
-COMPILED_JS=editor/svgedit.compiled.js
-COMPILED_CSS=editor/svgedit.compiled.css
+COMPILED_JS=editor/method-draw.compiled.js
+COMPILED_CSS=editor/css/method-draw.compiled.css
 
 all: release
 
@@ -68,7 +67,7 @@ $(PACKAGE): $(COMPILED_JS) $(COMPILED_CSS)
 	-find $(PACKAGE) -name .git -type d | xargs rm -rf {} \;
 
 	# Create the release version of the main HTML file.
-	build/tools/ship.py --i=editor/svg-editor.html --on=svg_edit_release > $(PACKAGE)/svg-editor.html
+	build/tools/ship.py --i=editor/index.html --on=svg_edit_release > $(PACKAGE)/index.html
 
 # NOTE: Some files are not ready for the Closure compiler: (jquery)
 # NOTE: Our code safely compiles under SIMPLE_OPTIMIZATIONS

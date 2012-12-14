@@ -871,7 +871,7 @@ html, body {
 	height: 20%;
 	width: 5.2%;
 	float: left;
-	cursor: url(images/eyedropper.png) 0 16, crosshair;
+	cursor: url(../images/eyedropper.png) 0 16, crosshair;
 }
 
 .palette_item.transparent, .palette_item.white, .palette_item.black {
@@ -1141,6 +1141,12 @@ html, body {
  .menu .menu_list {
   display: none;
   position: absolute;
+}
+
+.tool_button, 
+.tool_button_current,
+.tool_button_pressed {
+  cursor: pointer;
 }
 
  .tool_button:hover, 
@@ -2183,15 +2189,15 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 #workarea.eyedropper {
-  cursor: url(images/eyedropper.png) 0 16, crosshair;
+  cursor: url(../images/eyedropper.png) 0 16, crosshair;
 }
 
 #workarea.fhpath {
-  cursor: url(images/pencil_cursor.png) 0 20, crosshair;
+  cursor: url(../images/pencil_cursor.png) 0 20, crosshair;
 }
 
 #workarea.rotate * {
-  cursor: url(images/rotate.png) 12 12, auto;
+  cursor: url(../images/rotate.png) 12 12, auto;
 }
 
 #workarea.select text, #workarea.multiselect text {
@@ -2222,24 +2228,6 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   cursor:-moz-zoom-out;
   cursor:-webkit-zoom-out;
 }
-
-
-
-/*
-	Adding Icons
-	
-	You can add icons to the context menu by adding
-	classes to the respective LI element(s)
-*/
-/*
-
-.contextMenu LI.edit A { background-image: url(images/page_white_edit.png); }
-.contextMenu LI.cut A { background-image: url(images/cut.png); }
-.contextMenu LI.copy A { background-image: url(images/page_white_copy.png); }
-.contextMenu LI.paste A { background-image: url(images/page_white_paste.png); }
-.contextMenu LI.delete A { background-image: url(images/page_white_delete.png); }
-.contextMenu LI.quit A { background-image: url(images/door.png); }
-*/
 
 #selectorRubberBand {
 	shape-rendering: crispEdges;
@@ -2449,7 +2437,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 
 
 .draginput input, .draginput input:hover, .draginput input:active {  
-	  cursor: url(images/drag.png), move;
+	  cursor: url(../images/drag.png), move;
 	  cursor: -webkit-grab;
 		cursor: -moz-grab;
 }
@@ -2463,7 +2451,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 .draginput.active input, .draginput.active input:hover, .draginput.active input:active {  
-	  cursor: url(images/dragging.png), move;
+	  cursor: url(../images/dragging.png), move;
 	  cursor: -webkit-grabbing;
 		cursor: -moz-grabbing;
 }
@@ -2598,13 +2586,13 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 body.dragging * {
-	cursor: url(images/dragging.png), move;
+	cursor: url(../images/dragging.png), move;
 	cursor: -webkit-grabbing;
 	cursor: -moz-grabbing;
 }
 
 body.drag * {
-	cursor: url(images/dragging.png), move;
+	cursor: url(../images/dragging.png), move;
 	cursor: -webkit-grabbing;
 	cursor: -moz-grabbing;
 }
@@ -2674,41 +2662,4 @@ input[readonly=readonly]:focus {
 #tool_align_relative select {
 	width: 100%;
 	display: block;
-}/*
-	Styles to make ordinary <INPUT type="text"/> look like a spinbutton/spinbox control.
-	Use with JQuerySpinBtn.js to provide the spin functionality by reacting to mouse etc.
-	(Requires a reference to the JQuery library found at http://jquery.com/src/latest/)
-	(Hats-off to John Resig for creating the excellent JQuery library. It is fab.)
-
-	This control is achieved with no extra html markup whatsoever and uses unobtrusive javascript.
-
-	Written by George Adamson, Software Unity (george.jquery@softwareunity.com) September 2006.
-	Big improvements added by Mark Gibson, (mgibson@designlinks.net) September 2006.
-
-	Do contact me with comments and suggestions but please don't ask for support.
-	As much as I'd love to help with specific problems I have plenty to get on with already!
-
-	Go ahead and use it in your own projects. This code is provided 'as is'.
-	Sure I've tested in heaps of ways. Its good for me, but you use it at your own risk.
-	SoftwareUnity and I are certainly not responsible if your computer sets fire to the sofa,
-	hacks into the pentagon, hijacks a plane or gives you any kind of hassle whatsoever.
-
-	If you'd like your spin-button image in a different place then you'll need to alter both
-	the CSS below and the javascript isMouseOverUpDn() function to accommodate the new position.
-	You could even have left and right buttons either side of the textbox.
-*/
-
-INPUT.spin-button {
-
-	background: transparent url('spinner.svg') right top no-repeat;
-	background-size: 17px 54px;
-}
-
-INPUT.spin-button.up {					/* Change button img when mouse is over the UP-arrow */
-	cursor:pointer;
-	background-position:100% -20px;		/* 18px matches height of 2 visible buttons */
-}
-INPUT.spin-button.down {				/* Change button img when mouse is over the DOWN-arrow */
-	cursor:pointer;
-	background-position:100% -40px;		/* 36px matches height of 2x2 visible buttons */
 }

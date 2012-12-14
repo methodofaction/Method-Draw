@@ -9,7 +9,7 @@
 
 // This extension adds a simple button to the contextual panel for paths
 // The button toggles whether the path is open or closed
-svgEditor.addExtension("ClosePath", function(S) {
+methodDraw.addExtension("ClosePath", function(S) {
 		var selElems,
 			updateButton = function(path) {
 				var seglist = path.pathSegList,

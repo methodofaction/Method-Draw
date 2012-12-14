@@ -30,7 +30,7 @@
  *
  */
 
-svgEditor.addExtension("Markers", function(S) {
+methodDraw.addExtension("Markers", function(S) {
 	var svgcontent = S.svgcontent,
 	addElem = S.addSvgElementFromJson,
 	selElems;
@@ -371,7 +371,7 @@ svgEditor.addExtension("Markers", function(S) {
 	function setIcon(pos,id) {
 		if (id.substr(0,1)!='\\') id='\\textmarker'
 		var ci = '#'+id_prefix+pos+'_'+id.substr(1);
-		svgEditor.setIcon('#cur_' + pos +'_marker_list', $(ci).children());
+		methodDraw.setIcon('#cur_' + pos +'_marker_list', $(ci).children());
 		$(ci).addClass('current').siblings().removeClass('current');
 	}
 		

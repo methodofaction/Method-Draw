@@ -7,7 +7,7 @@
  *
  */
 
-svgEditor.addExtension("server_opensave", {
+methodDraw.addExtension("server_opensave", {
 	callback: function() {
 
 		//var save_svg_action = 'extensions/filesave.php';
@@ -16,7 +16,7 @@ svgEditor.addExtension("server_opensave", {
 		// Create upload target (hidden iframe)
 		var target = $('<iframe name="output_frame" />').hide().appendTo('body');
 	
-		//svgEditor.setCustomHandlers({
+		//methodDraw.setCustomHandlers({
 		//	save: function(win, data) {
 		//		var svg = "<?xml version=\"1.0\"?>\n" + data;
 		//		
@@ -45,7 +45,7 @@ svgEditor.addExtension("server_opensave", {
 		//		canvg(c, data.svg, {renderCallback: function() {
 		//			var datauri = c.toDataURL('image/png');
 		//			
-		//			var uiStrings = svgEditor.uiStrings;
+		//			var uiStrings = methodDraw.uiStrings;
 		//			var note = '';
 		//			
 		//			// Check if there's issues
@@ -86,7 +86,7 @@ svgEditor.addExtension("server_opensave", {
 		var import_img_action = 'extensions/fileopen.php?type=import_img';
 		
 		// Set up function for PHP uploader to use
-		svgEditor.processFile = function(str64, type) {
+		methodDraw.processFile = function(str64, type) {
 			if(cancelled) {
 				cancelled = false;
 				return;
@@ -102,11 +102,11 @@ svgEditor.addExtension("server_opensave", {
 				case 'load_svg':
 					svgCanvas.clear();
 					svgCanvas.setSvgString(xmlstr);
-					svgEditor.updateCanvas();
+					methodDraw.updateCanvas();
 					break;
 				case 'import_svg':
 					svgCanvas.importSvgString(xmlstr);
-					svgEditor.updateCanvas();					
+					methodDraw.updateCanvas();					
 					break;
 				case 'import_img':
 					svgCanvas.setGoodImage(str64);
@@ -137,7 +137,7 @@ svgEditor.addExtension("server_opensave", {
 			
 			
 			function submit() {
-				// This submits the form, which returns the file data using svgEditor.uploadSVG
+				// This submits the form, which returns the file data using methodDraw.uploadSVG
 				form.submit();
 				
 				rebuildInput(form);
@@ -150,7 +150,7 @@ svgEditor.addExtension("server_opensave", {
 			if(form[0] == open_svg_form[0]) {
 				inp.change(function() {
 					// This takes care of the "are you sure" dialog box
-					svgEditor.openPrep(function(ok) {
+					methodDraw.openPrep(function(ok) {
 						if(!ok) {
 							rebuildInput(form);
 							return;
@@ -160,7 +160,7 @@ svgEditor.addExtension("server_opensave", {
 				});
 			} else {
 				inp.change(function() {
-					// This submits the form, which returns the file data using svgEditor.uploadSVG
+					// This submits the form, which returns the file data using methodDraw.uploadSVG
 					submit();
 				});
 			}

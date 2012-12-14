@@ -8,7 +8,7 @@
  */
 
  
-svgEditor.addExtension("Arrows", function(S) {
+methodDraw.addExtension("Arrows", function(S) {
 		var svgcontent = S.svgcontent,
 			addElem = S.addSvgElementFromJson,
 			nonce = S.nonce,

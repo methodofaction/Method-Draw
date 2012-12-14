@@ -2,14 +2,14 @@
 <html>  
 <head>  
   <link rel='stylesheet' href='qunit/qunit.css' type='text/css'/>  
-  <script src='../editor/assets/jquery.js'></script>
+  <script src='../editor/lib/jquery.js'></script>
   <script>
     // Mock for browser.js
     window.svgedit = {};
     svgedit.browser = {};
     svgedit.browser.supportsNativeTransformLists = function() { return false;}
   </script>
-  <script type='text/javascript' src='../editor/svgtransformlist.js'></script>
+  <script type='text/javascript' src='../editor/src/svgtransformlist.js'></script>
   <script type='text/javascript' src='qunit/qunit.js'></script>  
   <script type='text/javascript'>
   $(function() {

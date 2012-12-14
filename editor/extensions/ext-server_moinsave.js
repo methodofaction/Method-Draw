@@ -10,7 +10,7 @@
  *
  */
 
-svgEditor.addExtension("server_opensave", {
+methodDraw.addExtension("server_opensave", {
 	callback: function() {
 
 		var save_svg_action = '/+modify';
@@ -18,7 +18,7 @@ svgEditor.addExtension("server_opensave", {
 		// Create upload target (hidden iframe)
 		var target = $('<iframe name="output_frame" src="#"/>').hide().appendTo('body');
 	
-		svgEditor.setCustomHandlers({
+		methodDraw.setCustomHandlers({
 			save: function(win, data) {
 				var svg = "<?xml version=\"1.0\"?>\n" + data;
 				var qstr = $.param.querystring();
@@ -33,7 +33,7 @@ svgEditor.addExtension("server_opensave", {
 				$.getScript('canvg/canvg.js', function() {
 				canvg(c, svg, {renderCallback: function() {
 					var datauri = c.toDataURL('image/png');
-					var uiStrings = svgEditor.uiStrings;
+					var uiStrings = methodDraw.uiStrings;
 					var png_data = svgedit.utilities.encode64(datauri);
 					var form = $('<form>').attr({
 					method: 'post',

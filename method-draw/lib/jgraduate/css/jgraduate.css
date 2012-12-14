@@ -1,0 +1,332 @@
+/* 
+ * jGraduate Default CSS
+ * 
+ * Copyright (c) 2010 Jeff Schiller
+ * http://blog.codedread.com/
+ *
+ * Copyright (c) 2010 Alexis Deveria
+ * http://a.deveria.com/
+ *
+ * Licensed under the Apache License Version 2
+ */
+
+h2.jGraduate_Title {
+  display: none;
+}
+
+.jGraduate_Picker {
+	position: absolute;
+	padding: 20px;
+}
+
+.jGraduate_tabs li {
+	display: inline-block;
+	padding: 5px 10px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+li.jGraduate_tab_current {
+  background: #fff;
+  border-radius: 3px 3px 0 0;
+}
+
+.jGraduate_colPick {
+	display: none;
+}
+
+.jGraduate_gradPick {	
+	display: none;
+	overflow: visible;
+/*	position: relative;*/
+}
+
+.jGraduate_tabs {
+	position: relative;
+	background-color: #ddd;
+	padding: 10px 10px 0 10px;
+	margin: -20px -20px 20px -20px;
+	border-radius: 3px 3px 0 0;
+}
+
+div.jGraduate_Swatch {
+	float: left;
+	margin: 0 15px 0 0;
+}
+div.jGraduate_GradContainer {
+	border: solid #000 1px;
+	background-image: url(../images/map-opacity.png); 
+	background-position: 0px 0px;
+	height: 256px;
+	width: 256px;
+	position: relative;
+}
+
+div.jGraduate_GradContainer div.grad_coord {
+  background: rgba(0,0,0,0.8);
+  border: 2px solid white;
+  border-radius: 15px;
+  -moz-border-radius: 5px;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  margin: -7px -7px;
+  top: 0;
+  left: 0;
+  text-align: center;
+  font-size: 8px;
+  line-height: 14px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.jGraduate_AlphaArrows {
+	position: absolute;
+	margin-top: -10px;
+	margin-left: 250.5px;
+}
+
+div.jGraduate_Opacity {
+	border: 2px inset #eee;
+	margin-top: 14px;
+	background-color: black;
+	background-image: url(../images/Maps.png);
+	background-position: 0px -2816px;
+	height: 20px;
+	cursor: ew-resize;
+}
+
+div.jGraduate_StopSlider {
+	margin: -10px 0 0 -10px;
+	width: 276px;
+	overflow: visible;
+	background: white;
+	height: 45px;
+	cursor: pointer;
+}
+
+div.jGraduate_StopSection {
+	width: 120px;
+	float: left;
+}
+
+div.jGraduate_StopSection.jGraduate_SpreadMethod {
+  display: none;
+}
+
+input.jGraduate_Ok, input.jGraduate_Cancel {
+	display: block;
+	width: 100px;
+}
+input.jGraduate_Ok {
+	margin: 0 0 5px 0;
+}
+
+.colorBox {
+	float: left;
+	height: 16px;
+	width: 16px;
+	border: 1px solid #808080;
+	cursor: pointer;
+	margin: 4px 4px 4px 30px;
+}
+
+.colorBox + label {
+	float: left;
+	margin-top: 7px;
+}
+
+label.jGraduate_Form_Heading {
+
+  color: #333;
+	padding: 2px;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+div.jGraduate_Form_Section {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 15px 5px 5px 5px;
+	margin: 5px 2px;
+	width: 100px;
+	text-align: center;
+	overflow: auto;
+	background: #eee;
+}
+
+div.jGraduate_Form label {
+	padding: 0 2px;
+	color: #333;
+}
+
+div.jGraduate_StopSection input[type=text],
+div.jGraduate_Slider input[type=text] {
+	width: 33px;
+	color: #333;
+}
+
+div.jGraduate_LightBox {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: #000;
+	opacity: 0.5;
+	display: none;
+}
+
+div.jGraduate_stopPicker {
+  position: absolute;
+  display: none;
+  background: 
+  white;
+  padding: 20px;
+  border-radius: 3px;
+  width: 530px;
+  height: 300px;
+  box-shadow: 0 5px 25px 
+  black;
+}
+
+
+.jGraduate_gradPick {
+	width: 526px;
+}
+
+.jGraduate_gradPick div.jGraduate_Slider {
+	line-height: 160%
+}
+
+.jGraduate_gradPick div.jGraduate_Slider label:last-child {
+	position: absolute;
+	right: 10px;
+	top: 0;
+	color: #999;
+	font-weight: bold;
+}
+
+.jGraduate_gradPick div.jGraduate_Slider label:last-child input {
+  margin: 0 3px 0 0;
+  color: #333;
+}
+
+.jGraduate_gradPick .jGraduate_Form {
+	float: left;
+	width: 270px;
+	position: absolute;
+	left: 284px;
+	width: 266px;
+	height: 200px;
+	top: 195px;
+	margin: -3px 3px 0px 10px;
+	line-height: 200%;
+}
+
+.jGraduate_gradPick .jGraduate_Form label,
+.jGraduate_gradPick .jGraduate_Form input {
+  width: auto;
+  float: left;
+}
+
+.jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field label, .jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field input {
+width: auto;
+float: left;
+font-size: 11px;
+}
+
+.jGraduate_gradPick .jGraduate_Form.jGraduate_rg_field #color_picker_jGraduate_match_ctr {
+  float: none;
+}
+
+.jGraduate_gradPick .jGraduate_Form label {
+  clear: left;
+}
+
+.jGraduate_gradPick .jGraduate_Points {
+	position: static;
+	float: left;
+  margin: 0;
+  width: auto;
+	}
+
+.jGraduate_Colorblocks {
+	display: table;
+	border-spacing: 0 5px;
+}
+
+.jGraduate_colorblock {
+	display: table-row;
+}
+
+.jGraduate_Colorblocks .jGraduate_colorblock > * {
+	display: table-cell;
+	vertical-align: middle;
+	margin: 0;
+	float: none;
+}
+
+.jGraduate_gradPick .jGraduate_Form_Section {
+	padding-top: 9px;
+}
+
+
+.jGraduate_Slider {
+	text-align: center;
+	float: left;
+	width: 100%;
+  position: relative;
+  margin: 5px 0;
+}
+
+.jGraduate_Slider .jGraduate_Form_Section {
+	border: none;
+	width: 250px;
+	padding: 0 2px;
+	overflow: visible;
+}
+
+
+.jGraduate_Slider label.prelabel {
+	width: 40px;
+	text-align: left;
+}
+
+.jGraduate_SliderBar {
+	width: 140px;
+	float: left;
+	margin: 0 5px;
+	border:1px solid #BBB;
+	height:20px;
+	position: relative;
+}
+
+div.jGraduate_Slider input {
+	margin-top: 5px;
+}
+
+div.jGraduate_Slider img {
+	top: 0;
+	left: 0;
+	position: absolute;
+	cursor:ew-resize;
+}
+
+.jPicker .Button .Ok, .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Ok  {
+  -webkit-appearance: none;
+	margin: 0;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.jPicker .Button .Cancel, .jGraduate_Picker .jGraduate_OkCancel .jGraduate_Cancel {
+  margin: 0;
+  position: absolute;
+	bottom: 5px;
+	left: 5px;
+}

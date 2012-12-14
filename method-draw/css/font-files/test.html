@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en-En">
+<head>
+  <meta charset="UTF-8">
+  <title>SVG @font-face Test</title>
+</head>
+<body>
+  <h2>@font-face in SVG</h2>
+  
+  <p style="width: 500px"><strong>Problem:</strong> I'm trying trying to place an images in svg format with custom fonts. It works in <code>svg</code> but not in  <code>img</code>. If you open the image in a new tab you will see it rendered with the proper font. The font is served from this same website in this directory.</p>
+  
+  <a href="test_ff.svg">Link to the test.svg</a>
+  
+  <table>
+    <tr><td>
+  <svg width="500" height="200" version="1.1" xmlns = 'http://www.w3.org/2000/svg' xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 200">  
+    <defs>
+    <style type="text/css">
+    @font-face {
+      font-family: 'Arvo';
+      font-style: normal;
+      font-weight: normal;
+      src: url(arvo-regular-webfont.woff) format('woff');
+    }
+    </style>
+    </defs>
+    <rect x="0" y="0" height="100" width="500" fill="#eee" />
+    <text x="20" y="50" font-family="Arvo" font-weight="normal" font-size="32">Text using CSS @font-face</text>
+  </svg>
+  </td>
+  <td>
+    <pre>
+      &lt;svg width=&quot;500&quot; height=&quot;200&quot; version=&quot;1.1&quot; xmlns = &#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; viewBox=&quot;0 0 500 200&quot;&gt;  
+           &lt;defs&gt;
+           &lt;style type=&quot;text/css&quot;&gt;
+           @font-face {
+             font-family: &#39;Arvo&#39;;
+             font-style: normal;
+             font-weight: normal;
+             src: url(arvo-regular-webfont.woff) format(&#39;woff&#39;);
+           }
+           &lt;/style&gt;
+           &lt;/defs&gt;
+           &lt;rect x=&quot;0&quot; y=&quot;0&quot; height=&quot;100&quot; width=&quot;500&quot; fill=&quot;#eee&quot; /&gt;
+           &lt;text x=&quot;20&quot; y=&quot;50&quot; font-family=&quot;Arvo&quot; font-weight=&quot;normal&quot; font-size=&quot;32&quot;&gt;Text using CSS @font-face&lt;/text&gt;
+         &lt;/svg&gt;
+  </pre>
+  </td>
+  </tr>
+  <tr>
+    <td><img src="test_ff.svg" width="500" height="200" /></td>
+    <td style="verical-align: top;">
+      <pre>
+        &lt;img src="test_ff.svg" width="500" height="200" /&gt;
+      </pre>
+    </td>
+  </tr>
+  </table> 
+   
+   
+</body>
+</html>

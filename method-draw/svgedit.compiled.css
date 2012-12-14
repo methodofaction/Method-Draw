@@ -131,7 +131,7 @@ html,body{overflow:hidden;width:100%;height:100%}
 #ruler_y canvas{margin-top:-16px}
 #ruler_x>div,#ruler_y>div{overflow:hidden}
 #palette{display:block;position:absolute;z-index:2;left:10px;bottom:5px;width:410px;right:145px;height:30px}
-.palette_item{height:20%;width:5.2%;float:left;cursor:url(images/eyedropper.png) 0 16,crosshair}
+.palette_item{height:20%;width:5.2%;float:left;cursor:url(../images/eyedropper.png) 0 16,crosshair}
 .palette_item.transparent,.palette_item.white,.palette_item.black{background:#fff;position:absolute;width:10px;height:10px;left:-10px;top:0}
 .palette_item.transparent{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAVdEVYdENyZWF0aW9uIFRpbWUAOC8yMi8xMg1cp6sAAABESURBVBiVjdBBCgAgCETRr/e/87SJKFPLnfIcQRMIwMBIShIAvgZzoSrfkzrs8WyF1+kX9r3p8AE7nL7kSpSshN+JEQ8GixkF0mSevgAAAABJRU5ErkJggg==)}
 .palette_item.black{background:#000;top:10px}
@@ -174,6 +174,7 @@ html,body{overflow:hidden;width:100%;height:100%}
 div#workarea{display:inline-table-cell;position:absolute;top:30px;left:50px;bottom:40px;right:175px;background-color:#444;overflow:auto;text-align:center;-webkit-transition:-webkit-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);-moz-transition:-moz-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);-o-transition:-o-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);-ms-transition:-ms-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);transition:transform 500ms cubic-bezier(0.13,0.66,0.24,0.92)}
 .touch div#workarea{top:40px}
 .menu .menu_list{display:none;position:absolute}
+.tool_button,.tool_button_current,.tool_button_pressed{cursor:pointer}
 .tool_button:hover,.push_button:hover,.buttonup:hover,.buttondown,.tool_button_current,.push_button_pressed{background-color:#fff}
 .tool_button.disabled,.tool_button.disabled:hover{opacity:.3;background-color:#aaa}
 #tools_left .tool_button{background:#2f2f2c;position:relative}
@@ -339,9 +340,9 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 #menu{display:none;position:absolute;top:0;left:0;right:0;height:30px;background:#000;z-index:10;color:#fff}
 #workarea.rect,#workarea.line,#workarea.ellipse,#workarea.path,#workarea.shapelib{cursor:crosshair}
 #workarea.text{cursor:text}
-#workarea.eyedropper{cursor:url(images/eyedropper.png) 0 16,crosshair}
-#workarea.fhpath{cursor:url(images/pencil_cursor.png) 0 20,crosshair}
-#workarea.rotate *{cursor:url(images/rotate.png) 12 12,auto}
+#workarea.eyedropper{cursor:url(../images/eyedropper.png) 0 16,crosshair}
+#workarea.fhpath{cursor:url(../images/pencil_cursor.png) 0 20,crosshair}
+#workarea.rotate *{cursor:url(../images/rotate.png) 12 12,auto}
 #workarea.select text,#workarea.multiselect text{cursor:default}
 #workarea.n-resize *{cursor:n-resize!important}
 #workarea.e-resize *{cursor:e-resize!important}
@@ -380,10 +381,10 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 #tool_bold.active,#tool_italic.active{color:#50a0ff}
 #preview_font{font-size:20px;color:#fff;height:70px;line-height:75px;padding:0 0 0 10px;white-space:nowrap;width:100px;overflow:hidden;border-right:solid #2f2f2c 2px;position:relative}
 #preview_font:after{content:'';position:absolute;right:0;top:3px;bottom:3px;width:15px;border-right:solid #3f3f3c 10px;background:transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0iZzU4MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBzdG9wLWNvbG9yPSIjM2YzZjNjIiBzdG9wLW9wYWNpdHk9IjAiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzZjNmM2MiIG9mZnNldD0iMC43Ii8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c1ODApIiAvPjwvc3ZnPg==)}
-.draginput input,.draginput input:hover,.draginput input:active{cursor:url(images/drag.png),move;cursor:-webkit-grab;cursor:-moz-grab}
+.draginput input,.draginput input:hover,.draginput input:active{cursor:url(../images/drag.png),move;cursor:-webkit-grab;cursor:-moz-grab}
 .draginput input[type="checkbox"],.draginput input[type="checkbox"]:hover,.draginput input[type="checkbox"]:active{cursor:pointer}
 .draginput.checkbox{cursor:pointer}
-.draginput.active input,.draginput.active input:hover,.draginput.active input:active{cursor:url(images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
+.draginput.active input,.draginput.active input:hover,.draginput.active input:active{cursor:url(../images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
 .draginput span{font:11px/130% sans-serif;color:#ccc;display:block;position:absolute;top:5px;left:5px;text-align:left}
 .draginput.error{background:#900}
 .draginput.error input{color:#fff}
@@ -402,8 +403,8 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 #zoomLabel:after{content:'';position:absolute;border-left:solid #2f2f2c 1px;left:0;height:16px}
 #zoom_label input{color:#ccc;font-size:13px;height:auto;width:auto;padding:0;cursor:default;position:static}
 #zoom_label span{top:0;left:0}
-body.dragging *{cursor:url(images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
-body.drag *{cursor:url(images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
+body.dragging *{cursor:url(../images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
+body.drag *{cursor:url(../images/dragging.png),move;cursor:-webkit-grabbing;cursor:-moz-grabbing}
 input[readonly=readonly]:focus{box-shadow:none}
 #color_canvas_tools,#fill_bg,#stroke_bg{background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMAQMAAABsu86kAAAAA3NCSVQICAjb4U/gAAAABlBMVEXu7u7///8o06qaAAAACXBIWXMAAAsSAAALEgHS3X78AAAAFXRFWHRDcmVhdGlvbiBUaW1lADcvMjIvMTL7FNdCAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAABFJREFUCJljYP7AgIb+MKAhAM8/C5vWL6zSAAAAAElFTkSuQmCC) top left repeat}
 #color_canvas_tools{width:60px;height:40px;margin:23px 5px 5px 5px;position:relative;overflow:hidden}
@@ -414,6 +415,3 @@ input[readonly=readonly]:focus{box-shadow:none}
 .stroke_tool .caret{top:60%}
 #tool_align_relative{position:absolute;top:-5px;left:0;right:20px;display:block}
 #tool_align_relative select{width:100%;display:block}
-INPUT.spin-button{background:transparent url('spinner.svg') right top no-repeat;background-size:17px 54px}
-INPUT.spin-button.up{cursor:pointer;background-position:100% -20px}
-INPUT.spin-button.down{cursor:pointer;background-position:100% -40px}

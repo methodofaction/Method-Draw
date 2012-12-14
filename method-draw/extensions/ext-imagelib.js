@@ -7,9 +7,9 @@
  *
  */
 
-svgEditor.addExtension("imagelib", function() {
+methodDraw.addExtension("imagelib", function() {
 
-	var uiStrings = svgEditor.uiStrings;
+	var uiStrings = methodDraw.uiStrings;
 	
 	$.extend(uiStrings, {
 		imagelib: {
@@ -221,7 +221,7 @@ svgEditor.addExtension("imagelib", function() {
 			case 'o':
 				// Open
 				if(!svg_str) break;
-				svgEditor.openPrep(function(ok) {
+				methodDraw.openPrep(function(ok) {
 					if(!ok) return;
 					svgCanvas.clear();
 					svgCanvas.setSvgString(response);

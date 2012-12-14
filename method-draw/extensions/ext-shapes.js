@@ -8,11 +8,11 @@
  *
  */
 
-svgEditor.addExtension("shapes", function() {
+methodDraw.addExtension("shapes", function() {
 	
 
 	var current_d, cur_shape_id;
-	var canv = svgEditor.canvas;
+	var canv = methodDraw.canvas;
 	var cur_shape;
 	var start_x, start_y;
 	var svgroot = canv.getRootElem();
@@ -356,4 +356,3 @@ svgEditor.addExtension("shapes", function() {
 		}		
 	}
 });
-

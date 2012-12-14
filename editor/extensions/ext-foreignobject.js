@@ -8,7 +8,7 @@
  *
  */
 
-svgEditor.addExtension("foreignObject", function(S) {
+methodDraw.addExtension("foreignObject", function(S) {
 		var svgcontent = S.svgcontent,
 			addElem = S.addSvgElementFromJson,
 			selElems,

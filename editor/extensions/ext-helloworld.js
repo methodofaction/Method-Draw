@@ -13,7 +13,7 @@
  	user the point on the canvas that was clicked on.
 */
  
-svgEditor.addExtension("Hello World", function() {
+methodDraw.addExtension("Hello World", function() {
 
 		return {
 			name: "Hello World",
