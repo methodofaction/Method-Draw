@@ -682,12 +682,12 @@
 				var zoom = $('#zoom')[0]
 				var current_zoom = res.zoom
 				var animateZoom = function(timestamp) {
-				  var progress = timestamp - start
+				  var progress = Date.now() - start
 				  var tick = progress / duration
           tick = (Math.pow((tick-1), 3) +1);
           svgCanvas.setZoom(current_zoom + (diff*tick));
 				  updateCanvas();
-				  if (tick < 1) {
+				  if (tick < 1 && tick > -.90) {
             window.animatedZoom = requestAnimationFrame(animateZoom)
 				  }
 				  else {
@@ -696,7 +696,7 @@
 				    $("option[value="+ parseInt(zoomlevel*100) +"]", "#zoom_select").attr("selected", "selected")
 				  }
 				}
-				animateZoom(Date.now())
+				animateZoom()
 				
  			  
 				
