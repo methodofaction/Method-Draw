@@ -675,7 +675,7 @@
 					return;
 				}
 				if (typeof animatedZoom != 'undefined') window.cancelAnimationFrame(animatedZoom)
-				//animate
+				// zoom duration 500ms
 				var start = Date.now();
 				var duration = 500;
 				var diff = (zoomlevel) - (res.zoom)
