@@ -1,3 +1,5 @@
+.DS_Store
+Thumbs.db
 build/firefox/*
 build/opera/*
 build/svg-edit-2.6/*
