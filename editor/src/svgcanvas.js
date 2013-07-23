@@ -6147,6 +6147,10 @@ this.setSvgString = function(xmlString) {
     return false;
   }
 
+  if (methodDraw.openCallback) {
+    methodDraw.openCallback();
+  }
+
   return true;
 };
 
