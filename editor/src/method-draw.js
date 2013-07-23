@@ -1721,12 +1721,16 @@
       }
 
       $('#stroke_style').change(function(){
+        if (this.selectedIndex == -1) return;
+
         svgCanvas.setStrokeAttr('stroke-dasharray', $(this).val());
         $("#stroke_style_label").html(this.options[this.selectedIndex].text)
         operaRepaint();
       });
 
       $('#seg_type').change(function() {
+        if (this.selectedIndex == -1) return;
+
         svgCanvas.setSegType($(this).val());
         $("#seg_type_label").html(this.options[this.selectedIndex].text)
       });
