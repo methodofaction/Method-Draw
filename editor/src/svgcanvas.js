@@ -6729,12 +6729,12 @@ var getResolution = this.getResolution = function() {
 //     var vb = svgcontent.getAttribute("viewBox").split(' ');
 //     return {'w':vb[2], 'h':vb[3], 'zoom': current_zoom};
 
-  var width = svgcontent.getAttribute("width")/current_zoom;
-  var height = svgcontent.getAttribute("height")/current_zoom;
+  var width = parseInt(svgcontent.getAttribute("width"));
+  var height = parseInt(svgcontent.getAttribute("height"));
 
   return {
-    'w': width,
-    'h': height,
+    'w': width/current_zoom,
+    'h': height/current_zoom,
     'zoom': current_zoom
   };
 };
