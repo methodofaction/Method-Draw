@@ -2923,7 +2923,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         }
 
         translateOrigin.setTranslate(-(left+tx),-(top+ty));
-        if(evt.shiftKey) {
+        if(!evt.shiftKey) {
           if(sx == 1) sx = sy
           else sy = sx;
         }
@@ -2976,7 +2976,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         var x2 = x;
         var y2 = y;
 
-        if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x2,y2); x2=xya.x; y2=xya.y; }
+        if(!evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x2,y2); x2=xya.x; y2=xya.y; }
 
         shape.setAttributeNS(null, "x2", x2);
         shape.setAttributeNS(null, "y2", y2);
@@ -3056,7 +3056,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           cx = start_x
           cy = start_y
           rx = Math.abs(x - cx)
-          ry = evt.shiftKey ? rx : Math.abs(y - cy);
+          ry = !evt.shiftKey ? rx : Math.abs(y - cy);
         }
         shape.setAttributeNS(null, "rx", rx );
         shape.setAttributeNS(null, "ry", ry );
@@ -3088,7 +3088,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           start_x = snapToGrid(start_x);
           start_y = snapToGrid(start_y);
         }
-        if(evt.shiftKey) {
+        if(!evt.shiftKey) {
           var path = svgedit.path.path;
           if(path) {
             var x1 = path.dragging?path.dragging[0]:start_x;
@@ -3148,7 +3148,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         if(curConfig.gridSnapping){
           angle = snapToGrid(angle);
         }
-        if(evt.shiftKey) { // restrict rotations to nice angles (WRS)
+        if(!evt.shiftKey) { // restrict rotations to nice angles (WRS)
           var snap = 45;
           angle= Math.round(angle/snap)*snap;
         }
@@ -3296,7 +3296,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
               pathActions.select(selectedElements[0]);
             } // if it was a path
             // else, if it was selected and this is a shift-click, remove it from selection
-            else if (evt.shiftKey) {
+            else if (!evt.shiftKey) {
               if(tempJustSelected != t) {
                 canvas.removeFromSelection([t]);
               }
@@ -4295,7 +4295,7 @@ var pathActions = canvas.pathActions = function() {
             var last = drawn_path.pathSegList.getItem(num -1);
             var lastx = last.x, lasty = last.y;
 
-            if(evt.shiftKey) { var xya = snapToAngle(lastx,lasty,x,y); x=xya.x; y=xya.y; }
+            if(!evt.shiftKey) { var xya = snapToAngle(lastx,lasty,x,y); x=xya.x; y=xya.y; }
 
             // Use the segment defined by stretchy
             var s_seg = stretchy.pathSegList.getItem(1);
