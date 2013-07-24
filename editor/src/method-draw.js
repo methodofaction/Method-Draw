@@ -2360,6 +2360,7 @@
           updateContextPanel();
           prepPaints();
           svgCanvas.runExtensions('onNewDocument');
+          if (methodDraw.openCallback) methodDraw.openCallback();
         });
       };
 
