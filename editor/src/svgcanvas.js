@@ -5972,6 +5972,7 @@ var convertToGroup = this.convertToGroup = function(elem) {
 // Returns:
 // This function returns false if the set was unsuccessful, true otherwise.
 this.setSvgString = function(xmlString) {
+  canvas.clearSelection();
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);
