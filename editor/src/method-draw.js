@@ -1554,9 +1554,11 @@
 
               //update the draginput cursors
               var name_item = document.getElementById(el_name + '_' + item);
-              name_item.value = Math.round(attrVal) || 0;
-              if (name_item.getAttribute("data-cursor") === "true") {
-                $.fn.dragInput.updateCursor(name_item );
+              if (name_item) {
+                name_item.value = Math.round(attrVal) || 0;
+                if (name_item.getAttribute("data-cursor") === "true") {
+                  $.fn.dragInput.updateCursor(name_item );
+                }
               }
             });
 
