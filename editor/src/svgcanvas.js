@@ -2212,9 +2212,14 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
     }
   }
   call("selected", selectedElements);
-  if (showGrips || selectedElements.length == 1) selectorManager.requestSelector(selectedElements[0]).showGrips(true)
-  else selectorManager.requestSelector(selectedElements[0]).showGrips(false);
 
+  if (selectedElements[0] != null) {
+    if (showGrips || selectedElements.length == 1) {
+      selectorManager.requestSelector(selectedElements[0]).showGrips(true)
+    } else {
+      selectorManager.requestSelector(selectedElements[0]).showGrips(false);
+    }
+  }
   // make sure the elements are in the correct order
   // See: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-compareDocumentPosition
 
@@ -2227,7 +2232,7 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
   });
 
   // Make sure first elements are not null
-  while(selectedElements[0] == null) selectedElements.shift(0);
+  while(selectedElements[0] == null && selectedElements.length) selectedElements.shift(0);
 };
 
 // Function: selectOnly()
@@ -8515,6 +8520,10 @@ var pushGroupProperties = this.pushGroupProperties = function(g, undoable) {
 // significant recalculations to apply group's transforms, etc to its children
 this.ungroupSelectedElement = function() {
   var g = selectedElements[0];
+
+  // Sanity Check selected element
+  if (typeof g == 'undefined') return;
+
   if($(g).data('gsvg') || $(g).data('symbol')) {
     // Is svg, so actually convert to group
 
