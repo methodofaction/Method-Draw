@@ -3203,11 +3203,12 @@
           var diff_w = dims[0] - w.value;
           var diff_h = dims[1] - h.value;
           //animate
-          var start = Date.now();
+          var start = null;
           var duration = 1000;
           var animateCanvasSize = function(timestamp) {
-            var progress = timestamp - start
-            var tick = progress / duration
+            if (start === null) start = timestamp;
+            var progress = timestamp - start;
+            var tick = progress / duration;
             tick = (Math.pow((tick-1), 3) +1);
             w.value = (dims[0] - diff_w + (tick*diff_w)).toFixed(0);
             h.value = (dims[1] - diff_h + (tick*diff_h)).toFixed(0);
