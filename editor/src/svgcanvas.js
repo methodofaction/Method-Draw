@@ -2425,7 +2425,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       mouse_target = selectedElements[0];
     }
 
-    start_transform = mouse_target.getAttribute("transform");
+    start_transform = $(mouse_target).attr("transform");
     var tlist = getTransformList(mouse_target);
     switch (current_mode) {
       case "select":
