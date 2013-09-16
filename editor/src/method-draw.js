@@ -1659,6 +1659,14 @@
 
       var changeStrokeWidth = function(ctl) {
         var val = ctl.value;
+
+        // Very stupid filter for non-numbers, fixes issues with "px" line widths
+        // TODO: if "px" widths and sizes aren't supported, they should just be
+        // filtered out/converted on import/open
+        if (isNaN(val)) {
+          val = ctl.value = 1;
+        }
+
         if(val == 0 && selectedElement && ['line', 'polyline'].indexOf(selectedElement.nodeName) >= 0) {
           val = ctl.value = 1;
         }
