@@ -22,7 +22,6 @@
   document.addEventListener("touchmove", touchHandler, true);
   document.addEventListener("touchend", touchHandler, true);
   document.addEventListener("touchcancel", touchHandler, true);
-  
 	if(!window.methodDraw) window.methodDraw = function($) {
 		var svgCanvas;
 		var Editor = {};
@@ -101,7 +100,21 @@
 				curConfig.extensions = opts.extensions;
 			}
 		}
-		
+
+		function textInputForEnvironment() {
+			if (parent !== window && /iP(ad|hone|od)/.test(navigator.userAgent)) {
+				var textInput = parent.document.createElement('input');
+				textInput.setAttribute('type', 'text');
+				textInput.style.position = 'absolute';
+				textInput.style.left = '-9999px';
+				parent.document.body.appendChild(textInput);
+
+				return textInput;
+			} else {
+				return '#text';
+			}
+		}
+
 		// Extension mechanisms must call setCustomHandlers with two functions: opts.open and opts.save
 		// opts.open's responsibilities are:
 		// 	- invoke a file chooser dialog in 'open' mode
@@ -369,6 +382,7 @@
 				ui_context = 'toolbars',
 				orig_source = '';
 				
+			var textInput = textInputForEnvironment();
 
 			// This puts the correct shortcuts in the menus
 			if (!isMac) {
@@ -1570,12 +1584,12 @@
 							$('#tool_bold').toggleClass('active', svgCanvas.getBold())
 							$('#font_family').val(font_family);
 							$('#font_size').val(elem.getAttribute("font-size"));
-							$('#text').val(elem.textContent);
+							$(textInput).val(elem.textContent);
 							$('#preview_font').text(font_family.split(",")[0].replace(/'/g, "")).css('font-family', font_family);
 							if (svgCanvas.addedNew) {
 								// Timeout needed for IE9
 								setTimeout(function() {
-									$('#text').focus().select();
+									$(textInput).focus().select();
 								},100);
 							}
 						} // text
@@ -1629,8 +1643,8 @@
 				}
 			};
 		
-			$('#text').on("focus", function(e){ textBeingEntered = true; } );
-			$('#text').on("blur", function(){ textBeingEntered = false; } );
+			$(textInput).on("focus", function(e){ textBeingEntered = true; } );
+			$(textInput).on("blur", function(){ textBeingEntered = false; } );
 		  
 			// bind the selected event to our function that handles updates to the UI
 			svgCanvas.bind("selected", selectedChanged);
@@ -1641,7 +1655,7 @@
 			svgCanvas.bind("zoomed", zoomChanged);
 			svgCanvas.bind("contextset", contextChanged);
 			svgCanvas.bind("extension_added", extAdded);
-			svgCanvas.textActions.setInputElem($("#text")[0]);
+			svgCanvas.textActions.setInputElem($(textInput)[0]);
 		
 			var str = '<div class="palette_item transparent" data-rgb="none"></div>\
 								<div class="palette_item black" data-rgb="#000000"></div>\
@@ -1738,7 +1752,7 @@
 				svgCanvas.setFontFamily(this.value);
 			});
 				
-			$('#text').keyup(function(){
+			$(textInput).keyup(function(){
 				svgCanvas.setTextContent(this.value);
 			});
 		  
@@ -2095,7 +2109,7 @@
 					workarea.unbind('mousedown', unfocus);
 					// Go back to selecting text if in textedit mode
 					if(svgCanvas.getMode() == 'textedit') {
-						$('#text').focus();
+						$(textInput).focus();
 					}
 				});
 				
