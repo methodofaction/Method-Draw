@@ -5975,7 +5975,7 @@ var convertToGroup = this.convertToGroup = function(elem) {
 // xmlString - The SVG as XML text.
 //
 // Returns:
-// This function returns false if the set was unsuccessful, true otherwise.
+// This function returns an error if the set was unsuccessful, true otherwise.
 this.setSvgString = function(xmlString) {
   canvas.clearSelection();
   try {
@@ -6150,7 +6150,7 @@ this.setSvgString = function(xmlString) {
     call("changed", [svgcontent]);
   } catch(e) {
     console.log(e);
-    return false;
+    return e;
   }
 
   if (methodDraw.openCallback) {
