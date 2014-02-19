@@ -2981,7 +2981,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         var x2 = x;
         var y2 = y;
 
-        if(!evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x2,y2); x2=xya.x; y2=xya.y; }
+        if(evt.shiftKey) { var xya = snapToAngle(start_x,start_y,x2,y2); x2=xya.x; y2=xya.y; }
 
         shape.setAttributeNS(null, "x2", x2);
         shape.setAttributeNS(null, "y2", y2);
@@ -3093,7 +3093,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           start_x = snapToGrid(start_x);
           start_y = snapToGrid(start_y);
         }
-        if(!evt.shiftKey) {
+        if(evt.shiftKey) {
           var path = svgedit.path.path;
           if(path) {
             var x1 = path.dragging?path.dragging[0]:start_x;
