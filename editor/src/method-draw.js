@@ -2586,7 +2586,7 @@
           prepPaints();
         }
 
-        if (!svgCanvas.setSvgString($('#svg_source_textarea').val())) {
+        if (svgCanvas.setSvgString($('#svg_source_textarea').val()) !== true) {
           $.confirm(uiStrings.notification.QerrorsRevertToSource, function(ok) {
             if(!ok) return false;
             saveChanges();
@@ -4071,7 +4071,7 @@
     var callbacks = [];
 
     function loadSvgString(str, callback) {
-      var success = svgCanvas.setSvgString(str) !== false;
+      var success = svgCanvas.setSvgString(str) === true;
       callback = callback || $.noop;
       if(success) {
         callback(true);
