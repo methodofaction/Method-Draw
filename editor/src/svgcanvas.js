@@ -5087,6 +5087,10 @@ var pathActions = canvas.pathActions = function() {
     // Convert a path to one with only absolute or relative values
     convertPath: function(path, toRel) {
       var segList = path.pathSegList;
+      if (!segList) { // Fail out if this isn't an actual path
+        return false;
+      }
+
       var len = segList.numberOfItems;
       var curx = 0, cury = 0;
       var d = "";
