@@ -146,10 +146,10 @@ var supportsNonScalingStroke_ = (function() {
 var supportsNativeSVGTransformLists_ = (function() {
 	var rect = document.createElementNS(svgns, 'rect');
 	var rxform = rect.transform.baseVal;
-	
+
 	var t1 = svg.createSVGTransform();
 	rxform.appendItem(t1);
-	return rxform.getItem(0) == t1;
+	return rxform.getItem(0).type == t1.type;
 })();
 
 // Public API
