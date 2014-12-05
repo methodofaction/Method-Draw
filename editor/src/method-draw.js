@@ -3199,8 +3199,8 @@
 					var start = Date.now();
 					var duration = 1000;
 					var animateCanvasSize = function(timestamp) {
-					  var progress = timestamp - start
-					  var tick = progress / duration
+					  var progress = Date.now() - start;
+					  var tick = progress / duration;
             tick = (Math.pow((tick-1), 3) +1);
 					  w.value = (dims[0] - diff_w + (tick*diff_w)).toFixed(0);
 					  h.value = (dims[1] - diff_h + (tick*diff_h)).toFixed(0);
@@ -3215,7 +3215,7 @@
 					    requestAnimationFrame(animateCanvasSize)
 					  }
 					}
-					animateCanvasSize(Date.now())
+					animateCanvasSize()
 
 				}
 			});
