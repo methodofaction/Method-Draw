@@ -13,7 +13,7 @@ JS_FILES=\
   lib/jquerybbq/jquery.bbq.min.js \
   icons/jquery.svgicons.js \
   lib/jgraduate/jquery.jgraduate.js \
-  lib/contextmenu/jquery.contextmenu.js \
+  lib/contextmenu/jquery.contextMenu.js \
   src/browser.js \
   src/svgtransformlist.js \
   src/math.js \
