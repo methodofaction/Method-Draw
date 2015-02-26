@@ -2369,7 +2369,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 		if (canvas.spaceKey) return;
 		var right_click = evt.button === 2;
 		
-		root_sctm = svgcontent.getScreenCTM().inverse();
+		root_sctm =  $('#svgcontent g')[0].getScreenCTM().inverse();
 		isBotchedZoom = svgedit.browser.isGecko();
 		var pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
 			mouse_x = pt.x * (isBotchedZoom ? 1 : current_zoom),
