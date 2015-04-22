@@ -88,9 +88,6 @@ compile: $(COMPILED_JS) $(COMPILED_CSS)
 
 release: $(PACKAGE)
 
-deploy:
-	cp -R  method-draw  ../Method.ac/public
-
 clean:
 	rm -rf config
 	rm -rf $(PACKAGE)
