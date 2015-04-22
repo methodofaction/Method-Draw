@@ -3274,6 +3274,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 
 					// if it was being dragged/resized
 					var isBotchedZoom = svgedit.browser.isGecko();
+					console.log(current_zoom)
 					r_start_x = isBotchedZoom ? r_start_x * current_zoom : r_start_x; 
 					r_start_y = isBotchedZoom ? r_start_y * current_zoom : r_start_y; 
 					var difference_x = Math.abs(real_x-r_start_x);
