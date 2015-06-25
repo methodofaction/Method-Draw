@@ -2193,7 +2193,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 #workarea.fhpath {
-  cursor: url(../images/pencil_cursor.png) 0 20, crosshair;
+  cursor: url(../images/pencil_cursor.png) 0 16, crosshair;
 }
 
 #workarea.rotate * {

@@ -341,7 +341,7 @@ button.cancel,input.Cancel,input.cancel,input.jGraduate_Cancel,button.cancel{-we
 #workarea.rect,#workarea.line,#workarea.ellipse,#workarea.path,#workarea.shapelib{cursor:crosshair}
 #workarea.text{cursor:text}
 #workarea.eyedropper{cursor:url(../images/eyedropper.png) 0 16,crosshair}
-#workarea.fhpath{cursor:url(../images/pencil_cursor.png) 0 20,crosshair}
+#workarea.fhpath{cursor:url(../images/pencil_cursor.png) 0 16,crosshair}
 #workarea.rotate *{cursor:url(../images/rotate.png) 12 12,auto}
 #workarea.select text,#workarea.multiselect text{cursor:default}
 #workarea.n-resize *{cursor:n-resize!important}

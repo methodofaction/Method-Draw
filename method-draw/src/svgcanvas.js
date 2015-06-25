@@ -2368,13 +2368,14 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	{
 		if (canvas.spaceKey) return;
 		var right_click = evt.button === 2;
-		
-		root_sctm = $('#svgcontent g')[0].getScreenCTM().inverse();
-		isBotchedZoom = svgedit.browser.isGecko();
+
+		root_sctm = svgcontent.querySelector("g").getScreenCTM().inverse();
+
 		var pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
 			mouse_x = pt.x * current_zoom,
 			mouse_y = pt.y * current_zoom;
 			
+
 		evt.preventDefault();
 
 		if(right_click) {
@@ -2724,7 +2725,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	// in this function we do not record any state changes yet (but we do update
 	// any elements that are still being created, moved or resized on the canvas)
 	var mouseMove = function(evt) {
-	  	if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
+		if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) return;
 		if (!started) return;
 		if(evt.button === 1 || canvas.spaceKey) return;
 		var selected = selectedElements[0],
@@ -3273,10 +3274,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					recalculateAllSelectedDimensions();
 
 					// if it was being dragged/resized
-					var isBotchedZoom = svgedit.browser.isGecko();
-					console.log(current_zoom)
-					r_start_x = isBotchedZoom ? r_start_x * current_zoom : r_start_x; 
-					r_start_y = isBotchedZoom ? r_start_y * current_zoom : r_start_y; 
+					r_start_x = r_start_x; 
+					r_start_y = r_start_y; 
 					var difference_x = Math.abs(real_x-r_start_x);
 					var difference_y = Math.abs(real_y-r_start_y);
 

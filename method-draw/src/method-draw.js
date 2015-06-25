@@ -16,8 +16,7 @@
 // 2) browser.js
 // 3) svgcanvas.js
 
-(function() { 
-  
+(function() {
   document.addEventListener("touchstart", touchHandler, true);
   document.addEventListener("touchmove", touchHandler, true);
   document.addEventListener("touchend", touchHandler, true);
@@ -1914,12 +1913,13 @@
       
       var accumulatedDelta = 0
       $('#workarea').on('mousewheel', function(e, delta, deltaX, deltaY){
-        if (e.altKey) {
+        if (e.altKey || e.ctrlKey) {
           e.preventDefault();
           zoom = parseInt($("#zoom").val())
-          $("#zoom").val(parseInt(zoom + deltaY*10)).change()
+          $("#zoom").val(parseInt(zoom + deltaY*(e.altKey ? 10 : 5))).change()
         }
-      })
+      });
+      
 			$('.menu_title')
 			  .on('mousedown', function() {
 			    $("#tools_shapelib").hide()
