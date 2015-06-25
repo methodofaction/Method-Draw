@@ -75,20 +75,20 @@ function embedded_svg_edit(frame){
   //var l=[];for(var i in svgCanvas){if(typeof svgCanvas[i] == "function"){l.push(i)}};
   //run in svgedit itself
   var functions = ["updateElementFromJson", "embedImage", "fixOperaXML", "clearSelection", "addToSelection",
-		"removeFromSelection", "addNodeToSelection", "open", "save", "getSvgString", "setSvgString", "createLayer",
-		"deleteCurrentLayer", "getCurrentDrawing", "setCurrentLayer", "renameCurrentLayer", "setCurrentLayerPosition",
-		"setLayerVisibility", "moveSelectedToLayer", "clear", "clearPath", "getNodePoint", "clonePathNode", "deletePathNode",
-		"getResolution", "getImageTitle", "setImageTitle", "setResolution", "setBBoxZoom", "setZoom", "getMode", "setMode",
-		"getStrokeColor", "setStrokeColor", "getFillColor", "setFillColor", "setStrokePaint", "setFillPaint", "getStrokeWidth",
-		"setStrokeWidth", "getStrokeStyle", "setStrokeStyle", "getOpacity", "setOpacity", "getFillOpacity", "setFillOpacity",
-		"getStrokeOpacity", "setStrokeOpacity", "getTransformList", "getBBox", "getRotationAngle", "setRotationAngle", "each",
-		"bind", "setIdPrefix", "getBold", "setBold", "getItalic", "setItalic", "getFontFamily", "setFontFamily", "getFontSize",
-		"setFontSize", "getText", "setTextContent", "setImageURL", "setRectRadius", "setSegType", "quickClone",
-		"changeSelectedAttributeNoUndo", "changeSelectedAttribute", "deleteSelectedElements", "groupSelectedElements",
-		"ungroupSelectedElement", "moveToTopSelectedElement", "moveToBottomSelectedElement", "moveSelectedElements",
-		"getStrokedBBox", "getVisibleElements", "cycleElement", "getUndoStackSize", "getRedoStackSize", "getNextUndoCommandText",
-		"getNextRedoCommandText", "undo", "redo", "cloneSelectedElements", "alignSelectedElements", "getZoom", "getVersion",
-		"setIconSize", "setLang", "setCustomHandlers"];
+    "removeFromSelection", "addNodeToSelection", "open", "save", "getSvgString", "setSvgString", "createLayer",
+    "deleteCurrentLayer", "getCurrentDrawing", "setCurrentLayer", "renameCurrentLayer", "setCurrentLayerPosition",
+    "setLayerVisibility", "moveSelectedToLayer", "clear", "clearPath", "getNodePoint", "clonePathNode", "deletePathNode",
+    "getResolution", "getImageTitle", "setImageTitle", "setResolution", "setBBoxZoom", "setZoom", "getMode", "setMode",
+    "getStrokeColor", "setStrokeColor", "getFillColor", "setFillColor", "setStrokePaint", "setFillPaint", "getStrokeWidth",
+    "setStrokeWidth", "getStrokeStyle", "setStrokeStyle", "getOpacity", "setOpacity", "getFillOpacity", "setFillOpacity",
+    "getStrokeOpacity", "setStrokeOpacity", "getTransformList", "getBBox", "getRotationAngle", "setRotationAngle", "each",
+    "bind", "setIdPrefix", "getBold", "setBold", "getItalic", "setItalic", "getFontFamily", "setFontFamily", "getFontSize",
+    "setFontSize", "getText", "setTextContent", "setImageURL", "setRectRadius", "setSegType", "quickClone",
+    "changeSelectedAttributeNoUndo", "changeSelectedAttribute", "deleteSelectedElements", "groupSelectedElements",
+    "ungroupSelectedElement", "moveToTopSelectedElement", "moveToBottomSelectedElement", "moveSelectedElements",
+    "getStrokedBBox", "getVisibleElements", "cycleElement", "getUndoStackSize", "getRedoStackSize", "getNextUndoCommandText",
+    "getNextRedoCommandText", "undo", "redo", "cloneSelectedElements", "alignSelectedElements", "getZoom", "getVersion",
+    "setIconSize", "setLang", "setCustomHandlers"];
   
   //TODO: rewrite the following, it's pretty scary.
   for(var i = 0; i < functions.length; i++){
