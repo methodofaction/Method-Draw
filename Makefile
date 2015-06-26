@@ -8,29 +8,29 @@ YUICOMPRESSOR=build/tools/yuicompressor-2.4.7.jar
 # All files that will be compiled by the Closure compiler.
 
 JS_FILES=\
-  lib/touch.js \
-  lib/js-hotkeys/jquery.hotkeys.min.js \
-  lib/jquerybbq/jquery.bbq.min.js \
-  icons/jquery.svgicons.js \
-  lib/jgraduate/jquery.jgraduate.js \
-  lib/contextmenu/jquery.contextMenu.js \
-  src/browser.js \
-  src/svgtransformlist.js \
-  src/math.js \
-  src/units.js \
-  src/svgutils.js \
-  src/sanitize.js \
-  src/history.js \
-  src/select.js \
-  src/draw.js \
-  src/path.js \
-  src/svgcanvas.js \
-  src/method-draw.js \
-  lib/jquery-draginput.js \
-  lib/contextmenu.js \
-  lib/jquery-ui/jquery-ui-1.8.17.custom.min.js \
-  lib/jgraduate/jpicker.min.js \
-  lib/mousewheel.js \
+	lib/touch.js \
+	lib/js-hotkeys/jquery.hotkeys.min.js \
+	lib/jquerybbq/jquery.bbq.min.js \
+	icons/jquery.svgicons.js \
+	lib/jgraduate/jquery.jgraduate.js \
+	lib/contextmenu/jquery.contextMenu.js \
+	src/browser.js \
+	src/svgtransformlist.js \
+	src/math.js \
+	src/units.js \
+	src/svgutils.js \
+	src/sanitize.js \
+	src/history.js \
+	src/select.js \
+	src/draw.js \
+	src/path.js \
+	src/svgcanvas.js \
+	src/method-draw.js \
+	lib/jquery-draginput.js \
+	lib/contextmenu.js \
+	lib/jquery-ui/jquery-ui-1.8.17.custom.min.js \
+	lib/jgraduate/jpicker.min.js \
+	lib/mousewheel.js \
 	extensions/ext-eyedropper.js \
 	extensions/ext-grid.js \
 	extensions/ext-shapes.js \
@@ -39,8 +39,8 @@ JS_FILES=\
 
 CSS_FILES=\
 	lib/jgraduate/css/jPicker.css \
-  lib/jgraduate/css/jgraduate.css \
-  css/method-draw.css \
+	lib/jgraduate/css/jgraduate.css \
+	css/method-draw.css \
 
 JS_INPUT_FILES=$(addprefix editor/, $(JS_FILES))
 CSS_INPUT_FILES=$(addprefix editor/, $(CSS_FILES))
@@ -54,8 +54,8 @@ all: release
 
 # The build directory relies on the JS being compiled.
 $(PACKAGE): $(COMPILED_JS) $(COMPILED_CSS)
-	rm -rf config
-	mkdir config
+	rm -rf config;
+	mkdir config;
 	if [ -x $(MAKEDOCS) ] ; then $(MAKEDOCS) -i editor/ -o html docs/ -p config/ -oft -r ; fi
 
 	# Make build directory and copy all editor contents into it
@@ -77,12 +77,14 @@ $(PACKAGE): $(COMPILED_JS) $(COMPILED_CSS)
 $(COMPILED_CSS):
 	cat $(CSS_INPUT_FILES) > editor/temp.css;
 	java -jar $(YUICOMPRESSOR) editor/temp.css -o $(COMPILED_CSS) --line-break 0;
+	rm editor/temp.css;
 
 $(COMPILED_JS):
 	java -jar $(CLOSURE) \
 		--compilation_level SIMPLE_OPTIMIZATIONS \
 		$(CLOSURE_JS_ARGS) \
 		--js_output_file $(COMPILED_JS)
+	rm editor/method-draw.compiled.js
 
 compile: $(COMPILED_JS) $(COMPILED_CSS)
 
