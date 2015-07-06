@@ -471,12 +471,14 @@ svgedit.path.Segment.prototype.update = function(full) {
 
 svgedit.path.Segment.prototype.move = function(dx, dy) {
   var item = this.item;
-  if(this.ctrlpts) {
-    var cur_pts = [item.x += dx, item.y += dy, 
-      item.x1, item.y1, item.x2 += dx, item.y2 += dy];
-  } else {
-    var cur_pts = [item.x += dx, item.y += dy];
-  }
+  // fix for path tool dom breakage, amending item does bad things now, so we take a copy and use that. Can probably improve to just take a shallow copy of object
+  var cloneItem = $.extend({}, item);
+  var cur_pts = (this.ctrlpts) 
+    ? [cloneItem.x += dx,  cloneItem.y += dy, 
+       cloneItem.x1,       cloneItem.y1, 
+       cloneItem.x2 += dx, cloneItem.y2 += dy]
+    : [cloneItem.x += dx, cloneItem.y += dy];
+  
   svgedit.path.replacePathSeg(this.type, this.index, cur_pts);
 
   if(this.next && this.next.ctrlpts) {
@@ -514,18 +516,22 @@ svgedit.path.Segment.prototype.setLinked = function(num) {
   }
 
   var item = seg.item;
-  item['x' + anum] = pt.x + pt.x - this.item['x' + num];
-  item['y' + anum] = pt.y + pt.y - this.item['y' + num];
+  var cloneItem = $.extend({}, item);
+  cloneItem['x' + anum ] = pt.x + (pt.x - this.item['x' + num]);
+  cloneItem['y' + anum ] = pt.y + (pt.y - this.item['y' + num]);
 
-  var pts = [item.x, item.y,
-    item.x1, item.y1,
-    item.x2, item.y2];
+  var pts = [ 
+              cloneItem.x, cloneItem.y,
+              cloneItem.x1, cloneItem.y1,
+              cloneItem.x2, cloneItem.y2
+            ];
+
   svgedit.path.replacePathSeg(seg.type, seg.index, pts);
   seg.update(true);
 };
 
 svgedit.path.Segment.prototype.moveCtrl = function(num, dx, dy) {
-  var item = this.item;
+  var item = $.extend({}, this.item);
 
   item['x' + num] += dx;
   item['y' + num] += dy;
