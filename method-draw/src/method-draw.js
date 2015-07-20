@@ -684,6 +684,8 @@
           var progress = Date.now() - start
           var tick = progress / duration
           tick = (Math.pow((tick-1), 3) +1);
+          if (tick > 1) tick = 1;
+          if (tick < -.90) tick = -.90;
           svgCanvas.setZoom(current_zoom + (diff*tick));
           updateCanvas();
           if (tick < 1 && tick > -.90) {
