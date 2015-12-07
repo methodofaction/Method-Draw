@@ -8,6 +8,7 @@ YUICOMPRESSOR=build/tools/yuicompressor-2.4.7.jar
 # All files that will be compiled by the Closure compiler.
 
 JS_FILES=\
+	lib/pathseg.js \
 	lib/touch.js \
 	lib/js-hotkeys/jquery.hotkeys.min.js \
 	lib/jquerybbq/jquery.bbq.min.js \
@@ -84,7 +85,6 @@ $(COMPILED_JS):
 		--compilation_level SIMPLE_OPTIMIZATIONS \
 		$(CLOSURE_JS_ARGS) \
 		--js_output_file $(COMPILED_JS)
-	rm editor/method-draw.compiled.js
 
 compile: $(COMPILED_JS) $(COMPILED_CSS)
 

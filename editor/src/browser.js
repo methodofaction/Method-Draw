@@ -48,31 +48,6 @@ var supportsXpath_ = (function() {
   return !!document.evaluate;
 })();
 
-// segList functions (for FF1.5 and 2.0)
-var supportsPathReplaceItem_ = (function() {
-  var path = document.createElementNS(svgns, 'path');
-  path.setAttribute('d','M0,0 10,10');
-  var seglist = path.pathSegList;
-  var seg = path.createSVGPathSegLinetoAbs(5,5);
-  try {
-    seglist.replaceItem(seg, 0);
-    return true;
-  } catch(err) {}
-  return false;
-})();
-
-var supportsPathInsertItemBefore_ = (function() {
-  var path = document.createElementNS(svgns,'path');
-  path.setAttribute('d','M0,0 10,10');
-  var seglist = path.pathSegList;
-  var seg = path.createSVGPathSegLinetoAbs(5,5);
-  try {
-    seglist.insertItemBefore(seg, 0);
-    return true;
-  } catch(err) {}
-  return false;
-})();
-
 // text character positioning (for IE9)
 var supportsGoodTextCharPos_ = (function() {
    var retValue = false;
@@ -166,8 +141,6 @@ svgedit.browser.isTouch = function() { return isTouch_; }
 svgedit.browser.supportsSelectors = function() { return supportsSelectors_; }
 svgedit.browser.supportsXpath = function() { return supportsXpath_; }
 
-svgedit.browser.supportsPathReplaceItem = function() { return supportsPathReplaceItem_; }
-svgedit.browser.supportsPathInsertItemBefore = function() { return supportsPathInsertItemBefore_; }
 svgedit.browser.supportsPathBBox = function() { return supportsPathBBox_; }
 svgedit.browser.supportsHVLineContainerBBox = function() { return supportsHVLineContainerBBox_; }
 svgedit.browser.supportsGoodTextCharPos = function() { return supportsGoodTextCharPos_; }

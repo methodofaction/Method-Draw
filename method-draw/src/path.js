@@ -69,27 +69,8 @@ svgedit.path.init = function(editorContext) {
 };
 
 svgedit.path.insertItemBefore = function(elem, newseg, index) {
-  // Support insertItemBefore on paths for FF2
   var list = elem.pathSegList;
-
-  if(svgedit.browser.supportsPathInsertItemBefore()) {
-    list.insertItemBefore(newseg, index);
-    return;
-  }
-  //TODO!!!
-  var len = list.numberOfItems;
-  var arr = [];
-  for(var i=0; i<len; i++) {
-    var cur_seg = list.getItem(i);
-    arr.push(cur_seg)       
-  }
-  list.clear();
-  for(var i=0; i<len; i++) {
-    if(i == index) { //index+1
-      list.appendItem(newseg);
-    }
-    list.appendItem(arr[i]);
-  }
+  list.insertItemBefore(newseg, index);
 };
 
 // TODO: See if this should just live in replacePathSeg
@@ -284,26 +265,7 @@ svgedit.path.replacePathSeg = function(type, index, pts, elem) {
   var path = elem || svgedit.path.path.elem;
   var func = 'createSVGPathSeg' + pathFuncs[type];
   var seg = path[func].apply(path, pts);
-
-  if(svgedit.browser.supportsPathReplaceItem()) {
-    path.pathSegList.replaceItem(seg, index);
-  } else {
-    var segList = path.pathSegList;
-    var len = segList.numberOfItems;
-    var arr = [];
-    for(var i=0; i<len; i++) {
-      var cur_seg = segList.getItem(i);
-      arr.push(cur_seg)       
-    }
-    segList.clear();
-    for(var i=0; i<len; i++) {
-      if(i == index) {
-        segList.appendItem(seg);
-      } else {
-        segList.appendItem(arr[i]);
-      }
-    }
-  }
+  path.pathSegList.replaceItem(seg, index);
 };
 
 svgedit.path.getSegSelector = function(seg, update) {
