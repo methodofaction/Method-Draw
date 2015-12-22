@@ -70,3 +70,27 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Junction';
+    src: url('font-files/Junction-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'League Gothic';
+    src: url('font-files/League_Gothic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fanwood';
+    src: url('font-files/fanwood-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fanwood';
+    src: url('font-files/fanwood_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}

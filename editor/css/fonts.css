@@ -29,18 +29,6 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'Oswald';
-    src: url('font-files/oswald-bold-webfont.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Oswald';
-    src: url('font-files/oswald-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'Shadows Into Light';
     src: url('font-files/shadowsintolight-webfont.woff') format('woff');
     font-weight: normal;

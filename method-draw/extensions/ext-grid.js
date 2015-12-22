@@ -15,11 +15,11 @@
 methodDraw.addExtension("view_grid", function(s) {
     if (!document.getElementById("canvasGrid")){
     var svgdoc = document.getElementById("svgcanvas").ownerDocument,
-			svgns = "http://www.w3.org/2000/svg",
-			dims = methodDraw.curConfig.dimensions,
-			svgroot = s.svgroot;
+            svgns = "http://www.w3.org/2000/svg",
+            dims = methodDraw.curConfig.dimensions,
+            svgroot = s.svgroot;
     var svgCanvas = methodDraw.canvas;
-	var showGrid = false;
+    var showGrid = false;
     var assignAttributes = s.assignAttributes;
     
     var hcanvas = document.createElement('canvas');
@@ -79,78 +79,78 @@ methodDraw.addExtension("view_grid", function(s) {
         }
 //     });
 
-	function updateGrid(zoom) {
-		// TODO: Try this with <line> elements, then compare performance difference
-	
-		var bgwidth = +canvBG.attr('width');
-		var bgheight = +canvBG.attr('height');
-		
-		var units = svgedit.units.getTypeMap();
-		var unit = units[methodDraw.curConfig.baseUnit]; // 1 = 1px
-		var r_intervals = [.01, .1, 1, 10, 100, 1000];
-	
-		var d = 0;
-		var is_x = (d === 0);
-		var dim = is_x ? 'x' : 'y';
-		var lentype = is_x?'width':'height';
-		var c_elem = svgCanvas.getContentElem();
-		var content_d = c_elem.getAttribute(dim)-0;
-		
-		var hcanv = hcanvas;
-		
-		var u_multi = unit * zoom;
-		
-		// Calculate the main number interval
-		var raw_m = 100 / u_multi;
-		var multi = 1;
-		for(var i = 0; i < r_intervals.length; i++) {
-			var num = r_intervals[i];
-			multi = num;
-			if(raw_m <= num) {
-				break;
-			}
-		}
-		
-		var big_int = multi * u_multi;
+    function updateGrid(zoom) {
+        // TODO: Try this with <line> elements, then compare performance difference
+    
+        var bgwidth = +canvBG.attr('width');
+        var bgheight = +canvBG.attr('height');
+        
+        var units = svgedit.units.getTypeMap();
+        var unit = units[methodDraw.curConfig.baseUnit]; // 1 = 1px
+        var r_intervals = [.01, .1, 1, 10, 100, 1000];
+    
+        var d = 0;
+        var is_x = (d === 0);
+        var dim = is_x ? 'x' : 'y';
+        var lentype = is_x?'width':'height';
+        var c_elem = svgCanvas.getContentElem();
+        var content_d = c_elem.getAttribute(dim)-0;
+        
+        var hcanv = hcanvas;
+        
+        var u_multi = unit * zoom;
+        
+        // Calculate the main number interval
+        var raw_m = 100 / u_multi;
+        var multi = 1;
+        for(var i = 0; i < r_intervals.length; i++) {
+            var num = r_intervals[i];
+            multi = num;
+            if(raw_m <= num) {
+                break;
+            }
+        }
+        
+        var big_int = multi * u_multi;
 
-		// Set the canvas size to the width of the container
-		hcanv.width = big_int;
-		hcanv.height = big_int;
-		var ctx = hcanv.getContext("2d");
+        // Set the canvas size to the width of the container
+        hcanv.width = big_int;
+        hcanv.height = big_int;
+        var ctx = hcanv.getContext("2d");
 
-		var ruler_d = 0; 
-		var cur_d = .5;
-		
-		var part = big_int / 10;
+        var ruler_d = 0; 
+        var cur_d = .5;
+        
+        var part = big_int / 10;
 
-		ctx.globalAlpha = 0.2;
-		ctx.strokeStyle = "#000";
-		for(var i = 1; i < 10; i++) {
-			var sub_d = Math.round(part * i) + .5;
-// 					var line_num = (i % 2)?12:10;
-			var line_num = 0;
-			ctx.moveTo(sub_d, big_int);
-			ctx.lineTo(sub_d, line_num);
-			ctx.moveTo(big_int, sub_d);
-			ctx.lineTo(line_num ,sub_d);
-		}
-		ctx.stroke();
-		ctx.beginPath();  
-		ctx.globalAlpha = 0.5;
-		ctx.moveTo(cur_d, big_int);
-		ctx.lineTo(cur_d, 0);
+        ctx.globalAlpha = 0.2;
+        ctx.strokeStyle = "#000";
+        for(var i = 1; i < 10; i++) {
+            var sub_d = Math.round(part * i) + .5;
+//                  var line_num = (i % 2)?12:10;
+            var line_num = 0;
+            ctx.moveTo(sub_d, big_int);
+            ctx.lineTo(sub_d, line_num);
+            ctx.moveTo(big_int, sub_d);
+            ctx.lineTo(line_num ,sub_d);
+        }
+        ctx.stroke();
+        ctx.beginPath();  
+        ctx.globalAlpha = 0.5;
+        ctx.moveTo(cur_d, big_int);
+        ctx.lineTo(cur_d, 0);
 
-		ctx.moveTo(big_int, cur_d);
-		ctx.lineTo(0, cur_d);
-		ctx.stroke();
+        ctx.moveTo(big_int, cur_d);
+        ctx.lineTo(0, cur_d);
+        ctx.stroke();
 
-		var datauri = hcanv.toDataURL('image/png');
-		gridimg.setAttribute('width', big_int);
-		gridimg.setAttribute('height', big_int);
-		gridimg.parentNode.setAttribute('width', big_int);
-		gridimg.parentNode.setAttribute('height', big_int);
-		svgCanvas.setHref(gridimg, datauri);
-	}
+        var datauri = hcanv.toDataURL('image/png');
+        gridimg.setAttribute('width', big_int);
+        gridimg.setAttribute('height', big_int);
+        gridimg.parentNode.setAttribute('width', big_int);
+        gridimg.parentNode.setAttribute('height', big_int);
+        svgCanvas.setHref(gridimg, datauri);
+    }
 
     return {
         name: "view_grid",
