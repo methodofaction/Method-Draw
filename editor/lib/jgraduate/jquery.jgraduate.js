@@ -358,7 +358,11 @@ jQuery.fn.jGraduate =
             grad = curGradient = svg.appendChild(curGradient);//.cloneNode(true));
           }
           mkElem('linearGradient', {
-            id: id + '_lg_jgraduate_grad'
+            id: id + '_lg_jgraduate_grad',
+            x1: 0,
+            y1: 0,
+            x2: 1,
+            y2: 0,
           }, svg);
       }
       
