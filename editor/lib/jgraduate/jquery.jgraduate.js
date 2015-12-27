@@ -382,13 +382,16 @@ jQuery.fn.jGraduate =
             case 'inverse':
               // Invert current color for second stop
               var inverted = '';
-              
+              if (color.length === 3) {
+                color = color.split("").map(function(d){return d + "" + d}).join("");
+              }
               for(var i = 0; i < 6; i += 2) {
                 var ch = color.substr(i, 2);
                 var inv = (255 - parseInt(color.substr(i, 2), 16)).toString(16);
                 if(inv.length < 2) inv = 0 + inv;
                 inverted += inv;
               }
+              console.log(inverted)
               mkStop(1, '#' + inverted, 1);
               break;
             
@@ -460,16 +463,6 @@ jQuery.fn.jGraduate =
       
       var coords = $(idref + ' .grad_coord');
       
-//      $(container).hover(function() {
-//        coords.animate({
-//          opacity: 1
-//        }, 500);
-//      }, function() {
-//        coords.animate({
-//          opacity: .2
-//        }, 500);        
-//      });
-      
       $.each(['x1', 'y1', 'x2', 'y2', 'cx', 'cy', 'fx', 'fy'], function(i, attr) {
         var attrval = curGradient.getAttribute(attr);
         
@@ -514,8 +507,6 @@ jQuery.fn.jGraduate =
         }).change();
       });
 
-
-      
       function mkStop(n, color, opac, sel, stop_elem) {
         var stop = stop_elem || mkElem('stop',{'stop-color':color,'stop-opacity':opac,offset:n}, curGradient);
         if(stop_elem) {
