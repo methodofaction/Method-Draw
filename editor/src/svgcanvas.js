@@ -2965,10 +2965,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         },1000);
         break;
       case "line":
-        // Opera has a problem with suspendRedraw() apparently
-        var handle = null;
-        if (!window.opera) svgroot.suspendRedraw(1000);
-
         if(curConfig.gridSnapping){
           x = snapToGrid(x);
           y = snapToGrid(y);
@@ -2981,7 +2977,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         
         shape.setAttributeNS(null, "x2", x2);
         shape.setAttributeNS(null, "y2", y2);
-        if (!window.opera) svgroot.unsuspendRedraw(handle);
         break;
       case "foreignObject":
         // fall through
@@ -3036,10 +3031,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         var c = $(shape).attr(["cx", "cy"]);
         var cx = Math.abs(start_x + (x - start_x)/2)
         var cy = Math.abs(start_y + (y - start_y)/2);
- 
-        // Opera has a problem with suspendRedraw() apparently
-          handle = null;
-        if (!window.opera) svgroot.suspendRedraw(1000);
         if(curConfig.gridSnapping){
           x = snapToGrid(x);
           cx = snapToGrid(cx);
@@ -3063,7 +3054,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         shape.setAttributeNS(null, "ry", ry );
         shape.setAttributeNS(null, "cx", cx );
         shape.setAttributeNS(null, "cy", cy );
-        if (!window.opera) svgroot.unsuspendRedraw(handle);
         break;
       case "fhellipse":
       case "fhrect":
@@ -6910,7 +6900,6 @@ this.setResolution = function(x, y) {
     }
   }
   if (x != w || y != h) {
-    var handle = svgroot.suspendRedraw(1000);
     if(!batchCmd) {
       batchCmd = new BatchCommand("Change Image Dimensions");
     }
@@ -6929,7 +6918,6 @@ this.setResolution = function(x, y) {
     batchCmd.addSubCommand(new ChangeElementCommand(svgcontent, {"viewBox": ["0 0", w, h].join(' ')}));
   
     addCommandToHistory(batchCmd);
-    svgroot.unsuspendRedraw(handle);
     background = document.getElementById("canvas_background");
     if (background) {
       background.setAttribute("x", -1)
@@ -8054,7 +8042,6 @@ this.convertToPath = function(elem, getBBox) {
 // newValue - String or number with the new attribute value
 // elems - The DOM elements to apply the change to
 var changeSelectedAttributeNoUndo = this.changeSelectedAttributeNoUndo = function(attr, newValue, elems) {
-    var handle = svgroot.suspendRedraw(1000);
     if(current_mode == 'pathedit') {
       // Editing node
       pathActions.moveNode(attr, newValue);
@@ -8129,7 +8116,6 @@ var changeSelectedAttributeNoUndo = this.changeSelectedAttributeNoUndo = functio
         }
       } // if oldValue != newValue
     } // for each elem
-    svgroot.unsuspendRedraw(handle);
 };
 
 // Function: changeSelectedAttribute

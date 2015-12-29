@@ -591,10 +591,6 @@ if (svgedit.browser.supportsSelectors()) {
 // suspendLength - Optional integer of milliseconds to suspend redraw
 // unitCheck - Boolean to indicate the need to use svgedit.units.setUnitAttr
 svgedit.utilities.assignAttributes = function(node, attrs, suspendLength, unitCheck) {
-  if(!suspendLength) suspendLength = 0;
-  // Opera has a problem with suspendRedraw() apparently
-  var handle = null;
-  if (!svgedit.browser.isOpera()) svgroot_.suspendRedraw(suspendLength);
 
   for (var i in attrs) {
     var ns = (i.substr(0,4) === "xml:" ? XMLNS : 
@@ -609,8 +605,6 @@ svgedit.utilities.assignAttributes = function(node, attrs, suspendLength, unitCh
     }
     
   }
-  
-  if (!svgedit.browser.isOpera()) svgroot_.unsuspendRedraw(handle);
 };
 
 // Function: cleanupElement
@@ -619,7 +613,6 @@ svgedit.utilities.assignAttributes = function(node, attrs, suspendLength, unitCh
 // Parameters:
 // element - DOM element to clean up
 svgedit.utilities.cleanupElement = function(element) {
-  var handle = svgroot_.suspendRedraw(60);
   var defaults = {
     'fill-opacity':1,
     'stop-opacity':1,
@@ -641,7 +634,6 @@ svgedit.utilities.cleanupElement = function(element) {
     }
   }
   
-  svgroot_.unsuspendRedraw(handle);
 };
 
 

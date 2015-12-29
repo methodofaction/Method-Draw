@@ -123,7 +123,6 @@ svgedit.select.Selector.prototype.updateGripCursors = function(angle) {
 // Parameters:
 // show - boolean indicating whether grips should be shown or not
 svgedit.select.Selector.prototype.showGrips = function(show) {
-  // TODO: use suspendRedraw() here
   var bShow = show ? 'inline' : 'none';
   selectorManager_.selectorGripsGroup.setAttribute('display', bShow);
   var elem = this.selectedElement;
@@ -222,7 +221,6 @@ svgedit.select.Selector.prototype.resize = function() {
     nbaw = (maxx-minx);
     nbah = (maxy-miny);
   }
-  var sr_handle = svgFactory_.svgRoot().suspendRedraw(100);
 
   var dstr = 'M' + nbax + ',' + nbay
         + ' L' + (nbax+nbaw) + ',' + nbay
@@ -271,7 +269,6 @@ svgedit.select.Selector.prototype.resize = function() {
       mgr.rotateGrips[dir].setAttribute('cy', coords[1]);
     }
 
-  svgFactory_.svgRoot().unsuspendRedraw(sr_handle);
 };
 
 
