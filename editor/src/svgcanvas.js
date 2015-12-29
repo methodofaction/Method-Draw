@@ -4551,7 +4551,6 @@ var pathActions = canvas.pathActions = function() {
           if (stretchy) {
             var prev = seglist.getItem(index);
             var lastpoint = (evt.target.id === 'pathpointgrip_0');
-
             var lastgripx = mouse_x;
             var lastgripy = mouse_y;
 
@@ -4628,8 +4627,13 @@ var pathActions = canvas.pathActions = function() {
         this.lastCtrlPoint = [lastpointgrip.getAttribute('cx'), lastpointgrip.getAttribute('cy')];
       else
         this.lastCtrlPoint = [mouse_x, mouse_y]
-      if (!svgedit.path.first_grip && firstpointgrip) {
-        svgedit.path.first_grip = [firstpointgrip.getAttribute('cx'), firstpointgrip.getAttribute('cy')];
+      if (!svgedit.path.first_grip) {
+        if  (firstpointgrip) {
+          svgedit.path.first_grip = [firstpointgrip.getAttribute('cx'), firstpointgrip.getAttribute('cy')];
+        }
+        else {
+          svgedit.path.first_grip = [mouse_x, mouse_y];
+        }
       }
       // Create mode
       if(current_mode === "path") {
