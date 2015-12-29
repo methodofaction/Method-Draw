@@ -5578,7 +5578,14 @@ this.save = function(opts) {
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
   var str = this.svgCanvasToString();
-  call("saved", str);
+  if (svgedit.browser.supportsBlobs()) {
+    var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
+    var dropAutoBOM = true;
+    saveAs(blob, "method-draw-image.svg", dropAutoBOM);
+  }
+  else {
+    call("saved", str);
+  }
 };
 
 // Function: rasterExport

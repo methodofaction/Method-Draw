@@ -127,6 +127,8 @@ var supportsNativeSVGTransformLists_ = (function() {
   return rxform.getItem(0) == t1;
 })();
 
+var supportsBlobs = !!new Blob;
+
 // Public API
 
 svgedit.browser.isOpera = function() { return isOpera_; }
@@ -148,7 +150,7 @@ svgedit.browser.supportsEditableText = function() { return supportsEditableText_
 svgedit.browser.supportsGoodDecimals = function() { return supportsGoodDecimals_; }
 svgedit.browser.supportsNonScalingStroke = function() { return supportsNonScalingStroke_; }
 svgedit.browser.supportsNativeTransformLists = function() { return supportsNativeSVGTransformLists_; }
-
+svgedit.browser.supportsBlobs = function() {return supportsBlobs; }
 }
 
 })();
