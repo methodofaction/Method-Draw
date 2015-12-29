@@ -391,7 +391,6 @@ jQuery.fn.jGraduate =
                 if(inv.length < 2) inv = 0 + inv;
                 inverted += inv;
               }
-              console.log(inverted)
               mkStop(1, '#' + inverted, 1);
               break;
             
