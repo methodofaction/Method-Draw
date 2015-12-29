@@ -147,51 +147,8 @@
         }
       })();
 
-      (function() {
-        $("body").toggleClass("touch", svgedit.browser.isTouch());
-        // Load config/data from URL if given
-        var urldata = $.deparam.querystring(true);
-        if(!$.isEmptyObject(urldata)) {
-          if(urldata.dimensions) {
-            urldata.dimensions = urldata.dimensions.split(',');
-          }
-          
-          if(urldata.extensions) {
-            urldata.extensions = urldata.extensions.split(',');
-          }
-          
-          if(urldata.bkgd_color) {
-            urldata.bkgd_color = '#' + urldata.bkgd_color;
-          }
 
-          methodDraw.setConfig(urldata);
-          
-          var src = urldata.source;
-          var qstr = $.param.querystring();
-          
-          if(!src) { // urldata.source may have been null if it ended with '='
-            if(qstr.indexOf('source=data:') >= 0) {
-              src = qstr.match(/source=(data:[^&]*)/)[1];
-            }
-          }
-          
-          if(src) {
-            if(src.indexOf("data:") === 0) {
-              // plusses get replaced by spaces, so re-insert
-              src = src.replace(/ /g, "+");
-              Editor.loadFromDataURI(src);
-            } else {
-              Editor.loadFromString(src);
-            }
-          } else if(qstr.indexOf('paramurl=') !== -1) {
-            // Get paramater URL (use full length of remaining location.href)
-            methodDraw.loadFromURL(qstr.substr(9));
-          } else if(urldata.url) {
-            methodDraw.loadFromURL(urldata.url);
-          }
-        }
-      })();
-      
+      $("body").toggleClass("touch", svgedit.browser.isTouch());
       $("#canvas_width").val(curConfig.dimensions[0]);
       $("#canvas_height").val(curConfig.dimensions[1]);
       
