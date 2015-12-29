@@ -34,7 +34,7 @@
       initOpacity: 1,
       imgPath: 'images/',
       extPath: 'extensions/',
-      jGraduatePath: 'jgraduate/images/',
+      jGraduatePath: 'lib/jgraduate/images/',
       extensions: [],
       initTool: 'select',
       wireframe: false,
