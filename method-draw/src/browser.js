@@ -127,7 +127,22 @@ var supportsNativeSVGTransformLists_ = (function() {
   return rxform.getItem(0) == t1;
 })();
 
-var supportsBlobs = !!new Blob;
+var supportsBlobs_ = (function() {
+  if (typeof Blob != 'function') return false;
+  // check if download is supported
+  var svg = new Blob(
+    ["<svg xmlns='http://www.w3.org/2000/svg'></svg>"],
+    {type: "image/svg+xml;charset=utf-8"}
+  );
+  var img = new Image();
+  var support = false;
+  img.onload = function()  { svgedit.browser.supportsBlobs = function() {return true} };
+  img.onerror = function() { svgedit.browser.supportsBlobs = function() {return false} };
+  img.src = URL.createObjectURL(svg);
+  return false;
+})();
+
+
 
 // Public API
 
@@ -150,7 +165,7 @@ svgedit.browser.supportsEditableText = function() { return supportsEditableText_
 svgedit.browser.supportsGoodDecimals = function() { return supportsGoodDecimals_; }
 svgedit.browser.supportsNonScalingStroke = function() { return supportsNonScalingStroke_; }
 svgedit.browser.supportsNativeTransformLists = function() { return supportsNativeSVGTransformLists_; }
-svgedit.browser.supportsBlobs = function() {return supportsBlobs; }
+svgedit.browser.supportsBlobs = function() {return supportsBlobs_; }
 }
 
 })();
