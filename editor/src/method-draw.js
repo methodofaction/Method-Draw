@@ -1345,7 +1345,7 @@
     
       // updates the context panel tools based on the selected element
       var updateContextPanel = function(e) {
-      var elem = selectedElement;
+        var elem = selectedElement;
         // If element has just been deleted, consider it null
         if(elem != null && !elem.parentNode) elem = null;
         if (multiselected && multiselected[0] != null && !multiselected[0].parentNode) multiselected = false;
@@ -2306,9 +2306,11 @@
         $.confirm(uiStrings.notification.QwantToClear, function(ok) {
           if(!ok) return;
           setSelectMode();
+          svgCanvas.deleteSelectedElements();
           svgCanvas.clear();
           svgCanvas.setResolution(dims[0], dims[1]);
           updateCanvas(true);
+          createBackground();
           zoomImage();
           updateContextPanel();
           prepPaints();
