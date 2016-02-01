@@ -171,6 +171,10 @@ $.fn.dragInput = function(cfg){
 
 // public function
 $.fn.dragInput.updateCursor = function(el){
+  if (typeof el == 'undefined') {
+    return;
+  }
+
   var value = parseFloat(el.value);
   var scale = parseFloat(el.getAttribute("data-scale"));
   var domain = parseFloat(el.getAttribute("data-domain"));

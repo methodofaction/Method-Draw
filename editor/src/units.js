@@ -99,7 +99,7 @@ svgedit.units.getTypeMap = function() {
 // Function: svgedit.units.shortFloat
 // Rounds a given value to a float with number of digits defined in save_options
 //
-// Parameters: 
+// Parameters:
 // val - The value as a String, Number or Array of two numbers to be rounded
 //
 // Returns:
@@ -129,7 +129,7 @@ svgedit.units.convertUnit = function(val, unit) {
 // Function: svgedit.units.setUnitAttr
 // Sets an element's attribute based on the unit in its current value.
 //
-// Parameters: 
+// Parameters:
 // elem - DOM element to be changed
 // attr - String with the name of the attribute associated with the value
 // val - String with the attribute value to convert
@@ -137,7 +137,7 @@ svgedit.units.setUnitAttr = function(elem, attr, val) {
   if(!isNaN(val)) {
     // New value is a number, so check currently used unit
     var old_val = elem.getAttribute(attr);
-    
+
     // Enable this for alternate mode
 //    if(old_val !== null && (isNaN(old_val) || elementContainer_.getBaseUnit() !== 'px')) {
 //      // Old value was a number, so get unit, then convert
@@ -161,7 +161,7 @@ svgedit.units.setUnitAttr = function(elem, attr, val) {
 //        }
 //        val = val / typeMap_[unit];
 //      }
-//    
+//
 //    val += unit;
 //    }
   }
@@ -204,7 +204,7 @@ svgedit.units.convertAttrs = function(element) {
 };
 
 // Function: svgedit.units.convertToNum
-// Converts given values to numbers. Attributes must be supplied in 
+// Converts given values to numbers. Attributes must be supplied in
 // case a percentage is given
 //
 // Parameters:
@@ -213,13 +213,13 @@ svgedit.units.convertAttrs = function(element) {
 svgedit.units.convertToNum = function(attr, val) {
   // Return a number if that's what it already is
   if(!isNaN(val)) return val-0;
-  
+
   if(val.substr(-1) === '%') {
     // Deal with percentage, depends on attribute
     var num = val.substr(0, val.length-1)/100;
     var width = elementContainer_.getWidth();
     var height = elementContainer_.getHeight();
-    
+
     if(w_attrs.indexOf(attr) >= 0) {
       return num * width;
     } else if(h_attrs.indexOf(attr) >= 0) {
@@ -238,7 +238,7 @@ svgedit.units.convertToNum = function(attr, val) {
 // Function: svgedit.units.isValidUnit
 // Check if an attribute's value is in a valid format
 //
-// Parameters: 
+// Parameters:
 // attr - String with the name of the attribute associated with the value
 // val - String with the attribute value to check
 svgedit.units.isValidUnit = function(attr, val, selectedElement) {
@@ -273,7 +273,7 @@ svgedit.units.isValidUnit = function(attr, val, selectedElement) {
   } else {
     valid = true;
   }
-  
+
   return valid;
 };
 
