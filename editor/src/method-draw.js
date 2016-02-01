@@ -29,7 +29,7 @@
     var is_ready = false;
     curConfig = {
       canvas_expansion: 1,
-      dimensions: [1056, 768],
+      dimensions: [580,400],
       initFill: {color: 'fff', opacity: 1},
       initStroke: {width: 1.5, color: '000', opacity: 1},
       initOpacity: 1,
@@ -42,7 +42,7 @@
       colorPickerCSS: false,
       gridSnapping: false,
       gridColor: "#000",
-      baseUnit: 'in',
+      baseUnit: 'px',
       snappingStep: 10,
       showRulers: (svgedit.browser.isTouch()) ? false : true,
       show_outside_canvas: false,

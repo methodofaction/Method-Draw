@@ -2928,7 +2928,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         }
 
         translateOrigin.setTranslate(-(left+tx),-(top+ty));
-        if(!evt.shiftKey) {
+        if(evt.shiftKey) {
           if(sx == 1) sx = sy
           else sy = sx;
         }
@@ -3061,7 +3061,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           cx = start_x
           cy = start_y
           rx = Math.abs(x - cx)
-          ry = !evt.shiftKey ? rx : Math.abs(y - cy);
+          ry = evt.shiftKey ? rx : Math.abs(y - cy);
         }
         shape.setAttributeNS(null, "rx", rx );
         shape.setAttributeNS(null, "ry", ry );
@@ -3153,7 +3153,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         if(curConfig.gridSnapping){
           angle = snapToGrid(angle);
         }
-        if(!evt.shiftKey) { // restrict rotations to nice angles (WRS)
+        if(evt.shiftKey) { // restrict rotations to nice angles (WRS)
           var snap = 45;
           angle= Math.round(angle/snap)*snap;
         }
@@ -3301,7 +3301,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
               pathActions.select(selectedElements[0]);
             } // if it was a path
             // else, if it was selected and this is a shift-click, remove it from selection
-            else if (!evt.shiftKey) {
+            else if (evt.shiftKey) {
               if(tempJustSelected != t) {
                 canvas.removeFromSelection([t]);
               }
@@ -4300,7 +4300,7 @@ var pathActions = canvas.pathActions = function() {
             var last = drawn_path.pathSegList.getItem(num -1);
             var lastx = last.x, lasty = last.y;
 
-            if(!evt.shiftKey) { var xya = snapToAngle(lastx,lasty,x,y); x=xya.x; y=xya.y; }
+            if(evt.shiftKey) { var xya = snapToAngle(lastx,lasty,x,y); x=xya.x; y=xya.y; }
 
             // Use the segment defined by stretchy
             var s_seg = stretchy.pathSegList.getItem(1);
@@ -5087,10 +5087,6 @@ var pathActions = canvas.pathActions = function() {
     // Convert a path to one with only absolute or relative values
     convertPath: function(path, toRel) {
       var segList = path.pathSegList;
-      if (!segList) { // Fail out if this isn't an actual path
-        return false;
-      }
-
       var len = segList.numberOfItems;
       var curx = 0, cury = 0;
       var d = "";
@@ -7892,18 +7888,16 @@ this.convertToPath = function(elem, getBBox) {
     var batchCmd = new BatchCommand("Convert element to Path");
   }
 
-  var $elem = $(elem);
-
   var attrs = getBBox?{}:{
-    "fill": $elem.attr('fill'),
-    "fill-opacity": $elem.attr('fill-opacity'),
-    "stroke": $elem.attr('stroke'),
-    "stroke-width": $elem.attr('stroke-width'),
-    "stroke-dasharray": $elem.attr('stroke-dasharray'),
-    "stroke-linejoin": $elem.attr('stroke-linejoin'),
-    "stroke-linecap": $elem.attr('stroke-linecap'),
-    "stroke-opacity": $elem.attr('stroke-opacity'),
-    "opacity": $elem.attr('opacity'),
+    "fill": cur_shape.fill,
+    "fill-opacity": cur_shape.fill_opacity,
+    "stroke": cur_shape.stroke,
+    "stroke-width": cur_shape.stroke_width,
+    "stroke-dasharray": cur_shape.stroke_dasharray,
+    "stroke-linejoin": cur_shape.stroke_linejoin,
+    "stroke-linecap": cur_shape.stroke_linecap,
+    "stroke-opacity": cur_shape.stroke_opacity,
+    "opacity": cur_shape.opacity,
     "visibility":"hidden"
   };
 
