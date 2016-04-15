@@ -8750,7 +8750,7 @@ this.cloneSelectedElements = function(x,y, drag) {
     if (drag) {
       //removed the dragged transform until that moment
       tlist = getTransformList(clone)
-          tlist.removeItem(drag)
+      tlist.removeItem(0)
       recalculateDimensions(clone)
       parent.insertBefore(clone, elem);
     }
