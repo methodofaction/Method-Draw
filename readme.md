@@ -16,7 +16,7 @@ Mark MacKay mark@method.ac
 Published under an MIT License. Enjoy.
 
 Based on SVG Edit:
-http://code.google.com/p/svg-edit/
+https://github.com/SVG-Edit/svgedit
 
 SVG Edit is Copyright (c)
 Narendra Sisodiya <narendra.sisodiya@gmail.com>
