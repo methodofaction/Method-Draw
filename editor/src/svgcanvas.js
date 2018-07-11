@@ -6635,7 +6635,10 @@ var leaveContext = this.leaveContext = function() {
       } else {
         elem.removeAttribute('opacity');
       }
-      elem.setAttribute('style', 'pointer-events: inherit');
+      //if pointer-events has been set to none, no overwrite will be made.
+      if(!/pointer-events\:\s?none/.test(elem.getAttribute("style"))){
+        elem.setAttribute('style', 'pointer-events: inherit');
+      }
     }
     disabled_elems = [];
     clearSelection(true);
