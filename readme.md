@@ -1,4 +1,8 @@
-Method Draw is a fork of SVG Edit, a web based SVG editor.
+*Method Draw is not actively developed, nor there are plans for it in the future*. It is only updated when browser upgrades break the application.
+
+![Method Draw](https://method.ac/assets/editor.png)
+
+Method Draw is a fork of [SVG Edit](https://github.com/SVG-Edit/svgedit), a web based vector drawing application.
 
 The purpose of Method Draw is to improve the usability and user experience of SVG Edit. It removes some features such as  
 layers and line-caps/corners in exchange for a more simple and pleasant experience.
@@ -11,7 +15,7 @@ To deploy:
 
 
 Method Draw is Copyright (c)
-Mark MacKay mark@method.ac
+Mark MacKay hello@method.ac
 
 Published under an MIT License. Enjoy.
 
