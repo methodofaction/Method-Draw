@@ -1,4 +1,4 @@
-*Method Draw is not actively developed, nor there are plans for it in the future*. It is only updated when browser upgrades break the application.
+*Method Draw is not actively developed, nor there are plans for it in the future. It is only updated when browser upgrades break the application.*
 
 ![Method Draw](https://method.ac/assets/editor.png)
 
