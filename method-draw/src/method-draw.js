@@ -7,7 +7,7 @@
  * Copyright(c) 2010 Pavol Rusnak
  * Copyright(c) 2010 Jeff Schiller
  * Copyright(c) 2010 Narendra Sisodiya
-* Copyright(c)  2012 Mark MacKay
+ * Copyright(c)  2012 Mark MacKay
  *
  */
 
@@ -17,16 +17,12 @@
 // 3) svgcanvas.js
 
 (function() {
-  document.addEventListener("touchstart", touchHandler, true);
-  document.addEventListener("touchmove", touchHandler, true);
-  document.addEventListener("touchend", touchHandler, true);
-  document.addEventListener("touchcancel", touchHandler, true);
   
   if(!window.methodDraw) window.methodDraw = function($) {
     var svgCanvas;
     var Editor = {};
     var is_ready = false;
-    curConfig = {
+    var curConfig = {
       canvas_expansion: 1, 
       dimensions: [580,400], 
       initFill: {color: 'fff', opacity: 1},
@@ -47,48 +43,7 @@
       show_outside_canvas: false,
       no_save_warning: true,
       initFont: 'Helvetica, Arial, sans-serif'
-    },
-      uiStrings = Editor.uiStrings = {
-        common: {
-          "ok":"OK",
-          "cancel":"Cancel",
-          "key_up":"Up",
-          "key_down":"Down",
-          "key_backspace":"Backspace",
-          "key_del":"Del"
-  
-        },
-        // This is needed if the locale is English, since the locale strings are not read in that instance.
-        layers: {
-          "layer":"Layer"
-        },
-        notification: {
-          "invalidAttrValGiven":"Invalid value given",
-          "noContentToFitTo":"No content to fit to",
-          "dupeLayerName":"There is already a layer named that!",
-          "enterUniqueLayerName":"Please enter a unique layer name",
-          "enterNewLayerName":"Please enter the new layer name",
-          "layerHasThatName":"Layer already has that name",
-          "QmoveElemsToLayer":"Move selected elements to layer \"%s\"?",
-          "QwantToClear":"<strong>Do you want to clear the drawing?</strong>\nThis will also erase your undo history",
-          "QwantToOpen":"Do you want to open a new file?\nThis will also erase your undo history",
-          "QerrorsRevertToSource":"There were parsing errors in your SVG source.\nRevert back to original SVG source?",
-          "QignoreSourceChanges":"Ignore changes made to SVG source?",
-          "featNotSupported":"Feature not supported",
-          "enterNewImgURL":"Enter the new image URL",
-          "defsFailOnSave": "NOTE: Due to a bug in your browser, this image may appear wrong (missing gradients or elements). It will however appear correct once actually saved.",
-          "loadingImage":"Loading image, please wait...",
-          "saveFromBrowser": "Select \"Save As...\" in your browser to save this image as a %s file.",
-          "noteTheseIssues": "Also note the following issues: ",
-          "unsavedChanges": "There are unsaved changes.",
-          "enterNewLinkURL": "Enter the new hyperlink URL",
-          "errorLoadingSVG": "Error: Unable to load SVG data",
-          "URLloadFail": "Unable to load from URL",
-          "retrieving": 'Retrieving "%s" ...'
-        }
-      };
-    
-
+    };
     var curPrefs = {}; //$.extend({}, defaultPrefs);
     var customHandlers = {};
     Editor.curConfig = curConfig;
@@ -348,10 +303,10 @@
             .toggleClass('prompt',(type=='prompt'));
           btn_holder.empty();
           
-          var ok = $('<input type="button" value="' + uiStrings.common.ok + '">').appendTo(btn_holder);
+          var ok = $('<input type="button" value="OK">').appendTo(btn_holder);
         
           if(type != 'alert') {
-            $('<input type="button" value="' + uiStrings.common.cancel + '">')
+            $('<input type="button" value="Cancel">')
               .appendTo(btn_holder)
               .on("click touchstart", function() { box.hide();callback(false)});
           }
@@ -433,47 +388,7 @@
       var cur_context = '';
       
       var saveHandler = function(window,svg) {
-        Editor.show_save_warning = false;
-      
-        // by default, we add the XML prolog back, systems integrating SVG-edit (wikis, CMSs) 
-        // can just provide their own custom save handler and might not want the XML prolog
-        svg = '<?xml version="1.0"?>\n' + svg;
-        
-        // Opens the SVG in new window, with warning about Mozilla bug #308590 when applicable
-        
-        var ua = navigator.userAgent;
-
-        // Chrome 5 (and 6?) don't allow saving, show source instead ( http://code.google.com/p/chromium/issues/detail?id=46735 )
-        // IE9 doesn't allow standalone Data URLs ( https://connect.microsoft.com/IE/feedback/details/542600/data-uri-images-fail-when-loaded-by-themselves )
-        if(~ua.indexOf('MSIE')) {
-          showSourceEditor(0,true);
-          return; 
-        }
-        var win = window.open("data:image/svg+xml;base64," + Utils.encode64(svg));
-        
-        // Alert will only appear the first time saved OR the first time the bug is encountered
-        var done = $.pref('save_notice_done');
-        if(done !== "all") {
-    
-          var note = uiStrings.notification.saveFromBrowser.replace('%s', 'SVG');
-          
-          // Check if FF and has <defs/>
-          if(ua.indexOf('Gecko/') !== -1) {
-            if(svg.indexOf('<defs') !== -1) {
-              note += "\n\n" + uiStrings.notification.defsFailOnSave;
-              $.pref('save_notice_done', 'all');
-              done = "all";
-            } else {
-              $.pref('save_notice_done', 'part');
-            }
-          } else {
-            $.pref('save_notice_done', 'all'); 
-          }
-          
-          if(done !== 'part') {
-            win.alert(note);
-          }
-        }
+       
       };
       
       var exportHandler = function(window, data) {
@@ -491,12 +406,11 @@
           exportWindow.location.href = datauri;
           var done = $.pref('export_notice_done');
           if(done !== "all") {
-            var note = uiStrings.notification.saveFromBrowser.replace('%s', 'PNG');
-            
+            var note ="Select \"Save As...\" in your browser to save this image as a PNG file.";
             // Check if there's issues
             if(issues.length) {
               var pre = "\n \u2022 ";
-              note += ("\n\n" + uiStrings.notification.noteTheseIssues + pre + issues.join(pre));
+              note += ("\n\n" + "Also note the following issues: " + pre + issues.join(pre));
             } 
             
             // Note that this will also prevent the notice even though new issues may appear later.
@@ -1345,7 +1259,7 @@
     
       // updates the context panel tools based on the selected element
       var updateContextPanel = function(e) {
-      var elem = selectedElement;
+        var elem = selectedElement;
         // If element has just been deleted, consider it null
         if(elem != null && !elem.parentNode) elem = null;
         if (multiselected && multiselected[0] != null && !multiselected[0].parentNode) multiselected = false;
@@ -1592,7 +1506,6 @@
       svgCanvas.bind("selected", selectedChanged);
       svgCanvas.bind("transition", elementTransition);
       svgCanvas.bind("changed", elementChanged);
-      svgCanvas.bind("saved", saveHandler);
       svgCanvas.bind("exported", exportHandler);
       svgCanvas.bind("zoomed", zoomChanged);
       svgCanvas.bind("contextset", contextChanged);
@@ -1705,7 +1618,7 @@
         var val = el.value * multiplier;
         var valid = svgedit.units.isValidUnit(attr, val, selectedElement);
         if(!valid) {
-          $.alert(uiStrings.notification.invalidAttrValGiven);
+          $.alert("Invalid value given");
           el.value = selectedElement.getAttribute(attr);
           return false;
         }
@@ -2232,7 +2145,7 @@
     
       var makeHyperlink = function() {
         if (selectedElement != null || multiselected) {
-          $.prompt(uiStrings.notification.enterNewLinkURL, "http://", function(url) {
+          $.prompt("Enter the new hyperlink URL", "http://", function(url) {
             if(url) svgCanvas.makeHyperlink(url);
           });
         }
@@ -2303,12 +2216,14 @@
       
       var clickClear = function(){
         var dims = curConfig.dimensions;
-        $.confirm(uiStrings.notification.QwantToClear, function(ok) {
+        $.confirm("<strong>Do you want to clear the drawing?</strong>\nThis will also erase your undo history", function(ok) {
           if(!ok) return;
           setSelectMode();
+          svgCanvas.deleteSelectedElements();
           svgCanvas.clear();
           svgCanvas.setResolution(dims[0], dims[1]);
           updateCanvas(true);
+          createBackground();
           zoomImage();
           updateContextPanel();
           prepPaints();
@@ -2329,8 +2244,7 @@
       var clickExport = function() {
         // Open placeholder window (prevents popup)
         if(!customHandlers.pngsave)  {
-          var str = uiStrings.notification.loadingImage;
-          exportWindow = window.open("data:text/html;charset=utf-8,<title>" + str + "<\/title><h1>" + str + "<\/h1>");
+          exportWindow = window.open("data:text/html;charset=utf-8,<title>Loading image, please wait...<\/title><h1>" + str + "<\/h1>");
         }
 
         if(window.canvg) {
@@ -2529,7 +2443,7 @@
         }
     
         if (!svgCanvas.setSvgString($('#svg_source_textarea').val())) {
-          $.confirm(uiStrings.notification.QerrorsRevertToSource, function(ok) {
+          $.confirm("There were parsing errors in your SVG source.\nRevert back to original SVG source?", function(ok) {
             if(!ok) return false;
             saveChanges();
           });
@@ -2689,7 +2603,7 @@
     
         if (editingsource) {
           if (orig_source !== $('#svg_source_textarea').val()) {
-            $.confirm(uiStrings.notification.QignoreSourceChanges, function(ok) {
+            $.confirm("Ignore changes made to SVG source?", function(ok) {
               if(ok) hideSourceEditor();
             });
           } else {
@@ -2774,7 +2688,7 @@
       function promptImgURL() {
         var curhref = svgCanvas.getHref(selectedElement);
         curhref = curhref.indexOf("data:") === 0?"":curhref;
-        $.prompt(uiStrings.notification.enterNewImgURL, curhref, function(url) {
+        $.prompt("Enter the new image URL", curhref, function(url) {
           if(url) setImageURL(url);
         });
       }
@@ -2985,7 +2899,7 @@
             $('#image_save_opts [value=embed]').attr('disabled','disabled');
             $('#image_save_opts input').val(['ref']);
             curPrefs.img_save = 'ref';
-            $('#image_opt_embed').css('color','#666').attr('title',uiStrings.notification.featNotSupported);
+            $('#image_opt_embed').css('color','#666').attr('title', "Feature not supported");
           }
         });
       },1000);
@@ -3102,7 +3016,7 @@
       var h = height.val()
       
       if(w != "fit" && !svgedit.units.isValidUnit('width', w)) {
-        $.alert(uiStrings.notification.invalidAttrValGiven);
+        $.alert("Invalid value given");
         width.parent().addClass('error');
         return false;
       }
@@ -3110,13 +3024,13 @@
       width.parent().removeClass('error');
 
       if(h != "fit" && !svgedit.units.isValidUnit('height', h)) {
-        $.alert(uiStrings.notification.invalidAttrValGiven);
+        $.alert("Invalid value given");
         height.parent().addClass('error');
         return false;
       } 
       height.parent().removeClass('error');
       if(!svgCanvas.setResolution(w, h)) {
-        $.alert(uiStrings.notification.noContentToFitTo);
+        $.alert("No content to fit to");
         var dims = svgCanvas.getResolution()
         width.val(dims.w)
         height.val(dims.h)
@@ -3385,7 +3299,7 @@
                     mod = mod_bits[0] + '+';
                     key = mod_bits[1];
                   }
-                  key_str += (i?'/':'') + mod + (uiStrings['key_'+key] || key);
+                  key_str += (i?'/':'') + mod + (key);
                 });
                 if(menu) {
                   this.lastChild.textContent = t +' ['+key_str+']';
@@ -3540,7 +3454,7 @@
         // show_save_warning is set to "false" when the page is saved.
         if(!curConfig.no_save_warning && Editor.show_save_warning) {
           // Browser already asks question about closing the page
-          return uiStrings.notification.unsavedChanges; 
+          return "There are unsaved changes."; 
         }
       };
       
@@ -3549,7 +3463,7 @@
         if(undoMgr.getUndoStackSize() === 0) {
           func(true);
         } else {
-          $.confirm(uiStrings.notification.QwantToOpen, func);
+          $.confirm("Do you want to open a new file?\nThis will also erase your undo history", func);
         }
       }
             
@@ -4017,7 +3931,7 @@
       if(success) {
         callback(true);
       } else {
-        $.alert(uiStrings.notification.errorLoadingSVG, function() {
+        $.alert("Error: Unable to load SVG data", function() {
           callback(false);
         });
       }
@@ -4062,7 +3976,7 @@
             if(xhr.status != 404 && xhr.responseText) {
               loadSvgString(xhr.responseText, cb);
             } else {
-              $.alert(uiStrings.notification.URLloadFail + ": \n"+err+'', cb);
+              $.alert("Unable to load from URL" + ": \n"+err+'', cb);
             }
           }
         });

@@ -13,10 +13,10 @@
       .toggleClass('prompt',(type=='prompt'));
     btn_holder.empty();
     
-    var ok = $('<input type="button" value="' + uiStrings.common.ok + '">').appendTo(btn_holder);
+    var ok = $('<input type="button" value="OK">').appendTo(btn_holder);
   
     if(type != 'alert') {
-      $('<input type="button" value="' + uiStrings.common.cancel + '">')
+      $('<input type="button" value="Cancel">')
         .appendTo(btn_holder)
         .on("click touchstart", function() { box.hide();callback(false)});
     }

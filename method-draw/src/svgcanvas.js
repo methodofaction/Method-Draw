@@ -135,20 +135,11 @@ var canvas = this;
 var svgdoc = container.ownerDocument;
 
 // This is a container for the document being edited, not the document itself.
-var svgroot = svgdoc.importNode(svgedit.utilities.text2xml(
-    '<svg id="svgroot" xmlns="' + svgns + '" xlinkns="' + xlinkns + '" ' +
-      'width="' + dimensions[0] + '" height="' + dimensions[1] + '" x="' + dimensions[0] + '" y="' + dimensions[1] + '" overflow="visible">' +
-      '<defs>' +
-        '<filter id="canvashadow" filterUnits="objectBoundingBox">' +
-          '<feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>'+
-          '<feOffset in="blur" dx="5" dy="5" result="offsetBlur"/>'+
-          '<feMerge>'+
-            '<feMergeNode in="offsetBlur"/>'+
-            '<feMergeNode in="SourceGraphic"/>'+
-          '</feMerge>'+
-        '</filter>'+
-      '</defs>'+
-    '</svg>').documentElement, true);
+var svgroot = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svgroot.setAttribute("width", dimensions[0]);
+svgroot.setAttribute("height", dimensions[1]);
+svgroot.id = "svgroot";
+svgroot.setAttribute("xlinkns", xlinkns);
 container.appendChild(svgroot);
 
 // The actual element that represents the final output SVG element
@@ -425,15 +416,6 @@ svgedit.utilities.snapToGrid = function(value){
   return value;
 };
 var snapToGrid = svgedit.utilities.snapToGrid;
-
-// Interface strings, usually for title elements
-var uiStrings = {
-  "exportNoBlur": "Blurred elements will appear as un-blurred",
-  "exportNoforeignObject": "foreignObject elements will not appear",
-  "exportNoDashArray": "Strokes will appear filled",
-  "exportNoText": "Text may not appear as expected"
-};
-
 var visElems = 'a,circle,ellipse,foreignObject,g,image,line,path,polygon,polyline,rect,svg,text,tspan,use';
 var ref_attrs = ["clip-path", "fill", "filter", "marker-end", "marker-mid", "marker-start", "mask", "stroke"];
 
@@ -5578,14 +5560,9 @@ this.save = function(opts) {
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
   var str = this.svgCanvasToString();
-  if (svgedit.browser.supportsBlobs()) {
-    var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
-    var dropAutoBOM = true;
-    saveAs(blob, "method-draw-image.svg", dropAutoBOM);
-  }
-  else {
-    call("saved", str);
-  }
+  var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
+  var dropAutoBOM = true;
+  saveAs(blob, "method-draw-image.svg", dropAutoBOM);
 };
 
 // Function: rasterExport
@@ -5600,15 +5577,15 @@ this.rasterExport = function() {
   
   // Selector and notice
   var issue_list = {
-    'feGaussianBlur': uiStrings.exportNoBlur,
-    'foreignObject': uiStrings.exportNoforeignObject,
-    '[stroke-dasharray]': uiStrings.exportNoDashArray
+    'feGaussianBlur': "Blurred elements will appear as un-blurred",
+    'foreignObject': "foreignObject elements will not appear",
+    '[stroke-dasharray]': "Strokes will appear filled"
   };
   var content = $(svgcontent);
   
   // Add font/text check if Canvas Text API is not implemented
   if(!("font" in $('<canvas>')[0].getContext('2d'))) {
-    issue_list['text'] = uiStrings.exportNoText;
+    issue_list['text'] = "Text may not appear as expected";
   }
   
   $.each(issue_list, function(sel, descr) {
@@ -6749,15 +6726,6 @@ this.getZoom = function(){return current_zoom;};
 this.getVersion = function() {
   return "svgcanvas.js ($Rev: 2082 $)";
 };
-
-// Function: setUiStrings
-// Update interface strings with given values
-//
-// Parameters:
-// strs - Object with strings (see uiStrings for examples)
-this.setUiStrings = function(strs) {
-  $.extend(uiStrings, strs.notification);
-}
 
 // Function: setConfig
 // Update configuration options with given values
@@ -8759,7 +8727,7 @@ this.cloneSelectedElements = function(x,y, drag) {
     if (drag) {
       //removed the dragged transform until that moment
       tlist = getTransformList(clone)
-          tlist.removeItem(drag)
+      tlist.removeItem(0)
       recalculateDimensions(clone)
       parent.insertBefore(clone, elem);
     }
