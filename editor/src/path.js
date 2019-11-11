@@ -23,11 +23,6 @@ if (!svgedit.path) {
 
 var svgns = "http://www.w3.org/2000/svg";
 
-var uiStrings = {
-  "pathNodeTooltip": "Drag node to move it. Double-click node to change segment type",
-  "pathCtrlPtTooltip": "Drag control point to adjust curve properties"
-};
-
 var segData = {
   2: ['x','y'],
   4: ['x','y'],
@@ -137,7 +132,7 @@ svgedit.path.addPointGrip = function(index, x, y) {
       'stroke-width': 1,
       'cursor': 'move',
       'style': 'pointer-events:all',
-      'xlink:title': uiStrings.pathNodeTooltip
+      'xlink:title': "Drag node to move it. Double-click node to change segment type"
     });
     pointGrip = pointGripContainer.appendChild(pointGrip);
 
@@ -182,7 +177,7 @@ svgedit.path.addCtrlGrip = function(id) {
     'stroke-width': '3',
     'cursor': 'move',
     'style': 'pointer-events:all',
-    'xlink:title': uiStrings.pathCtrlPtTooltip
+    'xlink:title': "Drag control point to adjust curve properties"
   });
   svgedit.path.getGripContainer().appendChild(pointGrip);
   return pointGrip;

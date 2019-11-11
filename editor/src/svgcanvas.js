@@ -416,15 +416,6 @@ svgedit.utilities.snapToGrid = function(value){
   return value;
 };
 var snapToGrid = svgedit.utilities.snapToGrid;
-
-// Interface strings, usually for title elements
-var uiStrings = {
-  "exportNoBlur": "Blurred elements will appear as un-blurred",
-  "exportNoforeignObject": "foreignObject elements will not appear",
-  "exportNoDashArray": "Strokes will appear filled",
-  "exportNoText": "Text may not appear as expected"
-};
-
 var visElems = 'a,circle,ellipse,foreignObject,g,image,line,path,polygon,polyline,rect,svg,text,tspan,use';
 var ref_attrs = ["clip-path", "fill", "filter", "marker-end", "marker-mid", "marker-start", "mask", "stroke"];
 
@@ -5569,14 +5560,9 @@ this.save = function(opts) {
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
   var str = this.svgCanvasToString();
-  if (svgedit.browser.supportsBlobs()) {
-    var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
-    var dropAutoBOM = true;
-    saveAs(blob, "method-draw-image.svg", dropAutoBOM);
-  }
-  else {
-    call("saved", str);
-  }
+  var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
+  var dropAutoBOM = true;
+  saveAs(blob, "method-draw-image.svg", dropAutoBOM);
 };
 
 // Function: rasterExport
@@ -5591,15 +5577,15 @@ this.rasterExport = function() {
   
   // Selector and notice
   var issue_list = {
-    'feGaussianBlur': uiStrings.exportNoBlur,
-    'foreignObject': uiStrings.exportNoforeignObject,
-    '[stroke-dasharray]': uiStrings.exportNoDashArray
+    'feGaussianBlur': "Blurred elements will appear as un-blurred",
+    'foreignObject': "foreignObject elements will not appear",
+    '[stroke-dasharray]': "Strokes will appear filled"
   };
   var content = $(svgcontent);
   
   // Add font/text check if Canvas Text API is not implemented
   if(!("font" in $('<canvas>')[0].getContext('2d'))) {
-    issue_list['text'] = uiStrings.exportNoText;
+    issue_list['text'] = "Text may not appear as expected";
   }
   
   $.each(issue_list, function(sel, descr) {
@@ -6740,15 +6726,6 @@ this.getZoom = function(){return current_zoom;};
 this.getVersion = function() {
   return "svgcanvas.js ($Rev: 2082 $)";
 };
-
-// Function: setUiStrings
-// Update interface strings with given values
-//
-// Parameters:
-// strs - Object with strings (see uiStrings for examples)
-this.setUiStrings = function(strs) {
-  $.extend(uiStrings, strs.notification);
-}
 
 // Function: setConfig
 // Update configuration options with given values
