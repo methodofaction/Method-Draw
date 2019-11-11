@@ -7,7 +7,7 @@
  * Copyright(c) 2010 Pavol Rusnak
  * Copyright(c) 2010 Jeff Schiller
  * Copyright(c) 2010 Narendra Sisodiya
-* Copyright(c)  2012 Mark MacKay
+ * Copyright(c)  2012 Mark MacKay
  *
  */
 
@@ -17,10 +17,6 @@
 // 3) svgcanvas.js
 
 (function() {
-  document.addEventListener("touchstart", touchHandler, true);
-  document.addEventListener("touchmove", touchHandler, true);
-  document.addEventListener("touchend", touchHandler, true);
-  document.addEventListener("touchcancel", touchHandler, true);
   
   if(!window.methodDraw) window.methodDraw = function($) {
     var svgCanvas;
