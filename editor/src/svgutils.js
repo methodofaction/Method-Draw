@@ -154,6 +154,23 @@ svgedit.utilities.decode64 = function(input) {
    return unescape(output);
 };
 
+svgedit.utilities.dataURItoBlob = function(dataURI, mimeStr) {
+  var byteStr;
+  if (dataURI.split(',')[0].indexOf('base64') >= 0)
+    byteStr = atob(dataURI.split(',')[1]);
+  else
+    byteStr = unescape(dataURI.split(',')[1]);
+
+  var mimeStr = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  var arr= new Uint8Array(byteStr.length);
+  for (var i = 0; i < byteStr.length; i++) {
+    arr[i] = byteStr.charCodeAt(i);
+  }
+
+  return new Blob([arr], {type:mimeStr});
+}
+
 // Currently not being used, so commented out for now
 // based on http://phpjs.org/functions/utf8_encode:577
 // codedread:does not seem to work with webkit-based browsers on OSX

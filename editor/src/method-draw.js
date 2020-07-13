@@ -402,21 +402,24 @@
         c.width = svgCanvas.contentW;
         c.height = svgCanvas.contentH;
         canvg(c, data.svg, {renderCallback: function() {
-          var datauri = c.toDataURL('image/png');
-          exportWindow.location.href = datauri;
-          var done = $.pref('export_notice_done');
-          if(done !== "all") {
-            var note ="Select \"Save As...\" in your browser to save this image as a PNG file.";
-            // Check if there's issues
-            if(issues.length) {
-              var pre = "\n \u2022 ";
-              note += ("\n\n" + "Also note the following issues: " + pre + issues.join(pre));
-            } 
-            
-            // Note that this will also prevent the notice even though new issues may appear later.
-            // May want to find a way to deal with that without annoying the user
-            $.pref('export_notice_done', 'all'); 
-            exportWindow.alert(note);
+          var datauri = c.toDataURL('image/png');  
+          if (!datauri) return false;
+          var filename = "Method Draw Image";
+          var type = 'image/png';
+          var file = svgedit.utilities.dataURItoBlob(datauri, type);
+          if (window.navigator.msSaveOrOpenBlob) // IE10+
+              window.navigator.msSaveOrOpenBlob(file, filename);
+          else { // Others
+              var a = document.createElement("a"),
+                      url = URL.createObjectURL(file);
+              a.href = url;
+              a.download = filename;
+              document.body.appendChild(a);
+              a.click();
+              setTimeout(function() {
+                  document.body.removeChild(a);
+                  window.URL.revokeObjectURL(url);
+              }, 0);
           }
         }});
       };
@@ -2242,16 +2245,11 @@
       };
       
       var clickExport = function() {
-        // Open placeholder window (prevents popup)
-        if(!customHandlers.pngsave)  {
-          exportWindow = window.open("data:text/html;charset=utf-8,<title>Loading image, please wait...<\/title><h1>" + str + "<\/h1>");
-        }
-
         if(window.canvg) {
           svgCanvas.rasterExport();
         } else {
-          $.getScript('canvg/rgbcolor.js', function() {
-            $.getScript('canvg/canvg.js', function() {
+          $.getScript('/lib/canvg/rgbcolor.js', function() {
+            $.getScript('/lib/canvg/canvg.js', function() {
               svgCanvas.rasterExport();
             });
           });
