@@ -43,7 +43,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
     no_save_warning: true,
     initFont: 'Helvetica, Arial, sans-serif'
   };
-  console.log(curConfig);
   var curPrefs = {}; //$.extend({}, defaultPrefs);
   var customHandlers = {};
   Editor.curConfig = curConfig;

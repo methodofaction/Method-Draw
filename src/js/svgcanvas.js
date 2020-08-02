@@ -94,9 +94,6 @@
 // config - An object that contains configuration data
 $.SvgCanvas = function(container, config)
 {
-  console.log(config);
-  // todo in dist container gets mangled (?)
-container = document.getElementById("svgcanvas");
 // Namespace constants
 var svgns = "http://www.w3.org/2000/svg",
   xlinkns = "http://www.w3.org/1999/xlink",
@@ -5082,6 +5079,10 @@ var pathActions = canvas.pathActions = function() {
         switch (type) {
           case 1: // z,Z closepath (Z/z)
             d += "z";
+            if(last_m && !toRel) {
+              curx = last_m[0];
+              cury = last_m[1];
+            }
             break;
           case 12: // absolute horizontal line (H)
             x -= curx;
@@ -5134,7 +5135,7 @@ var pathActions = canvas.pathActions = function() {
               curx = x;
               cury = y;
             }
-            if(type === 3) last_m = [curx, cury];
+            if(type === 2 || type === 3) last_m = [curx, cury];
             
             addToD([[x,y]]);
             break;
