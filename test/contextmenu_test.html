@@ -6,7 +6,7 @@
   <script>
     // Mock for browser.js
     window.svgedit = {};
-    window.svgEditor = {ready:function(){}};
+    window.methodDraw = {ready:function(){}};
   </script>
   <script type='text/javascript' src='../editor/lib/contextmenu.js'></script>
   <script type='text/javascript' src='qunit/qunit.js'></script>  
@@ -27,7 +27,7 @@
 	
 	test('Test svgedit.contextmenu package', function() {
 		expect(4);
-		
+		console.log(svgedit.contextmenu.add)
 		ok(svgedit.contextmenu,"contextmenu registered correctly");
 		ok(svgedit.contextmenu.add,"contextmenu.add registered correctly");
 		ok(svgedit.contextmenu.hasCustomHandler,"contextmenu hasCustomHandler registered correctly");
