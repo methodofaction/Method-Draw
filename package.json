@@ -1,0 +1,36 @@
+{
+  "name": "method-draw",
+  "version": "0.0.1",
+  "description": "Method Draw is an SVG Editor for the web",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/methodofaction/Method-Draw.git"
+  },
+  "keywords": [
+    "SVG",
+    "vector",
+    "editor"
+  ],
+  "author": "Mark MacKay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/methodofaction/Method-Draw/issues"
+  },
+  "homepage": "https://github.com/methodofaction/Method-Draw#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cache-bust": "^1.4.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^3.1.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-useref": "^4.0.1"
+  }
+}

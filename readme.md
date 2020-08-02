@@ -1,32 +1,44 @@
-*Method Draw is not actively developed, nor there are plans for it in the future. It is only updated when browser upgrades break the application.*
+# Method Draw
+
+Method Draw is a web based vector drawing application.
+
+**Use [Method Draw](https://editor.method.ac) online.**
 
 ![Method Draw](https://method.ac/assets/editor.png)
 
-Method Draw is a fork of [SVG Edit](https://github.com/SVG-Edit/svgedit), a web based vector drawing application.
+The purpose of Method Draw is to provide a simple and easy-to-use SVG editor experience. It purposely removes some features such as layers and line-caps/corners in exchange for a more simple and pleasant experience. If you are looking for a more complete vector editing open-source solution, please check out SVG Edit [SVG Edit](https://github.com/SVG-Edit/svgedit).
 
-The purpose of Method Draw is to improve the usability and user experience of SVG Edit. It removes some features such as layers and line-caps/corners in exchange for a more simple and pleasant experience.
+## Development
 
-Development takes place in `/editor` 
-Run this directory on a local webserver such as `python -m SimpleHTTPServer`
+Develop and run a local web server under `src`;
 
-To compile:
+```
+cd src
+python -m SimpleHTTPServer
+```
 
-first `make clean` 
-then `make -b`
+## Build
 
-Method Draw will be compiled into the `method-draw` directory, which you can then deploy anywhere you choose.
+Install dev dependencies:
+
+`npm install`
+
+Then you can build into `dist` by running:
+
+`gulp`
+
+Deploy `dist` to your static file server of choice.
+
+## Release notes
+
+| **2020.08.02** | File clean-up and gulp build implemented |
+| **2020.08.01** | Project thawed                           |
+| **2015.01.01** | Project frozen                           |
+| **2014.01.01** | Project forked from SVG-Edit             |
+
+Sponsor development in the form of [one-time donations](https://method.ac/donate/), or by hiring me to customize Method Draw for your own needs (only simple 2-20 hour projects).
 
 Method Draw is Copyright (c)
 Mark MacKay [mark@method.ac](mailto:mark@method.ac)
 
 Published under an MIT License. Enjoy.
-
-Based on SVG Edit:
-https://github.com/SVG-Edit/svgedit
-
-SVG Edit is Copyright (c)
-Narendra Sisodiya <narendra.sisodiya@gmail.com>
-Pavol Rusnak <rusnakp@gmail.com>
-Jeff Schiller <codedread@gmail.com>
-Vidar Hokstad <vidar.hokstad@gmail.com>
-Alexis Deveria <adeveria@gmail.com>
