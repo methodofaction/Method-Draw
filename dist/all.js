@@ -3600,7 +3600,7 @@ svgedit.units.convertUnit = function(val, unit) {
 //  baseVal.convertToSpecifiedUnits(unitNumMap[unit]);
 //  var val = baseVal.valueInSpecifiedUnits;
 //  baseVal.convertToSpecifiedUnits(1);
-  return svgedit.unit.shortFloat(val / typeMap_[unit]);
+  return svgedit.units.shortFloat(val / typeMap_[unit]);
 };
 
 // Function: svgedit.units.setUnitAttr
