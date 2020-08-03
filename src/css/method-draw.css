@@ -991,13 +991,6 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   opacity: 0;
 }
 
-
-
-#url_notice {
-  padding-top: 4px;
-  display: none;
-}
-
  #color_picker {
   position: absolute;
   display: none;
