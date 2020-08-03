@@ -17,7 +17,7 @@
 // 3) svgcanvas.js
 
 
-if(!window.methodDraw) window.methodDraw = function($) {
+methodDraw = function() {
   var svgCanvas;
   var Editor = {};
   var is_ready = false;
@@ -781,7 +781,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
         if(!resize_done) {
           resize_timer = setTimeout(function() {
             resize_done = true;
-            setIconSize(curPrefs.iconsize);
           }, 50); 
         }
       }
@@ -2518,68 +2517,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
 //            el.css('outline', '1px solid red');
         }
       });
-    }
-    
-    var setIconSize = Editor.setIconSize = function(size, force) {
-      if(size == curPrefs.size && !force) return;
-//        return;
-//        var elems = $('.tool_button, .push_button, .tool_button_current, .disabled, .icon_label, #url_notice, #tool_open');
-      
-      var sel_toscale = '#tools_top .toolset, #editor_panel > *, #history_panel > *,\
-      #main_button, #tools_left > *, #path_node_panel > *, #multiselected_panel > *,\
-      #g_panel > *, #tool_font_size > *, .tools_flyout';
-      
-      var elems = $(sel_toscale);
-      
-      var scale = 1;
-      
-      if(typeof size == 'number') {
-        scale = size;
-      } else {
-        var icon_sizes = { s:.75, m:1, l:1.25, xl:1.5 };
-        scale = icon_sizes[size];
-      }
-      
-      Editor.tool_scale = tool_scale = scale;
-      
-      setFlyoutPositions();       
-      var hidden_ps = elems.parents(':hidden');
-      hidden_ps.css('visibility', 'hidden').show();
-      scaleElements(elems, scale);
-      hidden_ps.css('visibility', 'visible').hide();
-      
-      var rule_elem = $('#tool_size_rules');
-      if(!rule_elem.length) {
-        rule_elem = $('<style id="tool_size_rules"><\/style>').appendTo('head');
-      } else {
-        rule_elem.empty();
-      }
-      
-      if(size != 'm') {
-        var style_str = '';
-        $.each(cssResizeRules, function(selector, rules) {
-          selector = '#svg_editor ' + selector.replace(/,/g,', #svg_editor');
-          style_str += selector + '{';
-          $.each(rules, function(prop, values) {
-            if(typeof values === 'number') {
-              var val = (values * scale) + 'px';
-            } else if(values[size] || values.all) {
-              var val = (values[size] || values.all);
-            }
-            style_str += (prop + ':' + val + ';');
-          });
-          style_str += '}';
-        });
-        //this.style[ua_prefix + 'Transform'] = 'scale(' + scale + ')';
-        var prefix = '-' + ua_prefix.toLowerCase() + '-';
-        style_str += (sel_toscale + '{' + prefix + 'transform: scale(' + scale + ');}'
-        + ' #svg_editor div.toolset .toolset {' + prefix + 'transform: scale(1); margin: 1px !important;}' // Hack for markers
-        + ' #svg_editor .ui-slider {' + prefix + 'transform: scale(' + (1/scale) + ');}' // Hack for sliders
-        );
-        rule_elem.text(style_str);
-      }
-      
-      setFlyoutPositions();
     }
   
     var cancelOverlays = function() {
