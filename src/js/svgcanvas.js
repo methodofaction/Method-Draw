@@ -5546,11 +5546,9 @@ this.open = function() {
 //
 // Returns: 
 // Nothing
-this.save = function(opts) {
+this.save = function() {
   // remove the selected outline before serializing
   clearSelection();
-  // Update save options if provided
-  if(opts) $.extend(save_options, opts);
   save_options.apply = true;
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration

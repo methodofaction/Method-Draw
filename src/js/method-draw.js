@@ -43,7 +43,6 @@ methodDraw = function() {
     no_save_warning: true,
     initFont: 'Helvetica, Arial, sans-serif'
   };
-  var curPrefs = {}; //$.extend({}, defaultPrefs);
   var customHandlers = {};
   Editor.curConfig = curConfig;
   Editor.tool_scale = 1;
@@ -100,7 +99,6 @@ methodDraw = function() {
         catch(e) {}
       }
     })();
-
 
     $("body").toggleClass("touch", svgedit.browser.isTouch());
     $("#canvas_width").val(curConfig.dimensions[0]);
@@ -1032,10 +1030,6 @@ methodDraw = function() {
           fallback: fallback_obj,
           placement: placement_obj,
           callback: function(icons) {
-            // Non-ideal hack to make the icon match the current size
-            if(curPrefs.iconsize && curPrefs.iconsize != 'm') {
-              prepResize();
-            }
             cb_ready = true; // Ready for callback
             runCallback();
           }
@@ -1806,22 +1800,7 @@ methodDraw = function() {
         svgCanvas.alignSelectedElements(letter, 'page');
       })
     });
-    
-    /*
-    
-    When a flyout icon is selected
-      (if flyout) {
-      - Change the icon
-      - Make pressing the button run its stuff
-      }
-      - Run its stuff
-    
-    When its shortcut key is pressed
-      - If not current in list, do as above
-      , else:
-      - Just run its stuff
-    
-    */
+
     
     // Unfocus text input when workarea is mousedowned.
     (function() {
@@ -2293,12 +2272,7 @@ methodDraw = function() {
     
     var clickSave = function(){
       flash($('#file_menu'));
-      // In the future, more options can be provided here
-      var saveOpts = {
-        'images': curPrefs.img_save,
-        'round_digits': 6
-      }
-      svgCanvas.save(saveOpts);
+      svgCanvas.save();
     };
     
     var saveSourceEditor = function(){
@@ -2323,10 +2297,8 @@ methodDraw = function() {
     };
     
     function setBackground(color, url) {
-//        if(color == curPrefs.bkgd_color && url == curPrefs.bkgd_url) return;
       $.pref('bkgd_color', color);
       $.pref('bkgd_url', url);
-      
       // This should be done in svgcanvas.js for the borderRect fill
       svgCanvas.setBackground(color, url);
     }
@@ -2691,21 +2663,6 @@ methodDraw = function() {
       $('#tool_blur').hide();
     }
     $(blur_test).remove();
-
-    
-    
-    // Test for embedImage support (use timeout to not interfere with page load)
-    setTimeout(function() {
-      svgCanvas.embedImage(curConfig.imgPath + 'placeholder.svg', function(datauri) {
-        if(!datauri) {
-          // Disable option
-          $('#image_save_opts [value=embed]').attr('disabled','disabled');
-          $('#image_save_opts input').val(['ref']);
-          curPrefs.img_save = 'ref';
-          $('#image_opt_embed').css('color','#666').attr('title', "Feature not supported");
-        }
-      });
-    },1000);
       
     $('#tool_fill').click(function(){
       if ($('#tool_fill').hasClass('active')) {
