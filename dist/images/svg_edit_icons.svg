@@ -24,20 +24,11 @@
 
 
 <g id="logo">
-<svg viewBox="0 0 16 16" version="1.1">
-  <path id="svg_7" d="m-0.0965,16.1043l16.10001,-16.06917l-0.00001,16.06917l-16.1,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="1.5" fill="#cccccc"/>
-  <path id="svg_6" d="m0.0035,16.10449l0,-15.99999l16,15.99999l-16,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="1.5" fill="#666666"/>
- </svg>
+
 </g>
 
 
 <g id="select">
-<svg viewBox="0 0 24 24" version="1.1">
-	<g>
-	<path fill="#2F2F2C" d="M0,0v24h24V0H0z M17.147,20.757l-2.941,1.501l-3.677-6.005l-4.411,3.003V1.241l12.5,12.01l-4.412,1.501
-		L17.147,20.757z"/>
-	</g>
-</svg>
 </g>
 
 
@@ -54,33 +45,9 @@
 
 
 <g id="rect">
-<svg id="eye-Page%201" viewBox="0 0 27 27" style="background-color:#ffffff00" version="1.1"
-	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
-	x="0px" y="0px" width="27px" height="27px"
->
-	<path d="M 0 25 L 0 27 L 27 27 L 27 25 L 0 25 ZM 0 0 L 0 8 L 27 8 L 27 0 L 0 0 Z" fill="#2f2f2c"/>
-</svg>
+
 </g>
 
-<g id="fh_rect">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
- <defs>
-  <linearGradient y2="1" x2="1" y1="0.10156" x1="0.36328" id="svg_2">
-
-   <stop stop-opacity="1" stop-color="#ffffff" offset="0"/>
-   <stop stop-opacity="1" stop-color="#3b7e9b" offset="1"/>
-  </linearGradient>
-  <linearGradient y2="0.3945" x2="0.6132" y1="0.1093" x1="0.3046" id="svg_9">
-   <stop stop-opacity="1" stop-color="#f9d225" offset="0"/>
-   <stop stop-opacity="1" stop-color="#bf5f00" offset="1"/>
-  </linearGradient>
- </defs>
-  <rect stroke="#2f2f2c" stroke-width="2" fill="url(#svg_2)" id="svg_1" height="50" width="50" y="0.75" x="1.25"/>
-  <path stroke-width="2" stroke="#2f2f2c" fill="url(#svg_9)" id="svg_2" d="m31.5,0l-8.75,20.25l0.75,24l16.5,-16.5l6,-12.5"/>
-  <path stroke-width="2" stroke="#2f2f2c" fill="#fce0a9" id="svg_10" d="m39.5,28.5c-2,-9.25 -10.25,-11.75 -17,-7.4375l0.4843,24.4414z"/>
-  <path id="svg_11" stroke-width="2" stroke="#2f2f2c" fill="#2f2f2c" d="m26.9318,41.1745c-0.4491,-2.3511 -2.3021,-2.9866 -3.8181,-1.8905l0.1087,6.2126z"/>
-</svg>
-</g>
 
 
 <g id="circle">
@@ -102,50 +69,18 @@
 </svg>
 </g>
 
-<g id="fh_ellipse">
-<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
-  <linearGradient id="svg_9" x1="0.3046" y1="0.1093" x2="0.6132" y2="0.3945">
-   <stop offset="0" stop-color="#f9d225" stop-opacity="1"/>
-   <stop offset="1" stop-color="#bf5f00" stop-opacity="1"/>
-  </linearGradient>
-  <linearGradient id="svg_4" x1="0.17188" y1="0.1875" x2="1" y2="1">
-   <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
-   <stop offset="1" stop-color="#ff6666" stop-opacity="1"/>
-  </linearGradient>
- </defs>
-  <ellipse stroke-width="2" stroke="#2f2f2c" fill="url(#svg_4)" id="svg_1" rx="23" ry="12" cy="37" cx="27"/>
-  <path d="m31.5,0l-8.75,20.25l0.75,24l16.5,-16.5l6,-12.5" id="svg_2" fill="url(#svg_9)" stroke="#2f2f2c" stroke-width="2"/>
-  <path d="m39.5,28.5c-2,-9.25 -10.25,-11.75 -17,-7.4375l0.4843,24.4414z" id="svg_10" fill="#fce0a9" stroke="#2f2f2c" stroke-width="2"/>
-  <path d="m26.9318,41.1745c-0.4491,-2.3511 -2.3021,-2.9866 -3.8181,-1.8905l0.1087,6.2126z" fill="#2f2f2c" stroke="#2f2f2c" stroke-width="2" id="svg_11"/>
- </svg>
-</g>
+
 
 <g id="pencil">
-<svg viewBox="0 0 24 24" version="1.1">
-	<path fill="#2F2F2C" d="M-1.5-1.5v27h27v-27 M19.616,9.216L6.647,21.567l-5.531,1.285l-0.1-0.094l1.449-5.269L15.438,5.204
-		c0.231-0.062,0.788-0.219,1.579-0.062L3.255,18.243l-0.394,1.381l1.58,1.504l1.481-0.375l0.66-0.598l0.065-1.408l-1.053-1.004
-		L18.203,5.736c0.196,0.157,0.196,0.157,0.396,0.376C20.476,7.869,19.616,9.216,19.616,9.216z M22.87,4.9
-		c-0.002,0.774-0.358,1.561-1.013,2.185l-1.217,1.16c0,0,0.921-1.348-0.989-3.103c-1.679-1.599-3.259-0.91-3.259-0.91l1.284-1.223
-		c1.154-1.126,3.161-1.126,4.278-0.062c0.622,0.549,0.913,1.239,0.915,1.938V4.9z"/>
-</svg>
+
 </g>
 
 <g id="pen">
-<svg id="eye-Page%201" viewBox="0 0 27 27" style="background-color:#ffffff00" version="1.1"
-	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
-	x="0px" y="0px" width="27px" height="27px"
->
-	<path d="M 3 1 L 26 24 L 24 26 L 1 3 L 3 1 ZM 0 0 L 0 27 L 27 27 L 27 0 L 0 0 Z" fill="#2f2f2c"/>
-</svg>
+
 </g>
 
 <g id="path">
-<svg id="eye-Page%201" viewBox="0 0 27 27" style="background-color:#ffffff00" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" x="0px" y="0px" width="27px" height="27px">
-	<g id="Layer%201">
-		<path fill="#2F2F2C" d="M0,0v27h27V0H0z M12.193,1.904c0-0.365,0.871,0,0.871,0v12.105c-0.509,0.18-0.871,0.664-0.871,1.233c0,0.722,0.585,1.305,1.307,1.305c0.722,0,1.307-0.583,1.307-1.305c0-0.569-0.362-1.054-0.871-1.233V1.904c0,0,0.871-0.365,0.871,0c0,6.811,5.226,11.677,5.226,11.677l-3.256,8.193h-6.552l-3.256-8.193C6.968,13.581,12.193,8.714,12.193,1.904z M7.839,25.258v-2.612h11.322v2.612H7.839z"/>
-	</g>
-</svg>
+
 </g>
 
 

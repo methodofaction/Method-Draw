@@ -31,6 +31,7 @@ Deploy `dist` to your static file server of choice.
 
 ## Release notes
 
+**2020.08.04** Vast code simplification  
 **2020.08.02** File clean-up and gulp build implemented  
 **2020.08.01** Project thawed  
 **2015.01.01** Project frozen  

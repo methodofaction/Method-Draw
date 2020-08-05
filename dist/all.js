@@ -16,91 +16,93 @@
             this._owningPathSegList = owningPathSegList;
         }
 
-        SVGPathSeg.PATHSEG_UNKNOWN = 0;
-        SVGPathSeg.PATHSEG_CLOSEPATH = 1;
-        SVGPathSeg.PATHSEG_MOVETO_ABS = 2;
-        SVGPathSeg.PATHSEG_MOVETO_REL = 3;
-        SVGPathSeg.PATHSEG_LINETO_ABS = 4;
-        SVGPathSeg.PATHSEG_LINETO_REL = 5;
-        SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS = 6;
-        SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL = 7;
-        SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS = 8;
-        SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL = 9;
-        SVGPathSeg.PATHSEG_ARC_ABS = 10;
-        SVGPathSeg.PATHSEG_ARC_REL = 11;
-        SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS = 12;
-        SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL = 13;
-        SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS = 14;
-        SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL = 15;
-        SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS = 16;
-        SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL = 17;
-        SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS = 18;
-        SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL = 19;
+        window.SVGPathSeg.prototype.classname = "SVGPathSeg";
+
+        window.SVGPathSeg.PATHSEG_UNKNOWN = 0;
+        window.SVGPathSeg.PATHSEG_CLOSEPATH = 1;
+        window.SVGPathSeg.PATHSEG_MOVETO_ABS = 2;
+        window.SVGPathSeg.PATHSEG_MOVETO_REL = 3;
+        window.SVGPathSeg.PATHSEG_LINETO_ABS = 4;
+        window.SVGPathSeg.PATHSEG_LINETO_REL = 5;
+        window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS = 6;
+        window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL = 7;
+        window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS = 8;
+        window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL = 9;
+        window.SVGPathSeg.PATHSEG_ARC_ABS = 10;
+        window.SVGPathSeg.PATHSEG_ARC_REL = 11;
+        window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS = 12;
+        window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL = 13;
+        window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS = 14;
+        window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL = 15;
+        window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS = 16;
+        window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL = 17;
+        window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS = 18;
+        window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL = 19;
 
         // Notify owning PathSegList on any changes so they can be synchronized back to the path element.
-        SVGPathSeg.prototype._segmentChanged = function() {
+        window.SVGPathSeg.prototype._segmentChanged = function() {
             if (this._owningPathSegList)
                 this._owningPathSegList.segmentChanged(this);
         }
 
         window.SVGPathSegClosePath = function(owningPathSegList) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CLOSEPATH, "z", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CLOSEPATH, "z", owningPathSegList);
         }
-        SVGPathSegClosePath.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegClosePath.prototype.toString = function() { return "[object SVGPathSegClosePath]"; }
-        SVGPathSegClosePath.prototype._asPathString = function() { return this.pathSegTypeAsLetter; }
-        SVGPathSegClosePath.prototype.clone = function() { return new SVGPathSegClosePath(undefined); }
+        window.SVGPathSegClosePath.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegClosePath.prototype.toString = function() { return "[object SVGPathSegClosePath]"; }
+        window.SVGPathSegClosePath.prototype._asPathString = function() { return this.pathSegTypeAsLetter; }
+        window.SVGPathSegClosePath.prototype.clone = function() { return new window.SVGPathSegClosePath(undefined); }
 
         window.SVGPathSegMovetoAbs = function(owningPathSegList, x, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_MOVETO_ABS, "M", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_MOVETO_ABS, "M", owningPathSegList);
             this._x = x;
             this._y = y;
         }
-        SVGPathSegMovetoAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegMovetoAbs.prototype.toString = function() { return "[object SVGPathSegMovetoAbs]"; }
-        SVGPathSegMovetoAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-        SVGPathSegMovetoAbs.prototype.clone = function() { return new SVGPathSegMovetoAbs(undefined, this._x, this._y); }
-        Object.defineProperty(SVGPathSegMovetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegMovetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegMovetoAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegMovetoAbs.prototype.toString = function() { return "[object SVGPathSegMovetoAbs]"; }
+        window.SVGPathSegMovetoAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
+        window.SVGPathSegMovetoAbs.prototype.clone = function() { return new window.SVGPathSegMovetoAbs(undefined, this._x, this._y); }
+        Object.defineProperty(window.SVGPathSegMovetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegMovetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegMovetoRel = function(owningPathSegList, x, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_MOVETO_REL, "m", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_MOVETO_REL, "m", owningPathSegList);
             this._x = x;
             this._y = y;
         }
-        SVGPathSegMovetoRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegMovetoRel.prototype.toString = function() { return "[object SVGPathSegMovetoRel]"; }
-        SVGPathSegMovetoRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-        SVGPathSegMovetoRel.prototype.clone = function() { return new SVGPathSegMovetoRel(undefined, this._x, this._y); }
-        Object.defineProperty(SVGPathSegMovetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegMovetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegMovetoRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegMovetoRel.prototype.toString = function() { return "[object SVGPathSegMovetoRel]"; }
+        window.SVGPathSegMovetoRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
+        window.SVGPathSegMovetoRel.prototype.clone = function() { return new window.SVGPathSegMovetoRel(undefined, this._x, this._y); }
+        Object.defineProperty(window.SVGPathSegMovetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegMovetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegLinetoAbs = function(owningPathSegList, x, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_ABS, "L", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_LINETO_ABS, "L", owningPathSegList);
             this._x = x;
             this._y = y;
         }
-        SVGPathSegLinetoAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegLinetoAbs.prototype.toString = function() { return "[object SVGPathSegLinetoAbs]"; }
-        SVGPathSegLinetoAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-        SVGPathSegLinetoAbs.prototype.clone = function() { return new SVGPathSegLinetoAbs(undefined, this._x, this._y); }
-        Object.defineProperty(SVGPathSegLinetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegLinetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegLinetoAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegLinetoAbs.prototype.toString = function() { return "[object SVGPathSegLinetoAbs]"; }
+        window.SVGPathSegLinetoAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
+        window.SVGPathSegLinetoAbs.prototype.clone = function() { return new window.SVGPathSegLinetoAbs(undefined, this._x, this._y); }
+        Object.defineProperty(window.SVGPathSegLinetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegLinetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegLinetoRel = function(owningPathSegList, x, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_REL, "l", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_LINETO_REL, "l", owningPathSegList);
             this._x = x;
             this._y = y;
         }
-        SVGPathSegLinetoRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegLinetoRel.prototype.toString = function() { return "[object SVGPathSegLinetoRel]"; }
-        SVGPathSegLinetoRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-        SVGPathSegLinetoRel.prototype.clone = function() { return new SVGPathSegLinetoRel(undefined, this._x, this._y); }
-        Object.defineProperty(SVGPathSegLinetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegLinetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegLinetoRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegLinetoRel.prototype.toString = function() { return "[object SVGPathSegLinetoRel]"; }
+        window.SVGPathSegLinetoRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
+        window.SVGPathSegLinetoRel.prototype.clone = function() { return new window.SVGPathSegLinetoRel(undefined, this._x, this._y); }
+        Object.defineProperty(window.SVGPathSegLinetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegLinetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoCubicAbs = function(owningPathSegList, x, y, x1, y1, x2, y2) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS, "C", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS, "C", owningPathSegList);
             this._x = x;
             this._y = y;
             this._x1 = x1;
@@ -108,19 +110,19 @@
             this._x2 = x2;
             this._y2 = y2;
         }
-        SVGPathSegCurvetoCubicAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoCubicAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicAbs]"; }
-        SVGPathSegCurvetoCubicAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoCubicAbs.prototype.clone = function() { return new SVGPathSegCurvetoCubicAbs(undefined, this._x, this._y, this._x1, this._y1, this._x2, this._y2); }
-        Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoCubicAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoCubicAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicAbs]"; }
+        window.SVGPathSegCurvetoCubicAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoCubicAbs.prototype.clone = function() { return new window.SVGPathSegCurvetoCubicAbs(undefined, this._x, this._y, this._x1, this._y1, this._x2, this._y2); }
+        Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoCubicRel = function(owningPathSegList, x, y, x1, y1, x2, y2) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL, "c", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL, "c", owningPathSegList);
             this._x = x;
             this._y = y;
             this._x1 = x1;
@@ -128,51 +130,51 @@
             this._x2 = x2;
             this._y2 = y2;
         }
-        SVGPathSegCurvetoCubicRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoCubicRel.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicRel]"; }
-        SVGPathSegCurvetoCubicRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoCubicRel.prototype.clone = function() { return new SVGPathSegCurvetoCubicRel(undefined, this._x, this._y, this._x1, this._y1, this._x2, this._y2); }
-        Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoCubicRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoCubicRel.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicRel]"; }
+        window.SVGPathSegCurvetoCubicRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoCubicRel.prototype.clone = function() { return new window.SVGPathSegCurvetoCubicRel(undefined, this._x, this._y, this._x1, this._y1, this._x2, this._y2); }
+        Object.defineProperty(window.SVGPathSegCurvetoCubicRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoQuadraticAbs = function(owningPathSegList, x, y, x1, y1) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS, "Q", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS, "Q", owningPathSegList);
             this._x = x;
             this._y = y;
             this._x1 = x1;
             this._y1 = y1;
         }
-        SVGPathSegCurvetoQuadraticAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoQuadraticAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticAbs]"; }
-        SVGPathSegCurvetoQuadraticAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoQuadraticAbs.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticAbs(undefined, this._x, this._y, this._x1, this._y1); }
-        Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoQuadraticAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoQuadraticAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticAbs]"; }
+        window.SVGPathSegCurvetoQuadraticAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoQuadraticAbs.prototype.clone = function() { return new window.SVGPathSegCurvetoQuadraticAbs(undefined, this._x, this._y, this._x1, this._y1); }
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoQuadraticRel = function(owningPathSegList, x, y, x1, y1) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL, "q", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL, "q", owningPathSegList);
             this._x = x;
             this._y = y;
             this._x1 = x1;
             this._y1 = y1;
         }
-        SVGPathSegCurvetoQuadraticRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoQuadraticRel.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticRel]"; }
-        SVGPathSegCurvetoQuadraticRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoQuadraticRel.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticRel(undefined, this._x, this._y, this._x1, this._y1); }
-        Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoQuadraticRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoQuadraticRel.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticRel]"; }
+        window.SVGPathSegCurvetoQuadraticRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoQuadraticRel.prototype.clone = function() { return new window.SVGPathSegCurvetoQuadraticRel(undefined, this._x, this._y, this._x1, this._y1); }
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegArcAbs = function(owningPathSegList, x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_ARC_ABS, "A", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_ARC_ABS, "A", owningPathSegList);
             this._x = x;
             this._y = y;
             this._r1 = r1;
@@ -181,20 +183,20 @@
             this._largeArcFlag = largeArcFlag;
             this._sweepFlag = sweepFlag;
         }
-        SVGPathSegArcAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegArcAbs.prototype.toString = function() { return "[object SVGPathSegArcAbs]"; }
-        SVGPathSegArcAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._r1 + " " + this._r2 + " " + this._angle + " " + (this._largeArcFlag ? "1" : "0") + " " + (this._sweepFlag ? "1" : "0") + " " + this._x + " " + this._y; }
-        SVGPathSegArcAbs.prototype.clone = function() { return new SVGPathSegArcAbs(undefined, this._x, this._y, this._r1, this._r2, this._angle, this._largeArcFlag, this._sweepFlag); }
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "r1", { get: function() { return this._r1; }, set: function(r1) { this._r1 = r1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "r2", { get: function() { return this._r2; }, set: function(r2) { this._r2 = r2; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcAbs.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegArcAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegArcAbs.prototype.toString = function() { return "[object SVGPathSegArcAbs]"; }
+        window.SVGPathSegArcAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._r1 + " " + this._r2 + " " + this._angle + " " + (this._largeArcFlag ? "1" : "0") + " " + (this._sweepFlag ? "1" : "0") + " " + this._x + " " + this._y; }
+        window.SVGPathSegArcAbs.prototype.clone = function() { return new window.SVGPathSegArcAbs(undefined, this._x, this._y, this._r1, this._r2, this._angle, this._largeArcFlag, this._sweepFlag); }
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "r1", { get: function() { return this._r1; }, set: function(r1) { this._r1 = r1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "r2", { get: function() { return this._r2; }, set: function(r2) { this._r2 = r2; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcAbs.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegArcRel = function(owningPathSegList, x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_ARC_REL, "a", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_ARC_REL, "a", owningPathSegList);
             this._x = x;
             this._y = y;
             this._r1 = r1;
@@ -203,138 +205,169 @@
             this._largeArcFlag = largeArcFlag;
             this._sweepFlag = sweepFlag;
         }
-        SVGPathSegArcRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegArcRel.prototype.toString = function() { return "[object SVGPathSegArcRel]"; }
-        SVGPathSegArcRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._r1 + " " + this._r2 + " " + this._angle + " " + (this._largeArcFlag ? "1" : "0") + " " + (this._sweepFlag ? "1" : "0") + " " + this._x + " " + this._y; }
-        SVGPathSegArcRel.prototype.clone = function() { return new SVGPathSegArcRel(undefined, this._x, this._y, this._r1, this._r2, this._angle, this._largeArcFlag, this._sweepFlag); }
-        Object.defineProperty(SVGPathSegArcRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcRel.prototype, "r1", { get: function() { return this._r1; }, set: function(r1) { this._r1 = r1; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcRel.prototype, "r2", { get: function() { return this._r2; }, set: function(r2) { this._r2 = r2; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcRel.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcRel.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegArcRel.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegArcRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegArcRel.prototype.toString = function() { return "[object SVGPathSegArcRel]"; }
+        window.SVGPathSegArcRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._r1 + " " + this._r2 + " " + this._angle + " " + (this._largeArcFlag ? "1" : "0") + " " + (this._sweepFlag ? "1" : "0") + " " + this._x + " " + this._y; }
+        window.SVGPathSegArcRel.prototype.clone = function() { return new window.SVGPathSegArcRel(undefined, this._x, this._y, this._r1, this._r2, this._angle, this._largeArcFlag, this._sweepFlag); }
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "r1", { get: function() { return this._r1; }, set: function(r1) { this._r1 = r1; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "r2", { get: function() { return this._r2; }, set: function(r2) { this._r2 = r2; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegArcRel.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegLinetoHorizontalAbs = function(owningPathSegList, x) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS, "H", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS, "H", owningPathSegList);
             this._x = x;
         }
-        SVGPathSegLinetoHorizontalAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegLinetoHorizontalAbs.prototype.toString = function() { return "[object SVGPathSegLinetoHorizontalAbs]"; }
-        SVGPathSegLinetoHorizontalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
-        SVGPathSegLinetoHorizontalAbs.prototype.clone = function() { return new SVGPathSegLinetoHorizontalAbs(undefined, this._x); }
-        Object.defineProperty(SVGPathSegLinetoHorizontalAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegLinetoHorizontalAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegLinetoHorizontalAbs.prototype.toString = function() { return "[object SVGPathSegLinetoHorizontalAbs]"; }
+        window.SVGPathSegLinetoHorizontalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
+        window.SVGPathSegLinetoHorizontalAbs.prototype.clone = function() { return new window.SVGPathSegLinetoHorizontalAbs(undefined, this._x); }
+        Object.defineProperty(window.SVGPathSegLinetoHorizontalAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegLinetoHorizontalRel = function(owningPathSegList, x) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL, "h", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL, "h", owningPathSegList);
             this._x = x;
         }
-        SVGPathSegLinetoHorizontalRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegLinetoHorizontalRel.prototype.toString = function() { return "[object SVGPathSegLinetoHorizontalRel]"; }
-        SVGPathSegLinetoHorizontalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
-        SVGPathSegLinetoHorizontalRel.prototype.clone = function() { return new SVGPathSegLinetoHorizontalRel(undefined, this._x); }
-        Object.defineProperty(SVGPathSegLinetoHorizontalRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegLinetoHorizontalRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegLinetoHorizontalRel.prototype.toString = function() { return "[object SVGPathSegLinetoHorizontalRel]"; }
+        window.SVGPathSegLinetoHorizontalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
+        window.SVGPathSegLinetoHorizontalRel.prototype.clone = function() { return new window.SVGPathSegLinetoHorizontalRel(undefined, this._x); }
+        Object.defineProperty(window.SVGPathSegLinetoHorizontalRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegLinetoVerticalAbs = function(owningPathSegList, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS, "V", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS, "V", owningPathSegList);
             this._y = y;
         }
-        SVGPathSegLinetoVerticalAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegLinetoVerticalAbs.prototype.toString = function() { return "[object SVGPathSegLinetoVerticalAbs]"; }
-        SVGPathSegLinetoVerticalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
-        SVGPathSegLinetoVerticalAbs.prototype.clone = function() { return new SVGPathSegLinetoVerticalAbs(undefined, this._y); }
-        Object.defineProperty(SVGPathSegLinetoVerticalAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegLinetoVerticalAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegLinetoVerticalAbs.prototype.toString = function() { return "[object SVGPathSegLinetoVerticalAbs]"; }
+        window.SVGPathSegLinetoVerticalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
+        window.SVGPathSegLinetoVerticalAbs.prototype.clone = function() { return new window.SVGPathSegLinetoVerticalAbs(undefined, this._y); }
+        Object.defineProperty(window.SVGPathSegLinetoVerticalAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegLinetoVerticalRel = function(owningPathSegList, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL, "v", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL, "v", owningPathSegList);
             this._y = y;
         }
-        SVGPathSegLinetoVerticalRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegLinetoVerticalRel.prototype.toString = function() { return "[object SVGPathSegLinetoVerticalRel]"; }
-        SVGPathSegLinetoVerticalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
-        SVGPathSegLinetoVerticalRel.prototype.clone = function() { return new SVGPathSegLinetoVerticalRel(undefined, this._y); }
-        Object.defineProperty(SVGPathSegLinetoVerticalRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegLinetoVerticalRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegLinetoVerticalRel.prototype.toString = function() { return "[object SVGPathSegLinetoVerticalRel]"; }
+        window.SVGPathSegLinetoVerticalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
+        window.SVGPathSegLinetoVerticalRel.prototype.clone = function() { return new window.SVGPathSegLinetoVerticalRel(undefined, this._y); }
+        Object.defineProperty(window.SVGPathSegLinetoVerticalRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoCubicSmoothAbs = function(owningPathSegList, x, y, x2, y2) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS, "S", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS, "S", owningPathSegList);
             this._x = x;
             this._y = y;
             this._x2 = x2;
             this._y2 = y2;
         }
-        SVGPathSegCurvetoCubicSmoothAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoCubicSmoothAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicSmoothAbs]"; }
-        SVGPathSegCurvetoCubicSmoothAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoCubicSmoothAbs.prototype.clone = function() { return new SVGPathSegCurvetoCubicSmoothAbs(undefined, this._x, this._y, this._x2, this._y2); }
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoCubicSmoothAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoCubicSmoothAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicSmoothAbs]"; }
+        window.SVGPathSegCurvetoCubicSmoothAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoCubicSmoothAbs.prototype.clone = function() { return new window.SVGPathSegCurvetoCubicSmoothAbs(undefined, this._x, this._y, this._x2, this._y2); }
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoCubicSmoothRel = function(owningPathSegList, x, y, x2, y2) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL, "s", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL, "s", owningPathSegList);
             this._x = x;
             this._y = y;
             this._x2 = x2;
             this._y2 = y2;
         }
-        SVGPathSegCurvetoCubicSmoothRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoCubicSmoothRel.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicSmoothRel]"; }
-        SVGPathSegCurvetoCubicSmoothRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoCubicSmoothRel.prototype.clone = function() { return new SVGPathSegCurvetoCubicSmoothRel(undefined, this._x, this._y, this._x2, this._y2); }
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoCubicSmoothRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoCubicSmoothRel.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicSmoothRel]"; }
+        window.SVGPathSegCurvetoCubicSmoothRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoCubicSmoothRel.prototype.clone = function() { return new window.SVGPathSegCurvetoCubicSmoothRel(undefined, this._x, this._y, this._x2, this._y2); }
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoCubicSmoothRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoQuadraticSmoothAbs = function(owningPathSegList, x, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS, "T", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS, "T", owningPathSegList);
             this._x = x;
             this._y = y;
         }
-        SVGPathSegCurvetoQuadraticSmoothAbs.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoQuadraticSmoothAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticSmoothAbs]"; }
-        SVGPathSegCurvetoQuadraticSmoothAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoQuadraticSmoothAbs.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticSmoothAbs(undefined, this._x, this._y); }
-        Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoQuadraticSmoothAbs.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoQuadraticSmoothAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticSmoothAbs]"; }
+        window.SVGPathSegCurvetoQuadraticSmoothAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoQuadraticSmoothAbs.prototype.clone = function() { return new window.SVGPathSegCurvetoQuadraticSmoothAbs(undefined, this._x, this._y); }
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
         window.SVGPathSegCurvetoQuadraticSmoothRel = function(owningPathSegList, x, y) {
-            SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL, "t", owningPathSegList);
+            window.SVGPathSeg.call(this, window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL, "t", owningPathSegList);
             this._x = x;
             this._y = y;
         }
-        SVGPathSegCurvetoQuadraticSmoothRel.prototype = Object.create(SVGPathSeg.prototype);
-        SVGPathSegCurvetoQuadraticSmoothRel.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticSmoothRel]"; }
-        SVGPathSegCurvetoQuadraticSmoothRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-        SVGPathSegCurvetoQuadraticSmoothRel.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticSmoothRel(undefined, this._x, this._y); }
-        Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-        Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
+        window.SVGPathSegCurvetoQuadraticSmoothRel.prototype = Object.create(window.SVGPathSeg.prototype);
+        window.SVGPathSegCurvetoQuadraticSmoothRel.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticSmoothRel]"; }
+        window.SVGPathSegCurvetoQuadraticSmoothRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
+        window.SVGPathSegCurvetoQuadraticSmoothRel.prototype.clone = function() { return new window.SVGPathSegCurvetoQuadraticSmoothRel(undefined, this._x, this._y); }
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
+        Object.defineProperty(window.SVGPathSegCurvetoQuadraticSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
 
-        // Add createSVGPathSeg* functions to SVGPathElement.
-        // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGPathElement.
-        SVGPathElement.prototype.createSVGPathSegClosePath = function() { return new SVGPathSegClosePath(undefined); }
-        SVGPathElement.prototype.createSVGPathSegMovetoAbs = function(x, y) { return new SVGPathSegMovetoAbs(undefined, x, y); }
-        SVGPathElement.prototype.createSVGPathSegMovetoRel = function(x, y) { return new SVGPathSegMovetoRel(undefined, x, y); }
-        SVGPathElement.prototype.createSVGPathSegLinetoAbs = function(x, y) { return new SVGPathSegLinetoAbs(undefined, x, y); }
-        SVGPathElement.prototype.createSVGPathSegLinetoRel = function(x, y) { return new SVGPathSegLinetoRel(undefined, x, y); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoCubicAbs = function(x, y, x1, y1, x2, y2) { return new SVGPathSegCurvetoCubicAbs(undefined, x, y, x1, y1, x2, y2); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoCubicRel = function(x, y, x1, y1, x2, y2) { return new SVGPathSegCurvetoCubicRel(undefined, x, y, x1, y1, x2, y2); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticAbs = function(x, y, x1, y1) { return new SVGPathSegCurvetoQuadraticAbs(undefined, x, y, x1, y1); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticRel = function(x, y, x1, y1) { return new SVGPathSegCurvetoQuadraticRel(undefined, x, y, x1, y1); }
-        SVGPathElement.prototype.createSVGPathSegArcAbs = function(x, y, r1, r2, angle, largeArcFlag, sweepFlag) { return new SVGPathSegArcAbs(undefined, x, y, r1, r2, angle, largeArcFlag, sweepFlag); }
-        SVGPathElement.prototype.createSVGPathSegArcRel = function(x, y, r1, r2, angle, largeArcFlag, sweepFlag) { return new SVGPathSegArcRel(undefined, x, y, r1, r2, angle, largeArcFlag, sweepFlag); }
-        SVGPathElement.prototype.createSVGPathSegLinetoHorizontalAbs = function(x) { return new SVGPathSegLinetoHorizontalAbs(undefined, x); }
-        SVGPathElement.prototype.createSVGPathSegLinetoHorizontalRel = function(x) { return new SVGPathSegLinetoHorizontalRel(undefined, x); }
-        SVGPathElement.prototype.createSVGPathSegLinetoVerticalAbs = function(y) { return new SVGPathSegLinetoVerticalAbs(undefined, y); }
-        SVGPathElement.prototype.createSVGPathSegLinetoVerticalRel = function(y) { return new SVGPathSegLinetoVerticalRel(undefined, y); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoCubicSmoothAbs = function(x, y, x2, y2) { return new SVGPathSegCurvetoCubicSmoothAbs(undefined, x, y, x2, y2); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoCubicSmoothRel = function(x, y, x2, y2) { return new SVGPathSegCurvetoCubicSmoothRel(undefined, x, y, x2, y2); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothAbs = function(x, y) { return new SVGPathSegCurvetoQuadraticSmoothAbs(undefined, x, y); }
-        SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothRel = function(x, y) { return new SVGPathSegCurvetoQuadraticSmoothRel(undefined, x, y); }
+        // Add createSVGPathSeg* functions to window.SVGPathElement.
+        // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-Interfacewindow.SVGPathElement.
+        window.SVGPathElement.prototype.createSVGPathSegClosePath = function() { return new window.SVGPathSegClosePath(undefined); }
+        window.SVGPathElement.prototype.createSVGPathSegMovetoAbs = function(x, y) { return new window.SVGPathSegMovetoAbs(undefined, x, y); }
+        window.SVGPathElement.prototype.createSVGPathSegMovetoRel = function(x, y) { return new window.SVGPathSegMovetoRel(undefined, x, y); }
+        window.SVGPathElement.prototype.createSVGPathSegLinetoAbs = function(x, y) { return new window.SVGPathSegLinetoAbs(undefined, x, y); }
+        window.SVGPathElement.prototype.createSVGPathSegLinetoRel = function(x, y) { return new window.SVGPathSegLinetoRel(undefined, x, y); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoCubicAbs = function(x, y, x1, y1, x2, y2) { return new window.SVGPathSegCurvetoCubicAbs(undefined, x, y, x1, y1, x2, y2); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoCubicRel = function(x, y, x1, y1, x2, y2) { return new window.SVGPathSegCurvetoCubicRel(undefined, x, y, x1, y1, x2, y2); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticAbs = function(x, y, x1, y1) { return new window.SVGPathSegCurvetoQuadraticAbs(undefined, x, y, x1, y1); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticRel = function(x, y, x1, y1) { return new window.SVGPathSegCurvetoQuadraticRel(undefined, x, y, x1, y1); }
+        window.SVGPathElement.prototype.createSVGPathSegArcAbs = function(x, y, r1, r2, angle, largeArcFlag, sweepFlag) { return new window.SVGPathSegArcAbs(undefined, x, y, r1, r2, angle, largeArcFlag, sweepFlag); }
+        window.SVGPathElement.prototype.createSVGPathSegArcRel = function(x, y, r1, r2, angle, largeArcFlag, sweepFlag) { return new window.SVGPathSegArcRel(undefined, x, y, r1, r2, angle, largeArcFlag, sweepFlag); }
+        window.SVGPathElement.prototype.createSVGPathSegLinetoHorizontalAbs = function(x) { return new window.SVGPathSegLinetoHorizontalAbs(undefined, x); }
+        window.SVGPathElement.prototype.createSVGPathSegLinetoHorizontalRel = function(x) { return new window.SVGPathSegLinetoHorizontalRel(undefined, x); }
+        window.SVGPathElement.prototype.createSVGPathSegLinetoVerticalAbs = function(y) { return new window.SVGPathSegLinetoVerticalAbs(undefined, y); }
+        window.SVGPathElement.prototype.createSVGPathSegLinetoVerticalRel = function(y) { return new window.SVGPathSegLinetoVerticalRel(undefined, y); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoCubicSmoothAbs = function(x, y, x2, y2) { return new window.SVGPathSegCurvetoCubicSmoothAbs(undefined, x, y, x2, y2); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoCubicSmoothRel = function(x, y, x2, y2) { return new window.SVGPathSegCurvetoCubicSmoothRel(undefined, x, y, x2, y2); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothAbs = function(x, y) { return new window.SVGPathSegCurvetoQuadraticSmoothAbs(undefined, x, y); }
+        window.SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothRel = function(x, y) { return new window.SVGPathSegCurvetoQuadraticSmoothRel(undefined, x, y); }
+
+        if (!("getPathSegAtLength" in window.SVGPathElement.prototype)) {
+            // Add getPathSegAtLength to SVGPathElement.
+            // Spec: https://www.w3.org/TR/SVG11/single-page.html#paths-__svg__SVGPathElement__getPathSegAtLength
+            // This polyfill requires SVGPathElement.getTotalLength to implement the distance-along-a-path algorithm.
+            window.SVGPathElement.prototype.getPathSegAtLength = function(distance) {
+                if (distance === undefined || !isFinite(distance))
+                    throw "Invalid arguments.";
+
+                var measurementElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                measurementElement.setAttribute("d", this.getAttribute("d"));
+                var lastPathSegment = measurementElement.pathSegList.numberOfItems - 1;
+
+                // If the path is empty, return 0.
+                if (lastPathSegment <= 0)
+                    return 0;
+
+                do {
+                    measurementElement.pathSegList.removeItem(lastPathSegment);
+                    if (distance > measurementElement.getTotalLength())
+                        break;
+                    lastPathSegment--;
+                } while (lastPathSegment > 0);
+                return lastPathSegment;
+            }
+        }
     }
 
-    if (!("SVGPathSegList" in window)) {
+    // Checking for SVGPathSegList in window checks for the case of an implementation without the
+    // SVGPathSegList API.
+    // The second check for appendItem is specific to Firefox 59+ which removed only parts of the
+    // SVGPathSegList API (e.g., appendItem). In this case we need to re-implement the entire API
+    // so the polyfill data (i.e., _list) is used throughout.
+    if (!("SVGPathSegList" in window) || !("appendItem" in window.SVGPathSegList.prototype)) {
         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGPathSegList
         window.SVGPathSegList = function(pathElement) {
             this._pathElement = pathElement;
@@ -346,7 +379,9 @@
             this._pathElementMutationObserver.observe(this._pathElement, this._mutationObserverConfig);
         }
 
-        Object.defineProperty(SVGPathSegList.prototype, "numberOfItems", {
+        window.SVGPathSegList.prototype.classname = "SVGPathSegList";
+
+        Object.defineProperty(window.SVGPathSegList.prototype, "numberOfItems", {
             get: function() {
                 this._checkPathSynchronizedToList();
                 return this._list.length;
@@ -354,29 +389,38 @@
             enumerable: true
         });
 
-        // Add the pathSegList accessors to SVGPathElement.
+        // The length property was not specified but was in Firefox 58.
+        Object.defineProperty(window.SVGPathSegList.prototype, "length", {
+            get: function() {
+                this._checkPathSynchronizedToList();
+                return this._list.length;
+            },
+            enumerable: true
+        });
+
+        // Add the pathSegList accessors to window.SVGPathElement.
         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGAnimatedPathData
-        Object.defineProperty(SVGPathElement.prototype, "pathSegList", {
+        Object.defineProperty(window.SVGPathElement.prototype, "pathSegList", {
             get: function() {
                 if (!this._pathSegList)
-                    this._pathSegList = new SVGPathSegList(this);
+                    this._pathSegList = new window.SVGPathSegList(this);
                 return this._pathSegList;
             },
             enumerable: true
         });
-        // FIXME: The following are not implemented and simply return SVGPathElement.pathSegList.
-        Object.defineProperty(SVGPathElement.prototype, "normalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
-        Object.defineProperty(SVGPathElement.prototype, "animatedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
-        Object.defineProperty(SVGPathElement.prototype, "animatedNormalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
+        // FIXME: The following are not implemented and simply return window.SVGPathElement.pathSegList.
+        Object.defineProperty(window.SVGPathElement.prototype, "normalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
+        Object.defineProperty(window.SVGPathElement.prototype, "animatedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
+        Object.defineProperty(window.SVGPathElement.prototype, "animatedNormalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
 
         // Process any pending mutations to the path element and update the list as needed.
         // This should be the first call of all public functions and is needed because
         // MutationObservers are not synchronous so we can have pending asynchronous mutations.
-        SVGPathSegList.prototype._checkPathSynchronizedToList = function() {
+        window.SVGPathSegList.prototype._checkPathSynchronizedToList = function() {
             this._updateListFromPathMutations(this._pathElementMutationObserver.takeRecords());
         }
 
-        SVGPathSegList.prototype._updateListFromPathMutations = function(mutationRecords) {
+        window.SVGPathSegList.prototype._updateListFromPathMutations = function(mutationRecords) {
             if (!this._pathElement)
                 return;
             var hasPathMutations = false;
@@ -389,18 +433,18 @@
         }
 
         // Serialize the list and update the path's 'd' attribute.
-        SVGPathSegList.prototype._writeListToPath = function() {
+        window.SVGPathSegList.prototype._writeListToPath = function() {
             this._pathElementMutationObserver.disconnect();
-            this._pathElement.setAttribute("d", SVGPathSegList._pathSegArrayAsString(this._list));
+            this._pathElement.setAttribute("d", window.SVGPathSegList._pathSegArrayAsString(this._list));
             this._pathElementMutationObserver.observe(this._pathElement, this._mutationObserverConfig);
         }
 
         // When a path segment changes the list needs to be synchronized back to the path element.
-        SVGPathSegList.prototype.segmentChanged = function(pathSeg) {
+        window.SVGPathSegList.prototype.segmentChanged = function(pathSeg) {
             this._writeListToPath();
         }
 
-        SVGPathSegList.prototype.clear = function() {
+        window.SVGPathSegList.prototype.clear = function() {
             this._checkPathSynchronizedToList();
 
             this._list.forEach(function(pathSeg) {
@@ -410,7 +454,7 @@
             this._writeListToPath();
         }
 
-        SVGPathSegList.prototype.initialize = function(newItem) {
+        window.SVGPathSegList.prototype.initialize = function(newItem) {
             this._checkPathSynchronizedToList();
 
             this._list = [newItem];
@@ -419,19 +463,19 @@
             return newItem;
         }
 
-        SVGPathSegList.prototype._checkValidIndex = function(index) {
+        window.SVGPathSegList.prototype._checkValidIndex = function(index) {
             if (isNaN(index) || index < 0 || index >= this.numberOfItems)
                 throw "INDEX_SIZE_ERR";
         }
 
-        SVGPathSegList.prototype.getItem = function(index) {
+        window.SVGPathSegList.prototype.getItem = function(index) {
             this._checkPathSynchronizedToList();
 
             this._checkValidIndex(index);
             return this._list[index];
         }
 
-        SVGPathSegList.prototype.insertItemBefore = function(newItem, index) {
+        window.SVGPathSegList.prototype.insertItemBefore = function(newItem, index) {
             this._checkPathSynchronizedToList();
 
             // Spec: If the index is greater than or equal to numberOfItems, then the new item is appended to the end of the list.
@@ -447,7 +491,7 @@
             return newItem;
         }
 
-        SVGPathSegList.prototype.replaceItem = function(newItem, index) {
+        window.SVGPathSegList.prototype.replaceItem = function(newItem, index) {
             this._checkPathSynchronizedToList();
 
             if (newItem._owningPathSegList) {
@@ -461,7 +505,7 @@
             return newItem;
         }
 
-        SVGPathSegList.prototype.removeItem = function(index) {
+        window.SVGPathSegList.prototype.removeItem = function(index) {
             this._checkPathSynchronizedToList();
 
             this._checkValidIndex(index);
@@ -471,7 +515,7 @@
             return item;
         }
 
-        SVGPathSegList.prototype.appendItem = function(newItem) {
+        window.SVGPathSegList.prototype.appendItem = function(newItem) {
             this._checkPathSynchronizedToList();
 
             if (newItem._owningPathSegList) {
@@ -485,7 +529,7 @@
             return newItem;
         }
 
-        SVGPathSegList._pathSegArrayAsString = function(pathSegArray) {
+        window.SVGPathSegList._pathSegArrayAsString = function(pathSegArray) {
             var string = "";
             var first = true;
             pathSegArray.forEach(function(pathSeg) {
@@ -500,7 +544,7 @@
         }
 
         // This closely follows SVGPathParser::parsePath from Source/core/svg/SVGPathParser.cpp.
-        SVGPathSegList.prototype._parsePath = function(string) {
+        window.SVGPathSegList.prototype._parsePath = function(string) {
             if (!string || string.length == 0)
                 return [];
 
@@ -518,7 +562,7 @@
                 this._string = string;
                 this._currentIndex = 0;
                 this._endIndex = this._string.length;
-                this._previousCommand = SVGPathSeg.PATHSEG_UNKNOWN;
+                this._previousCommand = window.SVGPathSeg.PATHSEG_UNKNOWN;
 
                 this._skipOptionalSpaces();
             }
@@ -559,58 +603,58 @@
                 switch (lookahead) {
                 case "Z":
                 case "z":
-                    return SVGPathSeg.PATHSEG_CLOSEPATH;
+                    return window.SVGPathSeg.PATHSEG_CLOSEPATH;
                 case "M":
-                    return SVGPathSeg.PATHSEG_MOVETO_ABS;
+                    return window.SVGPathSeg.PATHSEG_MOVETO_ABS;
                 case "m":
-                    return SVGPathSeg.PATHSEG_MOVETO_REL;
+                    return window.SVGPathSeg.PATHSEG_MOVETO_REL;
                 case "L":
-                    return SVGPathSeg.PATHSEG_LINETO_ABS;
+                    return window.SVGPathSeg.PATHSEG_LINETO_ABS;
                 case "l":
-                    return SVGPathSeg.PATHSEG_LINETO_REL;
+                    return window.SVGPathSeg.PATHSEG_LINETO_REL;
                 case "C":
-                    return SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS;
                 case "c":
-                    return SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL;
                 case "Q":
-                    return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS;
                 case "q":
-                    return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL;
                 case "A":
-                    return SVGPathSeg.PATHSEG_ARC_ABS;
+                    return window.SVGPathSeg.PATHSEG_ARC_ABS;
                 case "a":
-                    return SVGPathSeg.PATHSEG_ARC_REL;
+                    return window.SVGPathSeg.PATHSEG_ARC_REL;
                 case "H":
-                    return SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS;
+                    return window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS;
                 case "h":
-                    return SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL;
+                    return window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL;
                 case "V":
-                    return SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS;
+                    return window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS;
                 case "v":
-                    return SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL;
+                    return window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL;
                 case "S":
-                    return SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS;
                 case "s":
-                    return SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL;
                 case "T":
-                    return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS;
                 case "t":
-                    return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL;
+                    return window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL;
                 default:
-                    return SVGPathSeg.PATHSEG_UNKNOWN;
+                    return window.SVGPathSeg.PATHSEG_UNKNOWN;
                 }
             }
 
             Source.prototype._nextCommandHelper = function(lookahead, previousCommand) {
                 // Check for remaining coordinates in the current command.
-                if ((lookahead == "+" || lookahead == "-" || lookahead == "." || (lookahead >= "0" && lookahead <= "9")) && previousCommand != SVGPathSeg.PATHSEG_CLOSEPATH) {
-                    if (previousCommand == SVGPathSeg.PATHSEG_MOVETO_ABS)
-                        return SVGPathSeg.PATHSEG_LINETO_ABS;
-                    if (previousCommand == SVGPathSeg.PATHSEG_MOVETO_REL)
-                        return SVGPathSeg.PATHSEG_LINETO_REL;
+                if ((lookahead == "+" || lookahead == "-" || lookahead == "." || (lookahead >= "0" && lookahead <= "9")) && previousCommand != window.SVGPathSeg.PATHSEG_CLOSEPATH) {
+                    if (previousCommand == window.SVGPathSeg.PATHSEG_MOVETO_ABS)
+                        return window.SVGPathSeg.PATHSEG_LINETO_ABS;
+                    if (previousCommand == window.SVGPathSeg.PATHSEG_MOVETO_REL)
+                        return window.SVGPathSeg.PATHSEG_LINETO_REL;
                     return previousCommand;
                 }
-                return SVGPathSeg.PATHSEG_UNKNOWN;
+                return window.SVGPathSeg.PATHSEG_UNKNOWN;
             }
 
             Source.prototype.initialCommandIsMoveTo = function() {
@@ -619,7 +663,7 @@
                     return true;
                 var command = this.peekSegmentType();
                 // Path must start with moveTo.
-                return command == SVGPathSeg.PATHSEG_MOVETO_ABS || command == SVGPathSeg.PATHSEG_MOVETO_REL;
+                return command == window.SVGPathSeg.PATHSEG_MOVETO_ABS || command == window.SVGPathSeg.PATHSEG_MOVETO_REL;
             }
 
             // Parse a number from an SVG path. This very closely follows genericParseNumber(...) from Source/core/svg/SVGParserUtilities.cpp.
@@ -669,8 +713,11 @@
                     // There must be a least one digit following the .
                     if (this._currentIndex >= this._endIndex || this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9")
                         return undefined;
-                    while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9")
-                        decimal += (this._string.charAt(this._currentIndex++) - "0") * (frac *= 0.1);
+                    while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9") {
+                        frac *= 10;
+                        decimal += (this._string.charAt(this._currentIndex) - "0") / frac;
+                        this._currentIndex += 1;
+                    }
                 }
 
                 // Read the exponent part.
@@ -729,12 +776,12 @@
             Source.prototype.parseSegment = function() {
                 var lookahead = this._string[this._currentIndex];
                 var command = this._pathSegTypeFromChar(lookahead);
-                if (command == SVGPathSeg.PATHSEG_UNKNOWN) {
+                if (command == window.SVGPathSeg.PATHSEG_UNKNOWN) {
                     // Possibly an implicit command. Not allowed if this is the first command.
-                    if (this._previousCommand == SVGPathSeg.PATHSEG_UNKNOWN)
+                    if (this._previousCommand == window.SVGPathSeg.PATHSEG_UNKNOWN)
                         return null;
                     command = this._nextCommandHelper(lookahead, this._previousCommand);
-                    if (command == SVGPathSeg.PATHSEG_UNKNOWN)
+                    if (command == window.SVGPathSeg.PATHSEG_UNKNOWN)
                         return null;
                 } else {
                     this._currentIndex++;
@@ -743,53 +790,53 @@
                 this._previousCommand = command;
 
                 switch (command) {
-                case SVGPathSeg.PATHSEG_MOVETO_REL:
-                    return new SVGPathSegMovetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
-                case SVGPathSeg.PATHSEG_MOVETO_ABS:
-                    return new SVGPathSegMovetoAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
-                case SVGPathSeg.PATHSEG_LINETO_REL:
-                    return new SVGPathSegLinetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
-                case SVGPathSeg.PATHSEG_LINETO_ABS:
-                    return new SVGPathSegLinetoAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
-                case SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL:
-                    return new SVGPathSegLinetoHorizontalRel(owningPathSegList, this._parseNumber());
-                case SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS:
-                    return new SVGPathSegLinetoHorizontalAbs(owningPathSegList, this._parseNumber());
-                case SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL:
-                    return new SVGPathSegLinetoVerticalRel(owningPathSegList, this._parseNumber());
-                case SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS:
-                    return new SVGPathSegLinetoVerticalAbs(owningPathSegList, this._parseNumber());
-                case SVGPathSeg.PATHSEG_CLOSEPATH:
+                case window.SVGPathSeg.PATHSEG_MOVETO_REL:
+                    return new window.SVGPathSegMovetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_MOVETO_ABS:
+                    return new window.SVGPathSegMovetoAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_LINETO_REL:
+                    return new window.SVGPathSegLinetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_LINETO_ABS:
+                    return new window.SVGPathSegLinetoAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL:
+                    return new window.SVGPathSegLinetoHorizontalRel(owningPathSegList, this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS:
+                    return new window.SVGPathSegLinetoHorizontalAbs(owningPathSegList, this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL:
+                    return new window.SVGPathSegLinetoVerticalRel(owningPathSegList, this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS:
+                    return new window.SVGPathSegLinetoVerticalAbs(owningPathSegList, this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_CLOSEPATH:
                     this._skipOptionalSpaces();
-                    return new SVGPathSegClosePath(owningPathSegList);
-                case SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL:
+                    return new window.SVGPathSegClosePath(owningPathSegList);
+                case window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL:
                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegCurvetoCubicRel(owningPathSegList, points.x, points.y, points.x1, points.y1, points.x2, points.y2);
-                case SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS:
+                    return new window.SVGPathSegCurvetoCubicRel(owningPathSegList, points.x, points.y, points.x1, points.y1, points.x2, points.y2);
+                case window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS:
                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegCurvetoCubicAbs(owningPathSegList, points.x, points.y, points.x1, points.y1, points.x2, points.y2);
-                case SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL:
+                    return new window.SVGPathSegCurvetoCubicAbs(owningPathSegList, points.x, points.y, points.x1, points.y1, points.x2, points.y2);
+                case window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL:
                     var points = {x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegCurvetoCubicSmoothRel(owningPathSegList, points.x, points.y, points.x2, points.y2);
-                case SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS:
+                    return new window.SVGPathSegCurvetoCubicSmoothRel(owningPathSegList, points.x, points.y, points.x2, points.y2);
+                case window.SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS:
                     var points = {x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegCurvetoCubicSmoothAbs(owningPathSegList, points.x, points.y, points.x2, points.y2);
-                case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL:
+                    return new window.SVGPathSegCurvetoCubicSmoothAbs(owningPathSegList, points.x, points.y, points.x2, points.y2);
+                case window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL:
                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegCurvetoQuadraticRel(owningPathSegList, points.x, points.y, points.x1, points.y1);
-                case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS:
+                    return new window.SVGPathSegCurvetoQuadraticRel(owningPathSegList, points.x, points.y, points.x1, points.y1);
+                case window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS:
                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegCurvetoQuadraticAbs(owningPathSegList, points.x, points.y, points.x1, points.y1);
-                case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL:
-                    return new SVGPathSegCurvetoQuadraticSmoothRel(owningPathSegList, this._parseNumber(), this._parseNumber());
-                case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS:
-                    return new SVGPathSegCurvetoQuadraticSmoothAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
-                case SVGPathSeg.PATHSEG_ARC_REL:
+                    return new window.SVGPathSegCurvetoQuadraticAbs(owningPathSegList, points.x, points.y, points.x1, points.y1);
+                case window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL:
+                    return new window.SVGPathSegCurvetoQuadraticSmoothRel(owningPathSegList, this._parseNumber(), this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS:
+                    return new window.SVGPathSegCurvetoQuadraticSmoothAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
+                case window.SVGPathSeg.PATHSEG_ARC_REL:
                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), arcAngle: this._parseNumber(), arcLarge: this._parseArcFlag(), arcSweep: this._parseArcFlag(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegArcRel(owningPathSegList, points.x, points.y, points.x1, points.y1, points.arcAngle, points.arcLarge, points.arcSweep);
-                case SVGPathSeg.PATHSEG_ARC_ABS:
+                    return new window.SVGPathSegArcRel(owningPathSegList, points.x, points.y, points.x1, points.y1, points.arcAngle, points.arcLarge, points.arcSweep);
+                case window.SVGPathSeg.PATHSEG_ARC_ABS:
                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), arcAngle: this._parseNumber(), arcLarge: this._parseArcFlag(), arcSweep: this._parseArcFlag(), x: this._parseNumber(), y: this._parseNumber()};
-                    return new SVGPathSegArcAbs(owningPathSegList, points.x, points.y, points.x1, points.y1, points.arcAngle, points.arcLarge, points.arcSweep);
+                    return new window.SVGPathSegArcAbs(owningPathSegList, points.x, points.y, points.x1, points.y1, points.arcAngle, points.arcLarge, points.arcSweep);
                 default:
                     throw "Unknown path seg type."
                 }
@@ -859,475 +906,6 @@ function touchHandler(event) {
 */
 
 (function(b){b.hotkeys={version:"0.8",specialKeys:{8:"backspace",9:"tab",13:"return",16:"shift",17:"ctrl",18:"alt",19:"pause",20:"capslock",27:"esc",32:"space",33:"pageup",34:"pagedown",35:"end",36:"home",37:"left",38:"up",39:"right",40:"down",45:"insert",46:"del",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",109:"-",110:".",111:"/",112:"f1",113:"f2",114:"f3",115:"f4",116:"f5",117:"f6",118:"f7",119:"f8",120:"f9",121:"f10",122:"f11",123:"f12",144:"numlock",145:"scroll",191:"/",224:"meta",219:"[",221:"]"},shiftNums:{"`":"~","1":"!","2":"@","3":"#","4":"$","5":"%","6":"^","7":"&","8":"*","9":"(","0":")","-":"_","=":"+",";":": ","'":'"',",":"<",".":">","/":"?","\\":"|"}};function a(d){if(typeof d.data!=="string"){return}var c=d.handler,e=d.data.toLowerCase().split(" ");d.handler=function(n){if(this!==n.target&&(/textarea|select/i.test(n.target.nodeName)||n.target.type==="text")){return}var h=n.type!=="keypress"&&b.hotkeys.specialKeys[n.which],o=String.fromCharCode(n.which).toLowerCase(),k,m="",g={};if(n.altKey&&h!=="alt"){m+="alt+"}if(n.ctrlKey&&h!=="ctrl"){m+="ctrl+"}if(n.metaKey&&!n.ctrlKey&&h!=="meta"){m+="meta+"}if(n.shiftKey&&h!=="shift"){m+="shift+"}if(h){g[m+h]=true}else{g[m+o]=true;g[m+b.hotkeys.shiftNums[o]]=true;if(m==="shift+"){g[b.hotkeys.shiftNums[o]]=true}}for(var j=0,f=e.length;j<f;j++){if(g[e[j]]){return c.apply(this,arguments)}}}}b.each(["keydown","keyup","keypress"],function(){b.event.special[this]={add:a}})})(jQuery);
-/*
- * SVG Icon Loader 2.0
- *
- * jQuery Plugin for loading SVG icons from a single file
- *
- * Copyright (c) 2009 Alexis Deveria
- * http://a.deveria.com
- *
- * Apache 2 License
-
-How to use:
-
-1. Create the SVG master file that includes all icons:
-
-The master SVG icon-containing file is an SVG file that contains 
-<g> elements. Each <g> element should contain the markup of an SVG
-icon. The <g> element has an ID that should 
-correspond with the ID of the HTML element used on the page that should contain 
-or optionally be replaced by the icon. Additionally, one empty element should be
-added at the end with id "svg_eof".
-
-2. Optionally create fallback raster images for each SVG icon.
-
-3. Include the jQuery and the SVG Icon Loader scripts on your page.
-
-4. Run $.svgIcons() when the document is ready:
-
-$.svgIcons( file [string], options [object literal]);
-
-File is the location of a local SVG or SVGz file.
-
-All options are optional and can include:
-
-- 'w (number)': The icon widths
-
-- 'h (number)': The icon heights
-
-- 'fallback (object literal)': List of raster images with each
-  key being the SVG icon ID to replace, and the value the image file name.
-  
-- 'fallback_path (string)': The path to use for all images
-  listed under "fallback"
-  
-- 'replace (boolean)': If set to true, HTML elements will be replaced by,
-  rather than include the SVG icon.
-
-- 'placement (object literal)': List with selectors for keys and SVG icon ids
-  as values. This provides a custom method of adding icons.
-
-- 'resize (object literal)': List with selectors for keys and numbers
-  as values. This allows an easy way to resize specific icons.
-  
-- 'callback (function)': A function to call when all icons have been loaded. 
-  Includes an object literal as its argument with as keys all icon IDs and the 
-  icon as a jQuery object as its value.
-
-- 'id_match (boolean)': Automatically attempt to match SVG icon ids with
-  corresponding HTML id (default: true)
-  
-- 'no_img (boolean)': Prevent attempting to convert the icon into an <img>
-  element (may be faster, help for browser consistency)
-
-- 'svgz (boolean)': Indicate that the file is an SVGZ file, and thus not to
-  parse as XML. SVGZ files add compression benefits, but getting data from
-  them fails in Firefox 2 and older.
-
-5. To access an icon at a later point without using the callback, use this:
-  $.getSvgIcon(id (string));
-
-This will return the icon (as jQuery object) with a given ID.
-  
-6. To resize icons at a later point without using the callback, use this:
-  $.resizeSvgIcons(resizeOptions) (use the same way as the "resize" parameter)
-
-
-Example usage #1:
-
-$(function() {
-  $.svgIcons('my_icon_set.svg'); // The SVG file that contains all icons
-  // No options have been set, so all icons will automatically be inserted 
-  // into HTML elements that match the same IDs. 
-});
-
-Example usage #2:
-
-$(function() {
-  $.svgIcons('my_icon_set.svg', { // The SVG file that contains all icons
-    callback: function(icons) { // Custom callback function that sets click
-                  // events for each icon
-      $.each(icons, function(id, icon) {
-        icon.click(function() {
-          alert('You clicked on the icon with id ' + id);
-        });
-      });
-    }
-  }); //The SVG file that contains all icons
-});
-
-Example usage #3:
-
-$(function() {
-  $.svgIcons('my_icon_set.svgz', { // The SVGZ file that contains all icons
-    w: 32,  // All icons will be 32px wide
-    h: 32,  // All icons will be 32px high
-    fallback_path: 'icons/',  // All fallback files can be found here
-    fallback: {
-      '#open_icon': 'open.png',  // The "open.png" will be appended to the
-                     // HTML element with ID "open_icon"
-      '#close_icon': 'close.png',
-      '#save_icon': 'save.png'
-    },
-    placement: {'.open_icon','open'}, // The "open" icon will be added
-                      // to all elements with class "open_icon"
-    resize: function() {
-      '#save_icon .svg_icon': 64  // The "save" icon will be resized to 64 x 64px
-    },
-    
-    callback: function(icons) { // Sets background color for "close" icon 
-      icons['close'].css('background','red');
-    },
-    
-    svgz: true // Indicates that an SVGZ file is being used
-    
-  })
-});
-
-*/
-
-
-(function($) {
-  var svg_icons = {}, fixIDs;
-
-  $.svgIcons = function(file, opts) {
-    var svgns = "http://www.w3.org/2000/svg",
-      xlinkns = "http://www.w3.org/1999/xlink",
-      icon_w = opts.w?opts.w : 24,
-      icon_h = opts.h?opts.h : 24,
-      elems, svgdoc, testImg,
-      icons_made = false, data_loaded = false, load_attempts = 0,
-      ua = navigator.userAgent, isOpera = !!window.opera, isSafari = (ua.indexOf('Safari/') > -1 && ua.indexOf('Chrome/')==-1),
-      data_pre = 'data:image/svg+xml;charset=utf-8;base64,';
-      
-      if(opts.svgz) {
-        var data_el = $('<object data="' + file + '" type=image/svg+xml>').appendTo('body').hide();
-        try {
-          svgdoc = data_el[0].contentDocument;
-          data_el.load(getIcons);
-          getIcons(0, true); // Opera will not run "load" event if file is already cached
-        } catch(err1) {
-          useFallback();
-        }
-      } else {
-        var parser = new DOMParser();
-        $.ajax({
-          url: file,
-          dataType: 'string',
-          success: function(data) {
-            if(!data) {
-              $(useFallback);
-              return;
-            }
-            svgdoc = parser.parseFromString(data, "text/xml");
-            $(function() {
-              getIcons('ajax');
-            });
-          },
-          error: function(err) {
-            // TODO: Fix Opera widget icon bug
-            if(window.opera) {
-              $(function() {
-                useFallback();
-              });
-            } else {
-              if(err.responseText) {
-                svgdoc = parser.parseFromString(err.responseText, "text/xml");
-                if(!svgdoc.childNodes.length) {
-                  $(useFallback);                 
-                }
-                $(function() {
-                  getIcons('ajax');
-                });             
-              } else {
-                $(useFallback);
-              }
-            }
-          }
-        });
-      }
-      
-    function getIcons(evt, no_wait) {
-      if(evt !== 'ajax') {
-        if(data_loaded) return;
-        // Webkit sometimes says svgdoc is undefined, other times
-        // it fails to load all nodes. Thus we must make sure the "eof" 
-        // element is loaded.
-        svgdoc = data_el[0].contentDocument; // Needed again for Webkit
-        var isReady = (svgdoc && svgdoc.getElementById('svg_eof'));
-        if(!isReady && !(no_wait && isReady)) {
-          load_attempts++;
-          if(load_attempts < 50) {
-            setTimeout(getIcons, 20);
-          } else {
-            useFallback();
-            data_loaded = true;
-          }
-          return;
-        }
-        data_loaded = true;
-      }
-      
-      elems = $(svgdoc.firstChild).children(); //.getElementsByTagName('foreignContent');
-      
-      if(!opts.no_img) {
-        var testSrc = data_pre + 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNzUiIGhlaWdodD0iMjc1Ij48L3N2Zz4%3D';
-        
-        testImg = $(new Image()).attr({
-          src: testSrc,
-          width: 0,
-          height: 0
-        }).appendTo('body')
-        .on("load", function () {
-          // Safari 4 crashes, Opera and Chrome don't
-          makeIcons(true);
-        });
-      } else {
-        setTimeout(function() {
-          if(!icons_made) makeIcons();
-        },500);
-      }
-    }
-    
-    var setIcon = function(target, icon, id, setID) {
-      if(isOpera) icon.css('visibility','hidden');
-      if(opts.replace) {
-        if(setID) icon.attr('id',id);
-        var cl = target.attr('class');
-        if(cl) icon.attr('class','svg_icon '+cl);
-        target.replaceWith(icon);
-      } else {
-        
-        target.append(icon);
-      }
-      if(isOpera) {
-        setTimeout(function() {
-          icon.removeAttr('style');
-        },1);
-      }
-    }
-    
-    var addIcon = function(icon, id) {
-      if(opts.id_match === undefined || opts.id_match !== false) {
-        setIcon(holder, icon, id, true);
-      }
-      svg_icons[id] = icon;
-    }
-    
-    function makeIcons(toImage, fallback) {
-      if(icons_made) return;
-      if(opts.no_img) toImage = false;
-      var holder;
-      
-      if(toImage) {
-        var temp_holder = $(document.createElement('div'));
-        temp_holder.hide().appendTo('body');
-      } 
-      if(fallback) {
-        var path = opts.fallback_path?opts.fallback_path:'';
-        $.each(fallback, function(id, imgsrc) {
-          holder = $('#' + id);
-          var icon = $(new Image())
-            .attr({
-              'class':'svg_icon',
-              src: path + imgsrc,
-              'width': icon_w,
-              'height': icon_h,
-              'alt': 'icon'
-            });
-          
-          addIcon(icon, id);
-        });
-      } else {
-        var len = elems.length;
-        for(var i = 0; i < len; i++) {
-          var elem = elems[i];
-          var id = elem.id;
-          if(id === 'svg_eof') break;
-          holder = $('#' + id);
-          var svg = elem.getElementsByTagNameNS(svgns, 'svg')[0];
-          var svgroot = document.createElementNS(svgns, "svg");
-          svgroot.setAttributeNS(svgns, 'viewBox', [0,0,icon_w,icon_h].join(' '));
-          // Make flexible by converting width/height to viewBox
-          var w = svg.getAttribute('width');
-          var h = svg.getAttribute('height');
-          svg.removeAttribute('width');
-          svg.removeAttribute('height');
-          
-          var vb = svg.getAttribute('viewBox');
-          if(!vb) {
-            svg.setAttribute('viewBox', [0,0,w,h].join(' '));
-          }
-          
-          // Not using jQuery to be a bit faster
-          svgroot.setAttribute('xmlns', svgns);
-          svgroot.setAttribute('width', icon_w);
-          svgroot.setAttribute('height', icon_h);
-          svgroot.setAttribute("xmlns:xlink", xlinkns);
-          svgroot.setAttribute("class", 'svg_icon');
-
-          // Without cloning, Firefox will make another GET request.
-          // With cloning, causes issue in Opera/Win/Non-EN
-          if(!isOpera) svg = svg.cloneNode(true);
-          
-          svgroot.appendChild(svg);
-      
-          if(toImage) {
-            // Without cloning, Safari will crash
-            // With cloning, causes issue in Opera/Win/Non-EN
-            var svgcontent = isOpera?svgroot:svgroot.cloneNode(true);
-            temp_holder.empty().append(svgroot);
-            var str = data_pre + encode64(temp_holder.html());
-            var icon = $(new Image())
-              .attr({'class':'svg_icon', src:str});
-          } else {
-            var icon = fixIDs($(svgroot), i);
-          }
-          addIcon(icon, id);
-        }
-
-      }
-      
-      if(opts.placement) {
-        $.each(opts.placement, function(sel, id) {
-          if(!svg_icons[id]) return;
-          $(sel).each(function(i) {
-            var copy = svg_icons[id].clone();
-            if(i > 0 && !toImage) copy = fixIDs(copy, i, true);
-            setIcon($(this), copy, id);
-          })
-        });
-      }
-      if(!fallback) {
-        if(toImage) temp_holder.remove();
-        if(data_el) data_el.remove();
-        if(testImg) testImg.remove();
-      }
-      if(opts.resize) $.resizeSvgIcons(opts.resize);
-      icons_made = true;
-
-      if(opts.callback) opts.callback(svg_icons);
-    }
-    
-    fixIDs = function(svg_el, svg_num, force) {
-      var defs = svg_el.find('defs');
-      if(!defs.length) return svg_el;
-      
-      if(isOpera) {
-        var id_elems = defs.find('*').filter(function() {
-          return !!this.id;
-        });
-      } else {
-        var id_elems = defs.find('[id]');
-      }
-      
-      var all_elems = svg_el[0].getElementsByTagName('*'), len = all_elems.length;
-      
-      id_elems.each(function(i) {
-        var id = this.id;
-        var no_dupes = ($(svgdoc).find('#' + id).length <= 1);
-        if(isOpera) no_dupes = false; // Opera didn't clone svg_el, so not reliable
-        // if(!force && no_dupes) return;
-        var new_id = 'x' + id + svg_num + i;
-        this.id = new_id;
-        
-        var old_val = 'url(#' + id + ')';
-        var new_val = 'url(#' + new_id + ')';
-
-        for(var i = 0; i < len; i++) {
-          var elem = all_elems[i];
-          if(elem.getAttribute('fill') === old_val) {
-            elem.setAttribute('fill', new_val);
-          }
-          if(elem.getAttribute('stroke') === old_val) {
-            elem.setAttribute('stroke', new_val);
-          }
-          if(elem.getAttribute('filter') === old_val) {
-            elem.setAttribute('filter', new_val);
-          }
-        }
-      });
-      return svg_el;
-    }
-    
-    function useFallback() {
-      if(file.indexOf('.svgz') != -1) {
-        var reg_file = file.replace('.svgz','.svg');
-        if(window.console) {
-          console.log('.svgz failed, trying with .svg');
-        }
-        $.svgIcons(reg_file, opts);
-      } else if(opts.fallback) {
-        makeIcons(false, opts.fallback);
-      }
-    }
-        
-    function encode64(input) {
-      // base64 strings are 4/3 larger than the original string
-      if(window.btoa) return window.btoa(input);
-      var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-      var output = new Array( Math.floor( (input.length + 2) / 3 ) * 4 );
-      var chr1, chr2, chr3;
-      var enc1, enc2, enc3, enc4;
-      var i = 0, p = 0;
-    
-      do {
-        chr1 = input.charCodeAt(i++);
-        chr2 = input.charCodeAt(i++);
-        chr3 = input.charCodeAt(i++);
-    
-        enc1 = chr1 >> 2;
-        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-        enc4 = chr3 & 63;
-    
-        if (isNaN(chr2)) {
-          enc3 = enc4 = 64;
-        } else if (isNaN(chr3)) {
-          enc4 = 64;
-        }
-    
-        output[p++] = _keyStr.charAt(enc1);
-        output[p++] = _keyStr.charAt(enc2);
-        output[p++] = _keyStr.charAt(enc3);
-        output[p++] = _keyStr.charAt(enc4);
-      } while (i < input.length);
-    
-      return output.join('');
-    }
-  }
-  
-  $.getSvgIcon = function(id, uniqueClone) { 
-    var icon = svg_icons[id];
-    if(uniqueClone && icon) {
-      icon = fixIDs(icon, 0, true).clone(true);
-    }
-    return icon; 
-  }
-  
-  $.resizeSvgIcons = function(obj) {
-    // FF2 and older don't detect .svg_icon, so we change it detect svg elems instead
-    var change_sel = !$('.svg_icon:first').length;
-    $.each(obj, function(sel, size) {
-      var arr = $.isArray(size);
-      var w = arr?size[0]:size,
-        h = arr?size[1]:size;
-      if(change_sel) {
-        sel = sel.replace(/\.svg_icon/g,'svg');
-      }
-      $(sel).each(function() {
-        this.setAttribute('width', w);
-        this.setAttribute('height', h);
-        if(window.opera && window.widget) {
-          this.parentNode.style.width = w + 'px';
-          this.parentNode.style.height = h + 'px';
-        }
-      });
-    });
-  }
-  
-})(jQuery);
 /*
  * jGraduate 0.4
  *
@@ -2751,20 +2329,9 @@ if(jQuery)( function() {
  *	jquery.ui.core.js
  *	jquery.ui.mouse.js
  *	jquery.ui.widget.js
- */(function(a,b){a.widget("ui.draggable",a.ui.mouse,{widgetEventPrefix:"drag",options:{addClasses:!0,appendTo:"parent",axis:!1,connectToSortable:!1,containment:!1,cursor:"auto",cursorAt:!1,grid:!1,handle:!1,helper:"original",iframeFix:!1,opacity:!1,refreshPositions:!1,revert:!1,revertDuration:500,scope:"default",scroll:!0,scrollSensitivity:20,scrollSpeed:20,snap:!1,snapMode:"both",snapTolerance:20,stack:!1,zIndex:!1},_create:function(){this.options.helper=="original"&&!/^(?:r|a|f)/.test(this.element.css("position"))&&(this.element[0].style.position="relative"),this.options.addClasses&&this.element.addClass("ui-draggable"),this.options.disabled&&this.element.addClass("ui-draggable-disabled"),this._mouseInit()},destroy:function(){if(!!this.element.data("draggable")){this.element.removeData("draggable").unbind(".draggable").removeClass("ui-draggable ui-draggable-dragging ui-draggable-disabled"),this._mouseDestroy();return this}},_mouseCapture:function(b){var c=this.options;if(this.helper||c.disabled||a(b.target).is(".ui-resizable-handle"))return!1;this.handle=this._getHandle(b);if(!this.handle)return!1;c.iframeFix&&a(c.iframeFix===!0?"iframe":c.iframeFix).each(function(){a('<div class="ui-draggable-iframeFix" style="background: #fff;"></div>').css({width:this.offsetWidth+"px",height:this.offsetHeight+"px",position:"absolute",opacity:"0.001",zIndex:1e3}).css(a(this).offset()).appendTo("body")});return!0},_mouseStart:function(b){var c=this.options;this.helper=this._createHelper(b),this._cacheHelperProportions(),a.ui.ddmanager&&(a.ui.ddmanager.current=this),this._cacheMargins(),this.cssPosition=this.helper.css("position"),this.scrollParent=this.helper.scrollParent(),this.offset=this.positionAbs=this.element.offset(),this.offset={top:this.offset.top-this.margins.top,left:this.offset.left-this.margins.left},a.extend(this.offset,{click:{left:b.pageX-this.offset.left,top:b.pageY-this.offset.top},parent:this._getParentOffset(),relative:this._getRelativeOffset()}),this.originalPosition=this.position=this._generatePosition(b),this.originalPageX=b.pageX,this.originalPageY=b.pageY,c.cursorAt&&this._adjustOffsetFromHelper(c.cursorAt),c.containment&&this._setContainment();if(this._trigger("start",b)===!1){this._clear();return!1}this._cacheHelperProportions(),a.ui.ddmanager&&!c.dropBehaviour&&a.ui.ddmanager.prepareOffsets(this,b),this.helper.addClass("ui-draggable-dragging"),this._mouseDrag(b,!0),a.ui.ddmanager&&a.ui.ddmanager.dragStart(this,b);return!0},_mouseDrag:function(b,c){this.position=this._generatePosition(b),this.positionAbs=this._convertPositionTo("absolute");if(!c){var d=this._uiHash();if(this._trigger("drag",b,d)===!1){this._mouseUp({});return!1}this.position=d.position}if(!this.options.axis||this.options.axis!="y")this.helper[0].style.left=this.position.left+"px";if(!this.options.axis||this.options.axis!="x")this.helper[0].style.top=this.position.top+"px";a.ui.ddmanager&&a.ui.ddmanager.drag(this,b);return!1},_mouseStop:function(b){var c=!1;a.ui.ddmanager&&!this.options.dropBehaviour&&(c=a.ui.ddmanager.drop(this,b)),this.dropped&&(c=this.dropped,this.dropped=!1);if((!this.element[0]||!this.element[0].parentNode)&&this.options.helper=="original")return!1;if(this.options.revert=="invalid"&&!c||this.options.revert=="valid"&&c||this.options.revert===!0||a.isFunction(this.options.revert)&&this.options.revert.call(this.element,c)){var d=this;a(this.helper).animate(this.originalPosition,parseInt(this.options.revertDuration,10),function(){d._trigger("stop",b)!==!1&&d._clear()})}else this._trigger("stop",b)!==!1&&this._clear();return!1},_mouseUp:function(b){this.options.iframeFix===!0&&a("div.ui-draggable-iframeFix").each(function(){this.parentNode.removeChild(this)}),a.ui.ddmanager&&a.ui.ddmanager.dragStop(this,b);return a.ui.mouse.prototype._mouseUp.call(this,b)},cancel:function(){this.helper.is(".ui-draggable-dragging")?this._mouseUp({}):this._clear();return this},_getHandle:function(b){var c=!this.options.handle||!a(this.options.handle,this.element).length?!0:!1;a(this.options.handle,this.element).find("*").addBack().each(function(){this==b.target&&(c=!0)});return c},_createHelper:function(b){var c=this.options,d=a.isFunction(c.helper)?a(c.helper.apply(this.element[0],[b])):c.helper=="clone"?this.element.clone().removeAttr("id"):this.element;d.parents("body").length||d.appendTo(c.appendTo=="parent"?this.element[0].parentNode:c.appendTo),d[0]!=this.element[0]&&!/(fixed|absolute)/.test(d.css("position"))&&d.css("position","absolute");return d},_adjustOffsetFromHelper:function(b){typeof b=="string"&&(b=b.split(" ")),a.isArray(b)&&(b={left:+b[0],top:+b[1]||0}),"left"in b&&(this.offset.click.left=b.left+this.margins.left),"right"in b&&(this.offset.click.left=this.helperProportions.width-b.right+this.margins.left),"top"in b&&(this.offset.click.top=b.top+this.margins.top),"bottom"in b&&(this.offset.click.top=this.helperProportions.height-b.bottom+this.margins.top)},_getParentOffset:function(){this.offsetParent=this.helper.offsetParent();var b=this.offsetParent.offset();this.cssPosition=="absolute"&&this.scrollParent[0]!=document&&a.ui.contains(this.scrollParent[0],this.offsetParent[0])&&(b.left+=this.scrollParent.scrollLeft(),b.top+=this.scrollParent.scrollTop());if(this.offsetParent[0]==document.body||this.offsetParent[0].tagName&&this.offsetParent[0].tagName.toLowerCase()=="html"&&a.browser.msie)b={top:0,left:0};return{top:b.top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),left:b.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)}},_getRelativeOffset:function(){if(this.cssPosition=="relative"){var a=this.element.position();return{top:a.top-(parseInt(this.helper.css("top"),10)||0)+this.scrollParent.scrollTop(),left:a.left-(parseInt(this.helper.css("left"),10)||0)+this.scrollParent.scrollLeft()}}return{top:0,left:0}},_cacheMargins:function(){this.margins={left:parseInt(this.element.css("marginLeft"),10)||0,top:parseInt(this.element.css("marginTop"),10)||0,right:parseInt(this.element.css("marginRight"),10)||0,bottom:parseInt(this.element.css("marginBottom"),10)||0}},_cacheHelperProportions:function(){this.helperProportions={width:this.helper.outerWidth(),height:this.helper.outerHeight()}},_setContainment:function(){var b=this.options;b.containment=="parent"&&(b.containment=this.helper[0].parentNode);if(b.containment=="document"||b.containment=="window")this.containment=[b.containment=="document"?0:a(window).scrollLeft()-this.offset.relative.left-this.offset.parent.left,b.containment=="document"?0:a(window).scrollTop()-this.offset.relative.top-this.offset.parent.top,(b.containment=="document"?0:a(window).scrollLeft())+a(b.containment=="document"?document:window).width()-this.helperProportions.width-this.margins.left,(b.containment=="document"?0:a(window).scrollTop())+(a(b.containment=="document"?document:window).height()||document.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top];if(!/^(document|window|parent)$/.test(b.containment)&&b.containment.constructor!=Array){var c=a(b.containment),d=c[0];if(!d)return;var e=c.offset(),f=a(d).css("overflow")!="hidden";this.containment=[(parseInt(a(d).css("borderLeftWidth"),10)||0)+(parseInt(a(d).css("paddingLeft"),10)||0),(parseInt(a(d).css("borderTopWidth"),10)||0)+(parseInt(a(d).css("paddingTop"),10)||0),(f?Math.max(d.scrollWidth,d.offsetWidth):d.offsetWidth)-(parseInt(a(d).css("borderLeftWidth"),10)||0)-(parseInt(a(d).css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left-this.margins.right,(f?Math.max(d.scrollHeight,d.offsetHeight):d.offsetHeight)-(parseInt(a(d).css("borderTopWidth"),10)||0)-(parseInt(a(d).css("paddingBottom"),10)||0)-this.helperProportions.height-this.margins.top-this.margins.bottom],this.relative_container=c}else b.containment.constructor==Array&&(this.containment=b.containment)},_convertPositionTo:function(b,c){c||(c=this.position);var d=b=="absolute"?1:-1,e=this.options,f=this.cssPosition=="absolute"&&(this.scrollParent[0]==document||!a.ui.contains(this.scrollParent[0],this.offsetParent[0]))?this.offsetParent:this.scrollParent,g=/(html|body)/i.test(f[0].tagName);return{top:c.top+this.offset.relative.top*d+this.offset.parent.top*d-(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:(this.cssPosition=="fixed"?-this.scrollParent.scrollTop():g?0:f.scrollTop())*d),left:c.left+this.offset.relative.left*d+this.offset.parent.left*d-(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:(this.cssPosition=="fixed"?-this.scrollParent.scrollLeft():g?0:f.scrollLeft())*d)}},_generatePosition:function(b){var c=this.options,d=this.cssPosition=="absolute"&&(this.scrollParent[0]==document||!a.ui.contains(this.scrollParent[0],this.offsetParent[0]))?this.offsetParent:this.scrollParent,e=/(html|body)/i.test(d[0].tagName),f=b.pageX,g=b.pageY;if(this.originalPosition){var h;if(this.containment){if(this.relative_container){var i=this.relative_container.offset();h=[this.containment[0]+i.left,this.containment[1]+i.top,this.containment[2]+i.left,this.containment[3]+i.top]}else h=this.containment;b.pageX-this.offset.click.left<h[0]&&(f=h[0]+this.offset.click.left),b.pageY-this.offset.click.top<h[1]&&(g=h[1]+this.offset.click.top),b.pageX-this.offset.click.left>h[2]&&(f=h[2]+this.offset.click.left),b.pageY-this.offset.click.top>h[3]&&(g=h[3]+this.offset.click.top)}if(c.grid){var j=c.grid[1]?this.originalPageY+Math.round((g-this.originalPageY)/c.grid[1])*c.grid[1]:this.originalPageY;g=h?j-this.offset.click.top<h[1]||j-this.offset.click.top>h[3]?j-this.offset.click.top<h[1]?j+c.grid[1]:j-c.grid[1]:j:j;var k=c.grid[0]?this.originalPageX+Math.round((f-this.originalPageX)/c.grid[0])*c.grid[0]:this.originalPageX;f=h?k-this.offset.click.left<h[0]||k-this.offset.click.left>h[2]?k-this.offset.click.left<h[0]?k+c.grid[0]:k-c.grid[0]:k:k}}return{top:g-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:this.cssPosition=="fixed"?-this.scrollParent.scrollTop():e?0:d.scrollTop()),left:f-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:this.cssPosition=="fixed"?-this.scrollParent.scrollLeft():e?0:d.scrollLeft())}},_clear:function(){this.helper.removeClass("ui-draggable-dragging"),this.helper[0]!=this.element[0]&&!this.cancelHelperRemoval&&this.helper.remove(),this.helper=null,this.cancelHelperRemoval=!1},_trigger:function(b,c,d){d=d||this._uiHash(),a.ui.plugin.call(this,b,[c,d]),b=="drag"&&(this.positionAbs=this._convertPositionTo("absolute"));return a.Widget.prototype._trigger.call(this,b,c,d)},plugins:{},_uiHash:function(a){return{helper:this.helper,position:this.position,originalPosition:this.originalPosition,offset:this.positionAbs}}}),a.extend(a.ui.draggable,{version:"1.8.17"}),a.ui.plugin.add("draggable","connectToSortable",{start:function(b,c){var d=a(this).data("draggable"),e=d.options,f=a.extend({},c,{item:d.element});d.sortables=[],a(e.connectToSortable).each(function(){var c=a.data(this,"sortable");c&&!c.options.disabled&&(d.sortables.push({instance:c,shouldRevert:c.options.revert}),c.refreshPositions(),c._trigger("activate",b,f))})},stop:function(b,c){var d=a(this).data("draggable"),e=a.extend({},c,{item:d.element});a.each(d.sortables,function(){this.instance.isOver?(this.instance.isOver=0,d.cancelHelperRemoval=!0,this.instance.cancelHelperRemoval=!1,this.shouldRevert&&(this.instance.options.revert=!0),this.instance._mouseStop(b),this.instance.options.helper=this.instance.options._helper,d.options.helper=="original"&&this.instance.currentItem.css({top:"auto",left:"auto"})):(this.instance.cancelHelperRemoval=!1,this.instance._trigger("deactivate",b,e))})},drag:function(b,c){var d=a(this).data("draggable"),e=this,f=function(b){var c=this.offset.click.top,d=this.offset.click.left,e=this.positionAbs.top,f=this.positionAbs.left,g=b.height,h=b.width,i=b.top,j=b.left;return a.ui.isOver(e+c,f+d,i,j,g,h)};a.each(d.sortables,function(f){this.instance.positionAbs=d.positionAbs,this.instance.helperProportions=d.helperProportions,this.instance.offset.click=d.offset.click,this.instance._intersectsWith(this.instance.containerCache)?(this.instance.isOver||(this.instance.isOver=1,this.instance.currentItem=a(e).clone().removeAttr("id").appendTo(this.instance.element).data("sortable-item",!0),this.instance.options._helper=this.instance.options.helper,this.instance.options.helper=function(){return c.helper[0]},b.target=this.instance.currentItem[0],this.instance._mouseCapture(b,!0),this.instance._mouseStart(b,!0,!0),this.instance.offset.click.top=d.offset.click.top,this.instance.offset.click.left=d.offset.click.left,this.instance.offset.parent.left-=d.offset.parent.left-this.instance.offset.parent.left,this.instance.offset.parent.top-=d.offset.parent.top-this.instance.offset.parent.top,d._trigger("toSortable",b),d.dropped=this.instance.element,d.currentItem=d.element,this.instance.fromOutside=d),this.instance.currentItem&&this.instance._mouseDrag(b)):this.instance.isOver&&(this.instance.isOver=0,this.instance.cancelHelperRemoval=!0,this.instance.options.revert=!1,this.instance._trigger("out",b,this.instance._uiHash(this.instance)),this.instance._mouseStop(b,!0),this.instance.options.helper=this.instance.options._helper,this.instance.currentItem.remove(),this.instance.placeholder&&this.instance.placeholder.remove(),d._trigger("fromSortable",b),d.dropped=!1)})}}),a.ui.plugin.add("draggable","cursor",{start:function(b,c){var d=a("body"),e=a(this).data("draggable").options;d.css("cursor")&&(e._cursor=d.css("cursor")),d.css("cursor",e.cursor)},stop:function(b,c){var d=a(this).data("draggable").options;d._cursor&&a("body").css("cursor",d._cursor)}}),a.ui.plugin.add("draggable","opacity",{start:function(b,c){var d=a(c.helper),e=a(this).data("draggable").options;d.css("opacity")&&(e._opacity=d.css("opacity")),d.css("opacity",e.opacity)},stop:function(b,c){var d=a(this).data("draggable").options;d._opacity&&a(c.helper).css("opacity",d._opacity)}}),a.ui.plugin.add("draggable","scroll",{start:function(b,c){var d=a(this).data("draggable");d.scrollParent[0]!=document&&d.scrollParent[0].tagName!="HTML"&&(d.overflowOffset=d.scrollParent.offset())},drag:function(b,c){var d=a(this).data("draggable"),e=d.options,f=!1;if(d.scrollParent[0]!=document&&d.scrollParent[0].tagName!="HTML"){if(!e.axis||e.axis!="x")d.overflowOffset.top+d.scrollParent[0].offsetHeight-b.pageY<e.scrollSensitivity?d.scrollParent[0].scrollTop=f=d.scrollParent[0].scrollTop+e.scrollSpeed:b.pageY-d.overflowOffset.top<e.scrollSensitivity&&(d.scrollParent[0].scrollTop=f=d.scrollParent[0].scrollTop-e.scrollSpeed);if(!e.axis||e.axis!="y")d.overflowOffset.left+d.scrollParent[0].offsetWidth-b.pageX<e.scrollSensitivity?d.scrollParent[0].scrollLeft=f=d.scrollParent[0].scrollLeft+e.scrollSpeed:b.pageX-d.overflowOffset.left<e.scrollSensitivity&&(d.scrollParent[0].scrollLeft=f=d.scrollParent[0].scrollLeft-e.scrollSpeed)}else{if(!e.axis||e.axis!="x")b.pageY-a(document).scrollTop()<e.scrollSensitivity?f=a(document).scrollTop(a(document).scrollTop()-e.scrollSpeed):a(window).height()-(b.pageY-a(document).scrollTop())<e.scrollSensitivity&&(f=a(document).scrollTop(a(document).scrollTop()+e.scrollSpeed));if(!e.axis||e.axis!="y")b.pageX-a(document).scrollLeft()<e.scrollSensitivity?f=a(document).scrollLeft(a(document).scrollLeft()-e.scrollSpeed):a(window).width()-(b.pageX-a(document).scrollLeft())<e.scrollSensitivity&&(f=a(document).scrollLeft(a(document).scrollLeft()+e.scrollSpeed))}f!==!1&&a.ui.ddmanager&&!e.dropBehaviour&&a.ui.ddmanager.prepareOffsets(d,b)}}),a.ui.plugin.add("draggable","snap",{start:function(b,c){var d=a(this).data("draggable"),e=d.options;d.snapElements=[],a(e.snap.constructor!=String?e.snap.items||":data(draggable)":e.snap).each(function(){var b=a(this),c=b.offset();this!=d.element[0]&&d.snapElements.push({item:this,width:b.outerWidth(),height:b.outerHeight(),top:c.top,left:c.left})})},drag:function(b,c){var d=a(this).data("draggable"),e=d.options,f=e.snapTolerance,g=c.offset.left,h=g+d.helperProportions.width,i=c.offset.top,j=i+d.helperProportions.height;for(var k=d.snapElements.length-1;k>=0;k--){var l=d.snapElements[k].left,m=l+d.snapElements[k].width,n=d.snapElements[k].top,o=n+d.snapElements[k].height;if(!(l-f<g&&g<m+f&&n-f<i&&i<o+f||l-f<g&&g<m+f&&n-f<j&&j<o+f||l-f<h&&h<m+f&&n-f<i&&i<o+f||l-f<h&&h<m+f&&n-f<j&&j<o+f)){d.snapElements[k].snapping&&d.options.snap.release&&d.options.snap.release.call(d.element,b,a.extend(d._uiHash(),{snapItem:d.snapElements[k].item})),d.snapElements[k].snapping=!1;continue}if(e.snapMode!="inner"){var p=Math.abs(n-j)<=f,q=Math.abs(o-i)<=f,r=Math.abs(l-h)<=f,s=Math.abs(m-g)<=f;p&&(c.position.top=d._convertPositionTo("relative",{top:n-d.helperProportions.height,left:0}).top-d.margins.top),q&&(c.position.top=d._convertPositionTo("relative",{top:o,left:0}).top-d.margins.top),r&&(c.position.left=d._convertPositionTo("relative",{top:0,left:l-d.helperProportions.width}).left-d.margins.left),s&&(c.position.left=d._convertPositionTo("relative",{top:0,left:m}).left-d.margins.left)}var t=p||q||r||s;if(e.snapMode!="outer"){var p=Math.abs(n-i)<=f,q=Math.abs(o-j)<=f,r=Math.abs(l-g)<=f,s=Math.abs(m-h)<=f;p&&(c.position.top=d._convertPositionTo("relative",{top:n,left:0}).top-d.margins.top),q&&(c.position.top=d._convertPositionTo("relative",{top:o-d.helperProportions.height,left:0}).top-d.margins.top),r&&(c.position.left=d._convertPositionTo("relative",{top:0,left:l}).left-d.margins.left),s&&(c.position.left=d._convertPositionTo("relative",{top:0,left:m-d.helperProportions.width}).left-d.margins.left)}!d.snapElements[k].snapping&&(p||q||r||s||t)&&d.options.snap.snap&&d.options.snap.snap.call(d.element,b,a.extend(d._uiHash(),{snapItem:d.snapElements[k].item})),d.snapElements[k].snapping=p||q||r||s||t}}}),a.ui.plugin.add("draggable","stack",{start:function(b,c){var d=a(this).data("draggable").options,e=a.makeArray(a(d.stack)).sort(function(b,c){return(parseInt(a(b).css("zIndex"),10)||0)-(parseInt(a(c).css("zIndex"),10)||0)});if(!!e.length){var f=parseInt(e[0].style.zIndex)||0;a(e).each(function(a){this.style.zIndex=f+a}),this[0].style.zIndex=f+e.length}}}),a.ui.plugin.add("draggable","zIndex",{start:function(b,c){var d=a(c.helper),e=a(this).data("draggable").options;d.css("zIndex")&&(e._zIndex=d.css("zIndex")),d.css("zIndex",e.zIndex)},stop:function(b,c){var d=a(this).data("draggable").options;d._zIndex&&a(c.helper).css("zIndex",d._zIndex)}})})(jQuery);/*
- * jQuery UI Slider 1.8.17
- *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Slider
- *
- * Depends:
- *	jquery.ui.core.js
- *	jquery.ui.mouse.js
- *	jquery.ui.widget.js
- */(function(a,b){var c=5;a.widget("ui.slider",a.ui.mouse,{widgetEventPrefix:"slide",options:{animate:!1,distance:0,max:100,min:0,orientation:"horizontal",range:!1,step:1,value:0,values:null},_create:function(){var b=this,d=this.options,e=this.element.find(".ui-slider-handle").addClass("ui-state-default ui-corner-all"),f="<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",g=d.values&&d.values.length||1,h=[];this._keySliding=!1,this._mouseSliding=!1,this._animateOff=!0,this._handleIndex=null,this._detectOrientation(),this._mouseInit(),this.element.addClass("ui-slider ui-slider-"+this.orientation+" ui-widget"+" ui-widget-content"+" ui-corner-all"+(d.disabled?" ui-slider-disabled ui-disabled":"")),this.range=a([]),d.range&&(d.range===!0&&(d.values||(d.values=[this._valueMin(),this._valueMin()]),d.values.length&&d.values.length!==2&&(d.values=[d.values[0],d.values[0]])),this.range=a("<div></div>").appendTo(this.element).addClass("ui-slider-range ui-widget-header"+(d.range==="min"||d.range==="max"?" ui-slider-range-"+d.range:"")));for(var i=e.length;i<g;i+=1)h.push(f);this.handles=e.add(a(h.join("")).appendTo(b.element)),this.handle=this.handles.eq(0),this.handles.add(this.range).filter("a").click(function(a){a.preventDefault()}).hover(function(){d.disabled||a(this).addClass("ui-state-hover")},function(){a(this).removeClass("ui-state-hover")}).focus(function(){d.disabled?a(this).blur():(a(".ui-slider .ui-state-focus").removeClass("ui-state-focus"),a(this).addClass("ui-state-focus"))}).blur(function(){a(this).removeClass("ui-state-focus")}),this.handles.each(function(b){a(this).data("index.ui-slider-handle",b)}),this.handles.keydown(function(d){var e=!0,f=a(this).data("index.ui-slider-handle"),g,h,i,j;if(!b.options.disabled){switch(d.keyCode){case a.ui.keyCode.HOME:case a.ui.keyCode.END:case a.ui.keyCode.PAGE_UP:case a.ui.keyCode.PAGE_DOWN:case a.ui.keyCode.UP:case a.ui.keyCode.RIGHT:case a.ui.keyCode.DOWN:case a.ui.keyCode.LEFT:e=!1;if(!b._keySliding){b._keySliding=!0,a(this).addClass("ui-state-active"),g=b._start(d,f);if(g===!1)return}}j=b.options.step,b.options.values&&b.options.values.length?h=i=b.values(f):h=i=b.value();switch(d.keyCode){case a.ui.keyCode.HOME:i=b._valueMin();break;case a.ui.keyCode.END:i=b._valueMax();break;case a.ui.keyCode.PAGE_UP:i=b._trimAlignValue(h+(b._valueMax()-b._valueMin())/c);break;case a.ui.keyCode.PAGE_DOWN:i=b._trimAlignValue(h-(b._valueMax()-b._valueMin())/c);break;case a.ui.keyCode.UP:case a.ui.keyCode.RIGHT:if(h===b._valueMax())return;i=b._trimAlignValue(h+j);break;case a.ui.keyCode.DOWN:case a.ui.keyCode.LEFT:if(h===b._valueMin())return;i=b._trimAlignValue(h-j)}b._slide(d,f,i);return e}}).keyup(function(c){var d=a(this).data("index.ui-slider-handle");b._keySliding&&(b._keySliding=!1,b._stop(c,d),b._change(c,d),a(this).removeClass("ui-state-active"))}),this._refreshValue(),this._animateOff=!1},destroy:function(){this.handles.remove(),this.range.remove(),this.element.removeClass("ui-slider ui-slider-horizontal ui-slider-vertical ui-slider-disabled ui-widget ui-widget-content ui-corner-all").removeData("slider").unbind(".slider"),this._mouseDestroy();return this},_mouseCapture:function(b){var c=this.options,d,e,f,g,h,i,j,k,l;if(c.disabled)return!1;this.elementSize={width:this.element.outerWidth(),height:this.element.outerHeight()},this.elementOffset=this.element.offset(),d={x:b.pageX,y:b.pageY},e=this._normValueFromMouse(d),f=this._valueMax()-this._valueMin()+1,h=this,this.handles.each(function(b){var c=Math.abs(e-h.values(b));f>c&&(f=c,g=a(this),i=b)}),c.range===!0&&this.values(1)===c.min&&(i+=1,g=a(this.handles[i])),j=this._start(b,i);if(j===!1)return!1;this._mouseSliding=!0,h._handleIndex=i,g.addClass("ui-state-active").focus(),k=g.offset(),l=!a(b.target).parents().addBack().is(".ui-slider-handle"),this._clickOffset=l?{left:0,top:0}:{left:b.pageX-k.left-g.width()/2,top:b.pageY-k.top-g.height()/2-(parseInt(g.css("borderTopWidth"),10)||0)-(parseInt(g.css("borderBottomWidth"),10)||0)+(parseInt(g.css("marginTop"),10)||0)},this.handles.hasClass("ui-state-hover")||this._slide(b,i,e),this._animateOff=!0;return!0},_mouseStart:function(a){return!0},_mouseDrag:function(a){var b={x:a.pageX,y:a.pageY},c=this._normValueFromMouse(b);this._slide(a,this._handleIndex,c);return!1},_mouseStop:function(a){this.handles.removeClass("ui-state-active"),this._mouseSliding=!1,this._stop(a,this._handleIndex),this._change(a,this._handleIndex),this._handleIndex=null,this._clickOffset=null,this._animateOff=!1;return!1},_detectOrientation:function(){this.orientation=this.options.orientation==="vertical"?"vertical":"horizontal"},_normValueFromMouse:function(a){var b,c,d,e,f;this.orientation==="horizontal"?(b=this.elementSize.width,c=a.x-this.elementOffset.left-(this._clickOffset?this._clickOffset.left:0)):(b=this.elementSize.height,c=a.y-this.elementOffset.top-(this._clickOffset?this._clickOffset.top:0)),d=c/b,d>1&&(d=1),d<0&&(d=0),this.orientation==="vertical"&&(d=1-d),e=this._valueMax()-this._valueMin(),f=this._valueMin()+d*e;return this._trimAlignValue(f)},_start:function(a,b){var c={handle:this.handles[b],value:this.value()};this.options.values&&this.options.values.length&&(c.value=this.values(b),c.values=this.values());return this._trigger("start",a,c)},_slide:function(a,b,c){var d,e,f;this.options.values&&this.options.values.length?(d=this.values(b?0:1),this.options.values.length===2&&this.options.range===!0&&(b===0&&c>d||b===1&&c<d)&&(c=d),c!==this.values(b)&&(e=this.values(),e[b]=c,f=this._trigger("slide",a,{handle:this.handles[b],value:c,values:e}),d=this.values(b?0:1),f!==!1&&this.values(b,c,!0))):c!==this.value()&&(f=this._trigger("slide",a,{handle:this.handles[b],value:c}),f!==!1&&this.value(c))},_stop:function(a,b){var c={handle:this.handles[b],value:this.value()};this.options.values&&this.options.values.length&&(c.value=this.values(b),c.values=this.values()),this._trigger("stop",a,c)},_change:function(a,b){if(!this._keySliding&&!this._mouseSliding){var c={handle:this.handles[b],value:this.value()};this.options.values&&this.options.values.length&&(c.value=this.values(b),c.values=this.values()),this._trigger("change",a,c)}},value:function(a){if(arguments.length)this.options.value=this._trimAlignValue(a),this._refreshValue(),this._change(null,0);else return this._value()},values:function(b,c){var d,e,f;if(arguments.length>1)this.options.values[b]=this._trimAlignValue(c),this._refreshValue(),this._change(null,b);else{if(!arguments.length)return this._values();if(!a.isArray(arguments[0]))return this.options.values&&this.options.values.length?this._values(b):this.value();d=this.options.values,e=arguments[0];for(f=0;f<d.length;f+=1)d[f]=this._trimAlignValue(e[f]),this._change(null,f);this._refreshValue()}},_setOption:function(b,c){var d,e=0;a.isArray(this.options.values)&&(e=this.options.values.length),a.Widget.prototype._setOption.apply(this,arguments);switch(b){case"disabled":c?(this.handles.filter(".ui-state-focus").blur(),this.handles.removeClass("ui-state-hover"),this.handles.propAttr("disabled",!0),this.element.addClass("ui-disabled")):(this.handles.propAttr("disabled",!1),this.element.removeClass("ui-disabled"));break;case"orientation":this._detectOrientation(),this.element.removeClass("ui-slider-horizontal ui-slider-vertical").addClass("ui-slider-"+this.orientation),this._refreshValue();break;case"value":this._animateOff=!0,this._refreshValue(),this._change(null,0),this._animateOff=!1;break;case"values":this._animateOff=!0,this._refreshValue();for(d=0;d<e;d+=1)this._change(null,d);this._animateOff=!1}},_value:function(){var a=this.options.value;a=this._trimAlignValue(a);return a},_values:function(a){var b,c,d;if(arguments.length){b=this.options.values[a],b=this._trimAlignValue(b);return b}c=this.options.values.slice();for(d=0;d<c.length;d+=1)c[d]=this._trimAlignValue(c[d]);return c},_trimAlignValue:function(a){if(a<=this._valueMin())return this._valueMin();if(a>=this._valueMax())return this._valueMax();var b=this.options.step>0?this.options.step:1,c=(a-this._valueMin())%b,d=a-c;Math.abs(c)*2>=b&&(d+=c>0?b:-b);return parseFloat(d.toFixed(5))},_valueMin:function(){return this.options.min},_valueMax:function(){return this.options.max},_refreshValue:function(){var b=this.options.range,c=this.options,d=this,e=this._animateOff?!1:c.animate,f,g={},h,i,j,k;this.options.values&&this.options.values.length?this.handles.each(function(b,i){f=(d.values(b)-d._valueMin())/(d._valueMax()-d._valueMin())*100,g[d.orientation==="horizontal"?"left":"bottom"]=f+"%",a(this).stop(1,1)[e?"animate":"css"](g,c.animate),d.options.range===!0&&(d.orientation==="horizontal"?(b===0&&d.range.stop(1,1)[e?"animate":"css"]({left:f+"%"},c.animate),b===1&&d.range[e?"animate":"css"]({width:f-h+"%"},{queue:!1,duration:c.animate})):(b===0&&d.range.stop(1,1)[e?"animate":"css"]({bottom:f+"%"},c.animate),b===1&&d.range[e?"animate":"css"]({height:f-h+"%"},{queue:!1,duration:c.animate}))),h=f}):(i=this.value(),j=this._valueMin(),k=this._valueMax(),f=k!==j?(i-j)/(k-j)*100:0,g[d.orientation==="horizontal"?"left":"bottom"]=f+"%",this.handle.stop(1,1)[e?"animate":"css"](g,c.animate),b==="min"&&this.orientation==="horizontal"&&this.range.stop(1,1)[e?"animate":"css"]({width:f+"%"},c.animate),b==="max"&&this.orientation==="horizontal"&&this.range[e?"animate":"css"]({width:100-f+"%"},{queue:!1,duration:c.animate}),b==="min"&&this.orientation==="vertical"&&this.range.stop(1,1)[e?"animate":"css"]({height:f+"%"},c.animate),b==="max"&&this.orientation==="vertical"&&this.range[e?"animate":"css"]({height:100-f+"%"},{queue:!1,duration:c.animate}))}}),a.extend(a.ui.slider,{version:"1.8.17"})})(jQuery);
+ */
+ (function(a,b){a.widget("ui.draggable",a.ui.mouse,{widgetEventPrefix:"drag",options:{addClasses:!0,appendTo:"parent",axis:!1,connectToSortable:!1,containment:!1,cursor:"auto",cursorAt:!1,grid:!1,handle:!1,helper:"original",iframeFix:!1,opacity:!1,refreshPositions:!1,revert:!1,revertDuration:500,scope:"default",scroll:!0,scrollSensitivity:20,scrollSpeed:20,snap:!1,snapMode:"both",snapTolerance:20,stack:!1,zIndex:!1},_create:function(){this.options.helper=="original"&&!/^(?:r|a|f)/.test(this.element.css("position"))&&(this.element[0].style.position="relative"),this.options.addClasses&&this.element.addClass("ui-draggable"),this.options.disabled&&this.element.addClass("ui-draggable-disabled"),this._mouseInit()},destroy:function(){if(!!this.element.data("draggable")){this.element.removeData("draggable").unbind(".draggable").removeClass("ui-draggable ui-draggable-dragging ui-draggable-disabled"),this._mouseDestroy();return this}},_mouseCapture:function(b){var c=this.options;if(this.helper||c.disabled||a(b.target).is(".ui-resizable-handle"))return!1;this.handle=this._getHandle(b);if(!this.handle)return!1;c.iframeFix&&a(c.iframeFix===!0?"iframe":c.iframeFix).each(function(){a('<div class="ui-draggable-iframeFix" style="background: #fff;"></div>').css({width:this.offsetWidth+"px",height:this.offsetHeight+"px",position:"absolute",opacity:"0.001",zIndex:1e3}).css(a(this).offset()).appendTo("body")});return!0},_mouseStart:function(b){var c=this.options;this.helper=this._createHelper(b),this._cacheHelperProportions(),a.ui.ddmanager&&(a.ui.ddmanager.current=this),this._cacheMargins(),this.cssPosition=this.helper.css("position"),this.scrollParent=this.helper.scrollParent(),this.offset=this.positionAbs=this.element.offset(),this.offset={top:this.offset.top-this.margins.top,left:this.offset.left-this.margins.left},a.extend(this.offset,{click:{left:b.pageX-this.offset.left,top:b.pageY-this.offset.top},parent:this._getParentOffset(),relative:this._getRelativeOffset()}),this.originalPosition=this.position=this._generatePosition(b),this.originalPageX=b.pageX,this.originalPageY=b.pageY,c.cursorAt&&this._adjustOffsetFromHelper(c.cursorAt),c.containment&&this._setContainment();if(this._trigger("start",b)===!1){this._clear();return!1}this._cacheHelperProportions(),a.ui.ddmanager&&!c.dropBehaviour&&a.ui.ddmanager.prepareOffsets(this,b),this.helper.addClass("ui-draggable-dragging"),this._mouseDrag(b,!0),a.ui.ddmanager&&a.ui.ddmanager.dragStart(this,b);return!0},_mouseDrag:function(b,c){this.position=this._generatePosition(b),this.positionAbs=this._convertPositionTo("absolute");if(!c){var d=this._uiHash();if(this._trigger("drag",b,d)===!1){this._mouseUp({});return!1}this.position=d.position}if(!this.options.axis||this.options.axis!="y")this.helper[0].style.left=this.position.left+"px";if(!this.options.axis||this.options.axis!="x")this.helper[0].style.top=this.position.top+"px";a.ui.ddmanager&&a.ui.ddmanager.drag(this,b);return!1},_mouseStop:function(b){var c=!1;a.ui.ddmanager&&!this.options.dropBehaviour&&(c=a.ui.ddmanager.drop(this,b)),this.dropped&&(c=this.dropped,this.dropped=!1);if((!this.element[0]||!this.element[0].parentNode)&&this.options.helper=="original")return!1;if(this.options.revert=="invalid"&&!c||this.options.revert=="valid"&&c||this.options.revert===!0||a.isFunction(this.options.revert)&&this.options.revert.call(this.element,c)){var d=this;a(this.helper).animate(this.originalPosition,parseInt(this.options.revertDuration,10),function(){d._trigger("stop",b)!==!1&&d._clear()})}else this._trigger("stop",b)!==!1&&this._clear();return!1},_mouseUp:function(b){this.options.iframeFix===!0&&a("div.ui-draggable-iframeFix").each(function(){this.parentNode.removeChild(this)}),a.ui.ddmanager&&a.ui.ddmanager.dragStop(this,b);return a.ui.mouse.prototype._mouseUp.call(this,b)},cancel:function(){this.helper.is(".ui-draggable-dragging")?this._mouseUp({}):this._clear();return this},_getHandle:function(b){var c=!this.options.handle||!a(this.options.handle,this.element).length?!0:!1;a(this.options.handle,this.element).find("*").addBack().each(function(){this==b.target&&(c=!0)});return c},_createHelper:function(b){var c=this.options,d=a.isFunction(c.helper)?a(c.helper.apply(this.element[0],[b])):c.helper=="clone"?this.element.clone().removeAttr("id"):this.element;d.parents("body").length||d.appendTo(c.appendTo=="parent"?this.element[0].parentNode:c.appendTo),d[0]!=this.element[0]&&!/(fixed|absolute)/.test(d.css("position"))&&d.css("position","absolute");return d},_adjustOffsetFromHelper:function(b){typeof b=="string"&&(b=b.split(" ")),a.isArray(b)&&(b={left:+b[0],top:+b[1]||0}),"left"in b&&(this.offset.click.left=b.left+this.margins.left),"right"in b&&(this.offset.click.left=this.helperProportions.width-b.right+this.margins.left),"top"in b&&(this.offset.click.top=b.top+this.margins.top),"bottom"in b&&(this.offset.click.top=this.helperProportions.height-b.bottom+this.margins.top)},_getParentOffset:function(){this.offsetParent=this.helper.offsetParent();var b=this.offsetParent.offset();this.cssPosition=="absolute"&&this.scrollParent[0]!=document&&a.ui.contains(this.scrollParent[0],this.offsetParent[0])&&(b.left+=this.scrollParent.scrollLeft(),b.top+=this.scrollParent.scrollTop());if(this.offsetParent[0]==document.body||this.offsetParent[0].tagName&&this.offsetParent[0].tagName.toLowerCase()=="html"&&a.browser.msie)b={top:0,left:0};return{top:b.top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),left:b.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)}},_getRelativeOffset:function(){if(this.cssPosition=="relative"){var a=this.element.position();return{top:a.top-(parseInt(this.helper.css("top"),10)||0)+this.scrollParent.scrollTop(),left:a.left-(parseInt(this.helper.css("left"),10)||0)+this.scrollParent.scrollLeft()}}return{top:0,left:0}},_cacheMargins:function(){this.margins={left:parseInt(this.element.css("marginLeft"),10)||0,top:parseInt(this.element.css("marginTop"),10)||0,right:parseInt(this.element.css("marginRight"),10)||0,bottom:parseInt(this.element.css("marginBottom"),10)||0}},_cacheHelperProportions:function(){this.helperProportions={width:this.helper.outerWidth(),height:this.helper.outerHeight()}},_setContainment:function(){var b=this.options;b.containment=="parent"&&(b.containment=this.helper[0].parentNode);if(b.containment=="document"||b.containment=="window")this.containment=[b.containment=="document"?0:a(window).scrollLeft()-this.offset.relative.left-this.offset.parent.left,b.containment=="document"?0:a(window).scrollTop()-this.offset.relative.top-this.offset.parent.top,(b.containment=="document"?0:a(window).scrollLeft())+a(b.containment=="document"?document:window).width()-this.helperProportions.width-this.margins.left,(b.containment=="document"?0:a(window).scrollTop())+(a(b.containment=="document"?document:window).height()||document.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top];if(!/^(document|window|parent)$/.test(b.containment)&&b.containment.constructor!=Array){var c=a(b.containment),d=c[0];if(!d)return;var e=c.offset(),f=a(d).css("overflow")!="hidden";this.containment=[(parseInt(a(d).css("borderLeftWidth"),10)||0)+(parseInt(a(d).css("paddingLeft"),10)||0),(parseInt(a(d).css("borderTopWidth"),10)||0)+(parseInt(a(d).css("paddingTop"),10)||0),(f?Math.max(d.scrollWidth,d.offsetWidth):d.offsetWidth)-(parseInt(a(d).css("borderLeftWidth"),10)||0)-(parseInt(a(d).css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left-this.margins.right,(f?Math.max(d.scrollHeight,d.offsetHeight):d.offsetHeight)-(parseInt(a(d).css("borderTopWidth"),10)||0)-(parseInt(a(d).css("paddingBottom"),10)||0)-this.helperProportions.height-this.margins.top-this.margins.bottom],this.relative_container=c}else b.containment.constructor==Array&&(this.containment=b.containment)},_convertPositionTo:function(b,c){c||(c=this.position);var d=b=="absolute"?1:-1,e=this.options,f=this.cssPosition=="absolute"&&(this.scrollParent[0]==document||!a.ui.contains(this.scrollParent[0],this.offsetParent[0]))?this.offsetParent:this.scrollParent,g=/(html|body)/i.test(f[0].tagName);return{top:c.top+this.offset.relative.top*d+this.offset.parent.top*d-(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:(this.cssPosition=="fixed"?-this.scrollParent.scrollTop():g?0:f.scrollTop())*d),left:c.left+this.offset.relative.left*d+this.offset.parent.left*d-(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:(this.cssPosition=="fixed"?-this.scrollParent.scrollLeft():g?0:f.scrollLeft())*d)}},_generatePosition:function(b){var c=this.options,d=this.cssPosition=="absolute"&&(this.scrollParent[0]==document||!a.ui.contains(this.scrollParent[0],this.offsetParent[0]))?this.offsetParent:this.scrollParent,e=/(html|body)/i.test(d[0].tagName),f=b.pageX,g=b.pageY;if(this.originalPosition){var h;if(this.containment){if(this.relative_container){var i=this.relative_container.offset();h=[this.containment[0]+i.left,this.containment[1]+i.top,this.containment[2]+i.left,this.containment[3]+i.top]}else h=this.containment;b.pageX-this.offset.click.left<h[0]&&(f=h[0]+this.offset.click.left),b.pageY-this.offset.click.top<h[1]&&(g=h[1]+this.offset.click.top),b.pageX-this.offset.click.left>h[2]&&(f=h[2]+this.offset.click.left),b.pageY-this.offset.click.top>h[3]&&(g=h[3]+this.offset.click.top)}if(c.grid){var j=c.grid[1]?this.originalPageY+Math.round((g-this.originalPageY)/c.grid[1])*c.grid[1]:this.originalPageY;g=h?j-this.offset.click.top<h[1]||j-this.offset.click.top>h[3]?j-this.offset.click.top<h[1]?j+c.grid[1]:j-c.grid[1]:j:j;var k=c.grid[0]?this.originalPageX+Math.round((f-this.originalPageX)/c.grid[0])*c.grid[0]:this.originalPageX;f=h?k-this.offset.click.left<h[0]||k-this.offset.click.left>h[2]?k-this.offset.click.left<h[0]?k+c.grid[0]:k-c.grid[0]:k:k}}return{top:g-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:this.cssPosition=="fixed"?-this.scrollParent.scrollTop():e?0:d.scrollTop()),left:f-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+(a.browser.safari&&a.browser.version<526&&this.cssPosition=="fixed"?0:this.cssPosition=="fixed"?-this.scrollParent.scrollLeft():e?0:d.scrollLeft())}},_clear:function(){this.helper.removeClass("ui-draggable-dragging"),this.helper[0]!=this.element[0]&&!this.cancelHelperRemoval&&this.helper.remove(),this.helper=null,this.cancelHelperRemoval=!1},_trigger:function(b,c,d){d=d||this._uiHash(),a.ui.plugin.call(this,b,[c,d]),b=="drag"&&(this.positionAbs=this._convertPositionTo("absolute"));return a.Widget.prototype._trigger.call(this,b,c,d)},plugins:{},_uiHash:function(a){return{helper:this.helper,position:this.position,originalPosition:this.originalPosition,offset:this.positionAbs}}}),a.extend(a.ui.draggable,{version:"1.8.17"}),a.ui.plugin.add("draggable","connectToSortable",{start:function(b,c){var d=a(this).data("draggable"),e=d.options,f=a.extend({},c,{item:d.element});d.sortables=[],a(e.connectToSortable).each(function(){var c=a.data(this,"sortable");c&&!c.options.disabled&&(d.sortables.push({instance:c,shouldRevert:c.options.revert}),c.refreshPositions(),c._trigger("activate",b,f))})},stop:function(b,c){var d=a(this).data("draggable"),e=a.extend({},c,{item:d.element});a.each(d.sortables,function(){this.instance.isOver?(this.instance.isOver=0,d.cancelHelperRemoval=!0,this.instance.cancelHelperRemoval=!1,this.shouldRevert&&(this.instance.options.revert=!0),this.instance._mouseStop(b),this.instance.options.helper=this.instance.options._helper,d.options.helper=="original"&&this.instance.currentItem.css({top:"auto",left:"auto"})):(this.instance.cancelHelperRemoval=!1,this.instance._trigger("deactivate",b,e))})},drag:function(b,c){var d=a(this).data("draggable"),e=this,f=function(b){var c=this.offset.click.top,d=this.offset.click.left,e=this.positionAbs.top,f=this.positionAbs.left,g=b.height,h=b.width,i=b.top,j=b.left;return a.ui.isOver(e+c,f+d,i,j,g,h)};a.each(d.sortables,function(f){this.instance.positionAbs=d.positionAbs,this.instance.helperProportions=d.helperProportions,this.instance.offset.click=d.offset.click,this.instance._intersectsWith(this.instance.containerCache)?(this.instance.isOver||(this.instance.isOver=1,this.instance.currentItem=a(e).clone().removeAttr("id").appendTo(this.instance.element).data("sortable-item",!0),this.instance.options._helper=this.instance.options.helper,this.instance.options.helper=function(){return c.helper[0]},b.target=this.instance.currentItem[0],this.instance._mouseCapture(b,!0),this.instance._mouseStart(b,!0,!0),this.instance.offset.click.top=d.offset.click.top,this.instance.offset.click.left=d.offset.click.left,this.instance.offset.parent.left-=d.offset.parent.left-this.instance.offset.parent.left,this.instance.offset.parent.top-=d.offset.parent.top-this.instance.offset.parent.top,d._trigger("toSortable",b),d.dropped=this.instance.element,d.currentItem=d.element,this.instance.fromOutside=d),this.instance.currentItem&&this.instance._mouseDrag(b)):this.instance.isOver&&(this.instance.isOver=0,this.instance.cancelHelperRemoval=!0,this.instance.options.revert=!1,this.instance._trigger("out",b,this.instance._uiHash(this.instance)),this.instance._mouseStop(b,!0),this.instance.options.helper=this.instance.options._helper,this.instance.currentItem.remove(),this.instance.placeholder&&this.instance.placeholder.remove(),d._trigger("fromSortable",b),d.dropped=!1)})}}),a.ui.plugin.add("draggable","cursor",{start:function(b,c){var d=a("body"),e=a(this).data("draggable").options;d.css("cursor")&&(e._cursor=d.css("cursor")),d.css("cursor",e.cursor)},stop:function(b,c){var d=a(this).data("draggable").options;d._cursor&&a("body").css("cursor",d._cursor)}}),a.ui.plugin.add("draggable","opacity",{start:function(b,c){var d=a(c.helper),e=a(this).data("draggable").options;d.css("opacity")&&(e._opacity=d.css("opacity")),d.css("opacity",e.opacity)},stop:function(b,c){var d=a(this).data("draggable").options;d._opacity&&a(c.helper).css("opacity",d._opacity)}}),a.ui.plugin.add("draggable","scroll",{start:function(b,c){var d=a(this).data("draggable");d.scrollParent[0]!=document&&d.scrollParent[0].tagName!="HTML"&&(d.overflowOffset=d.scrollParent.offset())},drag:function(b,c){var d=a(this).data("draggable"),e=d.options,f=!1;if(d.scrollParent[0]!=document&&d.scrollParent[0].tagName!="HTML"){if(!e.axis||e.axis!="x")d.overflowOffset.top+d.scrollParent[0].offsetHeight-b.pageY<e.scrollSensitivity?d.scrollParent[0].scrollTop=f=d.scrollParent[0].scrollTop+e.scrollSpeed:b.pageY-d.overflowOffset.top<e.scrollSensitivity&&(d.scrollParent[0].scrollTop=f=d.scrollParent[0].scrollTop-e.scrollSpeed);if(!e.axis||e.axis!="y")d.overflowOffset.left+d.scrollParent[0].offsetWidth-b.pageX<e.scrollSensitivity?d.scrollParent[0].scrollLeft=f=d.scrollParent[0].scrollLeft+e.scrollSpeed:b.pageX-d.overflowOffset.left<e.scrollSensitivity&&(d.scrollParent[0].scrollLeft=f=d.scrollParent[0].scrollLeft-e.scrollSpeed)}else{if(!e.axis||e.axis!="x")b.pageY-a(document).scrollTop()<e.scrollSensitivity?f=a(document).scrollTop(a(document).scrollTop()-e.scrollSpeed):a(window).height()-(b.pageY-a(document).scrollTop())<e.scrollSensitivity&&(f=a(document).scrollTop(a(document).scrollTop()+e.scrollSpeed));if(!e.axis||e.axis!="y")b.pageX-a(document).scrollLeft()<e.scrollSensitivity?f=a(document).scrollLeft(a(document).scrollLeft()-e.scrollSpeed):a(window).width()-(b.pageX-a(document).scrollLeft())<e.scrollSensitivity&&(f=a(document).scrollLeft(a(document).scrollLeft()+e.scrollSpeed))}f!==!1&&a.ui.ddmanager&&!e.dropBehaviour&&a.ui.ddmanager.prepareOffsets(d,b)}}),a.ui.plugin.add("draggable","snap",{start:function(b,c){var d=a(this).data("draggable"),e=d.options;d.snapElements=[],a(e.snap.constructor!=String?e.snap.items||":data(draggable)":e.snap).each(function(){var b=a(this),c=b.offset();this!=d.element[0]&&d.snapElements.push({item:this,width:b.outerWidth(),height:b.outerHeight(),top:c.top,left:c.left})})},drag:function(b,c){var d=a(this).data("draggable"),e=d.options,f=e.snapTolerance,g=c.offset.left,h=g+d.helperProportions.width,i=c.offset.top,j=i+d.helperProportions.height;for(var k=d.snapElements.length-1;k>=0;k--){var l=d.snapElements[k].left,m=l+d.snapElements[k].width,n=d.snapElements[k].top,o=n+d.snapElements[k].height;if(!(l-f<g&&g<m+f&&n-f<i&&i<o+f||l-f<g&&g<m+f&&n-f<j&&j<o+f||l-f<h&&h<m+f&&n-f<i&&i<o+f||l-f<h&&h<m+f&&n-f<j&&j<o+f)){d.snapElements[k].snapping&&d.options.snap.release&&d.options.snap.release.call(d.element,b,a.extend(d._uiHash(),{snapItem:d.snapElements[k].item})),d.snapElements[k].snapping=!1;continue}if(e.snapMode!="inner"){var p=Math.abs(n-j)<=f,q=Math.abs(o-i)<=f,r=Math.abs(l-h)<=f,s=Math.abs(m-g)<=f;p&&(c.position.top=d._convertPositionTo("relative",{top:n-d.helperProportions.height,left:0}).top-d.margins.top),q&&(c.position.top=d._convertPositionTo("relative",{top:o,left:0}).top-d.margins.top),r&&(c.position.left=d._convertPositionTo("relative",{top:0,left:l-d.helperProportions.width}).left-d.margins.left),s&&(c.position.left=d._convertPositionTo("relative",{top:0,left:m}).left-d.margins.left)}var t=p||q||r||s;if(e.snapMode!="outer"){var p=Math.abs(n-i)<=f,q=Math.abs(o-j)<=f,r=Math.abs(l-g)<=f,s=Math.abs(m-h)<=f;p&&(c.position.top=d._convertPositionTo("relative",{top:n,left:0}).top-d.margins.top),q&&(c.position.top=d._convertPositionTo("relative",{top:o-d.helperProportions.height,left:0}).top-d.margins.top),r&&(c.position.left=d._convertPositionTo("relative",{top:0,left:l}).left-d.margins.left),s&&(c.position.left=d._convertPositionTo("relative",{top:0,left:m-d.helperProportions.width}).left-d.margins.left)}!d.snapElements[k].snapping&&(p||q||r||s||t)&&d.options.snap.snap&&d.options.snap.snap.call(d.element,b,a.extend(d._uiHash(),{snapItem:d.snapElements[k].item})),d.snapElements[k].snapping=p||q||r||s||t}}}),a.ui.plugin.add("draggable","stack",{start:function(b,c){var d=a(this).data("draggable").options,e=a.makeArray(a(d.stack)).sort(function(b,c){return(parseInt(a(b).css("zIndex"),10)||0)-(parseInt(a(c).css("zIndex"),10)||0)});if(!!e.length){var f=parseInt(e[0].style.zIndex)||0;a(e).each(function(a){this.style.zIndex=f+a}),this[0].style.zIndex=f+e.length}}}),a.ui.plugin.add("draggable","zIndex",{start:function(b,c){var d=a(c.helper),e=a(this).data("draggable").options;d.css("zIndex")&&(e._zIndex=d.css("zIndex")),d.css("zIndex",e.zIndex)},stop:function(b,c){var d=a(this).data("draggable").options;d._zIndex&&a(c.helper).css("zIndex",d._zIndex)}})})(jQuery);
+ 
 /**
  * Package: svgedit.browser
  *
@@ -12967,11 +12534,9 @@ this.open = function() {
 //
 // Returns: 
 // Nothing
-this.save = function(opts) {
+this.save = function() {
   // remove the selected outline before serializing
   clearSelection();
-  // Update save options if provided
-  if(opts) $.extend(save_options, opts);
   save_options.apply = true;
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
@@ -16427,26 +15992,176 @@ this.getPrivateMethods = function() {
 
 }
 
-/*
-* svg-editor.js
-*
-* Licensed under the MIT License
-*
-* Copyright(c) 2010 Alexis Deveria
-* Copyright(c) 2010 Pavol Rusnak
-* Copyright(c) 2010 Jeff Schiller
-* Copyright(c) 2010 Narendra Sisodiya
-* Copyright(c)  2012 Mark MacKay
-*
-*/
+// todo remove from global scope;
+var r_intervals = [];
+for(var i = .1; i < 1E5; i *= 10) {
+  r_intervals.push(1 * i);
+  r_intervals.push(2 * i);
+  r_intervals.push(5 * i);
+}
 
-// Dependencies:
-// 1) units.js
-// 2) browser.js
-// 3) svgcanvas.js
+function updateRulers(svgCanvas, scanvas, zoom) {
 
+  var workarea = document.getElementById("workarea");
+  var title_show = document.getElementById("title_show");
+  var offset_x = 66;
+  var offset_y = 48;
+  if(!zoom) zoom = svgCanvas.getZoom();
+  if(!scanvas) scanvas = $("#svgcanvas");
+  
+  var limit = 30000;
+  
+  var c_elem = svgCanvas.getContentElem();
+  
+  var units = svgedit.units.getTypeMap();
+  var unit = 1;
 
-if(!window.methodDraw) window.methodDraw = function($) {
+  for(var d = 0; d < 2; d++) {
+    var is_x = (d === 0);
+    var dim = is_x ? 'x' : 'y';
+    var lentype = is_x ?'width':'height';
+    var notlentype = is_x ?'height':'width';
+    var content_d = c_elem.getAttribute(dim)-0;
+    
+    var $hcanv_orig = $('#ruler_' + dim + ' canvas:first');
+    
+    // Bit of a hack to fully clear the canvas in Safari & IE9
+    $hcanv = $hcanv_orig.clone();
+    $hcanv_orig.replaceWith($hcanv);
+    
+    var hcanv = $hcanv[0];
+    
+    // Set the canvas size to the width of the container
+    var ruler_len = scanvas[lentype]()*2;
+    var total_len = ruler_len;
+    hcanv.parentNode.style[lentype] = total_len + 'px';
+    
+    var canv_count = 1;
+    var ctx_num = 0;
+    var ctx_arr;
+    var ctx = hcanv.getContext("2d");
+    var scale = window.devicePixelRatio || 1;
+    hcanv.style[lentype] = total_len + "px";
+    hcanv.style[notlentype] = 15 + "px";
+    hcanv[lentype] = Math.floor(total_len * scale);
+    hcanv[notlentype] = Math.floor(15 * scale);
+    ctx.scale(scale,scale);
+
+    ctx.fillStyle = "rgb(200,0,0)"; 
+    ctx.fillRect(0,0,hcanv.width/scale,hcanv.height/scale); 
+    
+    // Remove any existing canvasses
+    $hcanv.siblings().remove();
+    
+    // Create multiple canvases when necessary (due to browser limits)
+    if(ruler_len >= limit) {
+      var num = parseInt(ruler_len / limit) + 1;
+      ctx_arr = Array(num);
+      ctx_arr[0] = ctx;
+      for(var i = 1; i < num; i++) {
+        hcanv[lentype] = limit;
+        var copy = hcanv.cloneNode(true);
+        hcanv.parentNode.appendChild(copy);
+        ctx_arr[i] = copy.getContext('2d');
+      }
+      
+      copy[lentype] = ruler_len % limit;
+      
+      // set copy width to last
+      ruler_len = limit;
+    }
+    
+    hcanv[lentype] = ruler_len * scale;
+    
+    var u_multi = unit * zoom;
+    
+    // Calculate the main number interval
+    var raw_m = 50 / u_multi;
+    var multi = 1;
+    for(var i = 0; i < r_intervals.length; i++) {
+      var num = r_intervals[i];
+      multi = num;
+      if(raw_m <= num) {
+        break;
+      }
+    }
+    
+    var big_int = multi * u_multi;
+    ctx.font = "normal 9px 'Verdana', sans-serif";
+    ctx.fillStyle = "#777";
+    ctx.scale(scale,scale);
+
+    var ruler_d = ((content_d / u_multi) % multi) * u_multi;
+    var label_pos = ruler_d - big_int;
+    for (; ruler_d < total_len; ruler_d += big_int) {
+      label_pos += big_int;
+      var real_d = ruler_d - content_d;
+
+      var cur_d = Math.round(ruler_d) + .5;
+      if(is_x) {
+        ctx.moveTo(cur_d, 15);
+        ctx.lineTo(cur_d, 0);
+      } else {
+        ctx.moveTo(15, cur_d);
+        ctx.lineTo(0, cur_d);
+      }
+
+      var num = (label_pos - content_d) / u_multi;
+      var label;
+      if(multi >= 1) {
+        label = Math.round(num);
+      } else {
+        var decs = (multi+'').split('.')[1].length;
+        label = num.toFixed(decs)-0;
+      }
+      
+      // Change 1000s to Ks
+      if(label !== 0 && label !== 1000 && label % 1000 === 0) {
+        label = (label / 1000) + 'K';
+      }
+      
+      if(is_x) {
+        ctx.fillText(label, ruler_d+2, 8);
+        ctx.fillStyle = "#777";
+      } else {
+        var str = (label+'').split('');
+        for(var i = 0; i < str.length; i++) {
+          ctx.fillText(str[i], 1, (ruler_d+9) + i*9);
+          ctx.fillStyle = "#777";
+        }
+      }
+      
+      var part = big_int / 10;
+      for(var i = 1; i < 10; i++) {
+        var sub_d = Math.round(ruler_d + part * i) + .5;
+        if(ctx_arr && sub_d > ruler_len) {
+          ctx_num++;
+          ctx.stroke();
+          if(ctx_num >= ctx_arr.length) {
+            i = 10;
+            ruler_d = total_len;
+            continue;
+          }
+          ctx = ctx_arr[ctx_num];
+          ruler_d -= limit;
+          sub_d = Math.round(ruler_d + part * i) + .5;
+        }
+        
+        var line_num = (i % 2)?12:10;
+        if(is_x) {
+          ctx.moveTo(sub_d, 15);
+          ctx.lineTo(sub_d, line_num);
+        } else {
+          ctx.moveTo(15, sub_d);
+          ctx.lineTo(line_num ,sub_d);
+        }
+      }
+    }
+    ctx.strokeStyle = "#666";
+    ctx.stroke();
+  }
+}
+window.methodDraw = function() {
   var svgCanvas;
   var Editor = {};
   var is_ready = false;
@@ -16472,7 +16187,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
     no_save_warning: true,
     initFont: 'Helvetica, Arial, sans-serif'
   };
-  var curPrefs = {}; //$.extend({}, defaultPrefs);
   var customHandlers = {};
   Editor.curConfig = curConfig;
   Editor.tool_scale = 1;
@@ -16484,217 +16198,16 @@ if(!window.methodDraw) window.methodDraw = function($) {
     }
   }
   
-  // Extension mechanisms must call setCustomHandlers with two functions: opts.open and opts.save
-  // opts.open's responsibilities are:
-  //  - invoke a file chooser dialog in 'open' mode
-  //  - let user pick a SVG file
-  //  - calls setCanvas.setSvgString() with the string contents of that file
-  // opts.save's responsibilities are:
-  //  - accept the string contents of the current document 
-  //  - invoke a file chooser dialog in 'save' mode
-  //  - save the file to location chosen by the user
-  Editor.setCustomHandlers = function(opts) {
-    Editor.ready(function() {
-      if(opts.open) {
-        $('#tool_open > input[type="file"]').remove();
-        $('#tool_open').show();
-        svgCanvas.open = opts.open;
-      }
-      if(opts.save) {
-        Editor.show_save_warning = false;
-        svgCanvas.bind("saved", opts.save);
-      }
-      if(opts.pngsave) {
-        svgCanvas.bind("exported", opts.pngsave);
-      }
-      customHandlers = opts;
-    });
-  }
-  
-  Editor.randomizeIds = function() {
-    svgCanvas.randomizeIds(arguments)
-  }
-
   Editor.init = function() {
-    // For external openers
-    (function() {
-      // let the opener know SVG Edit is ready
-      var w = window.opener;
-      if (w) {
-            try {
-          var methodDrawReadyEvent = w.document.createEvent("Event");
-          methodDrawReadyEvent.initEvent("methodDrawReady", true, true);
-          w.document.documentElement.dispatchEvent(methodDrawReadyEvent);
-            }
-        catch(e) {}
-      }
-    })();
-
 
     $("body").toggleClass("touch", svgedit.browser.isTouch());
     $("#canvas_width").val(curConfig.dimensions[0]);
     $("#canvas_height").val(curConfig.dimensions[1]);
-    
-    var extFunc = function() {
-      $.each(curConfig.extensions, function() {
-        var extname = this;
-        $.getScript(curConfig.extPath + extname, function(d) {
-          // Fails locally in Chrome 5
-          if(!d) {
-            var s = document.createElement('script');
-            s.src = curConfig.extPath + extname;
-            document.querySelector('head').appendChild(s);
-          }
-        });
-      });
-    }
-    
-    // Load extensions
-    // Bit of a hack to run extensions in local Opera/IE9
-    if(document.location.protocol === 'file:') {
-      setTimeout(extFunc, 100);
-    } else {
-      extFunc();
-    }
-    $.svgIcons(curConfig.imgPath + 'svg_edit_icons.svg', {
-      w:27, h:27,
-      id_match: false,
-      no_img: true, // Opera & Firefox 4 gives odd behavior w/images
-      fallback_path: curConfig.imgPath,
-      fallback:{
-        'logo':'logo.png',
-        'select':'select.png',
-        'select_node':'select_node.png',
-        'pencil':'pencil.png',
-        'pen':'line.png',
-        'rect':'square.png',
-        'ellipse':'ellipse.png',
-        'path':'path.png',
-        'text':'text.png',
-        'image':'image.png',
-        'zoom':'zoom.png',
-        'delete':'delete.png',
-        'spapelib':'shapelib.png',
-        'node_delete':'node_delete.png',        
-        'align_left':'align-left.png',
-        'align_center':'align-center.png',
-        'align_right':'align-right.png',
-        'align_top':'align-top.png',
-        'align_middle':'align-middle.png',
-        'align_bottom':'align-bottom.png',
-        'arrow_right':'flyouth.png',
-        'arrow_down':'dropdown.gif'
-      },
-      placement: {
-        '#logo':'logo',
-        '#tool_select':'select',
-        '#tool_fhpath':'pencil',
-        '#tool_line':'pen',
-        '#tool_rect,#tools_rect_show':'rect',
-        '#tool_ellipse,#tools_ellipse_show':'ellipse',
-        '#tool_path':'path',
-        '#tool_text,#layer_rename':'text',
-        '#tool_image':'image',
-        '#tool_zoom':'zoom',
-        '#tool_node_clone':'node_clone',
-        '#tool_node_delete':'node_delete',
-        '#tool_add_subpath':'add_subpath',
-        '#tool_openclose_path':'open_path',
-        '#tool_alignleft, #tool_posleft':'align_left',
-        '#tool_aligncenter, #tool_poscenter':'align_center',
-        '#tool_alignright, #tool_posright':'align_right',
-        '#tool_aligntop, #tool_postop':'align_top',
-        '#tool_alignmiddle, #tool_posmiddle':'align_middle',
-        '#tool_alignbottom, #tool_posbottom':'align_bottom',
-        '#cur_position':'align',
-        '#zoomLabel':'zoom'
-      },
-      resize: {
-        '#logo .svg_icon': 15,
-        '.flyout_arrow_horiz .svg_icon': 5,
-        '#fill_bg .svg_icon, #stroke_bg .svg_icon': svgedit.browser.isTouch() ? 24 : 24,
-        '.palette_item:first .svg_icon': svgedit.browser.isTouch() ? 30 : 16,
-        '#zoomLabel .svg_icon': 16,
-        '#zoom_dropdown .svg_icon': 7
-      },
-      callback: function(icons) {
-        $('.toolbar_button button > svg, .toolbar_button button > img').each(function() {
-          $(this).parent().prepend(this);
-        });
-        $('.tool_button, .tool_button_current').addClass("loaded")
-        var tleft = $('#tools_left');
-        if (tleft.length != 0) {
-          var min_height = tleft.offset().top + tleft.outerHeight();
-        }
-        
-        // Look for any missing flyout icons from plugins
-        $('.tools_flyout').each(function() {
-          var shower = $('#' + this.id + '_show');
-          var sel = shower.attr('data-curopt');
-          // Check if there's an icon here
-          if(!shower.children('svg, img').length) {
-            var clone = $(sel).children().clone();
-            if(clone.length) {
-              clone[0].removeAttribute('style'); //Needed for Opera
-              shower.append(clone);
-            }
-          }
-        });
-        methodDraw.runCallbacks();
-        
-        setTimeout(function() {
-          $('.flyout_arrow_horiz:empty').each(function() {
-            $(this).append($.getSvgIcon('arrow_right').width(5).height(5));
-          });
-        }, 1);
-      }
-    });
-    
-    $('#rulers').on("dblclick", function(e){
-      $("#base_unit_container").css({
-        top: e.pageY-10,
-        left: e.pageX-50,
-        display: 'block'
-      })
-    })
-    $("#base_unit_container")
-      .on("mouseleave mouseenter", function(e){
-        t = setTimeout(function(){$("#base_unit_container").fadeOut(500)}, 200)
-        if(event.type == "mouseover") clearTimeout(t)  
-      })
-    $("#base_unit")
-      .on("change", function(e) {
-        savePreferences();
-      });
+
 
     Editor.canvas = svgCanvas = new $.SvgCanvas(document.getElementById("svgcanvas"), curConfig);
-    Editor.show_save_warning = false;
     Editor.paintBox = {fill: null, stroke:null, canvas:null};
-    var palette = ["#444444", "#482816", "#422C10", "#3B2F0E", "#32320F", 
-                   "#293414", "#1F361B", "#153723", "#0C372C", 
-                   "#083734", "#0E353B", "#1A333F", "#273141", 
-                   "#332D40", "#3E2A3C", "#462735", "#4B252D", 
-                   "#4D2425", "#4C261D", "#666666", "#845335", "#7B572D", 
-                   "#6F5C2A", "#62612C", "#546433", "#46673D", 
-                   "#396849", "#306856", "#2D6862", "#33666C", 
-                   "#426373", "#535F75", "#645A73", "#74556D", 
-                   "#805064", "#884D58", "#8B4D4B", "#894F3F", 
-                   "#999999", "#C48157", "#B8874D", "#A98E49", "#97944B", 
-                   "#849854", "#729C62", "#619E73", "#559E84", 
-                   "#529D94", "#5B9BA2", "#6D97AB", "#8391AE", 
-                   "#9A8AAB", "#AF84A3", "#BF7E96", "#C97A86", 
-                   "#CE7975", "#CC7C65", "#BBBBBB", "#FFB27C", "#FABA6F", 
-                   "#E6C36A", "#CFCA6D", "#B8D078", "#A0D58A",
-                   "#8CD79F", "#7DD8B5", "#7AD6CA", "#84D3DB", 
-                   "#9ACEE6", "#B6C7EA", "#D3BEE7", "#EDB6DC", 
-                   "#FFAFCC", "#FFAAB8", "#FFA9A2", "#FFAC8D", 
-                   "#DDDDDD", "#FFE7A2", "#FFF093", "#FFFA8D", "#FFFF91", 
-                   "#EEFF9F", "#D1FFB4", "#B9FFCE", "#A8FFE9", 
-                   "#A4FFFF", "#B1FFFF", "#CBFFFF", "#EDFFFF", 
-                   "#FFF5FF", "#FFEBFF", "#FFE2FF", "#FFDCEC", 
-                   "#FFDBD2", "#FFDFB8"
-               ],
-      isMac = (navigator.platform.indexOf("Mac") >= 0),
+    var isMac = (navigator.platform.indexOf("Mac") >= 0),
       isWebkit = (navigator.userAgent.indexOf("AppleWebKit") >= 0),
       modKey = (isMac ? "meta+" : "ctrl+"), // ⌘
       path = svgCanvas.pathActions,
@@ -16708,7 +16221,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
       ui_context = 'toolbars',
       orig_source = '';
       
-
     // This puts the correct shortcuts in the menus
     if (!isMac) {
      $('.shortcut').each(function(){
@@ -16716,83 +16228,23 @@ if(!window.methodDraw) window.methodDraw = function($) {
        $(this).text(text.split("⌘").join("Ctrl+"))
      }); 
     }
-
-    // This sets up alternative dialog boxes. They mostly work the same way as
-    // their UI counterparts, expect instead of returning the result, a callback
-    // needs to be included that returns the result as its first parameter.
-    // In the future we may want to add additional types of dialog boxes, since 
-    // they should be easy to handle this way.
-    (function() {
-      $('#dialog_container').draggable({cancel:'#dialog_content, #dialog_buttons *', containment: 'window'});
-      var box = $('#dialog_box'), btn_holder = $('#dialog_buttons');
-      
-      var dbox = function(type, msg, callback, defText) {
-        $('#dialog_content').html('<p>'+msg.replace(/\n/g,'</p><p>')+'</p>')
-          .toggleClass('prompt',(type=='prompt'));
-        btn_holder.empty();
-        
-        var ok = $('<input type="button" value="OK">').appendTo(btn_holder);
-      
-        if(type != 'alert') {
-          $('<input type="button" value="Cancel">')
-            .appendTo(btn_holder)
-            .on("click touchstart", function() { box.hide();callback(false)});
-        }
-        
-        if(type == 'prompt') {
-          var input = $('<input type="text">').prependTo(btn_holder);
-          input.val(defText || '');
-          input.bind('keydown', 'return', function() {ok.trigger("click touchstart");});
-        }
-        
-        if(type == 'process') {
-          ok.hide();
-        }
-  
-        box.show();
-        
-        ok.on("click touchstart", function() { 
-          box.hide();
-          var resp = (type == 'prompt')?input.val():true;
-          if(callback) callback(resp);
-        }).focus();
-        
-        if(type == 'prompt') input.focus();
-      }
-      
-      $.alert = function(msg, cb) { dbox('alert', msg, cb);};
-      $.confirm = function(msg, cb) { dbox('confirm', msg, cb);};
-      $.process_cancel = function(msg, cb) {  dbox('process', msg, cb);};
-      $.prompt = function(msg, txt, cb) { dbox('prompt', msg, cb, txt);};
-    }());
     
     var setSelectMode = function() {
-      var curr = $('.tool_button_current');
+      var curr = $('.tool_button.current');
       if(curr.length && curr[0].id !== 'tool_select') {
-        curr.removeClass('tool_button_current').addClass('tool_button');
-        $('#tool_select').addClass('tool_button_current').removeClass('tool_button');
+        curr.removeClass('current').addClass('tool_button');
+        $('#tool_select').addClass('current');
       }
       svgCanvas.setMode('select');
     };
     
-    var setEyedropperMode = function() {
-      var curr = $('.tool_button_current');
-      if(curr.length && curr[0].id !== 'tool_eyedropper') {
-        curr.removeClass('tool_button_current').addClass('tool_button');
-        $('#tool_eyedropper').addClass('tool_button_current').removeClass('tool_button');
-      }
-      svgCanvas.setMode('eyedropper');
-    }
-    
     var togglePathEditMode = function(editmode, elems) {
-      $('#tools_bottom_2,#tools_bottom_3').toggle(!editmode);
       if(editmode) {
         // Change select icon
         $('.context_panel').hide();
         $('#path_node_panel').show();
-        $('.tool_button_current').removeClass('tool_button_current').addClass('tool_button');
-        $('#tool_select').addClass('tool_button_current').removeClass('tool_button');
-        setIcon('#tool_select', 'select_node');
+        $('.tool_button.current').removeClass('.current');
+        $('#tool_select').addClass('.current');
         multiselected = false;
       } else {
         if (elems[0]) {
@@ -16800,8 +16252,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
           selector.reset(elems[0]);
           selector.selectorRect.setAttribute('display', 'inline');
         }
-        
-        setIcon('#tool_select', 'select');
+
       }
     }
   
@@ -16904,11 +16355,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
             rotateCursor(ang);
             $('#tool_reorient').toggleClass('disabled', ang == 0);
             break;
-          
-          // TODO: Update values that change on move/resize, etc
-//            case "select":
-//            case "resize":
-//              break;
         }
       }
       svgCanvas.runExtensions("elementTransition", {
@@ -16938,9 +16384,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
           selectedElement = elem;
         }
       }
-      
-      Editor.show_save_warning = true;
-  
+        
       // we update the contextual panel with potentially new
       // positional/sizing information (we DON'T want to update the
       // toolbar here as that creates an infinite loop)
@@ -17044,512 +16488,17 @@ if(!window.methodDraw) window.methodDraw = function($) {
       $('#cur_context_panel').toggle(!!context).html(link_str);
 
     }
+
+    var extAdded = function(window, ext) {
+       if(ext.callback) ext.callback();
+    }
     
     // Makes sure the current selected paint is available to work with
     var prepPaints = function() {
       Editor.paintBox.fill.prep();
       Editor.paintBox.stroke.prep();
     }
-    
-    var flyout_funcs = {};
-    
-    var setupFlyouts = function(holders) {
-      $.each(holders, function(hold_sel, btn_opts) {
-        var buttons = $(hold_sel).children();
-        var show_sel = hold_sel + '_show';
-        var shower = $(show_sel);
-        var def = false;
-        buttons.addClass('tool_button')
-          .unbind('click mousedown mouseup') // may not be necessary
-          .each(function(i) {
-            // Get this buttons options
-            var opts = btn_opts[i];
-            
-            // Remember the function that goes with this ID
-            flyout_funcs[opts.sel] = opts.fn;
 
-            if(opts.isDefault) def = i;
-
-            // Clicking the icon in flyout should set this set's icon
-            var func = function(event) {
-              var options = opts;
-              //find the currently selected tool if comes from keystroke
-              if (event.type === "keydown") {
-                var flyoutIsSelected = $(options.parent + "_show").hasClass('tool_button_current'); 
-                var currentOperation = $(options.parent + "_show").attr("data-curopt");
-                $.each(holders[opts.parent], function(i, tool){
-                  if (tool.sel == currentOperation) {
-                    if(!event.shiftKey || !flyoutIsSelected) {
-                      options = tool;
-                    }
-                    else {
-                      options = holders[opts.parent][i+1] || holders[opts.parent][0];
-                    }
-                  }
-                });
-              }
-              if($(this).hasClass('disabled')) return false;
-              if (toolButtonClick(show_sel)) {
-                options.fn();
-              }
-              if(options.icon) {
-                var icon = $.getSvgIcon(options.icon, true);
-              } else {
-                var icon = $(options.sel).children().eq(0).clone();
-              }
-
-              icon[0].setAttribute('width',shower.width());
-              icon[0].setAttribute('height',shower.height());
-              shower.children(':not(.flyout_arrow_horiz)').remove();
-              shower.append(icon).attr('data-curopt', options.sel); // This sets the current mode
-            }
-
-            $(this).mouseup(func);
-
-            if(opts.key) {
-              $(document).bind('keydown', opts.key[0] + " shift+" + opts.key[0], func);
-            }
-          });
-
-        if(def) {
-          shower.attr('data-curopt', btn_opts[def].sel);
-        } else if(!shower.attr('data-curopt')) {
-          // Set first as default
-          shower.attr('data-curopt', btn_opts[0].sel);
-        }
-        
-        var timer;
-        
-        var pos = $(show_sel).position();
-        $(hold_sel).css({'left': pos.left+34, 'top': pos.top+77});
-        
-        // Clicking the "show" icon should set the current mode
-        shower.mousedown(function(evt) {
-          $('#workarea').one("mousedown", function(){$('#tools_shapelib').hide()})
-          if ($('#tools_shapelib').is(":visible")) toolButtonClick(show_sel, false);
-          if(shower.hasClass('disabled')) return false;
-          var holder = $(hold_sel);
-          var l = pos.left+34;
-          var w = holder.width()*-1;
-          var time = holder.data('shown_popop')?200:0;
-          timer = setTimeout(function() {
-            // Show corresponding menu
-            if(!shower.data('isLibrary')) {
-              holder.css('left', w).show().animate({
-                left: l
-              },50);
-            } else {
-              holder.css('left', l).show();
-            }
-            holder.data('shown_popop',true);
-          },time);
-          evt.preventDefault();
-        }).mouseup(function(evt) {
-          clearTimeout(timer);
-          var opt = $(this).attr('data-curopt');
-          // Is library and popped up, so do nothing
-          if(shower.data('isLibrary') && $(show_sel.replace('_show','')).is(':visible')) {
-            toolButtonClick(show_sel, true);
-            return;
-          }
-          if (toolButtonClick(show_sel) && (opt in flyout_funcs)) {
-            flyout_funcs[opt]();
-          }
-        });
-        
-        //  $('#tools_rect').mouseleave(function(){$('#tools_rect').fadeOut();});
-      });
-      
-      setFlyoutTitles();
-    }
-    
-    var makeFlyoutHolder = function(id, child) {
-      var div = $('<div>',{
-        'class': 'tools_flyout',
-        id: id
-      }).appendTo('#svg_editor').append(child);
-      
-      return div;
-    }
-    
-    var setFlyoutPositions = function() {
-      $('.tools_flyout').each(function() {
-        var shower = $('#' + this.id + '_show');
-        var pos = shower.offset();
-        var w = shower.outerWidth();
-        $(this).css({left: (pos.left + w)*tool_scale, top: pos.top});
-      });
-    }
-    
-    var setFlyoutTitles = function() {
-      $('.tools_flyout').each(function() {
-        var shower = $('#' + this.id + '_show');
-        if(shower.data('isLibrary')) return;
-        
-        var tooltips = [];
-        $(this).children().each(function() {
-          tooltips.push(this.title);
-        });
-        shower[0].title = tooltips.join(' / ');
-      });
-    }
-
-    var resize_timer;     
-    
-    var extAdded = function(window, ext) {
-  
-      var cb_called = false;
-      var resize_done = false;
-      var cb_ready = true; // Set to false to delay callback (e.g. wait for $.svgIcons)
-      
-      function prepResize() {
-        if(resize_timer) {
-          clearTimeout(resize_timer);
-          resize_timer = null;
-        }
-        if(!resize_done) {
-          resize_timer = setTimeout(function() {
-            resize_done = true;
-            setIconSize(curPrefs.iconsize);
-          }, 50); 
-        }
-      }
-
-      
-      var runCallback = function() {
-        if(ext.callback && !cb_called && cb_ready) {
-          cb_called = true;
-          ext.callback();
-        }
-      }
-  
-      var btn_selects = [];
-  
-      if(ext.context_tools) {
-        $.each(ext.context_tools, function(i, tool) {
-          // Add select tool
-          var cont_id = tool.container_id?(' id="' + tool.container_id + '"'):"";
-          
-          var panel = $('#' + tool.panel);
-          
-          // create the panel if it doesn't exist
-          if(!panel.length)
-            panel = $('<div>', {id: tool.panel}).appendTo("#tools_top").hide();
-          
-          // TODO: Allow support for other types, or adding to existing tool
-          switch (tool.type) {
-          case 'tool_button':
-            var html = '<div class="tool_button">' + tool.id + '</div>';
-            var div = $(html).appendTo(panel);
-            if (tool.events) {
-              $.each(tool.events, function(evt, func) {
-                $(div).bind(evt, func);
-              });
-            }
-            break;
-          case 'select':
-            var html = '<label' + cont_id + '>'
-              + '<select id="' + tool.id + '">';
-            $.each(tool.options, function(val, text) {
-              var sel = (val == tool.defval) ? " selected":"";
-              html += '<option value="'+val+'"' + sel + '>' + text + '</option>';
-            });
-            html += "</select></label>";
-            // Creates the tool, hides & adds it, returns the select element
-            var sel = $(html).appendTo(panel).find('select');
-            
-            $.each(tool.events, function(evt, func) {
-              $(sel).bind(evt, func);
-            });
-            break;
-          case 'button-select': 
-            var html = '<div id="' + tool.id + '" class="dropdown toolset" title="' + tool.title + '">'
-              + '<div id="cur_' + tool.id + '" class="icon_label"></div><button></button></div>';
-            
-            var list = $('<ul id="' + tool.id + '_opts"></ul>').appendTo('#option_lists');
-            if(tool.colnum) {
-              list.addClass('optcols' + tool.colnum);
-            }
-            
-            // Creates the tool, hides & adds it, returns the select element
-            var dropdown = $(html).appendTo(panel).children();
-            
-            btn_selects.push({
-              elem: ('#' + tool.id),
-              list: ('#' + tool.id + '_opts'),
-              title: tool.title,
-              callback: tool.events.change,
-              cur: ('#cur_' + tool.id)
-            });
-
-            break;
-          case 'input':
-            var html = '<label' + cont_id + '>'
-              + '<span id="' + tool.id + '_label">' 
-              + tool.label + ':</span>'
-              + '<input id="' + tool.id + '" title="' + tool.title
-              + '" size="' + (tool.size || "4") + '" value="' + (tool.defval || "") + '" type="text"/></label>'
-              
-            // Creates the tool, hides & adds it, returns the select element
-            
-            // Add to given tool.panel
-            var inp = $(html).appendTo(panel).find('input');
-            
-            if(tool.spindata) {
-              inp.SpinButton(tool.spindata);
-            }
-            
-            if(tool.events) {
-              $.each(tool.events, function(evt, func) {
-                inp.bind(evt, func);
-              });
-            }
-            break;
-            
-          default:
-            break;
-          }
-        });
-      }
-      
-      if(ext.buttons) {
-        var fallback_obj = {},
-          placement_obj = {},
-          svgicons = ext.svgicons;
-        var holders = {};
-        
-      
-        // Add buttons given by extension
-        $.each(ext.buttons, function(i, btn) {
-          var icon;
-          var id = btn.id;
-          var num = i;
-          // Give button a unique ID
-          while($('#'+id).length) {
-            id = btn.id + '_' + (++num);
-          }
-          if(!svgicons) {
-            icon = (btn.type == "menu") ? "" : $('<img src="' + btn.icon + '">');
-          } else {
-            fallback_obj[id] = btn.icon;
-            var svgicon = btn.svgicon ? btn.svgicon : btn.id;
-            if(btn.type == 'app_menu') {
-              placement_obj['#' + id + ' > div'] = svgicon;
-            } else {
-              placement_obj['#' + id] = svgicon;
-            }
-          }
-          
-          var cls, parent;
-          
-          
-          
-          // Set button up according to its type
-          switch ( btn.type ) {
-          case 'mode_flyout':
-          case 'mode':
-            cls = 'tool_button';
-            if(btn.cls) {
-              cls += " " + btn.cls;
-            }
-            parent = "#tools_left";
-            break;
-          case 'context':
-            cls = 'tool_button';
-            parent = "#" + btn.panel;
-            // create the panel if it doesn't exist
-            if(!$(parent).length)
-              $('<div>', {id: btn.panel}).appendTo("#tools_top");
-            break;
-          case 'menu':
-            cls = 'menu_item tool_button';
-            parent = "#" + (btn.after || btn.panel);
-            break;
-          case 'app_menu':
-            cls = '';
-            parent = btn.parent || '#main_menu ul';
-            // create the panel if it doesn't exist
-            if(!$(parent).length)
-              $('<div>', {id: btn.panel}).appendTo("#tools_top");
-            break;
-          }
-          
-          var button = $((btn.list || btn.type == 'app_menu')?'<li/>':'<div/>')
-            .attr("id", id)
-            .attr("title", btn.title)
-            .addClass(cls);
-          if(!btn.includeWith && !btn.list) {
-            if("position" in btn) {
-              $(parent).children().eq(btn.position).before(button);
-            } else {
-              if (btn.type != "menu" || !btn.after) button.appendTo(parent);
-              else $(parent).after(button);
-            }
-
-            if(btn.type =='mode_flyout') {
-            // Add to flyout menu / make flyout menu
-//              var opts = btn.includeWith;
-//              // opts.button, default, position
-              var ref_btn = $(button);
-              
-              var flyout_holder = ref_btn.parent();
-              // Create a flyout menu if there isn't one already
-              if(!ref_btn.parent().hasClass('tools_flyout')) {
-                // Create flyout placeholder
-                var tls_id = ref_btn[0].id.replace('tool_','tools_')
-                var show_btn = ref_btn.clone()
-                  .attr('id',tls_id + '_show')
-                  .append($('<div>',{'class':'flyout_arrow_horiz'}));
-                  
-                ref_btn.before(show_btn);
-              
-                // Create a flyout div
-                flyout_holder = makeFlyoutHolder(tls_id, ref_btn);
-                flyout_holder.data('isLibrary', true);
-                show_btn.data('isLibrary', true);
-              } 
-              
-              
-              
-//              var ref_data = Actions.getButtonData(opts.button);
-              
-              placement_obj['#' + tls_id + '_show'] = btn.id;
-              // TODO: Find way to set the current icon using the iconloader if this is not default
-              
-              // Include data for extension button as well as ref button
-              var cur_h = holders['#'+flyout_holder[0].id] = [{
-                sel: '#'+id,
-                fn: btn.events.click,
-                icon: btn.id,
-                //key: btn.key,
-                isDefault: true
-              }, ref_data];
-
-            } else if(btn.type == 'app_menu' || btn.type == 'menu') {
-              button.append(btn.title);
-            }
-            
-          } else if(btn.list) {
-            // Add button to list
-            button.addClass('push_button');
-            $('#' + btn.list + '_opts').append(button);
-            if(btn.isDefault) {
-              $('#cur_' + btn.list).append(button.children().clone());
-              var svgicon = btn.svgicon?btn.svgicon:btn.id;
-              placement_obj['#cur_' + btn.list] = svgicon;
-            }
-          } else if(btn.includeWith) {
-            // Add to flyout menu / make flyout menu
-            var opts = btn.includeWith;
-            // opts.button, default, position
-            var ref_btn = $(opts.button);
-            
-            var flyout_holder = ref_btn.parent();
-            // Create a flyout menu if there isn't one already
-            if(!ref_btn.parent().hasClass('tools_flyout')) {
-              // Create flyout placeholder
-              var tls_id = ref_btn[0].id.replace('tool_','tools_')
-              var show_btn = ref_btn.clone()
-                .attr('id',tls_id + '_show')
-                .append($('<div>',{'class':'flyout_arrow_horiz'}));
-                
-              ref_btn.before(show_btn);
-            
-              // Create a flyout div
-              flyout_holder = makeFlyoutHolder(tls_id, ref_btn);
-            } 
-            
-            var ref_data = Actions.getButtonData(opts.button);
-            
-            if(opts.isDefault) {
-              placement_obj['#' + tls_id + '_show'] = btn.id;
-            } 
-            // TODO: Find way to set the current icon using the iconloader if this is not default
-            
-            // Include data for extension button as well as ref button
-            var cur_h = holders['#'+flyout_holder[0].id] = [{
-              sel: '#'+id,
-              fn: btn.events.click,
-              icon: btn.id,
-              key: btn.key,
-              isDefault: btn.includeWith?btn.includeWith.isDefault:0
-            }, ref_data];
-            
-            // {sel:'#tool_rect', fn: clickRect, evt: 'mouseup', key: 4, parent: '#tools_rect', icon: 'rect'}
-              
-            var pos  = ("position" in opts)?opts.position:'last';
-            var len = flyout_holder.children().length;
-            
-            // Add at given position or end
-            if(!isNaN(pos) && pos >= 0 && pos < len) {
-              flyout_holder.children().eq(pos).before(button);
-            } else {
-              flyout_holder.append(button);
-              cur_h.reverse();
-            }
-          } 
-          
-          if(!svgicons) {
-            button.append(icon);
-          }
-          
-          if(!btn.list) {
-            // Add given events to button
-            $.each(btn.events, function(name, func) {
-              if(name == "click") {
-                if(btn.type == 'mode') {
-                  if(btn.includeWith) {
-                    button.bind(name, func);
-                  } else {
-                    button.bind(name, function() {
-                      if(toolButtonClick(button)) {
-                        func();
-                      }
-                    });
-                  }
-                  if(btn.key) {
-                    $(document).bind('keydown', btn.key, func);
-                    if(btn.title) button.attr("title", btn.title + ' ['+btn.key+']');
-                  }
-                } else {
-                  button.bind(name, func);
-                }
-              } else {
-                button.bind(name, func);
-              }
-            });
-          }
-          setupFlyouts(holders);
-        });
-        
-        $.each(btn_selects, function() {
-          addAltDropDown(this.elem, this.list, this.callback, {seticon: true}); 
-        });
-        
-        if (svgicons)
-          cb_ready = false; // Delay callback
-
-        $.svgIcons(svgicons, {
-          w:27, h:27,
-          id_match: false,
-          no_img: (!isWebkit),
-          fallback: fallback_obj,
-          placement: placement_obj,
-          callback: function(icons) {
-            // Non-ideal hack to make the icon match the current size
-            if(curPrefs.iconsize && curPrefs.iconsize != 'm') {
-              prepResize();
-            }
-            cb_ready = true; // Ready for callback
-            runCallback();
-          }
-      
-        });
-      }
-      
-      runCallback();
-    };
-    
     var getPaint = function(color, opac, type) {
       // update the editor's fill paint
       var opts = null;
@@ -17700,10 +16649,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
         var point = path.getNodePoint();
         $('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
         $('#tool_node_delete').toggleClass('disabled', !path.canDeleteNodes);
-        
-        // Show open/close button based on selected point
-        setIcon('#tool_openclose_path', path.closed_subpath ? 'open_path' : 'close_path');
-        
+                
         if(point) {
           var seg_type = $('#seg_type');
           if(unit) {
@@ -17925,7 +16871,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
   
     $('#text').on("focus", function(e){ textBeingEntered = true; } );
     $('#text').on("blur", function(){ textBeingEntered = false; } );
-    
+
     // bind the selected event to our function that handles updates to the UI
     svgCanvas.bind("selected", selectedChanged);
     svgCanvas.bind("transition", elementTransition);
@@ -17935,14 +16881,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
     svgCanvas.bind("contextset", contextChanged);
     svgCanvas.bind("extension_added", extAdded);
     svgCanvas.textActions.setInputElem($("#text")[0]);
-  
-    var str = '<div class="palette_item transparent" data-rgb="none"></div>\
-              <div class="palette_item black" data-rgb="#000000"></div>\
-              <div class="palette_item white" data-rgb="#ffffff"></div>'
-    palette.forEach(function(item, i){
-      str += '<div class="palette_item" style="background-color: ' + item + ';" data-rgb="' + item + '"></div>';
-    });
-    $('#palette').append(str);
     
     var changeFontSize = function(ctl) {
       svgCanvas.setFontSize(ctl.value);
@@ -18049,46 +16987,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
       //if (!noUndo) svgCanvas.changeSelectedAttribute(attr, val);
       svgCanvas.changeSelectedAttributeNoUndo(attr, val);
     };
-    
-    picking = false;
-    $(document).on("mouseup", function(){picking = false;})
 
-    $('#palette').on("mousemove mousedown touchstart touchmove", ".palette_item", function(evt){
-      evt.preventDefault();
-
-      if (evt.type == "mousedown") picking = true;
-      if (picking) {
-        var isStroke = $('#tool_stroke').hasClass('active');
-        var picker = isStroke ? "stroke" : "fill";
-        var color = $(this).attr('data-rgb');
-        var paint = null;
-        var noUndo = true;
-        if (evt.type == "mousedown") noUndo = false 
-        // Webkit-based browsers returned 'initial' here for no stroke
-        if (color === 'transparent' || color === 'initial' || color === '#none') {
-          color = 'none';
-          paint = new $.jGraduate.Paint();
-        }
-        else {
-          paint = new $.jGraduate.Paint({alpha: 100, solidColor: color.substr(1)});
-        }
-        
-        Editor.paintBox[picker].setPaint(paint);
-        
-        if (isStroke) {
-          svgCanvas.setColor('stroke', color, noUndo);
-          if (color != 'none' && svgCanvas.getStrokeOpacity() != 1) {
-            svgCanvas.setPaintOpacity('stroke', 1.0);
-          }
-        } else {
-          svgCanvas.setColor('fill', color, noUndo);
-          if (color != 'none' && svgCanvas.getFillOpacity() != 1) {
-            svgCanvas.setPaintOpacity('fill', 1.0);
-          }
-        }
-      }
-    }).bind('contextmenu', function(e) {e.preventDefault()});
-  
     $("#toggle_stroke_tools").toggle(function() {
       $(".stroke_tool").css('display','table-cell');
       $(this).addClass('expanded');
@@ -18099,11 +16998,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
       resetScrollPos();
     });
   
-    // This is a common function used when a tool has been clicked (chosen)
-    // It does several common things:
-    // - removes the tool_button_current class from whatever tool currently has it
-    // - hides any flyouts
-    // - adds the tool_button_current class to the button passed in
     var toolButtonClick = function(button, noHiding) {
       if ($(button).hasClass('disabled')) return false;
       if($(button).parent().hasClass('tools_flyout')) return true;
@@ -18112,8 +17006,8 @@ if(!window.methodDraw) window.methodDraw = function($) {
         $('.tools_flyout').fadeOut(fadeFlyouts);
       }
       $('#styleoverrides').text('');
-      $('.tool_button_current').removeClass('tool_button_current').addClass('tool_button');
-      $(button).addClass('tool_button_current').removeClass('tool_button');
+      $('.tool_button.current').removeClass('current');
+      $(button).addClass('current');
       return true;
     };
     
@@ -18178,7 +17072,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
         svgCanvas.setStrokeAttr('stroke-' + pre, val);
       }
       operaRepaint();
-      setIcon('#cur_' + pre , id, 20);
       $(opt).addClass('current').siblings().removeClass('current');
     }
     
@@ -18198,8 +17091,8 @@ if(!window.methodDraw) window.methodDraw = function($) {
       if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
         if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blinker(e)
         else $('#menu_bar').removeClass('active')
-
       }  
+
     }
     
     $('.menu_item').on('mousedown touchstart', function(e){blinker(e)});
@@ -18226,123 +17119,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
          $(this).parent().addClass('open');
        });
 
-    
-    // Made public for UI customization.
-    // TODO: Group UI functions into a public methodDraw.ui interface.
-    Editor.addDropDown = function(elem, callback, dropUp) {
-      if ($(elem).length == 0) return; // Quit if called on non-existant element
-      var button = $(elem).find('button');
-      
-      var list = $(elem).find('ul').attr('id', $(elem)[0].id + '-list');
-      
-      if(!dropUp) {
-        // Move list to place where it can overflow container
-        $('#option_lists').append(list);
-      }
-      
-      var on_button = false;
-      if(dropUp) {
-        $(elem).addClass('dropup');
-      }
-    
-      list.find('li').bind('mouseup', callback);
-      
-      $(window).mouseup(function(evt) {
-        if(!on_button) {
-          button.removeClass('down');
-          list.hide();
-        }
-        on_button = false;
-      });
-      
-      button.bind('mousedown',function() {
-        if (!button.hasClass('down')) {
-          button.addClass('down');
-          
-          if(!dropUp) {
-            var pos = $(elem).offset();
-            // position slider
-            list.css({
-              top: pos.top,
-              left: pos.left - 110
-            });
-          }
-          list.show();
-          
-          on_button = true;
-        } else {
-          button.removeClass('down');
-          list.hide();
-        }
-      }).hover(function() {
-        on_button = true;
-      }).mouseout(function() {
-        on_button = false;
-      });
-    }
-    
-    // TODO: Combine this with addDropDown or find other way to optimize
-    var addAltDropDown = function(elem, list, callback, opts) {
-      var button = $(elem);
-      var list = $(list);
-      var on_button = false;
-      var dropUp = opts.dropUp;
-      if(dropUp) {
-        $(elem).addClass('dropup');
-      }
-      list.find('li').bind('mouseup', function() {
-        if(opts.seticon) {
-          setIcon('#cur_' + button[0].id , $(this).children());
-          $(this).addClass('current').siblings().removeClass('current');
-        }
-        callback.apply(this, arguments);
-
-      });
-      
-      $(window).mouseup(function(evt) {
-        if(!on_button) {
-          button.removeClass('down');
-          list.hide();
-          list.css({top:0, left:0});
-        }
-        on_button = false;
-      });
-      
-      var height = list.height();
-      $(elem).bind('mousedown',function() {
-        var off = $(elem).offset();
-        if(dropUp) {
-          off.top -= list.height();
-          off.left += 8;
-        } else {
-          off.top += $(elem).height();
-        }
-        $(list).offset(off);
-        
-        if (!button.hasClass('down')) {
-          button.addClass('down');
-          list.show();
-          on_button = true;
-          return false;
-        } else {
-          button.removeClass('down');
-          // CSS position must be reset for Webkit
-          list.hide();
-          list.css({top:0, left:0});
-        }
-      }).hover(function() {
-        on_button = true;
-      }).mouseout(function() {
-        on_button = false;
-      });
-      
-      if(opts.multiclick) {
-        list.mousedown(function() {
-          on_button = true;
-        });
-      }
-    }
-    
     $('#font_family_dropdown').change(function() {
       var fam = this.options[this.selectedIndex].value
       var fam_display = this.options[this.selectedIndex].text
@@ -18356,22 +17132,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
         svgCanvas.alignSelectedElements(letter, 'page');
       })
     });
-    
-    /*
-    
-    When a flyout icon is selected
-      (if flyout) {
-      - Change the icon
-      - Make pressing the button run its stuff
-      }
-      - Run its stuff
-    
-    When its shortcut key is pressed
-      - If not current in list, do as above
-      , else:
-      - Just run its stuff
-    
-    */
+
     
     // Unfocus text input when workarea is mousedowned.
     (function() {
@@ -18413,11 +17174,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
       }
     };
   
-    var clickSquare = function(){
-      if (toolButtonClick('#tool_square')) {
-        svgCanvas.setMode('square');
-      }
-    };
+
     
     var clickRect = function(){
       if (toolButtonClick('#tool_rect')) {
@@ -18425,33 +17182,11 @@ if(!window.methodDraw) window.methodDraw = function($) {
       }
     };
     
-    var clickFHRect = function(){
-      if (toolButtonClick('#tool_fhrect')) {
-        svgCanvas.setMode('fhrect');
-      }
-    };
-    
-    var clickCircle = function(){
-      if (toolButtonClick('#tool_circle')) {
-        svgCanvas.setMode('circle');
-      }
-    };
+ 
   
     var clickEllipse = function(){
       if (toolButtonClick('#tool_ellipse')) {
         svgCanvas.setMode('ellipse');
-      }
-    };
-  
-    var clickFHEllipse = function(){
-      if (toolButtonClick('#tool_fhellipse')) {
-        svgCanvas.setMode('fhellipse');
-      }
-    };
-    
-    var clickImage = function(){
-      if (toolButtonClick('#tool_image')) {
-        svgCanvas.setMode('image');
       }
     };
   
@@ -18461,12 +17196,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
       }
     };
   
-    var dblclickZoom = function(){
-      if (toolButtonClick('#tool_zoom')) {
-        zoomImage();
-        setSelectMode();
-      }
-    };
   
     var clickText = function(){
       if (toolButtonClick('#tool_text')) {
@@ -18479,6 +17208,24 @@ if(!window.methodDraw) window.methodDraw = function($) {
         svgCanvas.setMode('path');
       }
     };
+
+
+    var clickEyedropper = function() {
+      if (toolButtonClick('#tool_eyedropper')) {
+        svgCanvas.setMode('eyedropper');
+      }
+    }
+
+    var clickShapelib = function() {
+      if (toolButtonClick('#tool_shapelib')) {
+        $('#workarea').one("mousedown", function(){$('#tools_shapelib').hide()})
+        $("#tools_shapelib").css({
+          "top": $('#tool_shapelib').offset().top,
+          "margin-left": 3,
+        })
+        $("#tools_shapelib").show();
+      }
+    }
 
     // Delete is a contextual tool that only appears in the ribbon if
     // an element has been selected
@@ -18802,7 +17549,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
         top.exit_fullscreen();
       }
     }
-    
+
     var clickRulers = function() {
       flash($('#view_menu'));
       var rulers = !$('#tool_rulers').hasClass('push_button_pressed');
@@ -18843,12 +17590,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
     
     var clickSave = function(){
       flash($('#file_menu'));
-      // In the future, more options can be provided here
-      var saveOpts = {
-        'images': curPrefs.img_save,
-        'round_digits': 6
-      }
-      svgCanvas.save(saveOpts);
+      svgCanvas.save();
     };
     
     var saveSourceEditor = function(){
@@ -18873,22 +17615,10 @@ if(!window.methodDraw) window.methodDraw = function($) {
     };
     
     function setBackground(color, url) {
-//        if(color == curPrefs.bkgd_color && url == curPrefs.bkgd_url) return;
       $.pref('bkgd_color', color);
       $.pref('bkgd_url', url);
-      
       // This should be done in svgcanvas.js for the borderRect fill
       svgCanvas.setBackground(color, url);
-    }
-    
-    var setIcon = Editor.setIcon = function(elem, icon_id, forcedSize) {
-      var icon = (typeof icon_id === 'string') ? $.getSvgIcon(icon_id, true) : icon_id.clone();
-      if(!icon) {
-        console.log('NOTE: Icon image missing: ' + icon_id);
-        return;
-      }
-
-      $(elem).find("img").replaceWith(icon);
     }
   
     var ua_prefix;
@@ -18948,68 +17678,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
         }
       });
     }
-    
-    var setIconSize = Editor.setIconSize = function(size, force) {
-      if(size == curPrefs.size && !force) return;
-//        return;
-//        var elems = $('.tool_button, .push_button, .tool_button_current, .disabled, .icon_label, #url_notice, #tool_open');
-      
-      var sel_toscale = '#tools_top .toolset, #editor_panel > *, #history_panel > *,\
-      #main_button, #tools_left > *, #path_node_panel > *, #multiselected_panel > *,\
-      #g_panel > *, #tool_font_size > *, .tools_flyout';
-      
-      var elems = $(sel_toscale);
-      
-      var scale = 1;
-      
-      if(typeof size == 'number') {
-        scale = size;
-      } else {
-        var icon_sizes = { s:.75, m:1, l:1.25, xl:1.5 };
-        scale = icon_sizes[size];
-      }
-      
-      Editor.tool_scale = tool_scale = scale;
-      
-      setFlyoutPositions();       
-      var hidden_ps = elems.parents(':hidden');
-      hidden_ps.css('visibility', 'hidden').show();
-      scaleElements(elems, scale);
-      hidden_ps.css('visibility', 'visible').hide();
-      
-      var rule_elem = $('#tool_size_rules');
-      if(!rule_elem.length) {
-        rule_elem = $('<style id="tool_size_rules"><\/style>').appendTo('head');
-      } else {
-        rule_elem.empty();
-      }
-      
-      if(size != 'm') {
-        var style_str = '';
-        $.each(cssResizeRules, function(selector, rules) {
-          selector = '#svg_editor ' + selector.replace(/,/g,', #svg_editor');
-          style_str += selector + '{';
-          $.each(rules, function(prop, values) {
-            if(typeof values === 'number') {
-              var val = (values * scale) + 'px';
-            } else if(values[size] || values.all) {
-              var val = (values[size] || values.all);
-            }
-            style_str += (prop + ':' + val + ';');
-          });
-          style_str += '}';
-        });
-        //this.style[ua_prefix + 'Transform'] = 'scale(' + scale + ')';
-        var prefix = '-' + ua_prefix.toLowerCase() + '-';
-        style_str += (sel_toscale + '{' + prefix + 'transform: scale(' + scale + ');}'
-        + ' #svg_editor div.toolset .toolset {' + prefix + 'transform: scale(1); margin: 1px !important;}' // Hack for markers
-        + ' #svg_editor .ui-slider {' + prefix + 'transform: scale(' + (1/scale) + ');}' // Hack for sliders
-        );
-        rule_elem.text(style_str);
-      }
-      
-      setFlyoutPositions();
-    }
   
     var cancelOverlays = function() {
       $('#dialog_box').hide();
@@ -19046,44 +17714,7 @@ if(!window.methodDraw) window.methodDraw = function($) {
     var win_wh = {width:$(window).width(), height:$(window).height()};
     
     var resetScrollPos = $.noop, curScrollPos;
-    
-    /* Fix for Issue 781: Drawing area jumps to top-left corner on window resize (IE9)
-    if(svgedit.browser.isIE()) {
-      (function() {
-        resetScrollPos = function() {
-          if(workarea[0].scrollLeft === 0 
-          && workarea[0].scrollTop === 0) {
-            workarea[0].scrollLeft = curScrollPos.left;
-            workarea[0].scrollTop = curScrollPos.top;
-          }
-        }
-      
-        curScrollPos = {
-          left: workarea[0].scrollLeft,
-          top: workarea[0].scrollTop
-        };
-        
-        $(window).resize(resetScrollPos);
-        methodDraw.ready(function() {
-          // TODO: Find better way to detect when to do this to minimize
-          // flickering effect
-          setTimeout(function() {
-            resetScrollPos();
-          }, 500);
-        });
-        
-        workarea.scroll(function() {
-          curScrollPos = {
-            left: workarea[0].scrollLeft,
-            top: workarea[0].scrollTop
-          };
-        });
-      }());
-    }*/
-    
-    $(window).resize(function(evt) {
-        updateCanvas();
-    });
+    $(window).resize(updateCanvas);
     
     (function() {
       workarea.scroll(function() {
@@ -19097,10 +17728,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
       });
 
     }());
-    
-    $('#url_notice').click(function() {
-      $.alert(this.title);
-    });
     
     $('#change_image_url').click(promptImgURL);
     
@@ -19307,21 +17934,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
       $('#tool_blur').hide();
     }
     $(blur_test).remove();
-
-    
-    
-    // Test for embedImage support (use timeout to not interfere with page load)
-    setTimeout(function() {
-      svgCanvas.embedImage(curConfig.imgPath + 'placeholder.svg', function(datauri) {
-        if(!datauri) {
-          // Disable option
-          $('#image_save_opts [value=embed]').attr('disabled','disabled');
-          $('#image_save_opts input').val(['ref']);
-          curPrefs.img_save = 'ref';
-          $('#image_opt_embed').css('color','#666').attr('title', "Feature not supported");
-        }
-      });
-    },1000);
       
     $('#tool_fill').click(function(){
       if ($('#tool_fill').hasClass('active')) {
@@ -19524,13 +18136,12 @@ if(!window.methodDraw) window.methodDraw = function($) {
         {sel:'#tool_select', fn: clickSelect, evt: 'click', key: ['V', true]},
         {sel:'#tool_fhpath', fn: clickFHPath, evt: 'click', key: ['Q', true]},
         {sel:'#tool_line', fn: clickLine, evt: 'click', key: ['L', true]},
-        {sel:'#tool_rect', fn: clickRect, evt: 'click', key: ['R', true], icon: 'rect'},
-        {sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', key: ['C', true], icon: 'ellipse'},
-        //{sel:'#tool_circle', fn: clickCircle, evt: 'mouseup', icon: 'circle'},
-        //{sel:'#tool_fhellipse', fn: clickFHEllipse, evt: 'mouseup', parent: '#tools_ellipse', icon: 'fh_ellipse'},
+        {sel:'#tool_rect', fn: clickRect, evt: 'click', key: ['R', true]},
+        {sel:'#tool_ellipse', fn: clickEllipse, evt: 'mouseup', key: ['C', true]},
+        {sel:'#tool_eyedropper', fn: clickEyedropper, evt: 'click', key: ['I', true]},
+        {sel:'#tool_shapelib', fn: clickShapelib, evt: 'click', key: ['S', true]},
         {sel:'#tool_path', fn: clickPath, evt: 'click', key: ['P', true]},
         {sel:'#tool_text', fn: clickText, evt: 'click', key: ['T', true]},
-        {sel:'#tool_image', fn: clickImage, evt: 'mouseup'},
         {sel:'#tool_zoom', fn: clickZoom, evt: 'mouseup', key: ['Z', true]},
         {sel:'#tool_clear', fn: clickClear, evt: 'mouseup', key: [modKey + 'N', true]},
         {sel:'#tool_save', fn: function() { editingsource ? saveSourceEditor(): clickSave() }, evt: 'mouseup', key: [modKey + 'S', true]},
@@ -19599,7 +18210,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
         {key: ['alt+shift+left', true], fn: function(){svgCanvas.cloneSelectedElements(-10,0)}},
         {key: ['alt+shift+right', true], fn: function(){svgCanvas.cloneSelectedElements(10,0)}},  
         {key: modKey + 'A', fn: function(){svgCanvas.selectAllInCurrentLayer();}},
-        {key: 'I', fn: function(){setEyedropperMode()}},
 
         // Standard shortcuts
         {key: modKey + 'shift+z', fn: clickRedo},
@@ -19683,9 +18293,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
             }
           });
           
-          // Setup flyouts
-          setupFlyouts(flyouts);
-          
           $(window).bind('keydown', 'tab', function(e) {
             if(ui_context === 'canvas') {
               e.preventDefault();
@@ -19697,8 +18304,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
               selectPrev();
             }
           });
-          
-          $('#tool_zoom').dblclick(dblclickZoom);
         },
         setTitles: function() {
           $.each(key_assocs, function(keyval, sel)  {
@@ -19863,19 +18468,6 @@ if(!window.methodDraw) window.methodDraw = function($) {
     
     $('#cmenu_canvas li').disableContextMenu();
     canv_menu.enableContextMenuItems('#delete,#cut,#copy');
-    
-    window.onbeforeunload = function() { 
-      // Suppress warning if page is empty 
-      if(undoMgr.getUndoStackSize() === 0) {
-        Editor.show_save_warning = false;
-      }
-
-      // show_save_warning is set to "false" when the page is saved.
-      if(!curConfig.no_save_warning && Editor.show_save_warning) {
-        // Browser already asks question about closing the page
-        return "There are unsaved changes."; 
-      }
-    };
     
     Editor.openPrep = function(func) {
       $('#main_menu').hide();
@@ -20080,183 +18672,13 @@ if(!window.methodDraw) window.methodDraw = function($) {
         w_area[0].scrollTop = new_ctr.y - h_orig/2;
       }
       if(curConfig.showRulers) {
-        updateRulers(cnvs, zoom);
+        updateRulers(svgCanvas, cnvs, zoom);
         workarea.scroll();
       }
     }
     
-    // Make [1,2,5] array
-    var r_intervals = [];
-    for(var i = .1; i < 1E5; i *= 10) {
-      r_intervals.push(1 * i);
-      r_intervals.push(2 * i);
-      r_intervals.push(5 * i);
-    }
-    
-    function updateRulers(scanvas, zoom) {
-      var workarea = document.getElementById("workarea");
-      var title_show = document.getElementById("title_show");
-      var offset_x = 66;
-      var offset_y = 48;
-      if(!zoom) zoom = svgCanvas.getZoom();
-      if(!scanvas) scanvas = $("#svgcanvas");
-      
-      var limit = 30000;
-      
-      var c_elem = svgCanvas.getContentElem();
-      
-      var units = svgedit.units.getTypeMap();
-      var unit = units[curConfig.baseUnit]; // 1 = 1px
-    
-      for(var d = 0; d < 2; d++) {
-        var is_x = (d === 0);
-        var dim = is_x ? 'x' : 'y';
-        var lentype = is_x?'width':'height';
-        var content_d = c_elem.getAttribute(dim)-0;
-        
-        var $hcanv_orig = $('#ruler_' + dim + ' canvas:first');
-        
-        // Bit of a hack to fully clear the canvas in Safari & IE9
-        $hcanv = $hcanv_orig.clone();
-        $hcanv_orig.replaceWith($hcanv);
-        
-        var hcanv = $hcanv[0];
-        
-        // Set the canvas size to the width of the container
-        var ruler_len = scanvas[lentype]()*2;
-        var total_len = ruler_len;
-        hcanv.parentNode.style[lentype] = total_len + 'px';
-        
-        var canv_count = 1;
-        var ctx_num = 0;
-        var ctx_arr;
-        var ctx = hcanv.getContext("2d");
-        
-        ctx.fillStyle = "rgb(200,0,0)"; 
-        ctx.fillRect(0,0,hcanv.width,hcanv.height); 
-        
-        // Remove any existing canvasses
-        $hcanv.siblings().remove();
-        
-        // Create multiple canvases when necessary (due to browser limits)
-        if(ruler_len >= limit) {
-          var num = parseInt(ruler_len / limit) + 1;
-          ctx_arr = Array(num);
-          ctx_arr[0] = ctx;
-          for(var i = 1; i < num; i++) {
-            hcanv[lentype] = limit;
-            var copy = hcanv.cloneNode(true);
-            hcanv.parentNode.appendChild(copy);
-            ctx_arr[i] = copy.getContext('2d');
-          }
-          
-          copy[lentype] = ruler_len % limit;
-          
-          // set copy width to last
-          ruler_len = limit;
-        }
-        
-        hcanv[lentype] = ruler_len;
-        
-        var u_multi = unit * zoom;
-        
-        // Calculate the main number interval
-        var raw_m = 50 / u_multi;
-        var multi = 1;
-        for(var i = 0; i < r_intervals.length; i++) {
-          var num = r_intervals[i];
-          multi = num;
-          if(raw_m <= num) {
-            break;
-          }
-        }
-        
-        var big_int = multi * u_multi;
-        ctx.font = "normal 9px 'Lucida Grande', sans-serif";
-        ctx.fillStyle = "#777";
 
-        var ruler_d = ((content_d / u_multi) % multi) * u_multi;
-        var label_pos = ruler_d - big_int;
-        for (; ruler_d < total_len; ruler_d += big_int) {
-          label_pos += big_int;
-          var real_d = ruler_d - content_d;
-
-          var cur_d = Math.round(ruler_d) + .5;
-          if(is_x) {
-            ctx.moveTo(cur_d, 15);
-            ctx.lineTo(cur_d, 0);
-          } else {
-            ctx.moveTo(15, cur_d);
-            ctx.lineTo(0, cur_d);
-          }
-
-          var num = (label_pos - content_d) / u_multi;
-          var label;
-          if(multi >= 1) {
-            label = Math.round(num);
-          } else {
-            var decs = (multi+'').split('.')[1].length;
-            label = num.toFixed(decs)-0;
-          }
-          
-          // Do anything special for negative numbers?
-//            var is_neg = label < 0;
-//            real_d2 = Math.abs(real_d2);
-          
-          // Change 1000s to Ks
-          if(label !== 0 && label !== 1000 && label % 1000 === 0) {
-            label = (label / 1000) + 'K';
-          }
-          
-          if(is_x) {
-            ctx.fillText(label, ruler_d+2, 8);
-            ctx.fillStyle = "#777";
-          } else {
-            var str = (label+'').split('');
-            for(var i = 0; i < str.length; i++) {
-              ctx.fillText(str[i], 1, (ruler_d+9) + i*9);
-              ctx.fillStyle = "#777";
-            }
-          }
-          
-          var part = big_int / 10;
-          for(var i = 1; i < 10; i++) {
-            var sub_d = Math.round(ruler_d + part * i) + .5;
-            if(ctx_arr && sub_d > ruler_len) {
-              ctx_num++;
-              ctx.stroke();
-              if(ctx_num >= ctx_arr.length) {
-                i = 10;
-                ruler_d = total_len;
-                continue;
-              }
-              ctx = ctx_arr[ctx_num];
-              ruler_d -= limit;
-              sub_d = Math.round(ruler_d + part * i) + .5;
-            }
-            
-            var line_num = (i % 2)?12:10;
-            if(is_x) {
-              ctx.moveTo(sub_d, 15);
-              ctx.lineTo(sub_d, line_num);
-            } else {
-              ctx.moveTo(15, sub_d);
-              ctx.lineTo(line_num ,sub_d);
-            }
-          }
-        }
-        ctx.strokeStyle = "#666";
-        ctx.stroke();
-      }
-    }
-  
-//      $(function() {
-      updateCanvas(true);
-//      });
-    
-  //  var revnums = "svg-editor.js ($Rev: 2083 $) ";
-  //  revnums += svgCanvas.getVersion();
-  //  $('#copyright')[0].setAttribute("title", revnums);
+    updateCanvas(true);
   
     // Callback handler for embedapi.js
     try{
@@ -20425,6 +18847,75 @@ if(!window.methodDraw) window.methodDraw = function($) {
 
 // Run init once DOM is loaded
 $(methodDraw.init);
+function Palette(){
+  var palette = [
+    "#444444", "#482816", "#422C10", "#3B2F0E", "#32320F", 
+    "#293414", "#1F361B", "#153723", "#0C372C", "#083734", 
+    "#0E353B", "#1A333F", "#273141", "#332D40", "#3E2A3C", 
+    "#462735", "#4B252D", "#4D2425", "#4C261D", "#666666", 
+    "#845335", "#7B572D", "#6F5C2A", "#62612C", "#546433", 
+    "#46673D", "#396849", "#306856", "#2D6862", "#33666C", 
+    "#426373", "#535F75", "#645A73", "#74556D", "#805064", 
+    "#884D58", "#8B4D4B", "#894F3F", "#999999", "#C48157", 
+    "#B8874D", "#A98E49", "#97944B", "#849854", "#729C62", 
+    "#619E73", "#559E84", "#529D94", "#5B9BA2", "#6D97AB", 
+    "#8391AE", "#9A8AAB", "#AF84A3", "#BF7E96", "#C97A86", 
+    "#CE7975", "#CC7C65", "#BBBBBB", "#FFB27C", "#FABA6F", 
+    "#E6C36A", "#CFCA6D", "#B8D078", "#A0D58A", "#8CD79F", 
+    "#7DD8B5", "#7AD6CA", "#84D3DB", "#9ACEE6", "#B6C7EA", 
+    "#D3BEE7", "#EDB6DC", "#FFAFCC", "#FFAAB8", "#FFA9A2", 
+    "#FFAC8D", "#DDDDDD", "#FFE7A2", "#FFF093", "#FFFA8D", 
+    "#FFFF91", "#EEFF9F", "#D1FFB4", "#B9FFCE", "#A8FFE9", 
+    "#A4FFFF", "#B1FFFF", "#CBFFFF", "#EDFFFF", "#FFF5FF", 
+    "#FFEBFF", "#FFE2FF", "#FFDCEC", "#FFDBD2", "#FFDFB8"
+  ];
+
+  var str = '<div class="palette_item transparent" data-rgb="none"></div>\
+             <div class="palette_item black" data-rgb="#000000"></div>\
+             <div class="palette_item white" data-rgb="#ffffff"></div>'
+  palette.forEach(function(item, i){
+    str += '<div class="palette_item" style="background-color: ' + item + ';" data-rgb="' + item + '"></div>';
+  });
+  $('#palette').append(str);
+
+  var toolStroke = document.getElementById('tool_stroke');
+  var picking = false;
+
+  $(document).on("mouseup", function(){picking = false;})
+
+  $('#palette').on("mousemove mousedown touchstart touchmove", ".palette_item", function(evt){
+    
+    evt.preventDefault();
+    if (evt.type === "mousedown" || evt.type === "touchstart") picking = true;
+    if (!picking) return;
+
+    var isStroke = toolStroke.classList.contains('active');
+    var picker = isStroke ? "stroke" : "fill";
+    var color = this.getAttribute('data-rgb');
+    var paint = null;
+    var noUndo = true;
+
+    paint = color === 'none' 
+      ? new $.jGraduate.Paint() 
+      : new $.jGraduate.Paint({alpha: 100, solidColor: color.substr(1)});
+
+    methodDraw.paintBox[picker].setPaint(paint);
+    
+    if (isStroke) {
+      svgCanvas.setColor('stroke', color, noUndo);
+      if (color != 'none' && svgCanvas.getStrokeOpacity() != 1) {
+        svgCanvas.setPaintOpacity('stroke', 1.0);
+      }
+    } else {
+      svgCanvas.setColor('fill', color, noUndo);
+      if (color != 'none' && svgCanvas.getFillOpacity() != 1) {
+        svgCanvas.setPaintOpacity('fill', 1.0);
+      }
+    }
+  }).bind('contextmenu', function(e) {e.preventDefault()});
+};
+
+var palette = new Palette();
 
 
 
@@ -22996,7 +21487,6 @@ methodDraw.addExtension("eyedropper", function(S) {
  */
 
 methodDraw.addExtension("shapes", function() {
-  
 
   var current_d, cur_shape_id;
   var canv = methodDraw.canvas;
@@ -23014,7 +21504,7 @@ methodDraw.addExtension("shapes", function() {
     flowchart: 'Flowchart',
     nature: 'Nature',
     game: 'Cards & Chess',
-    dialog_balloon: 'Dialog balloons',
+    dialog_balloon: 'Dialog baloons',
     music: 'Music',
     weather: 'Weather &amp; Time',
     ui: 'User Interface',
@@ -23048,8 +21538,6 @@ methodDraw.addExtension("shapes", function() {
         "divide": "m150,0.99785l0,0c25.17819,0 45.58916,20.41097 45.58916,45.58916c0,25.17821 -20.41096,45.58916 -45.58916,45.58916c-25.17822,0 -45.58916,-20.41093 -45.58916,-45.58916c0,-25.1782 20.41093,-45.58916 45.58916,-45.58916zm0,296.25203c-25.17822,0 -45.58916,-20.41095 -45.58916,-45.58917c0,-25.17819 20.41093,-45.58916 45.58916,-45.58916c25.17819,0 45.58916,20.41096 45.58916,45.58916c0,25.17822 -20.41096,45.58917 -45.58916,45.58917zm-134.06754,-193.71518l268.13507,0l0,91.17833l-268.13507,0z",
         "minus": "m0.99887,102.39503l297.49445,0l0,95.2112l-297.49445,0z",
         "times": "m1.00089,73.36786l72.36697,-72.36697l76.87431,76.87368l76.87431,-76.87368l72.36765,72.36697l-76.87433,76.87431l76.87433,76.87431l-72.36765,72.36765l-76.87431,-76.87433l-76.87431,76.87433l-72.36697,-72.36765l76.87368,-76.87431l-76.87368,-76.87431z"
-        
-
       },
       buttons: []
     }
@@ -23097,7 +21585,7 @@ methodDraw.addExtension("shapes", function() {
     var stroke = fill ? 0: (size/30);
     
     var shape_icon = new DOMParser().parseFromString(
-      '<svg xmlns="http://www.w3.org/2000/svg"><svg viewBox="' + vb + '"><path fill="#333" stroke="transparent" stroke-width="' + stroke + '" /><\/svg><\/svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg"><svg viewBox="' + vb + '"><path /><\/svg><\/svg>',
       'text/xml');
 
     var width = 40;
@@ -23126,7 +21614,6 @@ methodDraw.addExtension("shapes", function() {
     }
     
   }
-
   
   return {
     svgicons: "extensions/ext-shapes.xml",
@@ -23143,14 +21630,12 @@ methodDraw.addExtension("shapes", function() {
       }
     }],
     callback: function() {
-
     
       var btn_div = $('<div id="shape_buttons">');
       $('#tools_shapelib > *').wrapAll(btn_div);
       
-      var shower = $('#tools_shapelib_show');
+      var shower = $('#tool_shapelib');
 
-      
       loadLibrary('basic');
       
       // Do mouseup on parent element rather than each button
@@ -23174,7 +21659,6 @@ methodDraw.addExtension("shapes", function() {
 
       });
 
-//      
       var shape_cats = $('<div id="shape_cats">');
       var cat_str = '';
       
@@ -23199,15 +21683,6 @@ methodDraw.addExtension("shapes", function() {
 
       shower.mouseup(function() {
         canv.setMode(current_d ? mode_id : 'select');
-      });
-
-      
-      $('#tool_shapelib').remove();
-      
-      var h = $('#tools_shapelib').height();
-      $('#tools_shapelib').css({
-        'margin-top': -(h/2),
-        'margin-left': 3
       });
 
   
@@ -23334,7 +21809,7 @@ methodDraw.addExtension("shapes", function() {
           started: false
         }
       }
-      canv.setMode("select")
+
       return {
         keep: true,
         element: cur_shape,
