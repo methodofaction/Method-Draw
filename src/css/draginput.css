@@ -1,0 +1,208 @@
+
+ .draginput {
+  background: #3f3f3c;
+  border-radius: 3px;
+  -webkit-font-smoothing: antialiased;
+  width: 70px;
+  height: 70px;
+  display: block;
+  position: relative;
+  float: left;
+  margin: 0 5px 5px 0;
+}
+
+ .draginput .caret {
+  border: solid transparent 5px;
+  border-top-color: #999;
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: 5px;
+  margin-top: -2px;
+  top: 50%;
+}
+
+ .draginput label {
+  margin: 28px 10px 0 5px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+ .draginput label#resolution_label,  .draginput label#seg_type_label {
+  font: bold 12px/110% sans-serif;
+  position: absolute;
+  left: auto;
+  right: 10px;
+  z-index: 0;
+  text-align: right;
+}
+
+  .draginput label#seg_type_label {
+  margin-top: 40px;
+}
+
+  .draginput label#seg_type_label .caret {
+  top: 66%;
+}
+
+ .draginput label#resolution_label .pull {
+  position: relative;
+  left: -15px;
+}
+
+ .draginput label#resolution_label span {
+  right: -13px;
+  left: auto;
+  font-size: 16px;
+  top: 2px;
+  font-weight: bold;
+  color: white;
+}
+
+.touch  .draginput.active:after {
+  content: attr(data-value);
+  display: block;
+  position: absolute;
+  background: #fff;
+  font-size: 16px;
+  top: 0;
+  width: 30px;
+  left: -50px;
+  padding: 0 5px;
+  color: #333;
+  z-index: 10;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 10px;
+  height: 20px;
+  line-height: 20px;
+  letter-spacing: -1px;
+}
+
+.touch  .draginput.active:before {
+  content: '';
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 5px;
+  left: -5px;
+  border: solid transparent 5px;
+  border-left-color: #fff;
+}
+
+ .draginput input {
+  border: none;
+  background: transparent;
+  font: 24px/normal sans-serif;
+  text-align: center;
+  color: #4F80FF;
+  padding: 30px 0 16px;
+  width: 100%;
+  height: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.draginput.twocol {
+  width: 145px;
+}
+
+
+
+.draginput input, .draginput input:hover, .draginput input:active {  
+    cursor: url(../images/drag.png), move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+.draginput input[type="checkbox"], .draginput input[type="checkbox"]:hover, .draginput input[type="checkbox"]:active {  
+    cursor: pointer;
+}
+
+.draginput.checkbox {
+  cursor: pointer;
+}
+
+.draginput.active input, .draginput.active input:hover, .draginput.active input:active {  
+    cursor: url(../images/dragging.png), move;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+}
+
+
+
+ .draginput span {
+  font: 11px/130% sans-serif;
+  color: #ccc;
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  text-align: left;
+}
+
+ .draginput.error {
+  background: #900;
+}
+
+ .draginput.error input {
+  color: #fff;
+}
+
+ .draginput.stroke_tool {
+  text-align: center;
+}
+
+ .draginput select {
+  -webkit-appearance: none;
+  opacity: 0;
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  z-index: 1;
+  top: 0;
+  left: 0;  
+}
+
+
+.draginput_cursor{
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  border-top: solid rgba(50,100,200,0.25) 3px;
+  margin-top: -2px;
+  z-index: 0;
+}
+
+ .draginput input[readonly=readonly] {
+  -webkit-appearance: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+ .draginput input:focus {
+  background: #50A0FF;
+  color: #fff;
+  outline: none;
+  box-shadow: 0 0 5px 2px #50A0FF;
+}
+
+ .draginput input:focus+span {
+  z-index: 10;
+  color:#fff;
+}
+
+.draginput .push_bottom {
+  bottom: 0;
+  position: absolute;
+}

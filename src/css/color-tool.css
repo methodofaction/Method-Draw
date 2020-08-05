@@ -1,0 +1,81 @@
+
+#color_tools {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 12px 6px 0 6px;
+}
+
+.touch  #color_tools {
+  width: auto;
+  height: auto;
+}
+
+#tool_fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.touch #tool_fill {
+    position: static;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 10px;
+}
+
+
+#tool_fill.active, #tool_stroke.active {
+  z-index: 2;
+}
+
+#tool_stroke {
+  top: 14px;
+  left: 14px;
+}
+
+.touch #tool_fill.active, .touch #tool_stroke.active {
+  outline: 4px solid #09f;
+}
+
+#tool_fill, #tool_stroke, #tool_canvas {
+  box-shadow: 0 0 0 1px #2f2f2c;
+  position: absolute;
+}
+
+.touch #tool_fill, .touch #tool_stroke, .touch #tool_canvas {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#color_canvas_tools {
+  float: left;
+  cursor: pointer;
+}
+
+#tool_fill .color_block {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border: solid #ccc 1px;
+}
+
+.touch  #tool_eyedropper {
+  margin-top: 6px;
+}
+
+.touch #tool_fill .color_block {
+  width: 36px;
+  height: 36px;
+}
+
+.touch #tool_fill .color_block svg {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.touch  #tool_switch {
+  display: none;
+} 

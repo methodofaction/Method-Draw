@@ -1,0 +1,121 @@
+
+.dropdown {
+  position: relative;
+  float: left;
+}
+
+ .dropdown button {
+  width: 21px;
+  height: 22px;
+  padding: 0 3px 0 3px;
+  border: none;
+  background-color: #555;
+  border-radius: 0 2px 2px 0;
+  margin-left: -1px;
+  position: relative;
+}
+
+ .dropdown button:hover {
+  background-color: #666;
+}
+
+ .dropdown button:after {
+  content: '';
+  position: absolute;
+  border: solid transparent 4px;
+  border-top-color: #999;
+  top: 9px;
+  left: 6px;
+}
+
+.dropdown button.down {
+  border-left: 1px solid #808080;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  background-color: #B0B0B0;
+}
+
+.dropdown ul {
+  list-style: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  left: -80px;
+  top: 26px;
+  z-index: 4;
+  display: none;
+}
+
+.dropup ul {
+  top: auto;
+  bottom: 26px;
+  border-radius: 3px;
+  box-shadow: 0 5px 10px #000;
+}
+
+.dropup ul:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  right: 50%;
+  top: auto;
+  width: 0;
+  height: 0;
+  border: solid transparent 5px;
+  border-top-color: #fff;
+}
+
+.dropdown li {
+  display: block;
+  width: 120px;
+  padding: 5px 10px;
+  color: #333;
+  background: #fff;
+  margin: 0;
+  line-height: 16px;
+}
+
+.dropdown li:first-child {border-radius: 3px 3px 0 0;}
+.dropdown li:last-child {border-radius: 0 0 3px 3px;}
+
+.dropdown li:hover {
+  background-color: #ddd;
+  color: #000;
+}
+
+.dropdown li.special {
+  padding: 10px;
+  background: white;
+  border: none;
+  box-shadow: 0 3px 10px black;
+  border-radius: 3px !important;
+}
+
+.dropdown li.special:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -10px;
+  right: 50%;
+  border: solid transparent 5px;
+  border-bottom-color: #fff;
+  
+}
+
+.dropdown li.special.down:after {
+  bottom: -10px;
+  right: 50%;
+  top: auto;
+  border: solid transparent 5px;
+  border-top-color: #fff;
+  
+}
+
+.flyout_arrow_horiz {
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+  z-index: 10;
+}

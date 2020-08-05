@@ -9,7 +9,6 @@
  */
 
 methodDraw.addExtension("shapes", function() {
-  
 
   var current_d, cur_shape_id;
   var canv = methodDraw.canvas;
@@ -27,7 +26,7 @@ methodDraw.addExtension("shapes", function() {
     flowchart: 'Flowchart',
     nature: 'Nature',
     game: 'Cards & Chess',
-    dialog_balloon: 'Dialog balloons',
+    dialog_balloon: 'Dialog baloons',
     music: 'Music',
     weather: 'Weather &amp; Time',
     ui: 'User Interface',
@@ -61,8 +60,6 @@ methodDraw.addExtension("shapes", function() {
         "divide": "m150,0.99785l0,0c25.17819,0 45.58916,20.41097 45.58916,45.58916c0,25.17821 -20.41096,45.58916 -45.58916,45.58916c-25.17822,0 -45.58916,-20.41093 -45.58916,-45.58916c0,-25.1782 20.41093,-45.58916 45.58916,-45.58916zm0,296.25203c-25.17822,0 -45.58916,-20.41095 -45.58916,-45.58917c0,-25.17819 20.41093,-45.58916 45.58916,-45.58916c25.17819,0 45.58916,20.41096 45.58916,45.58916c0,25.17822 -20.41096,45.58917 -45.58916,45.58917zm-134.06754,-193.71518l268.13507,0l0,91.17833l-268.13507,0z",
         "minus": "m0.99887,102.39503l297.49445,0l0,95.2112l-297.49445,0z",
         "times": "m1.00089,73.36786l72.36697,-72.36697l76.87431,76.87368l76.87431,-76.87368l72.36765,72.36697l-76.87433,76.87431l76.87433,76.87431l-72.36765,72.36765l-76.87431,-76.87433l-76.87431,76.87433l-72.36697,-72.36765l76.87368,-76.87431l-76.87368,-76.87431z"
-        
-
       },
       buttons: []
     }
@@ -110,7 +107,7 @@ methodDraw.addExtension("shapes", function() {
     var stroke = fill ? 0: (size/30);
     
     var shape_icon = new DOMParser().parseFromString(
-      '<svg xmlns="http://www.w3.org/2000/svg"><svg viewBox="' + vb + '"><path fill="#333" stroke="transparent" stroke-width="' + stroke + '" /><\/svg><\/svg>',
+      '<svg xmlns="http://www.w3.org/2000/svg"><svg viewBox="' + vb + '"><path /><\/svg><\/svg>',
       'text/xml');
 
     var width = 40;
@@ -139,7 +136,6 @@ methodDraw.addExtension("shapes", function() {
     }
     
   }
-
   
   return {
     svgicons: "extensions/ext-shapes.xml",
@@ -156,14 +152,12 @@ methodDraw.addExtension("shapes", function() {
       }
     }],
     callback: function() {
-
     
       var btn_div = $('<div id="shape_buttons">');
       $('#tools_shapelib > *').wrapAll(btn_div);
       
-      var shower = $('#tools_shapelib_show');
+      var shower = $('#tool_shapelib');
 
-      
       loadLibrary('basic');
       
       // Do mouseup on parent element rather than each button
@@ -187,7 +181,6 @@ methodDraw.addExtension("shapes", function() {
 
       });
 
-//      
       var shape_cats = $('<div id="shape_cats">');
       var cat_str = '';
       
@@ -212,15 +205,6 @@ methodDraw.addExtension("shapes", function() {
 
       shower.mouseup(function() {
         canv.setMode(current_d ? mode_id : 'select');
-      });
-
-      
-      $('#tool_shapelib').remove();
-      
-      var h = $('#tools_shapelib').height();
-      $('#tools_shapelib').css({
-        'margin-top': -(h/2),
-        'margin-left': 3
       });
 
   
@@ -347,7 +331,7 @@ methodDraw.addExtension("shapes", function() {
           started: false
         }
       }
-      canv.setMode("select")
+
       return {
         keep: true,
         element: cur_shape,

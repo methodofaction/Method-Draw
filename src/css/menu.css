@@ -1,0 +1,143 @@
+
+#menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: #000;
+  z-index: 10;
+  color: #fff;
+}
+
+ #menu_bar {
+  padding: 0 0 0 50px;
+  background: #2f2f2c;
+  position: relative;
+  z-index: 2;
+}
+
+ #menu_bar.active .menu.open .menu_list {
+  display: block;
+}
+
+ .menu {
+  position: relative;
+  z-index: 5;
+  color: #333;
+  display: inline-block;
+}
+
+ .menu_title {
+  cursor: pointer;
+  display: inline-block;
+  padding: 7px 10px;
+  z-index: 10;
+  color: #fff;
+  position: relative;
+  height: 16px;
+  vertical-align: top;
+}
+
+.touch   .menu_title { 
+  padding: 7px 17px;
+  height: 26px;
+  line-height: 26px;
+}
+
+ .menu .menu_title:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+ .menu_list .separator {
+  margin: 5px 0;
+  border-top: solid #ddd 1px;
+}
+
+ .menu_list {
+  display: none;
+  position: absolute;
+  top: 28px;
+  left: 0;
+  white-space: nowrap;
+  background: white;
+  padding: 7px 0;
+  border-radius: 0 3px 3px 3px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.touch  .menu_list {
+  top: 38px;
+}
+
+ #menu_bar.active .menu.open .menu_title {
+  background: white;
+  color: #333;
+}
+
+.menu .menu_list {
+  display: none;
+  position: absolute;
+}
+
+ .menu_list .menu_item {
+  position: relative;
+  overflow: hidden;
+  line-height: 22px;
+  padding: 5px 69px 5px 25px;
+  cursor: default;
+  color: #333;
+}
+
+.menu_list .menu_item.tool_button {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 5px 55px 5px 25px;
+  height: auto;
+  width: auto;
+}
+
+ .menu_list .menu_item.push_button_pressed:before {
+  content: '✔';
+  position: absolute;
+  display: block;
+  left: 7px;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+}
+
+ .menu_list .menu_item:hover,
+ .menu_list .menu_item.push_button_pressed:hover {
+  background: rgba(0,0,0,0.1);
+  color: #000;
+}
+
+ .menu_list .menu_item.disabled:hover,
+ .menu_list .menu_item.push_button_pressed.disabled:hover {
+  background: transparent;
+  color: #333;
+}
+
+ .menu_list .menu_item.push_button_pressed {
+ background: transparent;
+ border: none; 
+ width: auto;
+ height: auto;
+ margin: 0;
+}
+
+ .menu_list .menu_item span {
+  display: block;
+  position: absolute;
+  right: 10px;
+  padding: 5px;
+  background: rgba(0,0,0, 0.1);
+  top: 6px;
+  height: 10px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 120%;
+}
