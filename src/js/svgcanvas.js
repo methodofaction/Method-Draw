@@ -207,7 +207,7 @@ $.extend(all_properties.text, {
   fill: "#000000",
   stroke_width: 0,
   font_size: 24,
-  font_family: 'Helvetica, Arial, sans-serif'
+  font_family: 'Bair, sans-serif'
 });
 
 // Current shape style properties

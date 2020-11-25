@@ -7195,7 +7195,7 @@ $.extend(all_properties.text, {
   fill: "#000000",
   stroke_width: 0,
   font_size: 24,
-  font_family: 'Helvetica, Arial, sans-serif'
+  font_family: 'Bair, sans-serif'
 });
 
 // Current shape style properties
@@ -16185,7 +16185,7 @@ window.methodDraw = function() {
     showRulers: (svgedit.browser.isTouch()) ? false : true,
     show_outside_canvas: false,
     no_save_warning: true,
-    initFont: 'Helvetica, Arial, sans-serif'
+    initFont: 'Bair, sans-serif'
   };
   var customHandlers = {};
   Editor.curConfig = curConfig;
@@ -22436,4 +22436,18 @@ if (typeof module !== "undefined" && module.exports) {
   define([], function() {
     return saveAs;
   });
+}
+// window.addEventListener('paste', ... or
+document.onpaste = function(event){
+  var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+  for (index in items) {
+    var item = items[index];
+    if (item.kind === 'file') {
+      var blob = item.getAsFile();
+      var reader = new FileReader();
+      reader.onload = function(event){
+        console.log(event.target.result)}; // data url!
+      reader.readAsDataURL(blob);
+    }
+  }
 }
