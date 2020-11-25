@@ -1000,6 +1000,13 @@ input[readonly=readonly]:focus {
   transform-origin: 50% 0;
 }
 
+#text_anchor_label {
+    font-size: 17px;
+    margin-top: 33px;
+    letter-spacing: -1px;
+    text-align: center;
+}
+
 #stroke_style_label {
   font-size: 30px;
   margin-top: 33px;

@@ -3,8 +3,8 @@ window.methodDraw = function() {
   var Editor = {};
   var is_ready = false;
   var curConfig = {
-    canvas_expansion: 1, 
-    dimensions: [800,600], 
+    canvas_expansion: 1,
+    dimensions: [800,600],
     initFill: {color: 'fff', opacity: 1},
     initStroke: {width: 1.5, color: '000', opacity: 1},
     initOpacity: 1,
@@ -27,14 +27,14 @@ window.methodDraw = function() {
   var customHandlers = {};
   Editor.curConfig = curConfig;
   Editor.tool_scale = 1;
-  
+
   Editor.setConfig = function(opts) {
     $.extend(true, curConfig, opts);
     if(opts.extensions) {
       curConfig.extensions = opts.extensions;
     }
   }
-  
+
   Editor.init = function() {
 
     $("body").toggleClass("touch", svgedit.browser.isTouch());
@@ -53,19 +53,19 @@ window.methodDraw = function() {
       default_img_url = curConfig.imgPath + "placeholder.svg",
       workarea = $("#workarea"),
       canv_menu = $("#cmenu_canvas"),
-      exportWindow = null, 
+      exportWindow = null,
       tool_scale = 1,
       ui_context = 'toolbars',
       orig_source = '';
-      
+
     // This puts the correct shortcuts in the menus
     if (!isMac) {
      $('.shortcut').each(function(){
        var text = $(this).text();
        $(this).text(text.split("⌘").join("Ctrl+"))
-     }); 
+     });
     }
-    
+
     var setSelectMode = function() {
       var curr = $('.tool_button.current');
       if(curr.length && curr[0].id !== 'tool_select') {
@@ -74,7 +74,7 @@ window.methodDraw = function() {
       }
       svgCanvas.setMode('select');
     };
-    
+
     var togglePathEditMode = function(editmode, elems) {
       if(editmode) {
         // Change select icon
@@ -92,7 +92,7 @@ window.methodDraw = function() {
 
       }
     }
-  
+
     // used to make the flyouts stay on the screen longer the very first time
     var flyoutspeed = 1250;
     var textBeingEntered = false;
@@ -102,23 +102,23 @@ window.methodDraw = function() {
     var docprops = false;
     var preferences = false;
     var cur_context = '';
-    
+
     var saveHandler = function(window,svg) {
-     
+
     };
-    
+
     var exportHandler = function(window, data) {
       var issues = data.issues;
-      
+
       if(!$('#export_canvas').length) {
         $('<canvas>', {id: 'export_canvas'}).hide().appendTo('body');
       }
       var c = $('#export_canvas')[0];
-      
+
       c.width = svgCanvas.contentW;
       c.height = svgCanvas.contentH;
       canvg(c, data.svg, {renderCallback: function() {
-        var datauri = c.toDataURL('image/png');  
+        var datauri = c.toDataURL('image/png');
         if (!datauri) return false;
         var filename = "Method Draw Image";
         var type = 'image/png';
@@ -139,9 +139,9 @@ window.methodDraw = function() {
         }
       }});
     };
-    
+
     // called when we've selected a different element
-    var selectedChanged = function(window,elems) {        
+    var selectedChanged = function(window,elems) {
       var mode = svgCanvas.getMode();
       if(mode === "select") setSelectMode();
       if (mode === "pathedit") return updateContextPanel();
@@ -173,15 +173,15 @@ window.methodDraw = function() {
         multiselected: multiselected
       });
     };
-  
+
     // Call when part of element is in process of changing, generally
     // on mousemove actions like rotate, move, etc.
     var elementTransition = function(window,elems) {
       var mode = svgCanvas.getMode();
       var elem = elems[0];
-      
+
       if(!elem) return;
-      
+
       multiselected = (elems.length >= 2 && elems[1] != null) ? elems : null;
       // Only updating fields for single elements for now
       if(!multiselected) {
@@ -198,22 +198,22 @@ window.methodDraw = function() {
         elems: elems
       });
     };
-  
+
     // called when any element has changed
     var elementChanged = function(window,elems) {
       var mode = svgCanvas.getMode();
       if(mode === "select") {
         setSelectMode();
       }
-      
+
       for (var i = 0; i < elems.length; ++i) {
         var elem = elems[i];
-        
+
         // if the element changed was the svg, then it could be a resolution change
         if (elem && elem.tagName === "svg") {
           //populateLayers();
           updateCanvas();
-        } 
+        }
         // Update selectedElement if element is no longer part of the image.
         // This occurs for the text elements in Firefox
         else if(elem && selectedElement && selectedElement.parentNode == null) {
@@ -221,27 +221,27 @@ window.methodDraw = function() {
           selectedElement = elem;
         }
       }
-        
+
       // we update the contextual panel with potentially new
       // positional/sizing information (we DON'T want to update the
       // toolbar here as that creates an infinite loop)
       // also this updates the history buttons
-  
+
       // we tell it to skip focusing the text control if the
       // text element was previously in focus
       updateContextPanel();
-      
+
       // In the event a gradient was flipped:
       if(selectedElement && mode === "select") {
         Editor.paintBox.fill.update();
         Editor.paintBox.stroke.update();
       }
-      
+
       svgCanvas.runExtensions("elementChanged", {
         elems: elems
       });
     };
-    
+
     var zoomChanged = function(window, bbox, autoCenter) {
       var scrbar = 15,
         res = svgCanvas.getResolution(),
@@ -251,7 +251,7 @@ window.methodDraw = function() {
       if(!z_info) return;
       var zoomlevel = z_info.zoom,
         bb = z_info.bbox;
-      
+
       if(zoomlevel < .001) {
         changeZoom({value: .1});
         return;
@@ -280,15 +280,15 @@ window.methodDraw = function() {
       }
       animateZoom()
 
-  
+
       if(svgCanvas.getMode() == 'zoom' && bb.width) {
         // Go to select if a zoom box was drawn
         setSelectMode();
       }
-      
+
       zoomDone();
     }
-    
+
     $('#cur_context_panel').delegate('a', 'click', function() {
       var link = $(this);
       if(link.attr('data-root')) {
@@ -299,14 +299,14 @@ window.methodDraw = function() {
       svgCanvas.clearSelection();
       return false;
     });
-    
+
     var contextChanged = function(win, context) {
-      
+
       var link_str = '';
       if(context) {
         var str = '';
         link_str = '<a href="#" data-root="y">' + svgCanvas.getCurrentDrawing().getCurrentLayerName() + '</a>';
-        
+
         $(context).parentsUntil('#svgcontent > g').addBack().each(function() {
           if(this.id) {
             str += ' > ' + this.id;
@@ -329,7 +329,7 @@ window.methodDraw = function() {
     var extAdded = function(window, ext) {
        if(ext.callback) ext.callback();
     }
-    
+
     // Makes sure the current selected paint is available to work with
     var prepPaints = function() {
       Editor.paintBox.fill.prep();
@@ -346,10 +346,10 @@ window.methodDraw = function() {
         } else {
           refElem =  $("#" + type + "_color defs *")[0];
         }
-        
+
         opts = { alpha: opac };
         opts[refElem.tagName] = refElem;
-      } 
+      }
       else if (color.indexOf("#") === 0) {
         opts = {
           alpha: opac,
@@ -363,15 +363,15 @@ window.methodDraw = function() {
         };
       }
       return new $.jGraduate.Paint(opts);
-    };  
-    
+    };
+
     // set the canvas properties at init
     var res = svgCanvas.getResolution();
     if(curConfig.baseUnit !== "px") {
       res.w = svgedit.units.convertUnit(res.w) + curConfig.baseUnit;
       res.h = svgedit.units.convertUnit(res.h) + curConfig.baseUnit;
     }
-    
+
     var createBackground = function(fill) {
       svgCanvas.createLayer("background")
       cur_shape = svgCanvas.addSvgElementFromJson({
@@ -391,11 +391,11 @@ window.methodDraw = function() {
       svgCanvas.setCurrentLayer("Layer 1")
       svgCanvas.setCurrentLayerPosition("1")
     }
-    
+
     // create a new layer background if it doesn't exist
     if (!document.getElementById('canvas_background')) createBackground();
     var fill = document.getElementById('canvas_background').getAttribute("fill");
-    
+
     // updates the toolbar (colors, opacity, etc) based on the selected element
     // This function also updates the opacity and id elements that are in the context panel
     var updateToolbar = function() {
@@ -416,7 +416,7 @@ window.methodDraw = function() {
         case 'a':
           // Look for common styles
           var gWidth = null;
-          
+
           var childs = selectedElement.getElementsByTagName('*');
           for(var i = 0, len = childs.length; i < len; i++) {
             var swidth = childs[i].getAttribute("stroke-width");
@@ -426,7 +426,7 @@ window.methodDraw = function() {
               gWidth = null;
             }
           }
-          
+
           $('#stroke_width').val(gWidth === null ? "0" : gWidth);
           updateContextPanel();
           break;
@@ -434,7 +434,7 @@ window.methodDraw = function() {
           //removed because multiselect shouldnt set color
           //Editor.paintBox.fill.update(false);
           //Editor.paintBox.stroke.update(false);
-          
+
           $('#stroke_width').val(selectedElement.getAttribute("stroke-width") || 0);
           var dash = selectedElement.getAttribute("stroke-dasharray") || "none"
           $('option', '#stroke_style').removeAttr('selected');
@@ -446,7 +446,7 @@ window.methodDraw = function() {
         }
 
       }
-      
+
       // All elements including image and group have opacity
       if(selectedElement != null) {
         var opac_perc = ((selectedElement.getAttribute("opacity")||1.0)*100);
@@ -454,31 +454,31 @@ window.methodDraw = function() {
         $.fn.dragInput.updateCursor($('#group_opacity')[0])
       }
     };
-  
+
     var setImageURL = Editor.setImageURL = function(url) {
       if(!url) url = default_img_url;
-      
+
       svgCanvas.setImageURL(url);
       $('#image_url').val(url);
     }
-  
+
     var setInputWidth = function(elem) {
       var w = Math.min(Math.max(12 + elem.value.length * 6, 50), 300);
       $(elem).width(w);
     }
-  
+
     // updates the context panel tools based on the selected element
     var updateContextPanel = function(e) {
       var elem = selectedElement;
       // If element has just been deleted, consider it null
       if(elem != null && !elem.parentNode) elem = null;
       if (multiselected && multiselected[0] != null && !multiselected[0].parentNode) multiselected = false;
-      
+
       var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
       var currentMode = svgCanvas.getMode();
       var unit = curConfig.baseUnit !== 'px' ? curConfig.baseUnit : null;
       var is_node = currentMode == 'pathedit'; //elem ? (elem.id && elem.id.indexOf('pathpointgrip') == 0) : false;
-      
+
       if (is_node) {
         $('.context_panel').hide();
         $('#path_node_panel').show();
@@ -486,7 +486,7 @@ window.methodDraw = function() {
         var point = path.getNodePoint();
         $('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
         $('#tool_node_delete').toggleClass('disabled', !path.canDeleteNodes);
-                
+
         if(point) {
           var seg_type = $('#seg_type');
           if(unit) {
@@ -502,18 +502,18 @@ window.methodDraw = function() {
             seg_type.val(4).attr('disabled','disabled');
           }
         }
-        $("#tools_top").removeClass("multiselected")        
+        $("#tools_top").removeClass("multiselected")
         $("#stroke_panel").hide();
         $("#canvas_panel").hide();
         return;
       }
-      
+
       var menu_items = $('#cmenu_canvas li');
       $('.context_panel').hide();
       $('.menu_item', '#edit_menu').addClass('disabled');
       $('.menu_item', '#object_menu').addClass('disabled');
-      
-      
+
+
       //hack to show the proper multialign box
       if (multiselected) {
         multiselected = multiselected.filter(Boolean);
@@ -522,17 +522,17 @@ window.methodDraw = function() {
       }
 
       if (!elem && !multiselected) {
-        $("#tools_top").removeClass("multiselected")        
+        $("#tools_top").removeClass("multiselected")
         $("#stroke_panel").hide();
         $("#canvas_panel").show();
       }
-  
+
       if (elem != null) {
         $("#stroke_panel").show();
         var elname = elem.nodeName;
         var angle = svgCanvas.getRotationAngle(elem);
         $('#angle').val(Math.round(angle));
-        
+
         var blurval = svgCanvas.getBlur(elem);
         $('#blur').val(blurval);
         if(!is_node && currentMode != 'pathedit') {
@@ -547,7 +547,7 @@ window.methodDraw = function() {
               y = bb.y;
             }
           }
-          
+
           if(unit) {
             x = svgedit.units.convertUnit(x);
             y = svgedit.units.convertUnit(y);
@@ -560,34 +560,34 @@ window.methodDraw = function() {
             $("#path_x").val(Math.round(x))
             $("#path_y").val(Math.round(y))
           }
-                    
+
           // Elements in this array cannot be converted to a path
           var no_path = ['image', 'text', 'path', 'g', 'use'].indexOf(elname) == -1;
           if (no_path) $('.action_path_convert_selected').removeClass('disabled');
           if (elname === "path") $('.action_path_selected').removeClass('disabled');
 
         }
-        
+
         var link_href = null;
         if (el_name === 'a') {
           link_href = svgCanvas.getHref(elem);
           $('#g_panel').show();
         }
-        
+
         if(elem.parentNode.tagName === 'a') {
           if(!$(elem).siblings().length) {
             $('#a_panel').show();
             link_href = svgCanvas.getHref(elem.parentNode);
           }
         }
-        
+
         // Hide/show the make_link buttons
         $('#tool_make_link, #tool_make_link').toggle(!link_href);
-        
+
         if(link_href) {
           $('#link_url').val(link_href);
         }
-        
+
         // update contextual tools here
         var panels = {
           g: [],
@@ -596,39 +596,39 @@ window.methodDraw = function() {
           image: ['width','height', 'x', 'y'],
           circle: ['cx','cy','r'],
           ellipse: ['cx','cy','rx','ry'],
-          line: ['x1','y1','x2','y2'], 
+          line: ['x1','y1','x2','y2'],
           text: ['x', 'y'],
           'use': [],
           path : []
         };
-        
+
         var el_name = elem.tagName;
-        
+
         if($(elem).data('gsvg')) {
           $('#g_panel').show();
         }
-        
+
         if (el_name == "path" || el_name == "polyline") {
           $('#path_panel').show();
         }
-        
+
         if(panels[el_name]) {
           var cur_panel = panels[el_name];
           $('#' + el_name + '_panel').show();
-          
+
           // corner radius has to live in a different panel
-          // because otherwise it changes the position of the 
+          // because otherwise it changes the position of the
           // of the elements
           if(el_name == "rect") $("#cornerRadiusLabel").show()
           else $("#cornerRadiusLabel").hide()
-          
+
           $.each(cur_panel, function(i, item) {
             var attrVal = elem.getAttribute(item);
             if(curConfig.baseUnit !== 'px' && elem[item]) {
               var bv = elem[item].baseVal.value;
               attrVal = svgedit.units.convertUnit(bv);
             }
-            
+
             //update the draginput cursors
             var name_item = document.getElementById(el_name + '_' + item);
             name_item.value = Math.round(attrVal) || 0;
@@ -636,19 +636,21 @@ window.methodDraw = function() {
               $.fn.dragInput.updateCursor(name_item );
             }
           });
-          
+
           if(el_name == 'text') {
             var font_family = elem.getAttribute("font-family");
             var select = document.getElementById("font_family_dropdown");
             select.selectedIndex = 3
-            
-            $('#text_panel').css("display", "inline");  
+
+            $('#text_panel').css("display", "inline");
             $('#tool_italic').toggleClass('active', svgCanvas.getItalic())
             $('#tool_bold').toggleClass('active', svgCanvas.getBold())
             $('#font_family').val(font_family);
             $('#font_size').val(elem.getAttribute("font-size"));
             $('#text').val(elem.textContent);
             $('#preview_font').text(font_family.split(",")[0].replace(/'/g, "")).css('font-family', font_family);
+            $("#text_anchor").val(elem.getAttribute('text-anchor'))
+            $("#text_anchor_label").html($("#text_anchor option:selected").text())
             if (svgCanvas.addedNew) {
               // Timeout needed for IE9
               setTimeout(function() {
@@ -668,19 +670,19 @@ window.methodDraw = function() {
         menu_items[(el_name === 'g' ? 'en':'dis') + 'ableContextMenuItems']('#ungroup');
         menu_items[((el_name === 'g' || !multiselected) ? 'dis':'en') + 'ableContextMenuItems']('#group');
       }
-      
+
       if (multiselected) {
         $('#multiselected_panel').show();
         $('.action_multi_selected').removeClass('disabled');
         menu_items
           .enableContextMenuItems('#group')
           .disableContextMenuItems('#ungroup');
-      } 
-      
+      }
+
       if (!elem) {
         menu_items.disableContextMenuItems('#delete,#cut,#copy,#group,#ungroup,#move_front,#move_up,#move_down,#move_back');
       }
-      
+
       // update history buttons
       if (undoMgr.getUndoStackSize() > 0) {
         $('#tool_undo').removeClass( 'disabled');
@@ -694,18 +696,18 @@ window.methodDraw = function() {
       else {
         $('#tool_redo').addClass( 'disabled');
       }
-      
+
       svgCanvas.addedNew = false;
-      
+
       if ( (elem && !is_node) || multiselected) {
         // update the selected elements' layer
         $('#selLayerNames').removeAttr('disabled').val(currentLayerName);
-        
+
         // Enable regular menu options
         canv_menu.enableContextMenuItems('#delete,#cut,#copy,#move_front,#move_up,#move_down,#move_back');
       }
     };
-  
+
     $('#text').on("focus", function(e){ textBeingEntered = true; } );
     $('#text').on("blur", function(){ textBeingEntered = false; } );
 
@@ -718,11 +720,11 @@ window.methodDraw = function() {
     svgCanvas.bind("contextset", contextChanged);
     svgCanvas.bind("extension_added", extAdded);
     svgCanvas.textActions.setInputElem($("#text")[0]);
-    
+
     var changeFontSize = function(ctl) {
       svgCanvas.setFontSize(ctl.value);
     }
-    
+
     var changeStrokeWidth = function(ctl) {
       var val = ctl.value;
       if(val == 0 && selectedElement && ['line', 'polyline'].indexOf(selectedElement.nodeName) >= 0) {
@@ -730,11 +732,11 @@ window.methodDraw = function() {
       }
       svgCanvas.setStrokeWidth(val);
     }
-    
+
     //cache
     var $indicator = $('#tool_angle_indicator')
     var $reorient = $('#tool_reorient')
-    
+
     rotateCursor = function(angle){
       var rotate_string = 'rotate('+ angle + 'deg)'
       $indicator.css({
@@ -745,14 +747,14 @@ window.methodDraw = function() {
         'transform': rotate_string
       });
     }
-    
+
     var changeRotationAngle = function(ctl) {
       var preventUndo = true;
       svgCanvas.setRotationAngle(ctl.value, preventUndo);
       rotateCursor(ctl.value)
       $('#tool_reorient').toggleClass('disabled', ctl.value == 0);
     }
-    
+
     var changeZoom = function(ctl) {
       var zoomlevel = ctl.value / 100;
       if(zoomlevel < .001) {
@@ -765,12 +767,12 @@ window.methodDraw = function() {
         width: 0,
         height: 0,
         // center pt of scroll position
-        x: (w_area[0].scrollLeft + w_area.width()/2)/zoom, 
+        x: (w_area[0].scrollLeft + w_area.width()/2)/zoom,
         y: (w_area[0].scrollTop + w_area.height()/2)/zoom,
         zoom: zoomlevel
       }, true);
     }
-    
+
     var changeBlur = function(ctl, completed) {
       val = ctl.value;
       $('#blur').val(val);
@@ -781,35 +783,40 @@ window.methodDraw = function() {
         svgCanvas.setBlurNoUndo(val);
       }
     }
-  
+
     var operaRepaint = function() {
       // Repaints canvas in Opera. Needed for stroke-dasharray change as well as fill change
       if(!window.opera) return;
       $('<p/>').hide().appendTo('body').remove();
     }
-  
+
     $('#stroke_style').change(function(){
       svgCanvas.setStrokeAttr('stroke-dasharray', $(this).val());
       $("#stroke_style_label").html(this.options[this.selectedIndex].text)
       operaRepaint();
     });
-    
+
     $('#seg_type').change(function() {
       svgCanvas.setSegType($(this).val());
       $("#seg_type_label").html(this.options[this.selectedIndex].text)
     });
-  
+
     // Lose focus for select elements when changed (Allows keyboard shortcuts to work better)
     $('select').change(function(){$(this).blur();});
-  
+
     $('#font_family').change(function() {
       svgCanvas.setFontFamily(this.value);
     });
-      
+
+    $('#text_anchor').change(function() {
+      svgCanvas.setTextAnchor(this.value);
+      $("#text_anchor_label").html(this.options[this.selectedIndex].text)
+    });
+
     $('#text').keyup(function(){
       svgCanvas.setTextContent(this.value);
     });
-    
+
     changeAttribute = function(el, completed) {
       var attr = el.getAttribute("data-attr");
       var multiplier = el.getAttribute("data-multiplier") || 1;
@@ -834,7 +841,7 @@ window.methodDraw = function() {
       $(this).removeClass('expanded');
       resetScrollPos();
     });
-  
+
     var toolButtonClick = function(button, noHiding) {
       if ($(button).hasClass('disabled')) return false;
       if($(button).parent().hasClass('tools_flyout')) return true;
@@ -847,12 +854,12 @@ window.methodDraw = function() {
       $(button).addClass('current');
       return true;
     };
-    
+
     (function() {
-      var last_x = null, last_y = null, w_area = workarea[0], 
+      var last_x = null, last_y = null, w_area = workarea[0],
         panning = false, keypan = false;
-      
-      var move_pan = function(evt) {    
+
+      var move_pan = function(evt) {
           if(panning === false) return;
 
           w_area.scrollLeft -= (evt.clientX - last_x);
@@ -862,7 +869,7 @@ window.methodDraw = function() {
           if(evt.type === 'mouseup' || evt.type === 'touchend') panning = false;
           return false;
       }
-      
+
       var start_pan = function(evt) {
         if(evt.button === 1 || keypan === true || (evt.originalEvent.touches && evt.originalEvent.touches.length >= 2)) {
           panning = true;
@@ -871,19 +878,19 @@ window.methodDraw = function() {
           return false;
         }
       }
-      
+
       $('#svgcanvas')
         .on('mousemove mouseup touchend', move_pan)
         .on("mousedown touchmove", start_pan)
-      
+
       $(window).mouseup(function() {
         panning = false;
       });
-      
+
       $(document).bind('keydown', 'space', function(evt) {
         evt.preventDefault();
         svgCanvas.spaceKey = keypan = true;
-        
+
       }).bind('keyup', 'space', function(evt) {
         evt.preventDefault();
         svgCanvas.spaceKey = keypan = false;
@@ -897,21 +904,21 @@ window.methodDraw = function() {
         }
       })
     }());
-    
-    
+
+
     function setStrokeOpt(opt, changeElem) {
       var id = opt.id;
       var bits = id.split('_');
       var pre = bits[0];
       var val = bits[1];
-    
+
       if(changeElem) {
         svgCanvas.setStrokeAttr('stroke-' + pre, val);
       }
       operaRepaint();
       $(opt).addClass('current').siblings().removeClass('current');
     }
-    
+
     //menu handling
     var menus = $('.menu');
     var blinker = function(e) {
@@ -928,13 +935,13 @@ window.methodDraw = function() {
       if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
         if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blinker(e)
         else $('#menu_bar').removeClass('active')
-      }  
+      }
 
     }
-    
+
     $('.menu_item').on('mousedown touchstart', function(e){blinker(e)});
     $("svg, body").on('mousedown  touchstart', function(e){closer(e)});
-    
+
     var accumulatedDelta = 0
     $('#workarea').on('mousewheel', function(e, delta, deltaX, deltaY){
       if (e.altKey || e.ctrlKey) {
@@ -943,7 +950,7 @@ window.methodDraw = function() {
         $("#zoom").val(parseInt(zoom + deltaY*(e.altKey ? 10 : 5))).change()
       }
     });
-    
+
     $('.menu_title')
       .on('mousedown', function() {
         $("#tools_shapelib").hide()
@@ -962,7 +969,7 @@ window.methodDraw = function() {
       $('#preview_font').html(fam_display).css("font-family", fam);
       $('#font_family').val(fam).change();
     });
-    
+
     $('div', '#position_opts').each(function(){
       this.addEventListener("mouseup", function(){
         var letter = this.id.replace('tool_pos','').charAt(0);
@@ -970,14 +977,14 @@ window.methodDraw = function() {
       })
     });
 
-    
+
     // Unfocus text input when workarea is mousedowned.
     (function() {
       var inp;
       var unfocus = function() {
         $(inp).blur();
       }
-      
+
       $('#svg_editor').find('button, select, input:not(#text)').focus(function() {
         inp = this;
         ui_context = 'toolbars';
@@ -990,7 +997,7 @@ window.methodDraw = function() {
           $('#text').focus();
         }
       });
-      
+
     }());
 
     var clickSelect = function() {
@@ -998,48 +1005,48 @@ window.methodDraw = function() {
         svgCanvas.setMode('select');
       }
     };
-  
+
     var clickFHPath = function() {
       if (toolButtonClick('#tool_fhpath')) {
         svgCanvas.setMode('fhpath');
       }
     };
-  
+
     var clickLine = function() {
       if (toolButtonClick('#tool_line')) {
         svgCanvas.setMode('line');
       }
     };
-  
 
-    
+
+
     var clickRect = function(){
       if (toolButtonClick('#tool_rect')) {
         svgCanvas.setMode('rect');
       }
     };
-    
- 
-  
+
+
+
     var clickEllipse = function(){
       if (toolButtonClick('#tool_ellipse')) {
         svgCanvas.setMode('ellipse');
       }
     };
-  
+
     var clickZoom = function(){
       if (toolButtonClick('#tool_zoom')) {
         svgCanvas.setMode('zoom');
       }
     };
-  
-  
+
+
     var clickText = function(){
       if (toolButtonClick('#tool_text')) {
         svgCanvas.setMode('text');
       }
     };
-    
+
     var clickPath = function(){
       if (toolButtonClick('#tool_path')) {
         svgCanvas.setMode('path');
@@ -1074,43 +1081,43 @@ window.methodDraw = function() {
         path.deletePathNode();
       }
     };
-  
+
     var cutSelected = function() {
       if (selectedElement != null || multiselected) {
         flash($('#edit_menu'));
         svgCanvas.cutSelectedElements();
       }
     };
-    
+
     var copySelected = function() {
       if (selectedElement != null || multiselected) {
         flash($('#edit_menu'));
         svgCanvas.copySelectedElements();
       }
     };
-    
+
     var pasteSelected = function() {
       flash($('#edit_menu'));
-      var zoom = svgCanvas.getZoom();       
-      var x = (workarea[0].scrollLeft + workarea.width()/2)/zoom  - svgCanvas.contentW; 
+      var zoom = svgCanvas.getZoom();
+      var x = (workarea[0].scrollLeft + workarea.width()/2)/zoom  - svgCanvas.contentW;
       var y = (workarea[0].scrollTop + workarea.height()/2)/zoom  - svgCanvas.contentH;
-      svgCanvas.pasteElements('point', x, y); 
+      svgCanvas.pasteElements('point', x, y);
     }
-    
+
     var moveToTopSelected = function() {
       if (selectedElement != null) {
         flash($('#object_menu'));
         svgCanvas.moveToTopSelectedElement();
       }
     };
-    
+
     var moveToBottomSelected = function() {
       if (selectedElement != null) {
         flash($('#object_menu'));
         svgCanvas.moveToBottomSelectedElement();
       }
     };
-    
+
     var moveUpSelected = function() {
       if (selectedElement != null) {
       flash($('#object_menu'));
@@ -1124,7 +1131,7 @@ window.methodDraw = function() {
         svgCanvas.moveUpDownSelected("Down");
       }
     };
-    
+
     var moveUpDownSelected = function(dir) {
       if (selectedElement != null) {
         flash($('#object_menu'));
@@ -1144,13 +1151,13 @@ window.methodDraw = function() {
         updateContextPanel();
       }
     }
-    
+
     var reorientPath = function() {
       if (selectedElement != null) {
         path.reorient();
       }
     }
-  
+
     var makeHyperlink = function() {
       if (selectedElement != null || multiselected) {
         $.prompt("Enter the new hyperlink URL", "http://", function(url) {
@@ -1158,7 +1165,7 @@ window.methodDraw = function() {
         });
       }
     }
-  
+
     var moveSelected = function(dx,dy) {
       if (selectedElement != null || multiselected) {
         if(curConfig.gridSnapping) {
@@ -1171,24 +1178,24 @@ window.methodDraw = function() {
         svgCanvas.moveSelectedElements(dx,dy);
       }
     };
-  
+
     var linkControlPoints = function() {
     //  var linked = document.getElementById('tool_node_link').checked;
     //  path.linkControlPoints(linked);
     }
-  
+
     var clonePathNode = function() {
       if (path.getNodePoint()) {
         path.clonePathNode();
       }
     };
-    
+
     var deletePathNode = function() {
       if (path.getNodePoint()) {
         path.deletePathNode();
       }
     };
-  
+
     var addSubPath = function() {
       var button = $('#tool_add_subpath');
       var sp = !button.hasClass('push_button_pressed');
@@ -1197,23 +1204,23 @@ window.methodDraw = function() {
       } else {
         button.removeClass('push_button_pressed').addClass('tool_button');
       }
-      
+
       path.addSubPath(sp);
-      
+
     };
-  
+
     var opencloseSubPath = function() {
       path.opencloseSubPath();
-    } 
-    
+    }
+
     var selectNext = function() {
       svgCanvas.cycleElement(1);
     };
-    
+
     var selectPrev = function() {
       svgCanvas.cycleElement(0);
     };
-    
+
     var rotateSelected = function(cw,step) {
       if (selectedElement == null || multiselected) return;
       if(!cw) step *= -1;
@@ -1221,7 +1228,7 @@ window.methodDraw = function() {
       svgCanvas.setRotationAngle(new_angle);
       updateContextPanel();
     };
-    
+
     var clickClear = function(){
       var dims = curConfig.dimensions;
       $.confirm("<strong>Do you want to clear the drawing?</strong>\nThis will also erase your undo history", function(ok) {
@@ -1238,17 +1245,17 @@ window.methodDraw = function() {
         svgCanvas.runExtensions('onNewDocument');
       });
     };
-    
+
     var clickBold = function(){
       svgCanvas.setBold( !svgCanvas.getBold() );
       updateContextPanel();
     };
-    
+
     var clickItalic = function(){
       svgCanvas.setItalic( !svgCanvas.getItalic() );
       updateContextPanel();
     };
-    
+
     var clickExport = function() {
       if(window.canvg) {
         svgCanvas.rasterExport();
@@ -1260,16 +1267,16 @@ window.methodDraw = function() {
         });
       }
     }
-    
+
     // by default, svgCanvas.open() is a no-op.
-    // it is up to an extension mechanism (opera widget, etc) 
+    // it is up to an extension mechanism (opera widget, etc)
     // to call setCustomHandlers() which will make it do something
     var clickOpen = function(){
       svgCanvas.open();
     };
     var clickImport = function(){
     };
-    
+
     var flash = function($menu){
       var menu_title = $menu.prev();
       menu_title.css({
@@ -1278,21 +1285,21 @@ window.methodDraw = function() {
       });
       setTimeout(function(){menu_title.removeAttr("style")}, 200);
     }
-    
+
     var clickUndo = function(){
       if (undoMgr.getUndoStackSize() > 0) {
         flash($('#edit_menu'));
         undoMgr.undo();
       }
     };
-  
+
     var clickRedo = function(){
       if (undoMgr.getRedoStackSize() > 0) {
         flash($('#edit_menu'));
         undoMgr.redo();
       }
     };
-    
+
     var clickGroup = function(){
       // group
       if (multiselected) {
@@ -1305,17 +1312,17 @@ window.methodDraw = function() {
         svgCanvas.ungroupSelectedElement();
       }
     };
-    
+
     var clickClone = function(){
       flash($('#edit_menu'));
       svgCanvas.cloneSelectedElements(20,20);
     };
-    
+
     var clickAlign = function() {
       var letter = this.id.replace('tool_align','').charAt(0);
       svgCanvas.alignSelectedElements(letter, $('#align_relative_to').val());
     };
-    
+
     var clickSwitch = function() {
       var stroke_rect = document.querySelector('#tool_stroke rect');
       $("#tool_stroke").toggleClass('active')
@@ -1331,9 +1338,9 @@ window.methodDraw = function() {
       var fill = getPaint(fill_color, fill_opacity, "fill");
       Editor.paintBox.fill.setPaint(stroke, true);
       Editor.paintBox.stroke.setPaint(fill, true);
-      
+
     };
-    
+
     var zoomImage = function(multiplier) {
       var res = svgCanvas.getResolution();
       multiplier = multiplier?res.zoom * multiplier:1;
@@ -1343,22 +1350,22 @@ window.methodDraw = function() {
       zoomDone();
       updateCanvas(true);
     };
-    
+
     var zoomDone = function() {
   //    updateBgImage();
       updateWireFrame();
       //updateCanvas(); // necessary?
     }
-  
+
     var clickWireframe = function() {
       flash($('#view_menu'));
       var wf = !$('#tool_wireframe').hasClass('push_button_pressed');
-      if (wf) 
+      if (wf)
         $('#tool_wireframe').addClass('push_button_pressed');
       else
         $('#tool_wireframe').removeClass('push_button_pressed');
       workarea.toggleClass('wireframe');
-      
+
       if(supportsNonSS) return;
       var wf_rules = $('#wireframe_rules');
       if(!wf_rules.length) {
@@ -1366,22 +1373,22 @@ window.methodDraw = function() {
       } else {
         wf_rules.empty();
       }
-      
+
       updateWireFrame();
     }
-    
+
     var clickSnapGrid = function() {
       flash($('#view_menu'));
       var sg = !$('#tool_snap').hasClass('push_button_pressed');
-      if (sg) 
+      if (sg)
         $('#tool_snap').addClass('push_button_pressed');
       else
-        $('#tool_snap').removeClass('push_button_pressed');   
+        $('#tool_snap').removeClass('push_button_pressed');
       curConfig.gridSnapping = sg;
     }
-    
+
     var minimizeModal = function() {
-      
+
       if (window.self != window.top) { //we're in an iframe
         top.exit_fullscreen();
       }
@@ -1402,44 +1409,44 @@ window.methodDraw = function() {
       }
       $('#rulers').toggle(!!curConfig.showRulers)
     }
-    
+
     var updateWireFrame = function() {
       // Test support
       if(supportsNonSS) return;
-  
+
       var rule = "#workarea.wireframe #svgcontent * { stroke-width: " + 1/svgCanvas.getZoom() + "px; }";
       $('#wireframe_rules').text(workarea.hasClass('wireframe') ? rule : "");
     }
-  
+
     var showSourceEditor = function(e, forSaving){
       if (editingsource) return;
       flash($('#view_menu'));
       editingsource = true;
-      
+
       $('#save_output_btns').toggle(!!forSaving);
       $('#tool_source_back').toggle(!forSaving);
-      
+
       var str = orig_source = svgCanvas.getSvgString();
       $('#svg_source_textarea').val(str);
       $('#svg_source_editor').fadeIn();
       $('#svg_source_textarea').focus().select();
     };
-    
+
     var clickSave = function(){
       flash($('#file_menu'));
       svgCanvas.save();
     };
-    
+
     var saveSourceEditor = function(){
       if (!editingsource) return;
-  
+
       var saveChanges = function() {
         svgCanvas.clearSelection();
         hideSourceEditor();
         zoomImage();
         prepPaints();
       }
-  
+
       if (!svgCanvas.setSvgString($('#svg_source_textarea').val())) {
         $.confirm("There were parsing errors in your SVG source.\nRevert back to original SVG source?", function(ok) {
           if(!ok) return false;
@@ -1448,16 +1455,16 @@ window.methodDraw = function() {
       } else {
         saveChanges();
       }
-      setSelectMode();    
+      setSelectMode();
     };
-    
+
     function setBackground(color, url) {
       $.pref('bkgd_color', color);
       $.pref('bkgd_url', url);
       // This should be done in svgcanvas.js for the borderRect fill
       svgCanvas.setBackground(color, url);
     }
-  
+
     var ua_prefix;
     (ua_prefix = function() {
       var regex = /^(Moz|Webkit|Khtml|O|ms|Icab)(?=[A-Z])/;
@@ -1469,34 +1476,34 @@ window.methodDraw = function() {
           return prop.match(regex)[0];
         }
       }
-    
+
       // Nothing found so far?
       if('WebkitOpacity' in someScript.style) return 'Webkit';
       if('KhtmlOpacity' in someScript.style) return 'Khtml';
-      
+
       return '';
     }());
-    
+
     var scaleElements = function(elems, scale) {
       var prefix = '-' + ua_prefix.toLowerCase() + '-';
-      
+
       var sides = ['top', 'left', 'bottom', 'right'];
-    
+
       elems.each(function() {
 //          console.log('go', scale);
 
         // Handled in CSS
         // this.style[ua_prefix + 'Transform'] = 'scale(' + scale + ')';
-      
+
         var el = $(this);
-        
+
         var w = el.outerWidth() * (scale - 1);
         var h = el.outerHeight() * (scale - 1);
         var margins = {};
-        
+
         for(var i = 0; i < 4; i++) {
           var s = sides[i];
-          
+
           var cur = el.data('orig_margin-' + s);
           if(cur == null) {
             cur = parseInt(el.css('margin-' + s));
@@ -1509,13 +1516,13 @@ window.methodDraw = function() {
           } else if(s === 'bottom') {
             val += h;
           }
-          
+
           el.css('margin-' + s, val);
 //            el.css('outline', '1px solid red');
         }
       });
     }
-  
+
     var cancelOverlays = function() {
       $('#dialog_box').hide();
       if (!editingsource && !docprops && !preferences) {
@@ -1524,7 +1531,7 @@ window.methodDraw = function() {
         }
         return;
       };
-  
+
       if (editingsource) {
         if (orig_source !== $('#svg_source_textarea').val()) {
           $.confirm("Ignore changes made to SVG source?", function(ok) {
@@ -1541,7 +1548,7 @@ window.methodDraw = function() {
       }
       resetScrollPos();
     };
-  
+
     var hideSourceEditor = function(){
       $('#svg_source_editor').hide();
       editingsource = false;
@@ -1549,10 +1556,10 @@ window.methodDraw = function() {
     };
 
     var win_wh = {width:$(window).width(), height:$(window).height()};
-    
+
     var resetScrollPos = $.noop, curScrollPos;
     $(window).resize(updateCanvas);
-    
+
     (function() {
       workarea.scroll(function() {
         // TODO:  jQuery's scrollLeft/Top() wouldn't require a null check
@@ -1560,14 +1567,14 @@ window.methodDraw = function() {
           $('#ruler_x')[0].scrollLeft = workarea[0].scrollLeft;
         }
         if ($('#ruler_y').length != 0) {
-          $('#ruler_y')[0].scrollTop = workarea[0].scrollTop; 
+          $('#ruler_y')[0].scrollTop = workarea[0].scrollTop;
         }
       });
 
     }());
-    
+
     $('#change_image_url').click(promptImgURL);
-    
+
     function promptImgURL() {
       var curhref = svgCanvas.getHref(selectedElement);
       curhref = curhref.indexOf("data:") === 0?"":curhref;
@@ -1575,26 +1582,26 @@ window.methodDraw = function() {
         if(url) setImageURL(url);
       });
     }
-    
+
     // TODO: go back to the color boxes having white background-color and then setting
-    //       background-image to none.png (otherwise partially transparent gradients look weird)  
+    //       background-image to none.png (otherwise partially transparent gradients look weird)
     var colorPicker = function(elem) {
       var picker = elem[0].id == 'stroke_color' ? 'stroke' : 'fill';
       var is_background = elem[0].id == "canvas_color"
       if (is_background) picker = 'canvas'
 //        var opacity = (picker == 'stroke' ? $('#stroke_opacity') : $('#fill_opacity'));
       var paint = Editor.paintBox[picker].paint;
-      
+
       var title = (picker == 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
       var was_none = false;
       var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
-      
+
       $("#color_picker")
         .draggable({cancel:'.jGraduate_tabs, .jGraduate_colPick, .jGraduate_gradPick, .jPicker', containment: 'window'})
         .removeAttr("style")
         .css(pos)
         .jGraduate(
-        { 
+        {
           paint: paint,
           window: { pickerTitle: title },
           images: { clientPath: curConfig.jGraduatePath },
@@ -1602,17 +1609,17 @@ window.methodDraw = function() {
         },
         function(p) {
           paint = new $.jGraduate.Paint(p);
-          
+
           Editor.paintBox[picker].setPaint(paint);
           svgCanvas.setPaint(picker, paint);
-          
+
           $('#color_picker').hide();
         },
         function(p) {
           $('#color_picker').hide();
         });
     };
-  
+
     var PaintBox = function(container, type) {
       var background = document.getElementById("canvas_background");
       var cur = {color: "fff", opacity: 1}
@@ -1634,11 +1641,11 @@ window.methodDraw = function() {
         fill="#' + cur.color + '" opacity="' + cur.opacity + '"/>\
         <defs><linearGradient id="gradbox_"/></defs></svg>', 'text/xml');
       var docElem = svgdocbox.documentElement;
-      
+
       docElem = $(container)[0].appendChild(document.importNode(docElem, true));
       if (type === 'canvas') docElem.setAttribute('width',60.5);
       else docElem.setAttribute('width',"100%");
-      
+
       this.rect = docElem.firstChild;
       this.defs = docElem.getElementsByTagName('defs')[0];
       this.grad = this.defs.firstChild;
@@ -1677,14 +1684,14 @@ window.methodDraw = function() {
           }
           else createBackground(fillAttr)
         }
-        
+
         if(apply) {
           svgCanvas.setColor(this.type, fillAttr, true);
           svgCanvas.setPaintOpacity(this.type, opac, true);
         }
-        
+
       }
-      
+
       this.update = function(apply) {
         if(!selectedElement) return;
         var type = this.type;
@@ -1692,13 +1699,13 @@ window.methodDraw = function() {
         case 'use':
         case 'image':
         case 'foreignObject':
-          // These elements don't have fill or stroke, so don't change 
+          // These elements don't have fill or stroke, so don't change
           // the current value
           return;
         case 'g':
         case 'a':
           var gPaint = null;
-        
+
           var childs = selectedElement.getElementsByTagName('*');
           for(var i = 0, len = childs.length; i < len; i++) {
             var elem = childs[i];
@@ -1716,7 +1723,7 @@ window.methodDraw = function() {
             return;
           }
           var paintColor = gPaint;
-          
+
           var paintOpacity = 1;
           break;
         default:
@@ -1724,7 +1731,7 @@ window.methodDraw = function() {
           if (isNaN(paintOpacity)) {
             paintOpacity = 1.0;
           }
-          
+
           var defColor = type === "fill" ? "black" : "none";
           var paintColor = selectedElement.getAttribute(type) || defColor;
         }
@@ -1733,16 +1740,16 @@ window.methodDraw = function() {
           svgCanvas.setPaintOpacity(type, paintOpacity, true);
         }
 
-        paintOpacity *= 100;          
-        
+        paintOpacity *= 100;
+
         var paint = getPaint(paintColor, paintOpacity, type);
         // update the rect inside #fill_color/#stroke_color
         this.setPaint(paint);
       }
-      
+
       this.prep = function() {
         var ptype = this.paint.type;
-      
+
         switch ( ptype ) {
           case 'linearGradient':
           case 'radialGradient':
@@ -1751,14 +1758,14 @@ window.methodDraw = function() {
         }
       }
     };
-    
+
     Editor.paintBox.fill = new PaintBox('#fill_color', 'fill');
     Editor.paintBox.stroke = new PaintBox('#stroke_color', 'stroke');
     Editor.paintBox.canvas = new PaintBox('#canvas_color', 'canvas');
 
     $('#stroke_width').val(curConfig.initStroke.width);
     $('#group_opacity').val(curConfig.initOpacity * 100);
-    
+
     // Use this SVG elem to test vectorEffect support
     var test_el = Editor.paintBox.fill.rect.cloneNode(false);
     test_el.setAttribute('style','vector-effect:non-scaling-stroke');
@@ -1771,7 +1778,7 @@ window.methodDraw = function() {
       $('#tool_blur').hide();
     }
     $(blur_test).remove();
-      
+
     $('#tool_fill').click(function(){
       if ($('#tool_fill').hasClass('active')) {
         colorPicker($('#fill_color'));
@@ -1781,7 +1788,7 @@ window.methodDraw = function() {
         $("#tool_stroke").removeClass('active');
       }
     });
-    
+
     $('#tool_stroke').on("click", function(){
       if ($('#tool_stroke').hasClass('active')) {
         colorPicker($('#stroke_color'));
@@ -1791,11 +1798,11 @@ window.methodDraw = function() {
         $("#tool_fill").removeClass('active');
       }
     });
-    
+
     $('#tool_canvas').on("click touchstart", function(){
         colorPicker($('#canvas_color'));
     });
-    
+
     $('#tool_stroke').on("touchstart", function(){
         $('#tool_stroke').addClass('active');
         $("#tool_fill").removeClass('active');
@@ -1807,14 +1814,14 @@ window.methodDraw = function() {
         $("#tool_stroke").removeClass('active');
         colorPicker($('#fill_color'));
     });
-    
+
     $('#zoom_select').on("change", function() {
       var val = this.options[this.selectedIndex].text
       val = val.split("%")[0]
       $("#zoom").val(val).trigger("change")
     });
-  
-    $('.push_button').mousedown(function() { 
+
+    $('.push_button').mousedown(function() {
       if (!$(this).hasClass('disabled')) {
         $(this).addClass('push_button_pressed').removeClass('push_button');
       }
@@ -1823,26 +1830,26 @@ window.methodDraw = function() {
     }).mouseup(function() {
       $(this).removeClass('push_button_pressed').addClass('push_button');
     });
-    
-  
+
+
   //  function changeResolution(x,y) {
   //    var zoom = svgCanvas.getResolution().zoom;
   //    setResolution(x * zoom, y * zoom);
   //  }
-    
+
     var centerCanvas = function() {
       // this centers the canvas vertically in the workarea (horizontal handled in CSS)
       workarea.css('line-height', workarea.height() + 'px');
     };
-    
+
     $(window).bind('load resize', centerCanvas);
-  
+
     function stepFontSize(elem, step) {
       var orig_val = elem.value-0;
       var sug_val = orig_val + step;
       var increasing = sug_val >= orig_val;
       if(step === 0) return orig_val;
-      
+
       if(orig_val >= 24) {
         if(increasing) {
           return Math.round(orig_val * 1.1);
@@ -1851,7 +1858,7 @@ window.methodDraw = function() {
         }
       } else if(orig_val <= 1) {
         if(increasing) {
-          return orig_val * 2;      
+          return orig_val * 2;
         } else {
           return orig_val / 2;
         }
@@ -1859,13 +1866,13 @@ window.methodDraw = function() {
         return sug_val;
       }
     }
-    
+
     function stepZoom(elem, step) {
       var orig_val = elem.value-0;
       if(orig_val === 0) return 100;
       var sug_val = orig_val + step;
       if(step === 0) return orig_val;
-      
+
       if(orig_val >= 100) {
         return sug_val;
       } else {
@@ -1876,13 +1883,13 @@ window.methodDraw = function() {
         }
       }
     }
-      
+
   var changeCanvasSize = function(ctl){
     var width = $("#canvas_width");
     var height = $("#canvas_height");
     var w = width.val();
     var h = height.val()
-    
+
     if(w != "fit" && !svgedit.units.isValidUnit('width', w)) {
       $.alert("Invalid value given");
       width.parent().addClass('error');
@@ -1895,7 +1902,7 @@ window.methodDraw = function() {
       $.alert("Invalid value given");
       height.parent().addClass('error');
       return false;
-    } 
+    }
     height.parent().removeClass('error');
     if(!svgCanvas.setResolution(w, h)) {
       $.alert("No content to fit to");
@@ -1906,8 +1913,8 @@ window.methodDraw = function() {
     }
      updateCanvas();
   }
-  
-  
+
+
     $('#resolution').change(function(){
       var w = $('#canvas_width')[0];
       var h = $('#canvas_height')[0];
@@ -1927,10 +1934,10 @@ window.methodDraw = function() {
         var res = svgCanvas.getResolution()
         w.value = res.w
         h.value = res.h
-        
+
       } else {
         var dims = this.value.split('x');
-        dims[0] = parseInt(dims[0]); 
+        dims[0] = parseInt(dims[0]);
         dims[1] = parseInt(dims[1]);
         var diff_w = dims[0] - w.value;
         var diff_h = dims[1] - h.value;
@@ -1958,14 +1965,14 @@ window.methodDraw = function() {
 
       }
     });
-    
+
     $('#zoom').change(function(){
       changeZoom(this)
     })
-  
+
     //Prevent browser from erroneously repopulating fields
     $('input,select').attr("autocomplete","off");
-    
+
     // Associate all button actions as well as non-button keyboard shortcuts
     var Actions = function() {
       // sel:'selector', fn:function, evt:'event', key:[key, preventDefault, NoDisableInInput]
@@ -2019,12 +2026,12 @@ window.methodDraw = function() {
         {sel:'#tool_italic', fn: clickItalic, evt: 'mousedown',  key: [modKey + 'I', true]},
         //{sel:'#sidepanel_handle', fn: toggleSidePanel, key: ['X']},
         {sel:'#copy_save_done', fn: cancelOverlays, evt: 'click'},
-        
+
         // Shortcuts not associated with buttons
-        
+
         {key: 'ctrl+left', fn: function(){rotateSelected(0,1)}},
         {key: 'ctrl+right', fn: function(){rotateSelected(1,1)}},
-        {key: 'ctrl+shift+left', fn: function(){rotateSelected(0,5)}},          
+        {key: 'ctrl+shift+left', fn: function(){rotateSelected(0,5)}},
         {key: 'ctrl+shift+right', fn: function(){rotateSelected(1,5)}},
         {key: 'shift+O', fn: selectPrev},
         {key: 'shift+P', fn: selectNext},
@@ -2045,51 +2052,51 @@ window.methodDraw = function() {
         {key: ['alt+shift+up', true], fn: function(){svgCanvas.cloneSelectedElements(0,-10)}},
         {key: ['alt+shift+down', true], fn: function(){svgCanvas.cloneSelectedElements(0,10)}},
         {key: ['alt+shift+left', true], fn: function(){svgCanvas.cloneSelectedElements(-10,0)}},
-        {key: ['alt+shift+right', true], fn: function(){svgCanvas.cloneSelectedElements(10,0)}},  
+        {key: ['alt+shift+right', true], fn: function(){svgCanvas.cloneSelectedElements(10,0)}},
         {key: modKey + 'A', fn: function(){svgCanvas.selectAllInCurrentLayer();}},
 
         // Standard shortcuts
         {key: modKey + 'shift+z', fn: clickRedo},
         {key: 'esc', fn: minimizeModal}
       ];
-      
+
       // Tooltips not directly associated with a single function
       var key_assocs = {
         '4/Shift+4': '#tools_rect_show',
         '5/Shift+5': '#tools_ellipse_show'
       };
-    
+
       return {
         setAll: function() {
           var flyouts = {};
-          
-          $.each(tool_buttons, function(i, opts)  {       
+
+          $.each(tool_buttons, function(i, opts)  {
             // Bind function to button
             if(opts.sel) {
               var btn = $(opts.sel);
               if (btn.length == 0) return true; // Skip if markup does not exist
               if(opts.evt) {
-                if (svgedit.browser.isTouch() && opts.evt === "click") opts.evt = "mousedown" 
+                if (svgedit.browser.isTouch() && opts.evt === "click") opts.evt = "mousedown"
                 btn[opts.evt](opts.fn);
               }
-  
+
               // Add to parent flyout menu, if able to be displayed
               if(opts.parent && $(opts.parent + '_show').length != 0) {
                 var f_h = $(opts.parent);
                 if(!f_h.length) {
                   f_h = makeFlyoutHolder(opts.parent.substr(1));
                 }
-                
+
                 f_h.append(btn);
-                
+
                 if(!$.isArray(flyouts[opts.parent])) {
                   flyouts[opts.parent] = [];
                 }
                 flyouts[opts.parent].push(opts);
               }
             }
-            
-            
+
+
             // Bind function to shortcut key
             if(opts.key) {
               // Set shortcut based on options
@@ -2106,7 +2113,7 @@ window.methodDraw = function() {
                 var modifier_key =  keyval.split("+")[0];
                 if (modifier_key == "ctrl") keyval.replace("ctrl", "cmd")
               }
-              
+
               $.each(keyval.split('/'), function(i, key) {
                 $(document).bind('keydown', key, function(e) {
                   fn();
@@ -2117,7 +2124,7 @@ window.methodDraw = function() {
                   return false;
                 });
               });
-              
+
               // Put shortcut in title
               if(opts.sel && !opts.hidekey && btn.attr('title')) {
                 var new_title = btn.attr('title').split('[')[0] + ' (' + keyval + ')';
@@ -2129,7 +2136,7 @@ window.methodDraw = function() {
               }
             }
           });
-          
+
           $(window).bind('keydown', 'tab', function(e) {
             if(ui_context === 'canvas') {
               e.preventDefault();
@@ -2145,12 +2152,12 @@ window.methodDraw = function() {
         setTitles: function() {
           $.each(key_assocs, function(keyval, sel)  {
             var menu = ($(sel).parents('#main_menu').length);
-          
+
             $(sel).each(function() {
               if(menu) {
                 var t = $(this).text().split(' [')[0];
               } else {
-                var t = this.title.split(' [')[0];              
+                var t = this.title.split(' [')[0];
               }
               var key_str = '';
               // Shift+Up
@@ -2179,9 +2186,9 @@ window.methodDraw = function() {
         }
       };
     }();
-    
+
     Actions.setAll();
-    
+
     // Select given tool
     Editor.ready(function() {
       var tool,
@@ -2197,22 +2204,22 @@ window.methodDraw = function() {
         tool = $("#tool_select");
       }
       tool.click().mouseup();
-      
+
       if(curConfig.wireframe) {
         $('#tool_wireframe').click();
       }
-      
+
       if(curConfig.showlayers) {
         toggleSidePanel();
       }
-      
+
       $('#rulers').toggle(!!curConfig.showRulers);
     });
-  
-    
-    $('#canvas_height').dragInput({ min: 10,   max: null,  step: 10,  callback: changeCanvasSize,    cursor: false, dragAdjust: .1         }); 
-    $('#canvas_width') .dragInput({ min: 10,   max: null,  step: 10,  callback: changeCanvasSize,    cursor: false, dragAdjust: .1         });                         
-    $('#rect_width')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         }); 
+
+
+    $('#canvas_height').dragInput({ min: 10,   max: null,  step: 10,  callback: changeCanvasSize,    cursor: false, dragAdjust: .1         });
+    $('#canvas_width') .dragInput({ min: 10,   max: null,  step: 10,  callback: changeCanvasSize,    cursor: false, dragAdjust: .1         });
+    $('#rect_width')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
     $('#rect_height')  .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
     $('#ellipse_cx')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
     $('#ellipse_cy')   .dragInput({ min: 1,    max: null,  step:  1,  callback: changeAttribute,     cursor: false                         });
@@ -2248,9 +2255,9 @@ window.methodDraw = function() {
     $('#font_size')    .dragInput({ min: 1, max: 250, step: 1, callback: changeFontSize, cursor: true, stepfunc: stepFontSize, dragAdjust: .15 });
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: changeAttribute,       cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: changeBlur,          cursor: true,  start: 0               });
-      // Set default zoom 
+      // Set default zoom
     $('#zoom').val(svgCanvas.getZoom() * 100);
-    
+
     $("#workarea").contextMenu({
         menu: 'cmenu_canvas',
         inSpeed: 0
@@ -2275,8 +2282,8 @@ window.methodDraw = function() {
           case 'group':
             svgCanvas.groupSelectedElements();
             break;
-          case 'ungroup':         
-            svgCanvas.ungroupSelectedElement();  
+          case 'ungroup':
+            svgCanvas.ungroupSelectedElement();
             break;
           case 'move_front':
             moveToTopSelected();
@@ -2296,16 +2303,16 @@ window.methodDraw = function() {
               }
               break;
         }
-        
+
     });
-    
+
     $('.contextMenu li').mousedown(function(ev) {
       ev.preventDefault();
     })
-    
+
     $('#cmenu_canvas li').disableContextMenu();
     canv_menu.enableContextMenuItems('#delete,#cut,#copy');
-    
+
     Editor.openPrep = function(func) {
       $('#main_menu').hide();
       if(undoMgr.getUndoStackSize() === 0) {
@@ -2314,9 +2321,9 @@ window.methodDraw = function() {
         $.confirm("Do you want to open a new file?\nThis will also erase your undo history", func);
       }
     }
-          
+
     if (window.FileReader) {
-      
+
       var import_image = function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -2328,7 +2335,7 @@ window.methodDraw = function() {
         if (file) {
           if(file.type.indexOf("image") != -1) {
             //detected an image
-          
+
             //svg handing
             if(file.type.indexOf("svg") != -1) {
               var reader = new FileReader();
@@ -2342,7 +2349,7 @@ window.methodDraw = function() {
               };
               reader.readAsText(file);
             }
-        
+
             //image handling
             else {
               var reader = new FileReader();
@@ -2384,9 +2391,9 @@ window.methodDraw = function() {
           }
         }
       }
-      
+
       var workarea = $("#workarea")
-      
+
       function onDragEnter(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -2415,7 +2422,7 @@ window.methodDraw = function() {
       workarea[0].addEventListener('dragover', onDragOver, false);
       workarea[0].addEventListener('dragleave', onDragLeave, false);
       workarea[0].addEventListener('drop', import_image, false);
-      
+
       var open = $('<input type="file">').change(function() {
         var f = this;
         Editor.openPrep(function(ok) {
@@ -2432,67 +2439,67 @@ window.methodDraw = function() {
         });
       });
       $("#tool_open").show().prepend(open);
-      
+
       var img_import = $('<input type="file">').change(import_image);
       $("#tool_import").show().prepend(img_import);
     }
 
-    
+
     var updateCanvas = Editor.updateCanvas = function(center, new_ctr) {
       var w = workarea.width(), h = workarea.height();
       var w_orig = w, h_orig = h;
       var zoom = svgCanvas.getZoom();
       var w_area = workarea;
       var cnvs = $("#svgcanvas");
-      
+
       var old_ctr = {
         x: w_area[0].scrollLeft + w_orig/2,
         y: w_area[0].scrollTop + h_orig/2
       };
-      
+
       var multi = curConfig.canvas_expansion;
       w = Math.max(w_orig, svgCanvas.contentW * zoom * multi);
       h = Math.max(h_orig, svgCanvas.contentH * zoom * multi);
-      
+
       if(w == w_orig && h == h_orig) {
         workarea.css('overflow','hidden');
       } else {
         workarea.css('overflow','scroll');
       }
-      
+
       var old_can_y = cnvs.height()/2;
       var old_can_x = cnvs.width()/2;
       cnvs.width(w).height(h);
       var new_can_y = h/2;
       var new_can_x = w/2;
       var offset = svgCanvas.updateCanvas(w, h);
-      
+
       var ratio = new_can_x / old_can_x;
-  
+
       var scroll_x = w/2 - w_orig/2;
       var scroll_y = h/2 - h_orig/2;
-      
+
       if(!new_ctr) {
-  
+
         var old_dist_x = old_ctr.x - old_can_x;
         var new_x = new_can_x + old_dist_x * ratio;
-  
+
         var old_dist_y = old_ctr.y - old_can_y;
         var new_y = new_can_y + old_dist_y * ratio;
-  
+
         new_ctr = {
           x: new_x,
           y: new_y
         };
-        
+
       } else {
         new_ctr.x += offset.x,
         new_ctr.y += offset.y;
       }
-      
+
       //width.val(offset.x)
       //height.val(offset.y)
-      
+
       if(center) {
         // Go to top-left for larger documents
         if(svgCanvas.contentW > w_area.width()) {
@@ -2513,10 +2520,10 @@ window.methodDraw = function() {
         workarea.scroll();
       }
     }
-    
+
 
     updateCanvas(true);
-  
+
     // Callback handler for embedapi.js
     try{
       var json_encode = function(obj){
@@ -2551,35 +2558,35 @@ window.methodDraw = function() {
       var cbid = parseInt(e.data.substr(0, e.data.indexOf(";")));
       try{
         e.source.postMessage("SVGe"+cbid+";"+json_encode(eval(e.data)), "*");
-      }catch(err){          
+      }catch(err){
         e.source.postMessage("SVGe"+cbid+";error:"+err.message, "*");
       }
     }, false)
     }catch(err){
       window.embed_error = err;
     }
-    
-  
-  
+
+
+
     // For Compatibility with older extensions
     $(function() {
       window.svgCanvas = svgCanvas;
       svgCanvas.ready = methodDraw.ready;
     });
-  
-  
+
+
     Editor.setLang = function(lang, allStrings) {
       $.pref('lang', lang);
       $('#lang_select').val(lang);
       if(allStrings) {
-      
+
         var notif = allStrings.notification;
-        
+
         svgCanvas.runExtensions("langChanged", lang);
-        
+
         // Update flyout tooltips
         setFlyoutTitles();
-        
+
         // Copy title for certain tool elements
         var elems = {
           '#stroke_color': '#tool_stroke .icon_label, #tool_stroke .color_block',
@@ -2587,22 +2594,22 @@ window.methodDraw = function() {
           '#linejoin_miter': '#cur_linejoin',
           '#linecap_butt': '#cur_linecap'
         }
-        
+
         $.each(elems, function(source, dest) {
           $(dest).attr('title', $(source)[0].title);
         });
-        
+
         // Copy alignment titles
         $('#multiselected_panel div[id^=tool_align]').each(function() {
           $('#tool_pos' + this.id.substr(10))[0].title = this.title;
         });
-        
+
       }
     };
   };
-  
+
   var callbacks = [];
-  
+
   function loadSvgString(str, callback) {
     var success = svgCanvas.setSvgString(str) !== false;
     callback = callback || $.noop;
@@ -2614,7 +2621,7 @@ window.methodDraw = function() {
       });
     }
   }
-  
+
   Editor.ready = function(cb) {
     if(!is_ready) {
       callbacks.push(cb);
@@ -2629,19 +2636,19 @@ window.methodDraw = function() {
     });
     is_ready = true;
   };
-  
+
   Editor.loadFromString = function(str) {
     Editor.ready(function() {
       loadSvgString(str);
     });
   };
-  
+
   Editor.loadFromURL = function(url, opts) {
     if(!opts) opts = {};
 
     var cache = opts.cache;
     var cb = opts.callback;
-  
+
     Editor.ready(function() {
       $.ajax({
         'url': url,
@@ -2660,7 +2667,7 @@ window.methodDraw = function() {
       });
     });
   };
-  
+
   Editor.loadFromDataURI = function(str) {
     Editor.ready(function() {
       var pre = 'data:image/svg+xml;base64,';
@@ -2668,10 +2675,10 @@ window.methodDraw = function() {
       loadSvgString(svgedit.utilities.decode64(src));
     });
   };
-  
+
   Editor.addExtension = function() {
     var args = arguments;
-    
+
     // Note that we don't want this on Editor.ready since some extensions
     // may want to run before then (like server_opensave).
     $(function() {

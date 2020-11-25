@@ -2644,7 +2644,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
             "font-family": cur_text.font_family,
             "text-anchor": "start",
             "xml:space": "preserve",
-            "opacity": cur_shape.opacity
+            "opacity": cur_shape.opacity,
+            "fill-opacity": 1,
+            "stroke-opacity": 1
           }
         });
 //          newText.textContent = "text";
@@ -7667,6 +7669,15 @@ this.setTextContent = function(val) {
   textActions.init(val);
   textActions.setCursor();
 };
+
+// Function: setTextAnchor
+// Updates the text anchor with the given string
+//
+// Parameters:
+// val - String with the new text anchor
+this.setTextAnchor = function(val) {
+  changeSelectedAttribute("text-anchor", val);
+}
 
 // Function: setImageURL
 // Sets the new image URL for the selected image element. Updates its size if
