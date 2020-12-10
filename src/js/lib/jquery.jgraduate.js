@@ -52,12 +52,6 @@ $.jGraduate.Paint({hex: "#rrggbb", linearGradient: o}) -> throws an exception?
 (function() {
  
 var ns = { svg: 'http://www.w3.org/2000/svg', xlink: 'http://www.w3.org/1999/xlink' };
-if(!window.console) {
-  window.console = new function() {
-    this.log = function(str) {};
-    this.dir = function(str) {};
-  };
-}
 
 $.jGraduate = { 
   Paint:
@@ -293,7 +287,7 @@ jQuery.fn.jGraduate =
             '<div id="' + id + '_jGraduate_Angle" class="jGraduate_SliderBar jGraduate_Angle" title="Click to set Angle">' +
               '<img id="' + id + '_jGraduate_AngleArrows" class="jGraduate_AngleArrows" src="' + $settings.images.clientPath + 'rangearrows2.svg" width="9" height="20">' +
             '</div>' +
-            '<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>º&nbsp;</label>' + 
+            '<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>Âº&nbsp;</label>' + 
                 '</div>' +
                 '<div class="jGraduate_Slider jGraduate_OpacField">' +
             '<label class="prelabel">Opac:</label>' +
@@ -534,40 +528,49 @@ jQuery.fn.jGraduate =
           'stroke-width': 1.5
         }, stopGroup);
 
-        $(path).mousedown(function(e) {
+        var $path = $(path);
+
+        $path
+          .data('stop', stop)
+          .data('bg', pathbg)
+          .on("click", function(e) {
+            if (wasDragged) return wasDragged = false; // just dragged stop
+            $('div.jGraduate_LightBox').show();     
+            var colorhandle = this;
+            var stopOpacity = +stop.getAttribute('stop-opacity') || 1;
+            var stopColor = stop.getAttribute('stop-color') || 1;
+            var thisAlpha = (parseFloat(stopOpacity)*255).toString(16);
+            while (thisAlpha.length < 2) { thisAlpha = "0" + thisAlpha; }
+            color = stopColor.substr(1) + thisAlpha;
+            $('#'+id+'_jGraduate_stopPicker').css({'left': 100, 'bottom': 15}).jPicker({
+                window: { title: "Pick the start color and opacity for the gradient" },
+                images: { clientPath: $settings.images.clientPath },
+                color: { active: color, alphaSupport: true }
+              }, function(color, arg2){
+                stopColor = color.val('hex') ? ('#'+color.val('hex')) : "none";
+                stopOpacity = color.val('a') !== null ? color.val('a')/256 : 1;
+                colorhandle.setAttribute('fill', stopColor);
+                colorhandle.setAttribute('fill-opacity', stopOpacity);
+                stop.setAttribute('stop-color', stopColor);
+                stop.setAttribute('stop-opacity', stopOpacity);
+                $('div.jGraduate_LightBox').hide();
+                $('#'+id+'_jGraduate_stopPicker').hide();
+              }, null, function() {
+                $('div.jGraduate_LightBox').hide();
+                $('#'+id+'_jGraduate_stopPicker').hide();
+              });
+        });
+        
+        $path.mousedown(function(e) {
           selectStop(this);
           drag = cur_stop;
+          wasDragged = false;
           $win.mousemove(dragColor).mouseup(remDrags);
           stop_offset = stopMakerDiv.offset();
           e.preventDefault();
           return false;
-        }).data('stop', stop).data('bg', pathbg).dblclick(function() {
-          $('div.jGraduate_LightBox').show();     
-          var colorhandle = this;
-          var stopOpacity = +stop.getAttribute('stop-opacity') || 1;
-          var stopColor = stop.getAttribute('stop-color') || 1;
-          var thisAlpha = (parseFloat(stopOpacity)*255).toString(16);
-          while (thisAlpha.length < 2) { thisAlpha = "0" + thisAlpha; }
-          color = stopColor.substr(1) + thisAlpha;
-          $('#'+id+'_jGraduate_stopPicker').css({'left': 100, 'bottom': 15}).jPicker({
-              window: { title: "Pick the start color and opacity for the gradient" },
-              images: { clientPath: $settings.images.clientPath },
-              color: { active: color, alphaSupport: true }
-            }, function(color, arg2){
-              stopColor = color.val('hex') ? ('#'+color.val('hex')) : "none";
-              stopOpacity = color.val('a') !== null ? color.val('a')/256 : 1;
-              colorhandle.setAttribute('fill', stopColor);
-              colorhandle.setAttribute('fill-opacity', stopOpacity);
-              stop.setAttribute('stop-color', stopColor);
-              stop.setAttribute('stop-opacity', stopOpacity);
-              $('div.jGraduate_LightBox').hide();
-              $('#'+id+'_jGraduate_stopPicker').hide();
-            }, null, function() {
-              $('div.jGraduate_LightBox').hide();
-              $('#'+id+'_jGraduate_stopPicker').hide();
-            });
         });
-        
+
         $(curGradient).find('stop').each(function() {
           var cur_s = $(this);
           if(+this.getAttribute('offset') > n) {
@@ -597,6 +600,8 @@ jQuery.fn.jGraduate =
       
         
       var stops, stopGroup;
+
+      var wasDragged = false;
       
       var stopMakerDiv = $('#' + id + '_jGraduate_StopSlider');
 
@@ -623,7 +628,10 @@ jQuery.fn.jGraduate =
       
       var stop_offset;
       
-      function remDrags() {
+      function remDrags(e) {
+        if (!wasDragged) {
+          $(e.target).trigger("click"); // safari and windows fix, others no harm done
+        } 
         $win.unbind('mousemove', dragColor);
         if(delStop.getAttribute('display') !== 'none') {
           remStop();
@@ -649,7 +657,7 @@ jQuery.fn.jGraduate =
       }
       
       function dragColor(evt) {
-
+        wasDragged = true;
         var x = evt.pageX - stop_offset.left;
         var y = evt.pageY - stop_offset.top;
         x = x < 10 ? 10 : x > MAX + 10 ? MAX + 10: x;
@@ -1062,6 +1070,7 @@ jQuery.fn.jGraduate =
       });
       
       var dragSlider = function(evt) {
+        wasDragged = true;
         setSlider(evt);
         evt.preventDefault();
       };
