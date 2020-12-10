@@ -333,6 +333,7 @@ div#font-selector .font-item:hover {
  #color_picker input[type=text], #color_picker  input[type=number] {
   width: 30px;
   background: #fff;
+  border: solid rgba(0,0,0,0.3) 1px;
 }
 
  .dropdown_set input[type=text],  .dropdown_set input[type=number] {
