@@ -583,21 +583,21 @@ div.jGraduate_Slider img {
 }
 
 @font-face {
-    font-family: 'Bair';
+    font-family: 'Bankoli';
     src: url('font-files/bair.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'MPlus';
+    font-family: 'Rounded MPlus 1c';
     src: url('font-files/MPLUSRounded1c-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'NotoSerifJP';
+    font-family: 'Noto Serif JP';
     src: url('font-files/NotoSerifJP-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;

@@ -7195,7 +7195,7 @@ $.extend(all_properties.text, {
   fill: "#000000",
   stroke_width: 0,
   font_size: 24,
-  font_family: 'Bair, sans-serif'
+  font_family: 'Bankoli, sans-serif'
 });
 
 // Current shape style properties
@@ -16185,7 +16185,7 @@ window.methodDraw = function() {
     showRulers: (svgedit.browser.isTouch()) ? false : true,
     show_outside_canvas: false,
     no_save_warning: true,
-    initFont: 'Bair, sans-serif'
+    initFont: 'Bankoli, sans-serif'
   };
   var customHandlers = {};
   Editor.curConfig = curConfig;

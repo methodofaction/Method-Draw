@@ -22,7 +22,7 @@ window.methodDraw = function() {
     showRulers: (svgedit.browser.isTouch()) ? false : true,
     show_outside_canvas: false,
     no_save_warning: true,
-    initFont: 'Bair, sans-serif'
+    initFont: 'Bankoli, sans-serif'
   };
   var customHandlers = {};
   Editor.curConfig = curConfig;
