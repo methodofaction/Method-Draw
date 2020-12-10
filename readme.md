@@ -2,7 +2,7 @@
 
 Method Draw is a web based vector drawing application.
 
-**Use [Method Draw](https://editor.method.ac) online.**
+### [Try Method Draw](https://editor.method.ac) online.
 
 ![Method Draw](https://method.ac/assets/editor.png)
 
@@ -31,6 +31,7 @@ Deploy `dist` to your static file server of choice.
 
 ## Release notes
 
+**2020.12.10** Gradient fixes on Windows and Safari MacOS
 **2020.08.04** Vast code simplification  
 **2020.08.02** File clean-up and gulp build implemented  
 **2020.08.01** Project thawed  
