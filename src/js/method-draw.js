@@ -141,7 +141,7 @@ window.methodDraw = function() {
     };
     
     // called when we've selected a different element
-    var selectedChanged = function(window,elems) {        
+    var selectedChanged = function(window,elems) {
       var mode = svgCanvas.getMode();
       if(mode === "select") setSelectMode();
       if (mode === "pathedit") return updateContextPanel();
@@ -167,6 +167,11 @@ window.methodDraw = function() {
         $('#canvas_panel').show()
         $('#tools_top').removeClass('multiselected')
       }
+
+      // We need to update the context panel always when we've selected a different element. Otherwise some
+      // menu items are disabled even if they shouldn't be (e.g. group multiple elements)
+      updateContextPanel();
+
       svgCanvas.runExtensions("selectedChanged", {
         elems: elems,
         selectedElement: selectedElement,
@@ -678,7 +683,7 @@ window.methodDraw = function() {
       } 
       
       if (!elem) {
-        menu_items.disableContextMenuItems('#delete,#cut,#copy,#group,#ungroup,#move_front,#move_up,#move_down,#move_back');
+        menu_items.disableContextMenuItems('#delete,#cut,#copy,#ungroup,#move_front,#move_up,#move_down,#move_back');
       }
       
       // update history buttons
