@@ -960,12 +960,6 @@ $.jGraduate.Paint({hex: "#rrggbb", linearGradient: o}) -> throws an exception?
 (function() {
  
 var ns = { svg: 'http://www.w3.org/2000/svg', xlink: 'http://www.w3.org/1999/xlink' };
-if(!window.console) {
-  window.console = new function() {
-    this.log = function(str) {};
-    this.dir = function(str) {};
-  };
-}
 
 $.jGraduate = { 
   Paint:
@@ -1442,40 +1436,49 @@ jQuery.fn.jGraduate =
           'stroke-width': 1.5
         }, stopGroup);
 
-        $(path).mousedown(function(e) {
+        var $path = $(path);
+
+        $path
+          .data('stop', stop)
+          .data('bg', pathbg)
+          .on("click", function(e) {
+            if (wasDragged) return wasDragged = false; // just dragged stop
+            $('div.jGraduate_LightBox').show();     
+            var colorhandle = this;
+            var stopOpacity = +stop.getAttribute('stop-opacity') || 1;
+            var stopColor = stop.getAttribute('stop-color') || 1;
+            var thisAlpha = (parseFloat(stopOpacity)*255).toString(16);
+            while (thisAlpha.length < 2) { thisAlpha = "0" + thisAlpha; }
+            color = stopColor.substr(1) + thisAlpha;
+            $('#'+id+'_jGraduate_stopPicker').css({'left': 100, 'bottom': 15}).jPicker({
+                window: { title: "Pick the start color and opacity for the gradient" },
+                images: { clientPath: $settings.images.clientPath },
+                color: { active: color, alphaSupport: true }
+              }, function(color, arg2){
+                stopColor = color.val('hex') ? ('#'+color.val('hex')) : "none";
+                stopOpacity = color.val('a') !== null ? color.val('a')/256 : 1;
+                colorhandle.setAttribute('fill', stopColor);
+                colorhandle.setAttribute('fill-opacity', stopOpacity);
+                stop.setAttribute('stop-color', stopColor);
+                stop.setAttribute('stop-opacity', stopOpacity);
+                $('div.jGraduate_LightBox').hide();
+                $('#'+id+'_jGraduate_stopPicker').hide();
+              }, null, function() {
+                $('div.jGraduate_LightBox').hide();
+                $('#'+id+'_jGraduate_stopPicker').hide();
+              });
+        });
+        
+        $path.mousedown(function(e) {
           selectStop(this);
           drag = cur_stop;
+          wasDragged = false;
           $win.mousemove(dragColor).mouseup(remDrags);
           stop_offset = stopMakerDiv.offset();
           e.preventDefault();
           return false;
-        }).data('stop', stop).data('bg', pathbg).dblclick(function() {
-          $('div.jGraduate_LightBox').show();     
-          var colorhandle = this;
-          var stopOpacity = +stop.getAttribute('stop-opacity') || 1;
-          var stopColor = stop.getAttribute('stop-color') || 1;
-          var thisAlpha = (parseFloat(stopOpacity)*255).toString(16);
-          while (thisAlpha.length < 2) { thisAlpha = "0" + thisAlpha; }
-          color = stopColor.substr(1) + thisAlpha;
-          $('#'+id+'_jGraduate_stopPicker').css({'left': 100, 'bottom': 15}).jPicker({
-              window: { title: "Pick the start color and opacity for the gradient" },
-              images: { clientPath: $settings.images.clientPath },
-              color: { active: color, alphaSupport: true }
-            }, function(color, arg2){
-              stopColor = color.val('hex') ? ('#'+color.val('hex')) : "none";
-              stopOpacity = color.val('a') !== null ? color.val('a')/256 : 1;
-              colorhandle.setAttribute('fill', stopColor);
-              colorhandle.setAttribute('fill-opacity', stopOpacity);
-              stop.setAttribute('stop-color', stopColor);
-              stop.setAttribute('stop-opacity', stopOpacity);
-              $('div.jGraduate_LightBox').hide();
-              $('#'+id+'_jGraduate_stopPicker').hide();
-            }, null, function() {
-              $('div.jGraduate_LightBox').hide();
-              $('#'+id+'_jGraduate_stopPicker').hide();
-            });
         });
-        
+
         $(curGradient).find('stop').each(function() {
           var cur_s = $(this);
           if(+this.getAttribute('offset') > n) {
@@ -1505,6 +1508,8 @@ jQuery.fn.jGraduate =
       
         
       var stops, stopGroup;
+
+      var wasDragged = false;
       
       var stopMakerDiv = $('#' + id + '_jGraduate_StopSlider');
 
@@ -1531,7 +1536,10 @@ jQuery.fn.jGraduate =
       
       var stop_offset;
       
-      function remDrags() {
+      function remDrags(e) {
+        if (!wasDragged) {
+          $(e.target).trigger("click"); // safari and windows fix, others no harm done
+        } 
         $win.unbind('mousemove', dragColor);
         if(delStop.getAttribute('display') !== 'none') {
           remStop();
@@ -1557,7 +1565,7 @@ jQuery.fn.jGraduate =
       }
       
       function dragColor(evt) {
-
+        wasDragged = true;
         var x = evt.pageX - stop_offset.left;
         var y = evt.pageY - stop_offset.top;
         x = x < 10 ? 10 : x > MAX + 10 ? MAX + 10: x;
@@ -1970,6 +1978,7 @@ jQuery.fn.jGraduate =
       });
       
       var dragSlider = function(evt) {
+        wasDragged = true;
         setSlider(evt);
         evt.preventDefault();
       };
@@ -20840,7 +20849,7 @@ var svgedit = svgedit || {};
                 var all = color.active.val('all');
                 if (win.alphaPrecision < 0) win.alphaPrecision = 0;
                 else if (win.alphaPrecision > 2) win.alphaPrecision = 2;
-                var controlHtml='<table class="jPicker" cellpadding="0" cellspacing="0"><tbody>' + (win.expandable ? '<tr><td class="Move" colspan="5">&nbsp;</td></tr>' : '') + '<tr><td rowspan="9"><h2 class="Title">' + (win.title || localization.text.title) + '</h2><div class="Map"><span class="Map1">&nbsp;</span><span class="Map2">&nbsp;</span><span class="Map3">&nbsp;</span><img src="' + images.clientPath + images.colorMap.arrow.file + '" class="Arrow"/></div></td><td rowspan="9"><div class="Bar"><span class="Map1">&nbsp;</span><span class="Map2">&nbsp;</span><span class="Map3">&nbsp;</span><span class="Map4">&nbsp;</span><span class="Map5">&nbsp;</span><span class="Map6">&nbsp;</span><img src="' + images.clientPath + images.colorBar.arrow.file + '" class="Arrow"/></div></td><td colspan="2" class="Preview"><div class="prev_div">' + localization.text.newColor + '<div class="color_preview"><span class="Active" title="' + localization.tooltips.colors.newColor + '">&nbsp;</span><span class="Current" title="' + localization.tooltips.colors.currentColor + '">&nbsp;</span></div></div>' + localization.text.currentColor + '</td><td rowspan="9" class="Button"><input type="button" class="Ok" value="' + localization.text.ok + '" title="' + localization.tooltips.buttons.ok + '"/><input type="button" class="Cancel" value="' + localization.text.cancel + '" title="' + localization.tooltips.buttons.cancel + '"/><div class="Grid">&nbsp;</div></td></tr><tr class="Hue"><td class="Radio"><label title="' + localization.tooltips.hue.radio + '"><input type="radio" value="h"' + (settings.color.mode == 'h' ? ' checked="checked"' : '') + '/>H:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.h : '') + '" title="' + localization.tooltips.hue.textbox + '"/>&nbsp;º</td></tr><tr class="Saturation"><td class="Radio"><label title="' + localization.tooltips.saturation.radio + '"><input type="radio" value="s"' + (settings.color.mode == 's' ? ' checked="checked"' : '') + '/>S:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.s : '') + '" title="' + localization.tooltips.saturation.textbox + '"/>&nbsp;%</td></tr><tr class="Value"><td class="Radio"><label title="' + localization.tooltips.value.radio + '"><input type="radio" value="v"' + (settings.color.mode == 'v' ? ' checked="checked"' : '') + '/>V:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.v : '') + '" title="' + localization.tooltips.value.textbox + '"/>&nbsp;%<br/><br/></td></tr><tr class="Red"><td class="Radio"><label title="' + localization.tooltips.red.radio + '"><input type="radio" value="r"' + (settings.color.mode == 'r' ? ' checked="checked"' : '') + '/>R:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.r : '') + '" title="' + localization.tooltips.red.textbox + '"/></td></tr><tr class="Green"><td class="Radio"><label title="' + localization.tooltips.green.radio + '"><input type="radio" value="g"' + (settings.color.mode == 'g' ? ' checked="checked"' : '') + '/>G:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.g : '') + '" title="' + localization.tooltips.green.textbox + '"/></td></tr><tr class="Blue"><td class="Radio"><label title="' + localization.tooltips.blue.radio + '"><input type="radio" value="b"' + (settings.color.mode == 'b' ? ' checked="checked"' : '') + '/>B:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.b : '') + '" title="' + localization.tooltips.blue.textbox + '"/></td></tr><tr class="Alpha"><td class="Radio">' + (win.alphaSupport ? '<label title="' + localization.tooltips.alpha.radio + '"><input type="radio" value="a"' + (settings.color.mode == 'a' ? ' checked="checked"' : '') + '/>A:</label>' : '&nbsp;') + '</td><td class="Text">' + (win.alphaSupport ? '<input type="text" maxlength="' + (3 + win.alphaPrecision) + '" value="' + (all != null ? Math.precision((all.a * 100) / 255, win.alphaPrecision) : '') + '" title="' + localization.tooltips.alpha.textbox + '"/>&nbsp;%' : '&nbsp;') + '</td></tr><tr class="Hex"><td colspan="2" class="Text"><label title="' + localization.tooltips.hex.textbox + '">#:<input type="text" maxlength="6" class="Hex" value="' + (all != null ? all.hex : '') + '"/></label>' + (win.alphaSupport ? '<input type="text" maxlength="2" class="AHex" value="' + (all != null ? all.ahex.substring(6) : '') + '" title="' + localization.tooltips.hex.alpha + '"/></td>' : '&nbsp;') + '</tr></tbody></table>';
+                var controlHtml='<table class="jPicker" cellpadding="0" cellspacing="0"><tbody>' + (win.expandable ? '<tr><td class="Move" colspan="5">&nbsp;</td></tr>' : '') + '<tr><td rowspan="9"><h2 class="Title">' + (win.title || localization.text.title) + '</h2><div class="Map"><span class="Map1">&nbsp;</span><span class="Map2">&nbsp;</span><span class="Map3">&nbsp;</span><img src="' + images.clientPath + images.colorMap.arrow.file + '" class="Arrow"/></div></td><td rowspan="9"><div class="Bar"><span class="Map1">&nbsp;</span><span class="Map2">&nbsp;</span><span class="Map3">&nbsp;</span><span class="Map4">&nbsp;</span><span class="Map5">&nbsp;</span><span class="Map6">&nbsp;</span><img src="' + images.clientPath + images.colorBar.arrow.file + '" class="Arrow"/></div></td><td colspan="2" class="Preview"><div class="prev_div">' + localization.text.newColor + '<div class="color_preview"><span class="Active" title="' + localization.tooltips.colors.newColor + '">&nbsp;</span><span class="Current" title="' + localization.tooltips.colors.currentColor + '">&nbsp;</span></div></div>' + localization.text.currentColor + '</td><td rowspan="9" class="Button"><input type="button" class="Ok" value="' + localization.text.ok + '" title="' + localization.tooltips.buttons.ok + '"/><input type="button" class="Cancel" value="' + localization.text.cancel + '" title="' + localization.tooltips.buttons.cancel + '"/><div class="Grid">&nbsp;</div></td></tr><tr class="Hue"><td class="Radio"><label title="' + localization.tooltips.hue.radio + '"><input name="color_mode" type="radio" value="h"' + (settings.color.mode == 'h' ? ' checked="checked"' : '') + '/>H:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.h : '') + '" title="' + localization.tooltips.hue.textbox + '"/>&nbsp;º</td></tr><tr class="Saturation"><td class="Radio"><label title="' + localization.tooltips.saturation.radio + '"><input  name="color_mode" type="radio" value="s"' + (settings.color.mode == 's' ? ' checked="checked"' : '') + '/>S:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.s : '') + '" title="' + localization.tooltips.saturation.textbox + '"/>&nbsp;%</td></tr><tr class="Value"><td class="Radio"><label title="' + localization.tooltips.value.radio + '"><input  name="color_mode" type="radio" value="v"' + (settings.color.mode == 'v' ? ' checked="checked"' : '') + '/>V:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.v : '') + '" title="' + localization.tooltips.value.textbox + '"/>&nbsp;%<br/><br/></td></tr><tr class="Red"><td class="Radio"><label title="' + localization.tooltips.red.radio + '"><input name="color_mode" type="radio" value="r"' + (settings.color.mode == 'r' ? ' checked="checked"' : '') + '/>R:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.r : '') + '" title="' + localization.tooltips.red.textbox + '"/></td></tr><tr class="Green"><td class="Radio"><label title="' + localization.tooltips.green.radio + '"><input  name="color_mode" type="radio" value="g"' + (settings.color.mode == 'g' ? ' checked="checked"' : '') + '/>G:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.g : '') + '" title="' + localization.tooltips.green.textbox + '"/></td></tr><tr class="Blue"><td class="Radio"><label title="' + localization.tooltips.blue.radio + '"><input  name="color_mode" type="radio" value="b"' + (settings.color.mode == 'b' ? ' checked="checked"' : '') + '/>B:</label></td><td class="Text"><input type="text" maxlength="3" value="' + (all != null ? all.b : '') + '" title="' + localization.tooltips.blue.textbox + '"/></td></tr><tr class="Alpha"><td class="Radio">' + (win.alphaSupport ? '<label title="' + localization.tooltips.alpha.radio + '"><input  name="color_mode" type="radio" value="a"' + (settings.color.mode == 'a' ? ' checked="checked"' : '') + '/>A:</label>' : '&nbsp;') + '</td><td class="Text">' + (win.alphaSupport ? '<input type="text" maxlength="' + (3 + win.alphaPrecision) + '" value="' + (all != null ? Math.precision((all.a * 100) / 255, win.alphaPrecision) : '') + '" title="' + localization.tooltips.alpha.textbox + '"/>&nbsp;%' : '&nbsp;') + '</td></tr><tr class="Hex"><td colspan="2" class="Text"><label title="' + localization.tooltips.hex.textbox + '">#:<input type="text" maxlength="6" class="Hex" value="' + (all != null ? all.hex : '') + '"/></label>' + (win.alphaSupport ? '<input type="text" maxlength="2" class="AHex" value="' + (all != null ? all.ahex.substring(6) : '') + '" title="' + localization.tooltips.hex.alpha + '"/></td>' : '&nbsp;') + '</tr></tbody></table>';
                 if (win.expandable)
                 {
                   container.html(controlHtml);
@@ -21216,7 +21225,7 @@ var svgedit = svgedit || {};
             hue:
             {
               radio: 'Set To &ldquo;Hue&rdquo; Color Mode',
-              textbox: 'Enter A &ldquo;Hue&rdquo; Value (0-360&deg;)'
+              textbox: 'Enter A &ldquo;Hue&rdquo; Value (0-360&deg;)',
             },
             saturation:
             {

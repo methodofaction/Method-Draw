@@ -1,3 +1,4 @@
 node_modules/*
 .DS_Store
 deploy.sh
+fuji.sh

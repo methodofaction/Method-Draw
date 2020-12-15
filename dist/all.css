@@ -152,6 +152,7 @@ table#svg_editor .jPicker {
 }
 #svg_editor .jPicker .Button input {
     width: 100px;
+    cursor: pointer;
 }
 
 #svg_editor .jPicker td.Radio {
@@ -162,6 +163,7 @@ table#svg_editor .jPicker {
 #svg_editor .jPicker td.Radio input {
     margin: 0 5px 0 0;
     padding: 0;
+    cursor: pointer;
 }
 #svg_editor .jPicker td.Text {
     font-size: 12px!important;
@@ -182,7 +184,6 @@ table#svg_editor .jPicker {
 }
 #svg_editor .jPicker td.Text input {
     background-color: #fff;
-    border: 1px inset #aaa;
     height: 15px;
     margin: 0 0 0 5px;
     text-align: left;
@@ -1829,6 +1830,7 @@ div#font-selector .font-item:hover {
  #color_picker input[type=text], #color_picker  input[type=number] {
   width: 30px;
   background: #fff;
+  border: solid rgba(0,0,0,0.3) 1px;
 }
 
  .dropdown_set input[type=text],  .dropdown_set input[type=number] {
