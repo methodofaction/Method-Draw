@@ -22,7 +22,7 @@ window.methodDraw = function() {
     showRulers: (svgedit.browser.isTouch()) ? false : true,
     show_outside_canvas: false,
     no_save_warning: true,
-    initFont: 'Bankoli, sans-serif'
+    initFont: 'Arial, sans-serif'
   };
   var customHandlers = {};
   Editor.curConfig = curConfig;
@@ -645,7 +645,6 @@ window.methodDraw = function() {
           if(el_name == 'text') {
             var font_family = elem.getAttribute("font-family");
             var select = document.getElementById("font_family_dropdown");
-            select.selectedIndex = 3
             
             $('#text_panel').css("display", "inline");  
             $('#tool_italic').toggleClass('active', svgCanvas.getItalic())
@@ -962,10 +961,33 @@ window.methodDraw = function() {
        });
 
     $('#font_family_dropdown').change(function() {
-      var fam = this.options[this.selectedIndex].value
+      var fam = this.options[this.selectedIndex].value;
+      // todo refactor
+      const font = fam === "Arial" ? {Bold: true, Italic: true, "BoldItalic": true} : fonts[fam];
+      
+      svgCanvas.setBold(false);
+      svgCanvas.setItalic(false);
+      
+      $("#tool_bold")
+        .removeClass("active")
+        .toggleClass("disabled", !font.Bold);
+
+      $("#tool_italic")
+        .removeClass("active")
+        .toggleClass("disabled", !font.Italic);
+      
       var fam_display = this.options[this.selectedIndex].text
       $('#preview_font').html(fam_display).css("font-family", fam);
       $('#font_family').val(fam).change();
+      // todo should depend on actual load
+      document.fonts.onloadingdone = function (fontFaceSetEvent) {
+      const els = svgCanvas.getSelectedElems();
+        els.forEach(el => {
+            var selector = svgCanvas.selectorManager.requestSelector(el);
+            selector.resize();
+        })
+       };
+      
     });
     
     $('div', '#position_opts').each(function(){

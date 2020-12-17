@@ -42,7 +42,7 @@ gulp.task('images', function(){
 });
 
 gulp.task('fonts', function(){
-    return gulp.src(['src/css/font-files/**/*'])
+    return gulp.src(['src/font-files/**/*'])
     .pipe(gulp.dest('dist/font-files'));
 });
 
