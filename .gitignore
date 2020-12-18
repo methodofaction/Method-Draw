@@ -3,3 +3,4 @@ dist/*
 .DS_Store
 deploy.sh
 fuji.sh
+.deta

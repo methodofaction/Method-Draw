@@ -6,7 +6,7 @@
   <link rel="icon" href="images/favicon.svg" sizes="any" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <title>Method Draw SVG Editor</title>
+  <title id="title">Method Draw SVG Editor</title>
   <meta charset="utf-8">
   <meta name="description" content="Method Draw is an open source SVG editor for the web, you can use it online without signing up.">
 
@@ -71,7 +71,8 @@
       <div id="tool_clear" class="menu_item">New Document</div>
       <div id="tool_open" class="menu_item" style="display: none;"><div id="fileinputs"></div>Open SVG...</div>
       <div id="tool_import" class="menu_item" style="display: none;"><div id="fileinputs_import"></div>Import Image...</div>
-      <div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
+      <div id="tool_csave" class="menu_item">Save <span class="shortcut">⌘S</span></div>
+      <div id="tool_save" class="menu_item">Export Image...</div>
       <div id="tool_export" class="menu_item">Export as PNG</div>
     </div>
   </div>
@@ -116,7 +117,17 @@
         <div class="menu_item" id="tool_source">Source... <span class="shortcut">⌘U</span></div>
     </div>
   </div>
-  
+
+  <div class="menu">
+    <div class="menu_title">Open</div>
+    <div class="menu_list" id="open_menu">
+        <div class="menu_item" >Nothing to see</div>
+    </div>
+  </div>
+
+  <div class="menu">
+    <strong id="save_name" class="menu_title">untitled.svg</strong>
+  </div>
 
   
 </div>
@@ -714,6 +725,7 @@
   <script type="text/javascript" src="js/lib/requestanimationframe.js"></script>
   <script type="text/javascript" src="js/lib/taphold.js"></script>
   <script type="text/javascript" src="js/lib/filesaver.js"></script>
+  <script type="text/javascript" src="js/http.js"></script>
   <script type="text/javascript" src="js/paste.js"></script>
 
 <!-- endbuild -->

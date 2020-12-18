@@ -210,6 +210,8 @@ $.extend(all_properties.text, {
   font_family: 'Helvetica, Arial, sans-serif'
 });
 
+canvas.save_name;
+
 // Current shape style properties
 var cur_shape = all_properties.shape;
 
@@ -5558,6 +5560,22 @@ this.save = function() {
   saveAs(blob, "method-draw-image.svg", dropAutoBOM);
 };
 
+this.csave = function() {
+  // remove the selected outline before serializing
+  if (!canvas.save_name) {
+    canvas.save_name = window.prompt("Give the file a name", "untitled.svg")
+    document.getElementById("save_name").innerText = canvas.save_name;
+  }
+  clearSelection();
+  // save_options.apply = true;
+  
+  // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
+  var svg = this.svgCanvasToString();
+  // var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
+  var dropAutoBOM = true;
+  cloudSave(svg, canvas.save_name, dropAutoBOM);
+};
+
 // Function: rasterExport
 // Generates a PNG Data URL based on the current image, then calls "exported" 
 // with an object including the string and any issues found
@@ -5942,7 +5960,8 @@ var convertToGroup = this.convertToGroup = function(elem) {
 //
 // Returns:
 // This function returns false if the set was unsuccessful, true otherwise.
-this.setSvgString = function(xmlString) {
+this.setSvgString = function(xmlString, name) {
+  this.save_name = name
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);
@@ -6662,9 +6681,36 @@ this.clear = function() {
 
   // create new document
   canvas.current_drawing_ = new svgedit.draw.Drawing(svgcontent);
+  canvas.save_name = undefined;
+  document.getElementById("save_name").innerText = "untitled.svg";
 
   // create empty first layer
   canvas.createLayer("Layer 1");
+  
+  // clear the undo stack
+  canvas.undoMgr.resetUndoStack();
+
+  // reset the selector manager
+  selectorManager.initGroup();
+
+  // reset the rubber band box
+  rubberBox = selectorManager.getRubberBandBox();
+
+  call("cleared");
+};
+
+this.copen = function() {
+  pathActions.clear();
+
+  clearSelection();
+
+  // clear the svgcontent node
+  canvas.clearSvgContentElement();
+
+  // create new document
+  canvas.current_drawing_ = new svgedit.draw.Drawing(svgcontent);
+  document.getElementById("save_name").innerText = "untitled.svg";
+
   
   // clear the undo stack
   canvas.undoMgr.resetUndoStack();

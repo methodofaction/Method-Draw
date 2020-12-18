@@ -1434,6 +1434,10 @@ window.methodDraw = function() {
       flash($('#file_menu'));
       svgCanvas.save();
     };
+    var clickCloudSave = function(){
+      flash($('#file_menu'));
+      svgCanvas.csave();
+    };
     
     var saveSourceEditor = function(){
       if (!editingsource) return;
@@ -1986,7 +1990,8 @@ window.methodDraw = function() {
         {sel:'#tool_text', fn: clickText, evt: 'click', key: ['T', true]},
         {sel:'#tool_zoom', fn: clickZoom, evt: 'mouseup', key: ['Z', true]},
         {sel:'#tool_clear', fn: clickClear, evt: 'mouseup', key: [modKey + 'N', true]},
-        {sel:'#tool_save', fn: function() { editingsource ? saveSourceEditor(): clickSave() }, evt: 'mouseup', key: [modKey + 'S', true]},
+        {sel:'#tool_save', fn: function() { editingsource ? saveSourceEditor(): clickSave() }, evt: 'mouseup'},
+        {sel:'#tool_csave', fn: clickCloudSave, evt: 'mouseup', key: [modKey + 'S', true]},
         {sel:'#tool_export', fn: clickExport, evt: 'mouseup'},
         {sel:'#tool_open', fn: clickOpen, evt: 'mouseup'},
         {sel:'#tool_import', fn: clickImport, evt: 'mouseup'},
