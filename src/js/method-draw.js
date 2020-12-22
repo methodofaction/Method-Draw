@@ -1258,8 +1258,8 @@ window.methodDraw = function() {
       if(window.canvg) {
         svgCanvas.rasterExport();
       } else {
-        $.getScript('/js/lib/rgbcolor.js', function() {
-          $.getScript('/js/lib/canvg.js', function() {
+        $.getScript('js/lib/rgbcolor.js', function() {
+          $.getScript('js/lib/canvg.js', function() {
             svgCanvas.rasterExport();
           });
         });
