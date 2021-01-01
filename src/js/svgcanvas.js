@@ -2155,7 +2155,8 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
     }
   }
   call("selected", selectedElements);
-  selectorManager.requestSelector(selectedElements[0]).showGrips(showGrips)
+  // todo Bug: if duplicated with shift it will deselect and cause an error
+  if (selectedElements[0]) selectorManager.requestSelector(selectedElements[0]).showGrips(showGrips)
 
   // make sure the elements are in the correct order
   // See: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-compareDocumentPosition
@@ -3854,7 +3855,7 @@ var textActions = canvas.textActions = function() {
 //      $(textinput).blur(hideCursor);
     },
     clear: function() {
-      if(current_mode == "textedit") {
+      if(current_mode === "textedit") {
         textActions.toSelectMode();
       }
     },
@@ -8136,10 +8137,7 @@ this.pasteElements = function(type, x, y) {
     batchCmd.addSubCommand(new InsertElementCommand(copy));
   }
   svgCanvas.clearSelection();
-  setTimeout(function(){selectOnly(pasted)},100);
-  
-
-  
+  selectOnly(pasted, true);
   addCommandToHistory(batchCmd);
   call("changed", pasted);
 }
