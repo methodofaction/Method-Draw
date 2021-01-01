@@ -2163,7 +2163,7 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
 
   selectedElements.sort(function(a,b) {
     if(a && b && a.compareDocumentPosition) {
-      return 3 - (b.compareDocum`entPosition(a) & 6);  
+      return 3 - (b.compareDocumentPosition(a) & 6);  
     } else if(a == null) {
       return 1;
     }
@@ -3855,7 +3855,7 @@ var textActions = canvas.textActions = function() {
 //      $(textinput).blur(hideCursor);
     },
     clear: function() {
-      if(current_mode == "textedit") {
+      if(current_mode === "textedit") {
         textActions.toSelectMode();
       }
     },
@@ -8137,10 +8137,7 @@ this.pasteElements = function(type, x, y) {
     batchCmd.addSubCommand(new InsertElementCommand(copy));
   }
   svgCanvas.clearSelection();
-  setTimeout(function(){selectOnly(pasted)},100);
-  
-
-  
+  selectOnly(pasted, true);
   addCommandToHistory(batchCmd);
   call("changed", pasted);
 }
