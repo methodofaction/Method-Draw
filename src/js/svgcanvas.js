@@ -2155,14 +2155,15 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
     }
   }
   call("selected", selectedElements);
-  selectorManager.requestSelector(selectedElements[0]).showGrips(showGrips)
+  // todo Bug: if duplicated with shift it will deselect and cause an error
+  if (selectedElements[0]) selectorManager.requestSelector(selectedElements[0]).showGrips(showGrips)
 
   // make sure the elements are in the correct order
   // See: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-compareDocumentPosition
 
   selectedElements.sort(function(a,b) {
     if(a && b && a.compareDocumentPosition) {
-      return 3 - (b.compareDocumentPosition(a) & 6);  
+      return 3 - (b.compareDocum`entPosition(a) & 6);  
     } else if(a == null) {
       return 1;
     }
