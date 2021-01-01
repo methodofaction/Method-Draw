@@ -153,7 +153,7 @@ window.methodDraw = function() {
       if (selectedElement != null) {
         $('#multiselected_panel').hide()
         updateToolbar();
-        if (multiselected.length) {//multiselected elements are the same
+        if (multiselected.length) { //multiselected elements are the same
           $('#tools_top').addClass('multiselected')
         }
       }
@@ -285,7 +285,6 @@ window.methodDraw = function() {
       }
       animateZoom()
 
-  
       if(svgCanvas.getMode() == 'zoom' && bb.width) {
         // Go to select if a zoom box was drawn
         setSelectMode();
@@ -810,7 +809,10 @@ window.methodDraw = function() {
       svgCanvas.setFontFamily(this.value);
     });
       
-    $('#text').keyup(function(){
+    $('#text').keyup(function(e){
+      if (e.key === "Escape") {
+        return svgCanvas.textActions.toSelectMode()
+      }
       svgCanvas.setTextContent(this.value);
     });
     
@@ -1280,8 +1282,8 @@ window.methodDraw = function() {
       if(window.canvg) {
         svgCanvas.rasterExport();
       } else {
-        $.getScript('/js/lib/rgbcolor.js', function() {
-          $.getScript('/js/lib/canvg.js', function() {
+        $.getScript('js/lib/rgbcolor.js', function() {
+          $.getScript('js/lib/canvg.js', function() {
             svgCanvas.rasterExport();
           });
         });
