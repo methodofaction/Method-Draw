@@ -943,35 +943,6 @@ var getRefElem = this.getRefElem = function(attrVal) {
   return getElem(getUrlFromAttr(attrVal).substr(1));
 }
 
-// Function: ffClone
-// Hack for Firefox bugs where text element features aren't updated or get 
-// messed up. See issue 136 and issue 137.
-// This function clones the element and re-selects it 
-// TODO: Test for this bug on load and add it to "support" object instead of 
-// browser sniffing
-//
-// Parameters: 
-// elem - The (text) DOM element to clone
-var ffClone = function(elem) {
-  if(!svgedit.browser.isGecko()) return elem;
-  var clone = elem.cloneNode(true)
-  elem.parentNode.insertBefore(clone, elem);
-  elem.parentNode.removeChild(elem);
-  selectorManager.releaseSelector(elem);
-  selectedElements[0] = clone;
-  selectorManager.requestSelector(clone).showGrips(true);
-  return clone;
-}
-
-
-// this.each is deprecated, if any extension used this it can be recreated by doing this:
-// $(canvas.getRootElem()).children().each(...)
-
-// this.each = function(cb) {
-//  $(svgroot).children().each(cb);
-// };
-
-
 // Function: setRotationAngle
 // Removes any old rotations if present, prepends a new rotation at the
 // transformed center
@@ -2146,12 +2117,12 @@ var clearSelection = this.clearSelection = function(noCall) {
 // elemsToAdd - an array of DOM elements to add to the selection
 // showGrips - a boolean flag indicating whether the resize grips should be shown
 var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
-  if (elemsToAdd.length == 0) { return; }
+  if (elemsToAdd.length === 0) return false
   // find the first null in our selectedElements array
   var j = 0;
   
   while (j < selectedElements.length) {
-    if (selectedElements[j] == null) { 
+    if (selectedElements[j] === null) { 
       break;
     }
     ++j;
@@ -2184,8 +2155,7 @@ var addToSelection = this.addToSelection = function(elemsToAdd, showGrips) {
     }
   }
   call("selected", selectedElements);
-  if (showGrips || selectedElements.length == 1) selectorManager.requestSelector(selectedElements[0]).showGrips(true)
-  else selectorManager.requestSelector(selectedElements[0]).showGrips(false);
+  selectorManager.requestSelector(selectedElements[0]).showGrips(showGrips)
 
   // make sure the elements are in the correct order
   // See: http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-compareDocumentPosition
@@ -3365,7 +3335,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         break;
       case "text":
         keep = true;
-        selectOnly([element]);
         textActions.start(element);
         break;
       case "path":
@@ -3463,26 +3432,22 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         ani_dur = 0;
       }
       
-      // Ideally this would be done on the endEvent of the animation,
-      // but that doesn't seem to be supported in Webkit
-      setTimeout(function() {
-        if(c_ani) c_ani.remove();
-        element.setAttribute("opacity", cur_shape.opacity);
-        element.setAttribute("style", "pointer-events:inherit");
-        cleanupElement(element);
-        if(current_mode === "path") {
-          pathActions.toEditMode(element);
-        } else {
-          if(curConfig.selectNew) {
-            selectOnly([element], true);
-          }
+      if(c_ani) c_ani.remove();
+      element.setAttribute("opacity", cur_shape.opacity);
+      element.setAttribute("style", "pointer-events:inherit");
+      cleanupElement(element);
+      if(current_mode === "path") {
+        pathActions.toEditMode(element);
+      } else {
+        if(curConfig.selectNew) {
+          selectOnly([element], current_mode !== "textedit");
         }
-        // we create the insert command that is stored on the stack
-        // undo means to call cmd.unapply(), redo means to call cmd.apply()
-        addCommandToHistory(new InsertElementCommand(element));
-        
-        call("changed",[element]);
-      }, ani_dur * 1000);
+      }
+      // we create the insert command that is stored on the stack
+      // undo means to call cmd.unapply(), redo means to call cmd.apply()
+      addCommandToHistory(new InsertElementCommand(element));
+      
+      call("changed",[element]);
     }
     
     start_transform = null;
@@ -3628,9 +3593,7 @@ var textActions = canvas.textActions = function() {
         var show = (cursor.getAttribute('display') === 'none');
         cursor.setAttribute('display', show?'inline':'none');
       }, 600);
-
     }
-    
     
     var start_pt = ptToScreen(charbb.x, textbb.y);
     var end_pt = ptToScreen(charbb.x, (textbb.y + textbb.height));
@@ -3670,9 +3633,7 @@ var textActions = canvas.textActions = function() {
       getElem("selectorParentGroup").appendChild(selblock);
     }
 
-    
-    var startbb = chardata[start];
-    
+    var startbb = chardata[start];    
     var endbb = chardata[end];
     
     cursor.setAttribute('visibility', 'hidden');
@@ -3815,13 +3776,10 @@ var textActions = canvas.textActions = function() {
     },
     mouseDown: function(evt, mouse_target, start_x, start_y) {
       var pt = screenToPt(start_x, start_y);
-    
       textinput.focus();
       setCursorFromPoint(pt.x, pt.y);
       last_x = start_x;
       last_y = start_y;
-      
-      // TODO: Find way to block native selection
     },
     mouseMove: function(mouse_x, mouse_y) {
       var pt = screenToPt(mouse_x, mouse_y);
@@ -3845,7 +3803,7 @@ var textActions = canvas.textActions = function() {
         &&  mouse_y < last_y + 2
         && mouse_y > last_y - 2) {
 
-        textActions.toSelectMode(true);
+        textActions.toSelectMode();
       }
 
     },
@@ -3854,11 +3812,9 @@ var textActions = canvas.textActions = function() {
       selectOnly([curtext], false)
       allow_dbl = false;
       current_mode = "textedit";
-      selectorManager.requestSelector(curtext).showGrips(false);
-    
+      
       // Make selector group accept clicks
       var sel = selectorManager.requestSelector(curtext).selectorRect;
-      
       textActions.init();
 
       $(curtext).css('cursor', 'text');
@@ -3874,33 +3830,24 @@ var textActions = canvas.textActions = function() {
         allow_dbl = true;
       }, 300);
     },
-    toSelectMode: function(selectElem) {
+    toSelectMode: function() {
       current_mode = "select";
       clearInterval(blinker);
       blinker = null;
-      if(selblock) $(selblock).attr('display','none');
-      if(cursor) $(cursor).attr('visibility','hidden');
+      $(selblock).attr('display','none');
+      $(cursor).attr('visibility','hidden');
       $(curtext).css('cursor', 'move');
-      
-      if(selectElem) {
-        clearSelection();
-        $(curtext).css('cursor', 'move');
-        
-        call("selected", [curtext]);
-        addToSelection([curtext], true);
-      }
+      clearSelection();
+      $(curtext).css('cursor', 'move');
+      call("selected", [curtext]);
+      addToSelection([curtext], true);
+      // no content, delete
       if(curtext && !curtext.textContent.length) {
-        // No content, so delete
         canvas.deleteSelectedElements();
       }
-      
       $(textinput).blur();
-      
       curtext = false;
-      
-//        if(svgedit.browser.supportsEditableText()) {
-//          curtext.removeAttribute('editable');
-//        }
+
     },
     setInputElem: function(elem) {
       textinput = elem;
@@ -3913,18 +3860,6 @@ var textActions = canvas.textActions = function() {
     },
     init: function(inputElem) {
       if(!curtext) return;
-
-//        if(svgedit.browser.supportsEditableText()) {
-//          curtext.select();
-//          return;
-//        }
-    
-      if(!curtext.parentNode) {
-        // Result of the ffClone, need to get correct element
-        curtext = selectedElements[0];
-        selectorManager.requestSelector(curtext).showGrips(false);
-      }
-      
       var str = curtext.textContent;
       var len = str.length;
       
@@ -3973,7 +3908,9 @@ var textActions = canvas.textActions = function() {
         x: end.x,
         width: 0
       });
+
       setSelection(textinput.selectionStart, textinput.selectionEnd, true);
+      selectorManager.requestSelector(curtext).showGrips(false);
     }
   }
 }();
@@ -4366,8 +4303,7 @@ var pathActions = canvas.pathActions = function() {
           return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
         }
 
-        function get_angle(pt1, pt2)
-        {
+        function get_angle(pt1, pt2) {
           var dy = pt1.y - pt2.y;
           var dx = pt1.x - pt2.x;
           var theta = Math.atan2(dy, dx);
@@ -4411,11 +4347,6 @@ var pathActions = canvas.pathActions = function() {
           svgedit.path.setLinkControlPoints(false);
           svgedit.path.is_linked = false;
         }
-
-
-        ///////
-
-
       }
 
       // Start selection box
@@ -4464,11 +4395,9 @@ var pathActions = canvas.pathActions = function() {
           var alt_x = (is_linked) ?  (pt_x + (pt_x - cur_x)) : current_pointGrip2_x;
           var alt_y = (is_linked) ?  (pt_y + (pt_y - cur_y)) : current_pointGrip2_y;
           
-          
           pointGrip2.setAttribute('cx', alt_x * current_zoom);
           pointGrip2.setAttribute('cy', alt_y * current_zoom);
           pointGrip2.setAttribute('display', 'inline');
-          
           
           var ctrlLine = svgedit.path.getCtrlLine(1);
           var ctrlLine2 = svgedit.path.getCtrlLine(2);
@@ -4480,7 +4409,6 @@ var pathActions = canvas.pathActions = function() {
             display: 'inline'
           });
           
-
           assignAttributes(ctrlLine2, {
             x1: alt_x * current_zoom,
             y1: alt_y * current_zoom,
@@ -4488,7 +4416,6 @@ var pathActions = canvas.pathActions = function() {
             y2: pt_y * current_zoom,
             display: 'inline'
           });
-
 
           if(index === 0) {
             firstCtrl = [mouse_x, mouse_y];
@@ -8023,7 +7950,7 @@ var changeSelectedAttributeNoUndo = this.changeSelectedAttributeNoUndo = functio
       if (elem == null) continue;
       // Go into "select" mode for text changes
       if(current_mode === "textedit" && attr !== "#text" && elem.textContent.length) {
-        textActions.toSelectMode(elem);
+        textActions.toSelectMode();
       }
 
       // Set x,y vals on elements that don't have them
@@ -8966,7 +8893,6 @@ this.getPrivateMethods = function() {
     call: call,
     ChangeElementCommand: ChangeElementCommand,
     copyElem: copyElem,
-    ffClone: ffClone,
     findDefs: findDefs,
     findDuplicateGradient: findDuplicateGradient,
     getElem: getElem,
