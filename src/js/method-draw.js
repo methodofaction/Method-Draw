@@ -648,7 +648,10 @@ window.methodDraw = function() {
             $('#text_panel').css("display", "inline");  
             $('#tool_italic').toggleClass('active', svgCanvas.getItalic())
             $('#tool_bold').toggleClass('active', svgCanvas.getBold())
+            $('#tool_italic').toggleClass('disabled', fonts[font_family] ? !fonts[font_family]["Italic"] : false)
+            $('#tool_bold').toggleClass('disabled', fonts[font_family] ? !fonts[font_family]["Bold"] : false);
             $('#font_family').val(font_family);
+            $(select).find("option[value='" + font_family +"']").prop("selected", true);
             $('#font_size').val(elem.getAttribute("font-size"));
             $('#text').val(elem.textContent);
             $('#preview_font').text(font_family.split(",")[0].replace(/'/g, "")).css('font-family', font_family);
@@ -978,8 +981,8 @@ window.methodDraw = function() {
         .removeClass("active")
         .toggleClass("disabled", !font.Italic);
       
-      var fam_display = this.options[this.selectedIndex].text
-      $('#preview_font').html(fam_display).css("font-family", fam);
+      var fam_display = this.options[this.selectedIndex].text;
+      $('#preview_font').html(fam_display).css("font-family", `"${fam}"`);
       $('#font_family').val(fam).change();
       // todo should depend on actual load
       document.fonts.onloadingdone = function (fontFaceSetEvent) {

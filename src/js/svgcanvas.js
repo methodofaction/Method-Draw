@@ -7477,7 +7477,7 @@ this.getBold = function() {
   var selectedElems = selectedElements.filter(Boolean)
   var isBold = true
   selectedElems.forEach(function(el){
-    if (el.getAttribute("font-weight") != "bold") isBold = false;
+    if (el.getAttribute("font-weight") !== "bold") isBold = false;
   });
   return isBold;
 };
@@ -7535,7 +7535,7 @@ this.getFontFamily = function() {
 // val - String with the new font family
 this.setFontFamily = function(val) {
   cur_text.font_family = val;
-  changeSelectedAttribute("font-family", val);
+  changeSelectedAttribute("font-family", `${val}`);
   if(selectedElements[0] && !selectedElements[0].textContent) {
     textActions.setCursor();
   }
