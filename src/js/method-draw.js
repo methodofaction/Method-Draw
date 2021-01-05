@@ -982,7 +982,7 @@ window.methodDraw = function() {
         .toggleClass("disabled", !font.Italic);
       
       var fam_display = this.options[this.selectedIndex].text;
-      $('#preview_font').html(fam_display).css("font-family", `"${fam}"`);
+      $('#preview_font').html(fam_display).css("font-family", `'${fam}'`);
       $('#font_family').val(fam).change();
       // todo should depend on actual load
       document.fonts.onloadingdone = function (fontFaceSetEvent) {
