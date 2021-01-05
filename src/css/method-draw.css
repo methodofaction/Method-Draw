@@ -44,7 +44,7 @@ html, body {
 
 #browser-not-supported {
         font-size: 0.8em;
-        font-family: Verdana, Helvetica, Arial;
+        font-family: sans-serif;
         color: #000000;
 }
 

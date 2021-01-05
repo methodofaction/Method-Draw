@@ -207,7 +207,7 @@ $.extend(all_properties.text, {
   fill: "#000000",
   stroke_width: 0,
   font_size: 24,
-  font_family: 'Arial, sans-serif'
+  font_family: 'sans-serif'
 });
 
 // Current shape style properties
@@ -7535,7 +7535,7 @@ this.getFontFamily = function() {
 // val - String with the new font family
 this.setFontFamily = function(val) {
   cur_text.font_family = val;
-  changeSelectedAttribute("font-family", `${val}`);
+  changeSelectedAttribute("font-family", val);
   if(selectedElements[0] && !selectedElements[0].textContent) {
     textActions.setCursor();
   }

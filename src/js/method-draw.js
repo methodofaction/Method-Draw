@@ -22,7 +22,6 @@ window.methodDraw = function() {
     showRulers: (svgedit.browser.isTouch()) ? false : true,
     show_outside_canvas: false,
     no_save_warning: true,
-    initFont: 'Arial, sans-serif'
   };
   var customHandlers = {};
   Editor.curConfig = curConfig;
@@ -651,7 +650,7 @@ window.methodDraw = function() {
             $('#tool_italic').toggleClass('disabled', fonts[font_family] ? !fonts[font_family]["Italic"] : false)
             $('#tool_bold').toggleClass('disabled', fonts[font_family] ? !fonts[font_family]["Bold"] : false);
             $('#font_family').val(font_family);
-            $(select).find("option[value='" + font_family +"']").prop("selected", true);
+            $(select).find(`option[value=${font_family}]`).prop("selected", true);
             $('#font_size').val(elem.getAttribute("font-size"));
             $('#text').val(elem.textContent);
             $('#preview_font').text(font_family.split(",")[0].replace(/'/g, "")).css('font-family', font_family);
@@ -967,8 +966,9 @@ window.methodDraw = function() {
 
     $('#font_family_dropdown').change(function() {
       var fam = this.options[this.selectedIndex].value;
-      // todo refactor
-      const font = fam === "Arial" ? {Bold: true, Italic: true, "BoldItalic": true} : fonts[fam];
+      const isSystemFont = fam === "sans-serif" || fam === "serif" || fam === "monospace";
+      const font = isSystemFont ? {Bold: true, Italic: true, "BoldItalic": true} : fonts[fam];
+      if (!isSystemFont) fam = `'${fam}'`;
       
       svgCanvas.setBold(false);
       svgCanvas.setItalic(false);
@@ -982,7 +982,7 @@ window.methodDraw = function() {
         .toggleClass("disabled", !font.Italic);
       
       var fam_display = this.options[this.selectedIndex].text;
-      $('#preview_font').html(fam_display).css("font-family", `'${fam}'`);
+      $('#preview_font').html(fam_display).css("font-family", fam);
       $('#font_family').val(fam).change();
       // todo should depend on actual load
       document.fonts.onloadingdone = function (fontFaceSetEvent) {

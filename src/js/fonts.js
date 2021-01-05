@@ -1,5 +1,9 @@
 function populateFonts(fonts){
-  let options = "<option value='Arial' selected>Arial</option>";
+  let options = `
+    <option value='sans-serif' selected>sans-serif</option>
+    <option value='serif' selected>serif</option>
+    <option value='monospace' selected>monospace</option>
+  `;
   let fontfaces = "";
   const formats = {
     ttf: "truetype",
@@ -52,54 +56,9 @@ const fonts = {
     }
   },
 
-  "Bankoli": {
-    "Bold": {
-      "file": "BAIR.TTF",
-      "font-weight": "bold",
-      "font-style": "normal"
-    }
-  },
-
-  "Bauhaus 93": {
-    "Normal": {
-      "file": "BAUHS93_0.TTF",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-
-  "Beastmachine": {
-    "Regular": {
-      "file": "Beastmachine.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
   "Calistoga": {
     "Regular": {
       "file": "Calistoga-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-
-  "Cooper Std Black": {
-    "Regular": {
-      "file": "CooperBlackStd.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "CooperBlackStd-Italic.otf",
-      "font-style": "italic",
-      "font-weight": "normal"
-    },
-  },
-
-  "Diner": {
-    "Regular": {
-      "file": "diner_.ttf",
       "font-weight": "normal",
       "font-style": "normal"
     }
@@ -286,100 +245,6 @@ const fonts = {
       "font-weight": "normal",
       "font-style": "italic",
     }
-  },
-
-  "Noto Serif JP": {
-    "Regular": {
-      "file": "NotoSerifJP-Regular.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Bold": {
-      "file": "NotoSerifJP-Bold.otf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-  },
-  "Noto Serif ExtraLight": {
-    "Regular": {
-      "file": "NotoSerifJP-ExtraLight.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-  "Noto Serif Light": {
-    "Regular": {
-      "file": "NotoSerifJP-ExtraLight.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-  "Noto Serif Medium": {
-    "Regular": {
-      "file": "NotoSerifJP-Medium.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-  "Noto Serif SemiBold": {
-    "Regular": {
-      "file": "NotoSerifJP-SemiBold.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-  "Noto Serif Black": {
-    "Regular": {
-      "file": "NotoSerifJP-Black.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Noto Sans JP": {
-    "Regular": {
-      "file": "NotoSerifJP-Regular.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Bold": {
-      "file": "NotoSerifJP-Bold.otf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-  },
-
-
-  "Noto Sans JP Thin": {
-    "Regular": {
-      "file": "NotoSansJP-Thin.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Noto Sans JP Light": {
-    "Regular": {
-      "file": "NotoSerifJP-Light.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Noto Sans JP Medium": {
-    "Regular": {
-      "file": "NotoSerifJP-Medium.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Noto Sans JP Black": {
-    "Regular": {
-      "file": "NotoSerifJP-Black.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
   },
 
   "Nunito": {
@@ -686,14 +551,6 @@ const fonts = {
     },
   },
 
-  "RA BALI": {
-    "Regular": {
-      "file": "RA BALI.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
   "Racing Sans One": {
     "Regular": {
       "file": "RacingSansOne-Regular.ttf",
@@ -710,33 +567,9 @@ const fonts = {
     },
   },
 
-  "Santana Script": {
-    "Regular": {
-      "file": "Santana-Script.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Sawarabi Mincho": {
-    "Regular": {
-      "file": "SawarabiMincho-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
   "Special Elite": {
     "Regular": {
       "file": "SpecialElite-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Takota": {
-    "Takota": {
-      "file": "Takota.otf",
       "font-weight": "normal",
       "font-style": "normal"
     },
@@ -761,248 +594,7 @@ const fonts = {
       "font-weight": "normal",
       "font-style": "normal"
     },
-  },
-
-  "Gen Jyuu Gothic Regular": {
-    "Regular": {
-      "file": "GenJyuuGothic-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-
-  "Gen Jyuu Gothic ExtraLight": {
-    "Regular": {
-      "file": "GenJyuuGothic-ExtraLight.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Light": {
-    "Regular": {
-      "file": "GenJyuuGothic-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Normal": {
-    "Regular": {
-      "file": "GenJyuuGothic-Normal.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Medium": {
-    "Regular": {
-      "file": "GenJyuuGothic-Medium.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Bold": {
-    "Bold": {
-      "file": "GenJyuuGothic-Bold.ttf",
-      "font-weight": "normal",
-      "font-style": "bold"
-    },
-  },
-
-  "Gen Jyuu Gothic Heavy": {
-    "Bold": {
-      "file": "GenJyuuGothic-Heavy.ttf",
-      "font-weight": "normal",
-      "font-style": "bold"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace Regular": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace ExtraLight": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-ExtraLight.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace Light": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace Normal": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-Normal.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace Medium": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-Medium.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace Bold": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-Bold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic Monospace Heavy": {
-    "Regular": {
-      "file": "GenJyuuGothic-Monospace-Heavy.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic P Regular": {
-    "Regular": {
-      "file": "GenJyuuGothic-P-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic P ExtraLight": {
-    "Regular": {
-      "file": "GenJyuuGothic-P-ExtraLight.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic P Light": {
-    "Regular": {
-      "file": "GenJyuuGothic-P-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic P Normal": {
-    "Regular": {
-      "file": "GenJyuuGothic-P-Normal.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic P Medium": {
-    "Regular": {
-      "file": "GenJyuuGothic-P-Medium.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Gen Jyuu Gothic P Bold": {
-    "Bold": {
-      "file": "GenJyuuGothic-P-Bold.ttf",
-      "font-weight": "normal",
-      "font-style": "bold"
-    },
-  },
-
-  "Gen Jyuu Gothic P Heavy": {
-    "Bold": {
-      "file": "GenJyuuGothic-P-Heavy.ttf",
-      "font-weight": "normal",
-      "font-style": "bold"
-    },
-  },
-
-
-  "SetoFont": {
-    "Regular": {
-      "file": "",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "SetoFont": {
-    "Regular": {
-      "file": "setofont.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "SetoFont-ex": {
-    "Regular": {
-      "file": "setofont-ex.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "HanaMinA": {
-    "Regular": {
-      "file": "HanaMinA.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "HanaMinB": {
-    "Regular": {
-      "file": "HanaMinB.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "KouzanBrushFontGyousyoOTF": {
-    "Regular": {
-      "file": "KouzanGyoushoOTF.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "KouzanBrushFontOTF": {
-    "Regular": {
-      "file": "KouzanMouhituFontOTF.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "KouzanBrushFontSousyoOTF": {
-    "Regular": {
-      "file": "KouzanSoushoOTF.otf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "aoyagireisyo2": {
-    "Regular": {
-      "file": "aoyagireisyosimo_ttf_2_02.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
+  }
 };
 
 populateFonts(fonts);
