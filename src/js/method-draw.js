@@ -642,24 +642,19 @@ window.methodDraw = function() {
           
           if(el_name == 'text') {
             var font_family = elem.getAttribute("font-family");
+            var cleanFontFamily = font_family.split(",")[0].replace(/'/g, "");
             var select = document.getElementById("font_family_dropdown");
-            
             $('#text_panel').css("display", "inline");  
             $('#tool_italic').toggleClass('active', svgCanvas.getItalic())
             $('#tool_bold').toggleClass('active', svgCanvas.getBold())
-            $('#tool_italic').toggleClass('disabled', fonts[font_family] ? !fonts[font_family]["Italic"] : false)
-            $('#tool_bold').toggleClass('disabled', fonts[font_family] ? !fonts[font_family]["Bold"] : false);
+            $('#tool_italic').toggleClass('disabled', fonts[cleanFontFamily] ? !fonts[cleanFontFamily]["Italic"] : false)
+            $('#tool_bold').toggleClass('disabled', fonts[cleanFontFamily] ? !fonts[cleanFontFamily]["Bold"] : false);
             $('#font_family').val(font_family);
             $(select).find(`option[value=${font_family}]`).prop("selected", true);
             $('#font_size').val(elem.getAttribute("font-size"));
             $('#text').val(elem.textContent);
-            $('#preview_font').text(font_family.split(",")[0].replace(/'/g, "")).css('font-family', font_family);
-            if (svgCanvas.addedNew) {
-              // Timeout needed for IE9
-              setTimeout(function() {
-                $('#text').focus().select();
-              },100);
-            }
+            $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
+            $('#text').focus().select();
           } // text
           else if(el_name == 'image') {
             setImageURL(svgCanvas.getHref(elem));
