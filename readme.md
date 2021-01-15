@@ -31,8 +31,9 @@ Deploy `dist` to your static file server of choice.
 
 ## Release notes
 
-**2021.01.01** Text handling improvements
-**2020.12.10** Gradient fixes on Windows and Safari MacOS
+**2021.01.15** Added new fonts  
+**2021.01.01** Text handling improvements  
+**2020.12.10** Gradient fixes on Windows and Safari MacOS  
 **2020.08.04** Vast code simplification  
 **2020.08.02** File clean-up and gulp build implemented  
 **2020.08.01** Project thawed  
