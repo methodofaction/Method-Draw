@@ -3336,6 +3336,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         break;
       case "text":
         keep = true;
+        selectOnly([element]);
         textActions.start(element);
         break;
       case "path":
@@ -3848,7 +3849,6 @@ var textActions = canvas.textActions = function() {
       }
       $(textinput).blur();
       curtext = false;
-
     },
     setInputElem: function(elem) {
       textinput = elem;
@@ -8562,6 +8562,7 @@ this.moveUpDownSelected = function(dir) {
 this.moveSelectedElements = function(dx, dy, undoable) {
   // if undoable is not sent, default to true
   // if single values, scale them to the zoom
+  // textActions.toSelectMode();
   if (dx.constructor != Array) {
     dx /= current_zoom;
     dy /= current_zoom;

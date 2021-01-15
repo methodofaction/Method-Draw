@@ -654,7 +654,6 @@ window.methodDraw = function() {
             $('#font_size').val(elem.getAttribute("font-size"));
             $('#text').val(elem.textContent);
             $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
-            $('#text').focus().select();
           } // text
           else if(el_name == 'image') {
             setImageURL(svgCanvas.getHref(elem));
