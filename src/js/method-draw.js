@@ -94,7 +94,6 @@ window.methodDraw = function() {
   
     // used to make the flyouts stay on the screen longer the very first time
     var flyoutspeed = 1250;
-    var textBeingEntered = false;
     var selectedElement = null;
     var multiselected = false;
     var editingsource = false;
@@ -704,9 +703,6 @@ window.methodDraw = function() {
         canv_menu.enableContextMenuItems('#delete,#cut,#copy,#move_front,#move_up,#move_down,#move_back');
       }
     };
-  
-    $('#text').on("focus", function(e){ textBeingEntered = true; } );
-    $('#text').on("blur", function(){ textBeingEntered = false; } );
 
     // bind the selected event to our function that handles updates to the UI
     svgCanvas.bind("selected", selectedChanged);
@@ -779,12 +775,6 @@ window.methodDraw = function() {
       else {
         svgCanvas.setBlurNoUndo(val);
       }
-    }
-  
-    var operaRepaint = function() {
-      // Repaints canvas in Opera. Needed for stroke-dasharray change as well as fill change
-      if(!window.opera) return;
-      $('<p/>').hide().appendTo('body').remove();
     }
   
     $('#stroke_style').change(function(){
@@ -1406,11 +1396,8 @@ window.methodDraw = function() {
       curConfig.gridSnapping = sg;
     }
     
-    var minimizeModal = function() {
-      
-      if (window.self != window.top) { //we're in an iframe
-        top.exit_fullscreen();
-      }
+    var escapeMode = function() {
+
     }
 
     var clickRulers = function() {
@@ -2076,7 +2063,7 @@ window.methodDraw = function() {
 
         // Standard shortcuts
         {key: modKey + 'shift+z', fn: clickRedo},
-        {key: 'esc', fn: minimizeModal}
+        {key: 'esc', fn: escapeMode}
       ];
       
       // Tooltips not directly associated with a single function
