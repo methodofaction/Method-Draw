@@ -53,14 +53,11 @@ var svgedit = svgedit || {};
   var menuItemIsValid = function(menuItem) {
     return menuItem && menuItem.id && menuItem.label && menuItem.action && typeof menuItem.action == 'function';
   }
-  
-  // Defer injection to wait out initial menu processing. This probably goes away once all context
-  // menu behavior is brought here.
-  methodDraw.ready(function() {
-    for (menuItem in contextMenuExtensions) {
-      injectExtendedContextMenuItemIntoDom(contextMenuExtensions[menuItem]);
-    }
-  });
+
+  for (menuItem in contextMenuExtensions) {
+    injectExtendedContextMenuItemIntoDom(contextMenuExtensions[menuItem]);
+  }
+
   svgedit.contextmenu.resetCustomMenus = function(){self.contextMenuExtensions = {}}
   svgedit.contextmenu.add = addContextMenuItem;
   svgedit.contextmenu.hasCustomHandler = hasCustomHandler;

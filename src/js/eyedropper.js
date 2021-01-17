@@ -1,3 +1,6 @@
+var methodDraw = {};
+methodDraw.addExtension = function(){}
+
 /*
  * ext-eyedropper.js
  *

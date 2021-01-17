@@ -246,7 +246,7 @@ html, body {
   z-index: 2;
 }
 
- #tools_top {
+ #panels {
   position: absolute;
   width: 160px;
   height: 100%;
@@ -258,7 +258,7 @@ html, body {
   padding: 0 0 0 15px;
 }
 
-.touch  #tools_top {
+.touch  #panels {
   top: 30px;
 }
 
@@ -299,15 +299,15 @@ div#font-selector .font-item:hover {
   background-color: #eee;
 }
 
- #tools_top #marker_panel * {
+ #panels #marker_panel * {
   float: left;
 }
 
- #tools_top #marker_panel h4 {
+ #panels #marker_panel h4 {
   float: none;
 }
 
- #tools_top #marker_panel .dropdown .icon_label {
+ #panels #marker_panel .dropdown .icon_label {
   width: 36px;
   height: 20px;
   margin-top: 2px;
@@ -315,17 +315,17 @@ div#font-selector .font-item:hover {
   text-align: center;
 }
 
- #tools_top #marker_panel .dropdown button {
+ #panels #marker_panel .dropdown button {
   margin-top: 2px;
 }
 
- #tools_top #marker_panel #marker_panel_title {
+ #panels #marker_panel #marker_panel_title {
   float: none;
   color: #fff;
   margin-bottom: 3px;
 }
 
- #tools_top #marker_panel .dropdown .icon_label img {
+ #panels #marker_panel .dropdown .icon_label img {
   float: none;
 }
 
@@ -536,27 +536,27 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 
- #tools_top h4 {
+ #panels h4 {
   color: #fff;
   font-weight: normal;
   margin: 0;
   padding: 10px 0 5px 0;
 }
 
-#tools_top .dropdown .icon_label {
+#panels .dropdown .icon_label {
   border: 1px solid transparent;
   height: auto;
 }
 
-#tools_top.multiselected #align_tools {
+#panels.multiselected #align_tools {
   display: none;
 }
 
-#tools_top.multiselected #multiselected_panel {
+#panels.multiselected #multiselected_panel {
   display: block !important;
 }
 
-#tools_top.multiselected #multiselected_panel .hidable {
+#panels.multiselected #multiselected_panel .hidable {
   display: none;
 }
 
