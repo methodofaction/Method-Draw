@@ -7982,8 +7982,9 @@ var changeSelectedAttribute = this.changeSelectedAttribute = function(attr, val,
 // Removes all selected elements from the DOM and adds the change to the 
 // history stack
 this.deleteSelectedElements = function() {
-  var batchCmd = new BatchCommand("Delete Elements");
   var len = selectedElements.length;
+  if (!len) return false;
+  var batchCmd = new BatchCommand("Delete Elements");
   var selectedCopy = []; //selectedElements is being deleted
   for (var i = 0; i < len; ++i) {
     var selected = selectedElements[i];

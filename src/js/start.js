@@ -4,6 +4,11 @@ const editor = new MD.Editor();
 editor.menu = new MD.Menu();
 editor.toolbar = new MD.Toolbar();
 editor.rulers = new MD.Rulers();
+editor.canvas = new MD.Canvas();
+editor.panel = new MD.Panel();
+editor.keyboard = new MD.Keyboard();
+
 const state = new State();
 state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));
+state.set("canvasSize", state.get("canvasSize"));
