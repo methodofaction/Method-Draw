@@ -780,7 +780,6 @@ window.methodDraw = function() {
     $('#stroke_style').change(function(){
       svgCanvas.setStrokeAttr('stroke-dasharray', $(this).val());
       $("#stroke_style_label").html(this.options[this.selectedIndex].text)
-      operaRepaint();
     });
     
     $('#seg_type').change(function() {

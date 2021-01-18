@@ -133,6 +133,10 @@
 }
 
 
+.draginput input:invalid {
+  color: #f33;
+}
+
 
  .draginput span {
   font: 11px/130% sans-serif;

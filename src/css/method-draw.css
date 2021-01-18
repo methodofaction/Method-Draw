@@ -560,6 +560,17 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   display: none;
 }
 
+.draginput.text-input input, 
+.draginput.text-input input:hover, 
+.draginput.text-input input:active {
+  cursor: text;
+}
+
+.draginput.text-input input {
+  text-align: left;
+  text-indent: 8px;
+}
+
 .draginput_cell {
   float: left;
   height: 26px;
