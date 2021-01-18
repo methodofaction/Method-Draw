@@ -119,7 +119,7 @@ $.fn.dragInput = function(cfg){
       .attr("readonly", "readonly")
       .attr("data-scale", scale)
       .attr("data-domain", cursorHeight)
-      .attr("data-cursor", ($cursor != false))
+      .attr("data-cursor", ($cursor !== false))
           
     .bind("mousedown touchstart", function(e){
       this.blur();
@@ -134,8 +134,17 @@ $.fn.dragInput = function(cfg){
     
     .keydown(function(e){
       // Respond to up/down arrow keys.
-      switch(e.keyCode){
-        case 13: this.adjustValue(0); this.blur();  break; // Enter
+      var key = e.key;
+      var _self = this;
+      var keys = {
+        "ArrowUp": function(){ _self.adjustValue(1) },
+        "ArrowDown": function(){ _self.adjustValue(-1) },
+        "ArrowDown": function(){ _self.adjustValue(-1) },
+        "Enter": function(){ _self.adjustValue(0); _self.blur(); },
+      }
+      if (keys[key]) {
+        e.preventDefault();
+        keys[key]();
       }
     })
     
