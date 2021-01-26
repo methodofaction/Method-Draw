@@ -87,7 +87,6 @@ window.methodDraw = function() {
           selector.reset(elems[0]);
           selector.selectorRect.setAttribute('display', 'inline');
         }
-
       }
     }
   

@@ -60,10 +60,9 @@ MD.Panel = function(){
 
     function updateContextPanel(elems) {
      var elem = elems[0];
-     console.log(elem)
      const isNode = svgCanvas.pathActions.getNodePoint()
      // If element has just been deleted, consider it null
-     if(!elem.parentNode) elem = null;
+     if(!elem || !elem.parentNode) elem = null;
 
      const multiselected = elems.length > 1;
      
@@ -105,8 +104,8 @@ MD.Panel = function(){
      
      //hack to show the proper multialign box
      if (multiselected) {
-       multiselected = multiselected.filter(Boolean);
-       elem = (svgCanvas.elementsAreSame(multiselected)) ? multiselected[0] : null
+       const multi = elems.filter(Boolean);
+       elem = (svgCanvas.elementsAreSame(multi)) ? multi[0] : null
        if (elem) $("#panels").addClass("multiselected")
      }
 

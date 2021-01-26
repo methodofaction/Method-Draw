@@ -17,6 +17,7 @@ MD.Keyboard = function(){
       t:     ()=> state.set("canvasMode", "text"),
       z:     ()=> state.set("canvasMode", "zoom"),
       e:     ()=> state.set("canvasMode", "eyedropper"),
+      x:     ()=> editor.switchPaint(),
 "cmd_s":     ()=> editor.save(),
 "cmd_z":     ()=> editor.undo(),
 "backspace": () => editor.deleteSelected()

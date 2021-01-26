@@ -6,6 +6,12 @@ editor.toolbar = new MD.Toolbar();
 editor.rulers = new MD.Rulers();
 editor.canvas = new MD.Canvas();
 editor.panel = new MD.Panel();
+editor.paintBox = {
+  fill: new MD.PaintBox('#fill_color', 'fill'),
+  stroke: new MD.PaintBox('#stroke_color', 'stroke'),
+  canvas: new MD.PaintBox('#canvas_color', 'canvas')
+};
+editor.palette = new MD.Palette();
 editor.keyboard = new MD.Keyboard();
 
 const state = new State();

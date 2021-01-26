@@ -69,7 +69,16 @@ const dao = [
     name: "canvasStroke",
     label: "Canvas Stroke",
     type: "object",
-    default: {width: 1.5, color: '000', opacity: 1},
+    default: {color: '000', opacity: 1},
+    private: true,
+    save: true
+  },
+
+  {
+    name: "canvasBackground",
+    label: "Canvas Fill",
+    type: "object",
+    default: {color: '000', opacity: 0},
     private: true,
     save: true
   },
