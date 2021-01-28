@@ -30,6 +30,24 @@ const dao = [
   },
 
   {
+    name: "canvasSnap",
+    label: "Snap to Grid",
+    type: "boolean",
+    default: false,
+    private: false,
+    save: true
+  },
+
+  {
+    name: "canvasSnapStep",
+    label: "Snap Step",
+    type: "number",
+    default: 10,
+    private: false,
+    save: true
+  },
+
+  {
     name: "canvasRulers",
     label: "Canvas Rulers",
     type: "boolean",

@@ -33,12 +33,20 @@ MD.Panel = function(){
     $('#text_x')       .dragInput({ min: null, max: null,  step:  1,  callback: editor.changeAttribute,     cursor: false  });
     $('#image_y')      .dragInput({ min: null, max: null,  step:  1,  callback: editor.changeAttribute,     cursor: false  });
     $('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: editor.changeAttribute,     cursor: true   });
-    $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: editor.changeStrokeWidth,   cursor: true, smallStep: 0.1, start: 1.5          });
+    $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: editor.changeAttribute,   cursor: true, smallStep: 0.1, start: 1.5          });
     $('#angle')        .dragInput({ min: -180, max: 180,   step:  1,  callback: editor.changeRotationAngle, cursor: false, dragAdjust: 0.5      });
     $('#font_size')    .dragInput({ min: 1,    max: 250,   step: 1,   callback: editor.changeFontSize,      cursor: true, stepfunc: editor.stepFontSize, dragAdjust: .15 });
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: editor.changeAttribute,     cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: editor.changeBlur,          cursor: true,  start: 0               });
     
+    $('#position_opts .draginput_cell').on("click", function(){
+        svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0], 'page');
+    });
+
+    $('#stroke_style').change(function(){
+      svgCanvas.setStrokeAttr('stroke-dasharray', $(this).val());
+      $("#stroke_style_label").html(this.options[this.selectedIndex].text);
+    });
 
     function show(elem) {
       $('.context_panel').hide();
@@ -73,9 +81,9 @@ MD.Panel = function(){
        $('.context_panel').hide();
        $('#path_node_panel').show();
        $('#stroke_panel').hide();
-       var point = path.getNodePoint();
+       var point = svgCanvas.pathActions.getNodePoint();
        $('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
-       $('#tool_node_delete').toggleClass('disabled', !path.canDeleteNodes);
+       $('#tool_node_delete').toggleClass('disabled', !svgCanvas.pathActions.canDeleteNodes);
                
        if(point) {
          var seg_type = $('#seg_type');

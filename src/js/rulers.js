@@ -169,6 +169,6 @@ MD.Rulers = function(){
     }
   }
 
-  this.update = update();
+  this.update = update;
 
 }

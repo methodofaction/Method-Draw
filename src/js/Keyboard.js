@@ -5,22 +5,46 @@ MD.Keyboard = function(){
     const cmd = e[modKey] ? "cmd_" : "";
     const shift = e.shiftKey ? "shift_" : "";;
     const key = cmd + shift + e.key.toLowerCase();
-
+    const canvasMode = state.get("canvasMode");
+    console.log(key)
     const keys = {
-      v:     ()=> state.set("canvasMode", "select"),
-      q:     ()=> state.set("canvasMode", "fhpath"),
-      l:     ()=> state.set("canvasMode", "line"),
-      r:     ()=> state.set("canvasMode", "rect"),
-      o:     ()=> state.set("canvasMode", "ellipse"),
-      s:     ()=> state.set("canvasMode", "shapelib"),
-      p:     ()=> state.set("canvasMode", "path"),
-      t:     ()=> state.set("canvasMode", "text"),
-      z:     ()=> state.set("canvasMode", "zoom"),
-      e:     ()=> state.set("canvasMode", "eyedropper"),
-      x:     ()=> editor.switchPaint(),
-"cmd_s":     ()=> editor.save(),
-"cmd_z":     ()=> editor.undo(),
-"backspace": () => editor.deleteSelected()
+      v: ()=> state.set("canvasMode", "select"),
+      q: ()=> state.set("canvasMode", "fhpath"),
+      l: ()=> state.set("canvasMode", "line"),
+      r: ()=> state.set("canvasMode", "rect"),
+      o: ()=> state.set("canvasMode", "ellipse"),
+      s: ()=> state.set("canvasMode", "shapelib"),
+      p: ()=> state.set("canvasMode", "path"),
+      t: ()=> state.set("canvasMode", "text"),
+      z: ()=> state.set("canvasMode", "zoom"),
+      e: ()=> state.set("canvasMode", "eyedropper"),
+      x: ()=> editor.switchPaint(),
+      "alt": ()=> { if (canvasMode === "zoom") $("#workarea").addClass("out") },
+      "cmd_s": ()=> editor.save(),
+      "cmd_z": ()=> editor.undo(),
+      "cmd_shift_z": ()=> editor.redo(),
+      "cmd_c": ()=> editor.copy(),
+      "cmd_x": ()=> editor.cut(),
+      "cmd_v": ()=> editor.paste(),
+      "cmd_a": ()=> svgCanvas.selectAllInCurrentLayer(),
+      "backspace": () => editor.deleteSelected(),
+      "ctrl_arrowleft": () => rotateSelected(0,1),
+      "ctrl_arrowright": () => rotateSelected(1,1),
+      "ctrl_shift_arrowleft": () => rotateSelected(0,5),
+      "ctrl_shift_arrowright": () => rotateSelected(1,5),
+      "shift_o": () => svgCanvas.cycleElement(0),
+      "shift_p": () => svgCanvas.cycleElement(1),
+      "shift_+": () => zoom.multiply(2),
+      "shift_-": () => zoom.multiply(0.5),
+      "arrowleft": () => moveSelected(0,-1),
+      "arrowright": () => moveSelected(0,1),
+      "arrowup": () => moveSelected(-1,0),
+      "arrowdown": () => moveSelected(1,0),
+      "shift_arrowleft":  () => moveSelected(0, state.get("canvasSnapStep") * -1),
+      "shift_arrowright": () => moveSelected(0, state.get("canvasSnapStep") * 1),
+      "shift_arrowup":    () => moveSelected(state.get("canvasSnapStep") * -1, 0),
+      "shift_arrowdown":  () => moveSelected(state.get("canvasSnapStep") * 1, 0),
+      "escape": () => editor.escapeMode();
     };
 
     // keyboard shortcut exists
@@ -30,5 +54,18 @@ MD.Keyboard = function(){
     }
 
   });
+
+  document.addEventListener("keyup", function(e){
+    const canvasMode = state.get("canvasMode");
+    const key = e.key.toLowerCase();
+    const keys = {
+    "alt":     ()=> $("#workarea").removeClass("out"),
+    }
+    if (keys[key]) {
+      e.preventDefault();
+      keys[key]();
+    }
+
+  })
 
 }
