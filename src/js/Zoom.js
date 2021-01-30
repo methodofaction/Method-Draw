@@ -56,10 +56,10 @@ MD.Zoom = function(){
   }
 
   var multiply = function(multiplier = 1) {
-      var res = svgCanvas.getResolution();
-      $('#zoom').val(multiplier * res.zoom * 100);
-      svgCanvas.setZoom(multiplier);
-      editor.canvas.updateCanvas(true);
+    var res = svgCanvas.getResolution();
+    $('#zoom').val(multiplier * res.zoom * 100);
+    svgCanvas.setZoom(multiplier);
+    editor.canvas.update(true);
   };
 
   this.multiply = multiply

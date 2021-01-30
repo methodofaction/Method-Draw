@@ -1382,7 +1382,6 @@ window.methodDraw = function() {
      updateCanvas();
   }
   
-  
     $('#resolution').change(function(){
       var w = $('#canvas_width')[0];
       var h = $('#canvas_height')[0];

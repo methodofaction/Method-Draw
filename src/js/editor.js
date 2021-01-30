@@ -112,7 +112,7 @@ MD.Editor = function(){
   function changeAttribute(attr, value, completed) {
     if (completed) {
       svgCanvas.changeSelectedAttribute(attr, value);
-      state.set("canvasContent", serializer,serializeToString(svgCanvas.getContentElem()));
+      state.set("canvasContent", serializer.serializeToString(svgCanvas.getContentElem()));
     }
     else svgCanvas.changeSelectedAttributeNoUndo(attr, value);      
   }

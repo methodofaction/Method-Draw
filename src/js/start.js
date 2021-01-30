@@ -15,6 +15,9 @@ editor.paintBox = {
 editor.palette = new MD.Palette();
 editor.keyboard = new MD.Keyboard();
 
+svgCanvas.addExtension.apply(this, ["shapes", MD.Shapelib])
+
+
 const state = new State();
 state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));

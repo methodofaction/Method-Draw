@@ -66,7 +66,8 @@
   cursor: pointer;
   width: 385px;
   z-index: 10;
-  left: 47px !important;
+  left: 47px;
+  top: 230px;
   height: 324px;
   background: #fff;
   border-radius: 5px;
