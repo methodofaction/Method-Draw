@@ -38,7 +38,7 @@ function updateRulers(svgCanvas, scanvas, zoom) {
     var hcanv = $hcanv[0];
     
     // Set the canvas size to the width of the container
-    var ruler_len = scanvas[lentype]()*2;
+    var ruler_len = scanvas[lentype]();
     var total_len = ruler_len;
     hcanv.parentNode.style[lentype] = total_len + 'px';
     
