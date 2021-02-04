@@ -101,6 +101,10 @@ MD.Editor = function(){
     editor.paintBox.stroke.setPaint(fill, true);
   };
 
+  function escapeMode(){
+    svgCanvas.setMode("select")
+  }
+
   // called when we've selected a different element
   function selectedChanged(window,elems) {  
     const mode = svgCanvas.getMode();
@@ -108,6 +112,26 @@ MD.Editor = function(){
     _self.selected = elems.filter(Boolean);
     editor.panel.updateContextPanel(_self.selected);
   };
+
+  function elementChanged(window,elems){
+    
+    const mode = svgCanvas.getMode();
+
+    // if the element changed was the svg, then it could be a resolution change
+    if (elems[0].tagName === "svg") canvas.update();
+
+    editor.panel.updateContextPanel(elems);
+    
+    // In the event a gradient was flipped:
+    if(_self.selected && mode === "select") {
+      editor.paintBox.fill.update();
+      editor.paintBox.stroke.update();
+    }
+    
+    svgCanvas.runExtensions("elementChanged", {
+      elems: elems
+    });
+  }
 
   function changeAttribute(attr, value, completed) {
     if (completed) {
@@ -133,7 +157,23 @@ MD.Editor = function(){
     svgCanvas.moveSelectedElements(dx,dy);
   };
 
+  function extensionAdded(){
+    console.log("master", args);
+  }
+
+  function changeBlur(ctl, completed){
+    // todo not receiving ctl
+    const val = $('#blur').val();
+    if (completed) {
+      svgCanvas.setBlur(val, true);
+    }
+    else {
+      svgCanvas.setBlurNoUndo(val);
+    }
+  }
+
   this.selectedChanged = selectedChanged;
+  this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;
   this.elementTransition = elementTransition;
   this.switchPaint = switchPaint;
@@ -151,4 +191,7 @@ MD.Editor = function(){
   this.moveSelected = moveSelected;
   this.convertToPath = convertToPath;
   this.reorientPath = reorientPath;
+  this.escapeMode = escapeMode;
+  this.extensionAdded = extensionAdded;
+  this.changeBlur = changeBlur;
 }

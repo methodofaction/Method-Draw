@@ -487,13 +487,12 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   cursor: default;
 }
 
- .width_label {
+.width_label {
   padding-right: 5px;
 }
 
 #text {
   position: absolute;
-  left: -9999px;
 }
 
  #tool_bold span,  #tool_italic span { 

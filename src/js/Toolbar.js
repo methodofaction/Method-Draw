@@ -1,21 +1,22 @@
 MD.Toolbar = function(){
 
-    // tools left
-    $("#tools_left .tool_button").on("click", function(){ 
-      const mode = this.getAttribute("data-mode");
-      state.set("canvasMode", mode)
-      if (mode === "shapelib") showShapeLib()
-    });
+  // tools left
+  $("#tools_left .tool_button").on("click", function(){ 
+    const mode = this.getAttribute("data-mode");
+    state.set("canvasMode", mode)
+    if (mode === "shapelib") showShapeLib()
+  });
 
-    function setMode(mode) {
-      $(".tool_button").removeClass("current");
-      $("#tool_" + mode).addClass("current");
-      svgCanvas.setMode(mode);
-    }
+  function setMode(mode) {
+    $(".tool_button").removeClass("current");
+    $("#tool_" + mode).addClass("current");
+    svgCanvas.setMode(mode);
+  }
 
-    function showShapeLib(){
-      $("#tools_shapelib").show();
-    }
+  function showShapeLib(){
+    $("#tools_shapelib").show();
+    $(window).one("mousedown", function(){$('#tools_shapelib').hide()})
+  }
 
-    this.setMode = setMode;
+  this.setMode = setMode;
 }

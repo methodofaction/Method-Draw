@@ -31,7 +31,7 @@ MD.Canvas = function(){
     };
     
     // curConfig.canvas_expansion
-    var multi = 1;
+    var multi = 1.5;
     w = Math.max(w_orig, svgCanvas.contentW * zoom * multi);
     h = Math.max(h_orig, svgCanvas.contentH * zoom * multi);
     workarea.style.overflow = (w === w_orig && h === h_orig) ? 'hidden' : 'scroll';

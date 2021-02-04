@@ -49,6 +49,7 @@ var curConfig = {
   initFill: {color: 'fff', opacity: 1},
   initStroke: {width: 1, color: '000', opacity: 1},
   imgPath: 'images/',
+  baseUnit: 'px'
 };
 
 // Update config with new one if given
@@ -351,15 +352,6 @@ var visElems = 'a,circle,ellipse,foreignObject,g,image,line,path,polygon,polylin
 var ref_attrs = ["clip-path", "fill", "filter", "marker-end", "marker-mid", "marker-start", "mask", "stroke"];
 
 var elData = $.data;
-
-// Animation element to change the opacity of any newly created element
-var opac_ani = false; //document.createElementNS(svgns, 'animate');
-//$(opac_ani).attr({
-//  attributeName: 'opacity',
-//  begin: 'indefinite',
-//  dur: 0,
-//  fill: 'freeze'
-//}).appendTo(svgroot);
 
 var restoreRefElems = function(elem) {
   // Look for missing reference elements, restore any found
@@ -2579,7 +2571,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         started = true;
         // we are starting an undoable change (a drag-rotation)
         canvas.undoMgr.beginUndoableChange("transform", selectedElements);
-        document.getElementById("workarea").className = "rotate";
         break;
       default:
         // This could occur in an extension
@@ -2599,8 +2590,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       }
     });
     if (current_mode) {
-      document.getElementById("workarea").className = 
-        (current_mode == "resize")
+      container.parentNode.className = 
+        (current_mode === "resize")
         ? evt.target.style.cursor
         : current_mode
       }
@@ -3361,21 +3352,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       
       if(useUnit) svgedit.units.convertAttrs(element);
       
-      var ani_dur = .2, c_ani;
-      if(opac_ani.beginElement && element.getAttribute('opacity') != cur_shape.opacity) {
-        c_ani = $(opac_ani).clone().attr({
-          to: cur_shape.opacity,
-          dur: ani_dur
-        }).appendTo(element);
-        try {
-          // Fails in FF4 on foreignObject
-          c_ani[0].beginElement();
-        } catch(e){}
-      } else {
-        ani_dur = 0;
-      }
-      
-      if(c_ani) c_ani.remove();
       element.setAttribute("opacity", cur_shape.opacity);
       element.setAttribute("style", "pointer-events:inherit");
       cleanupElement(element);

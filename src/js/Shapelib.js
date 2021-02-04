@@ -120,7 +120,6 @@ MD.Shapelib = function(){
         title: id
       });
       
-      
       // Store for later use
       cur_lib.buttons.push(icon_btn[0]);
     }

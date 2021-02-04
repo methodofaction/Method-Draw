@@ -40,7 +40,12 @@ MD.Panel = function(){
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: editor.changeBlur,          cursor: true,  start: 0               });
     
     $('#position_opts .draginput_cell').on("click", function(){
+        $('#align_relative_to').val()
         svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0], 'page');
+    });
+
+    $('.align_buttons .draginput_cell').on("click", function(){
+        svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0],  $('#align_relative_to').val());
     });
 
     $('#stroke_style').change(function(){
@@ -67,7 +72,8 @@ MD.Panel = function(){
     }
 
     function updateContextPanel(elems) {
-     var elem = elems[0];
+     if (!elems) elems = editor.selected;
+     var elem = elems[0] || editor.selected[0];
      const isNode = svgCanvas.pathActions.getNodePoint()
      // If element has just been deleted, consider it null
      if(!elem || !elem.parentNode) elem = null;
@@ -76,7 +82,6 @@ MD.Panel = function(){
      
      var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
      var currentMode = svgCanvas.getMode();
-     
      if (currentMode === 'pathedit') {
        $('.context_panel').hide();
        $('#path_node_panel').show();
@@ -84,11 +89,11 @@ MD.Panel = function(){
        var point = svgCanvas.pathActions.getNodePoint();
        $('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
        $('#tool_node_delete').toggleClass('disabled', !svgCanvas.pathActions.canDeleteNodes);
-               
        if(point) {
          var seg_type = $('#seg_type');
          point.x = svgedit.units.convertUnit(point.x);
          point.y = svgedit.units.convertUnit(point.y);
+         console.log(point)
          $('#path_node_x').val(Math.round(point.x));
          $('#path_node_y').val(Math.round(point.y));
          if(point.type) {
@@ -108,7 +113,6 @@ MD.Panel = function(){
      $('.context_panel').hide();
      $('.menu_item', '#edit_menu').addClass('disabled');
      $('.menu_item', '#object_menu').addClass('disabled');
-     
      
      //hack to show the proper multialign box
      if (multiselected) {
@@ -143,7 +147,6 @@ MD.Panel = function(){
              y = bb.y;
            }
          }
-
          x = svgedit.units.convertUnit(x);
          y = svgedit.units.convertUnit(y);
          $("#" + elname +"_x").val(Math.round(x))

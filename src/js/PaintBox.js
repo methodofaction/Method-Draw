@@ -91,7 +91,8 @@ MD.PaintBox = function(container, type){
   };  
   
   this.update = function(apply) {
-    if(!selectedElement) return;
+    const selectedElement = editor.selected[0];
+    if(!editor.selected) return;
     var type = this.type;
     switch ( selectedElement.tagName ) {
     case 'use':
@@ -140,7 +141,7 @@ MD.PaintBox = function(container, type){
 
     paintOpacity *= 100;          
     
-    var paint = getPaint(paintColor, paintOpacity, type);
+    var paint = this.getPaint(paintColor, paintOpacity, type);
     // update the rect inside #fill_color/#stroke_color
     this.setPaint(paint);
   }

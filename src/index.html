@@ -274,6 +274,10 @@
 
   <div id="text_panel" class="context_panel">
     <h4>Text</h4>
+    <label class="draginput twocol" data-title="Change Font Size">
+      <span>Content</span>
+      <input id="text" type="text"/>
+    </label>
     <label>
       <input id="text_x" class="attr_changer" data-title="Change text x coordinate" size="3" data-attr="x" pattern="[0-9]*" />
       <span>X</span>
@@ -298,8 +302,6 @@
       <input id="font_size" size="3" value="0" />
       <span id="font_sizeLabel" class="icon_label">Font Size</span>
     </label>
-    <!-- Not visible, but still used -->
-    <input id="text" type="text" size="35"/>
   </div>
 
   <!-- formerly gsvg_panel -->
@@ -691,6 +693,8 @@
   <script type="text/javascript" src="js/svgcanvas.js"></script>
   <script type="text/javascript" src="js/editor.js"></script>
   <script type="text/javascript" src="js/Canvas.js"></script>
+  <script type="text/javascript" src="js/Text.js"></script>
+  <script type="text/javascript" src="js/Pan.js"></script>
   <script type="text/javascript" src="js/Panel.js"></script>
   <script type="text/javascript" src="js/Rulers.js"></script>
   <script type="text/javascript" src="js/Toolbar.js"></script>
@@ -705,14 +709,12 @@
   <script type="text/javascript" src="js/dialog.js"></script>
   <script type="text/javascript" src="js/contextChanged.js"></script>
   <script type="text/javascript" src="js/exportHandler.js"></script>
-  <script type="text/javascript" src="js/elementChanged.js"></script>
   <script type="text/javascript" src="js/elementTransition.js"></script>
   <script type="text/javascript" src="js/bindCanvas.js"></script>
   <script type="text/javascript" src="js/lib/contextmenu.js"></script>
   <script type="text/javascript" src="js/lib/jpicker.min.js"></script>
   <script type="text/javascript" src="js/lib/mousewheel.js"></script>
   <script type="text/javascript" src="js/eyedropper.js"></script>
-
   <script type="text/javascript" src="js/grid.js"></script>
   <script type="text/javascript" src="js/lib/requestanimationframe.js"></script>
   <script type="text/javascript" src="js/lib/taphold.js"></script>

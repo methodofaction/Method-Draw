@@ -1,12 +1,10 @@
 MD.Keyboard = function(){
-
   document.addEventListener("keydown", function(e){
     const modKey = !svgedit.browser.isMac() ? "ctrlKey" : "metaKey";
     const cmd = e[modKey] ? "cmd_" : "";
-    const shift = e.shiftKey ? "shift_" : "";;
+    const shift = e.shiftKey ? "shift_" : "";
     const key = cmd + shift + e.key.toLowerCase();
     const canvasMode = state.get("canvasMode");
-    console.log(key)
     const keys = {
       v: ()=> state.set("canvasMode", "select"),
       q: ()=> state.set("canvasMode", "fhpath"),
@@ -27,6 +25,8 @@ MD.Keyboard = function(){
       "cmd_x": ()=> editor.cut(),
       "cmd_v": ()=> editor.paste(),
       "cmd_a": ()=> svgCanvas.selectAllInCurrentLayer(),
+      "cmd_b": ()=> editor.text.setBold(),
+      "cmd_i": ()=> editor.text.setItalic(),
       "backspace": () => editor.deleteSelected(),
       "ctrl_arrowleft": () => editor.rotateSelected(0,1),
       "ctrl_arrowright": () => editor.rotateSelected(1,1),
@@ -45,7 +45,8 @@ MD.Keyboard = function(){
       "shift_arrowright": () => editor.moveSelected(state.get("canvasSnapStep") * 1, 0),
       "shift_arrowup":    () => editor.moveSelected(0, state.get("canvasSnapStep") * -1),
       "shift_arrowdown":  () => editor.moveSelected(0, state.get("canvasSnapStep") * 1),
-      "escape": () => editor.escapeMode()
+      "escape": () => editor.escapeMode(),
+      " ": ()=> editor.pan.startPan(),
     };
 
     // keyboard shortcut exists
@@ -61,6 +62,7 @@ MD.Keyboard = function(){
     const key = e.key.toLowerCase();
     const keys = {
     "alt":     ()=> $("#workarea").removeClass("out"),
+    " ": ()=> editor.pan.stopPan(),
     }
     if (keys[key]) {
       e.preventDefault();

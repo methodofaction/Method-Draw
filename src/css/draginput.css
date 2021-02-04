@@ -110,7 +110,9 @@
   width: 145px;
 }
 
-
+.draginput.twocol {
+  width: 145px;
+}
 
 .draginput input, .draginput input:hover, .draginput input:active {  
     cursor: url(../images/drag.png), move;
