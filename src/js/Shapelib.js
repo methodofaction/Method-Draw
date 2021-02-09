@@ -5,6 +5,11 @@ MD.Shapelib = function(){
   var start_x, start_y;
   var svgroot = canv.getRootElem();
   var lastBBox = {};
+
+  $(document).on("mousedown", function(e){
+    if (!e.target.closest("#tools_shapelib"))
+      $("#tools_shapelib").hide();
+  })
   
   // This populates the category list
   var categories = {
@@ -56,7 +61,7 @@ MD.Shapelib = function(){
   
   var cur_lib = library.basic;
   current_d = cur_lib.data.star_points_5
-  
+
   var mode_id = 'shapelib';
   
   function loadIcons() {
@@ -163,16 +168,13 @@ MD.Shapelib = function(){
       $.each(categories, function(id, label) {
         cat_str += '<div data-cat=' + id + '>' + label + '</div>';
       });
-      
-      shape_cats.html(cat_str).children().bind('mouseup', function() {
-        var catlink = $(this);
-        catlink.siblings().removeClass('current');
-        catlink.addClass('current');
-        
-        loadLibrary(catlink.attr('data-cat'));
-        // Get stuff
-        
-        return false;
+      shape_cats.html(cat_str)
+      $("[data-cat]", shape_cats)
+        .on('click', function(e) {
+          var catlink = $(this);
+          catlink.siblings().removeClass('current');
+          catlink.addClass('current');
+          loadLibrary(catlink.attr('data-cat'));
       });
       
       shape_cats.children().eq(0).addClass('current');

@@ -15,7 +15,6 @@ MD.Toolbar = function(){
 
   function showShapeLib(){
     $("#tools_shapelib").show();
-    $(window).one("mousedown", function(){$('#tools_shapelib').hide()})
   }
 
   this.setMode = setMode;

@@ -26,6 +26,7 @@ function State(){
   this.canvasMode = (mode)  => { editor.toolbar.setMode(mode) }
   this.canvasSize = (size)  => { editor.canvas.resize(...size.map(Number)) }
   this.canvasContent = (svgString)  => { /* noop */ }
+  this.canvasRulers = (bool)  => { /* noop */ }
 
 
   this.clean = (warn = true) => {

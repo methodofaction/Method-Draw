@@ -6,7 +6,6 @@ MD.Editor = function(){
   const _self = this;
   _self.selected = [];
 
-
   function save(){
     _self.menu.flash($('#file_menu'));
     svgCanvas.save();
@@ -25,45 +24,46 @@ MD.Editor = function(){
 
   function cutSelected(){
     if (!_self.selected.length) return false;
-    flash($('#edit_menu'));
+    _self.menu.flash($('#edit_menu'));
     svgCanvas.cutSelectedElements(); 
   }
 
   function copySelected(){
     if (!_self.selected.length) return false;
-    flash($('#edit_menu'));
+    _self.menu.flash($('#edit_menu'));
     svgCanvas.copySelectedElements();
   }
   
   function pasteSelected(){
-    flash($('#edit_menu'));
+    _self.menu.flash($('#edit_menu'));
+    const workarea = document.getElementById("workarea");
     var zoom = svgCanvas.getZoom();       
-    var x = (workarea[0].scrollLeft + workarea.width()/2)/zoom  - svgCanvas.contentW; 
-    var y = (workarea[0].scrollTop + workarea.height()/2)/zoom  - svgCanvas.contentH;
+    var x = (workarea.scrollLeft + workarea.offsetWidth/2)/zoom  - svgCanvas.contentW; 
+    var y = (workarea.scrollTop + workarea.offsetHeight/2)/zoom  - svgCanvas.contentH;
     svgCanvas.pasteElements('point', x, y); 
   }
 
   function moveToTopSelected(){
     if (!_self.selected.length) return false;
-    flash($('#object_menu'));
+    _self.menu.flash($('#object_menu'));
     svgCanvas.moveToTopSelectedElement();
   }
 
   function moveToBottomSelected(){
     if (!_self.selected.length) return false;
-    flash($('#object_menu'));
+    _self.menu.flash($('#object_menu'));
     svgCanvas.moveToBottomSelectedElement();
   }
     
   function moveUpSelected(){
     if (!_self.selected.length) return false;
-    flash($('#object_menu'));
+    _self.menu.flash($('#object_menu'));
     svgCanvas.moveUpDownSelected("Up");
   }
 
   function moveDownSelected(){
     if (!_self.selected.length) return false;
-    flash($('#object_menu'));
+    _self.menu.flash($('#object_menu'));
     svgCanvas.moveUpDownSelected("Down");
   }
  
@@ -113,12 +113,38 @@ MD.Editor = function(){
     editor.panel.updateContextPanel(_self.selected);
   };
 
+  function contextChanged(win, context) {
+  
+    var link_str = '';
+    if(context) {
+      var str = '';
+      link_str = '<a href="#" data-root="y">' + svgCanvas.getCurrentDrawing().getCurrentLayerName() + '</a>';
+      
+      $(context).parentsUntil('#svgcontent > g').addBack().each(function() {
+        if(this.id) {
+          str += ' > ' + this.id;
+          if(this !== context) {
+            link_str += ' > <a href="#">' + this.id + '</a>';
+          } else {
+            link_str += ' > ' + this.id;
+          }
+        }
+      });
+
+      cur_context = str;
+    } else {
+      cur_context = null;
+    }
+    $('#cur_context_panel').toggle(!!context).html(link_str);
+
+  }
+
   function elementChanged(window,elems){
     
     const mode = svgCanvas.getMode();
 
     // if the element changed was the svg, then it could be a resolution change
-    if (elems[0].tagName === "svg") canvas.update();
+    if (elems[0].tagName === "svg") editor.canvas.update();
 
     editor.panel.updateContextPanel(elems);
     
@@ -134,6 +160,7 @@ MD.Editor = function(){
   }
 
   function changeAttribute(attr, value, completed) {
+    if (attr === "opacity") value *= 0.01;
     if (completed) {
       svgCanvas.changeSelectedAttribute(attr, value);
       state.set("canvasContent", serializer.serializeToString(svgCanvas.getContentElem()));
@@ -142,7 +169,30 @@ MD.Editor = function(){
   }
 
   function elementTransition(window, elems){
-    // TODO live attr updates on transition
+    // Call when part of element is in process of changing, generally
+    // on mousemove actions like rotate, move, etc.
+    var elementTransition = function(window,elems) {
+      var mode = svgCanvas.getMode();
+      var elem = elems[0];
+      
+      if(!elem) return;
+      
+      const multiselected = (elems.length >= 2 && elems[1] != null) ? elems : null;
+      // Only updating fields for single elements for now
+      if(!multiselected) {
+        switch ( mode ) {
+          case "rotate":
+            var ang = svgCanvas.getRotationAngle(elem);
+            $('#angle').val(Math.round(ang));
+            rotateCursor(ang);
+            $('#tool_reorient').toggleClass('disabled', ang == 0);
+            break;
+        }
+      }
+      svgCanvas.runExtensions("elementTransition", {
+        elems: elems
+      });
+    };
   }
 
   function moveSelected(dx,dy) {
@@ -157,8 +207,8 @@ MD.Editor = function(){
     svgCanvas.moveSelectedElements(dx,dy);
   };
 
-  function extensionAdded(){
-    console.log("master", args);
+  function extensionAdded(wind, func){
+    if (func.callback) func.callback()
   }
 
   function changeBlur(ctl, completed){
@@ -172,9 +222,77 @@ MD.Editor = function(){
     }
   }
 
+  function changeRotationAngle(ctl){
+    const val = document.getElementById("angle").value;
+    const indicator = document.getElementById("tool_angle_indicator");
+    const reorient = document.getElementById("tool_reorient");
+    const preventUndo = true;
+
+    svgCanvas.setRotationAngle(val, preventUndo);
+    indicator.style.transform = 'rotate('+ val + 'deg)'
+    reorient.classList.toggle("disabled", val === 0);
+
+  }
+
+  function exportHandler(window, data) {
+    var issues = data.issues;
+    
+    if(!$('#export_canvas').length) {
+      $('<canvas>', {id: 'export_canvas'}).hide().appendTo('body');
+    }
+    var c = $('#export_canvas')[0];
+    
+    c.width = svgCanvas.contentW;
+    c.height = svgCanvas.contentH;
+    canvg(c, data.svg, {renderCallback: function() {
+      var datauri = c.toDataURL('image/png');  
+      if (!datauri) return false;
+      var filename = "Method Draw Image";
+      var type = 'image/png';
+      var file = svgedit.utilities.dataURItoBlob(datauri, type);
+      if (window.navigator.msSaveOrOpenBlob) // IE10+
+          window.navigator.msSaveOrOpenBlob(file, filename);
+      else { // Others
+          var a = document.createElement("a"),
+                  url = URL.createObjectURL(file);
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function() {
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);
+          }, 0);
+      }
+    }});
+  };
+
+  function toggleWireframe() {
+    editor.menu.flash($('#view_menu')); 
+    $('#tool_wireframe').toggleClass('push_button_pressed');
+    $("#svg_editor").toggleClass('wireframe');
+  }
+
+  function groupSelected(){
+    // group
+    if (_self.selected.length > 1) {
+      editor.menu.flash($('#object_menu'));
+      svgCanvas.groupSelectedElements();
+    }
+  };
+
+  function ungroupSelected(){
+    if(_self.selected.length === 1 && _self.selected[0].tagName === "g"){
+      editor.menu.flash($('#object_menu'));
+      svgCanvas.ungroupSelectedElement();
+    }
+  }
+
+
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;
+  this.contextChanged = contextChanged;
   this.elementTransition = elementTransition;
   this.switchPaint = switchPaint;
   this.save = save;
@@ -182,7 +300,6 @@ MD.Editor = function(){
   this.deleteSelected = deleteSelected;
   this.cutSelected = cutSelected;
   this.copySelected = copySelected;
-  this.pasteSelected = pasteSelected;
   this.pasteSelected = pasteSelected;
   this.moveToTopSelected = moveToTopSelected;
   this.moveUpSelected = moveUpSelected;
@@ -194,4 +311,9 @@ MD.Editor = function(){
   this.escapeMode = escapeMode;
   this.extensionAdded = extensionAdded;
   this.changeBlur = changeBlur;
+  this.changeRotationAngle = changeRotationAngle;
+  this.exportHandler = exportHandler;
+  this.toggleWireframe = toggleWireframe;
+  this.groupSelected = groupSelected;
+  this.ungroupSelected = ungroupSelected;
 }

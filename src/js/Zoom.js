@@ -12,32 +12,60 @@ MD.Zoom = function(){
     }
   });
 
-  function changed(window, bbox, autoCenter) {
-    var scrbar = 15,
-      res = svgCanvas.getResolution(),
-      canvas_pos = $('#svgcanvas').position();
-    var z_info = svgCanvas.setBBoxZoom(bbox, $workarea.width()-scrbar, $workarea.height()-scrbar);
+  $('#zoom_select').on("change", function() {
+    var val = this.options[this.selectedIndex].text
+    val = val.split("%")[0]
+    $("#zoom").val(val).trigger("change")
+  });
+
+  $('#zoom').change(function(ctl){
+
+      var zoomlevel = this.value / 100;
+      if(zoomlevel < .001) {
+        ctl.value = .1;
+        return;
+      }
+      var zoom = svgCanvas.getZoom();
+      changed(window, {
+        width: 0,
+        height: 0,
+        // center pt of scroll position
+        x: ($workarea.scrollLeft() + $workarea.width()/2)/zoom, 
+        y: ($workarea.scrollTop() + $workarea.height()/2)/zoom,
+        zoom: zoomlevel
+      }, true);
+  })
+
+  function changed(window, bbox) {
+    const scrbar = 15;
+    const res = svgCanvas.getResolution();
+    const canvas_pos = $('#svgcanvas').position();
+    const updateCanvas = editor.canvas.update;
+    const z_info = svgCanvas.setBBoxZoom(bbox, $workarea.width()-scrbar, $workarea.height()-scrbar);
+    const zoomlevel = z_info.zoom;
+    const bb = z_info.bbox;
+
     if(!z_info) return;
-    var zoomlevel = z_info.zoom,
-      bb = z_info.bbox;
     
     if(zoomlevel < .001) {
       changeZoom({value: .1});
       return;
     }
-    if (typeof animatedZoom != 'undefined') window.cancelAnimationFrame(animatedZoom)
+    if (typeof animatedZoom !== 'undefined') window.cancelAnimationFrame(animatedZoom)
     // zoom duration 500ms
     var start = Date.now();
     var duration = 500;
     var diff = (zoomlevel) - (res.zoom)
     var zoom = $('#zoom')[0]
     var current_zoom = res.zoom
+    
     var animateZoom = function(timestamp) {
       var progress = Date.now() - start
-      var tick = progress / duration
+      var tick = progress / duration;
+      editor.rulers.update();
       tick = (Math.pow((tick-1), 3) +1);
       svgCanvas.setZoom(current_zoom + (diff*tick));
-      editor.canvas.update();
+      updateCanvas();
       if (tick < 1 && tick > -.90) {
         window.animatedZoom = requestAnimationFrame(animateZoom)
       }
@@ -49,9 +77,9 @@ MD.Zoom = function(){
     }
     animateZoom()
 
-    if(svgCanvas.getMode() == 'zoom' && bb.width) {
+    if(svgCanvas.getMode() === 'zoom' && bb.width) {
       // Go to select if a zoom box was drawn
-      setSelectMode();
+      state.set("canvasMode", "select");
     }
   }
 

@@ -1,5 +1,33 @@
 MD.Rulers = function(){
 
+  $('#tool_rulers').on("click", toggleRulers);
+
+  function toggleRulers(){
+    editor.menu.flash($('#view_menu'));
+    var rulers = !$('#tool_rulers').hasClass('push_button_pressed');
+    if (rulers) show();
+    else hide();
+  }
+
+  function show(){
+    $('#tool_rulers').addClass('push_button_pressed');
+    $('#show_rulers').attr("checked", true);
+    $('#rulers').show();
+    state.set("canvasRulers", true);
+  }
+
+  function hide(){
+    $('#tool_rulers').removeClass('push_button_pressed');
+    $('#show_rulers').attr("checked", false);
+    $('#rulers').hide();
+    state.set("canvasRulers", false);
+  }
+
+  workarea.scroll(function() {
+    $('#ruler_x')[0].scrollLeft = workarea[0].scrollLeft;
+    $('#ruler_y')[0].scrollTop = workarea[0].scrollTop; 
+  });
+
   var r_intervals = [];
   for(var i = .1; i < 1E5; i *= 10) {
     r_intervals.push(1 * i);
@@ -170,5 +198,6 @@ MD.Rulers = function(){
   }
 
   this.update = update;
+  this.toggleRulers = toggleRulers;
 
 }

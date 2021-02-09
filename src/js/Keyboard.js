@@ -21,12 +21,15 @@ MD.Keyboard = function(){
       "cmd_s": ()=> editor.save(),
       "cmd_z": ()=> editor.undo(),
       "cmd_shift_z": ()=> editor.redo(),
-      "cmd_c": ()=> editor.copy(),
-      "cmd_x": ()=> editor.cut(),
-      "cmd_v": ()=> editor.paste(),
+      "cmd_c": ()=> editor.copySelected(),
+      "cmd_x": ()=> editor.cutSelected(),
+      "cmd_v": ()=> editor.pasteSelected(),
+      "cmd_u": ()=> editor.modal.viewSource(),
       "cmd_a": ()=> svgCanvas.selectAllInCurrentLayer(),
       "cmd_b": ()=> editor.text.setBold(),
       "cmd_i": ()=> editor.text.setItalic(),
+      "cmd_g": ()=> editor.groupSelected(),
+      "cmd_shift_g": ()=> editor.ungroupSelected(),
       "backspace": () => editor.deleteSelected(),
       "ctrl_arrowleft": () => editor.rotateSelected(0,1),
       "ctrl_arrowright": () => editor.rotateSelected(1,1),
@@ -34,6 +37,7 @@ MD.Keyboard = function(){
       "ctrl_shift_arrowright": () => editor.rotateSelected(1,5),
       "shift_o": () => svgCanvas.cycleElement(0),
       "shift_p": () => svgCanvas.cycleElement(1),
+      "shift_r": () => editor.rulers.toggleRulers(),
       "cmd_+": () => editor.zoom.multiply(1.5),
       "cmd_=": () => editor.zoom.multiply(1.5),
       "cmd_-": () => editor.zoom.multiply(0.75),
@@ -41,6 +45,10 @@ MD.Keyboard = function(){
       "arrowright": () => editor.moveSelected(1,0),
       "arrowup": () => editor.moveSelected(0,-1),
       "arrowdown": () => editor.moveSelected(0,1),
+      "cmd_arrowup": () => editor.moveUpSelected(),
+      "cmd_arrowdown": () => editor.moveDownSelected(),
+      "cmd_shift_arrowup": () => editor.moveToTopSelected(),
+      "cmd_shift_arrowdown": () => editor.moveToBottomSelected(),
       "shift_arrowleft":  () => editor.moveSelected(state.get("canvasSnapStep") * -1, 0),
       "shift_arrowright": () => editor.moveSelected(state.get("canvasSnapStep") * 1, 0),
       "shift_arrowup":    () => editor.moveSelected(0, state.get("canvasSnapStep") * -1),
@@ -54,7 +62,6 @@ MD.Keyboard = function(){
       e.preventDefault();
       keys[key]();
     }
-
   });
 
   document.addEventListener("keyup", function(e){

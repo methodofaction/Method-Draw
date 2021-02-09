@@ -831,6 +831,9 @@ var getId, getNextId, call;
     if (events[event]) {
       return events[event](this, arg);
     }
+    //else {
+    //  console.log("event: " + event + " not found", events)
+    //}
   };
   
   // Function: bind
@@ -3075,6 +3078,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
   {
     canvas.addClones = false;
     window.removeEventListener("keyup", canvas.removeClones)
+    workarea.className = state.get("canvasMode");
     selectedElements = selectedElements.filter(Boolean)
     if(evt.button === 2) return;
     var tempJustSelected = justSelected;
@@ -5935,11 +5939,11 @@ this.setSvgString = function(xmlString) {
       var opacity = background.attr("fill-opacity")
       opacity = opacity ? parseInt(opacity)*100 : 100
       fill = this.getPaint(background.attr("fill"), opacity, "canvas")
-      methodDraw.paintBox.canvas.setPaint(fill)
+      editor.paintBox.canvas.setPaint(fill)
     }
     else {
       fill = this.getPaint("none", 100, "canvas")
-      methodDraw.paintBox.canvas.setPaint(fill)
+      editor.paintBox.canvas.setPaint(fill)
     }
 
     batchCmd.addSubCommand(new InsertElementCommand(svgcontent));

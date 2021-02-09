@@ -1,8 +1,14 @@
 MD.Menu = function(){
+  
+  $('#tool_wireframe').on("click", editor.toggleWireframe);
+  $('#tool_move_top').on("click", editor.moveToTopSelected);
+  $('#tool_move_up').on("click", editor.moveUpSelected);
+  $('#tool_move_bottom').on("click", editor.moveToBottomSelected);
+  $('#tool_move_down').on("click", editor.moveDownSelected);
+
   // top dropdown menus
   $('.menu_title')
     .on('mousedown', function() {
-      $("#tools_shapelib").hide()
       $("#menu_bar").toggleClass('active');
       $('.menu').removeClass('open');
       $(this).parent().addClass('open');

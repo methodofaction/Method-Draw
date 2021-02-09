@@ -533,7 +533,6 @@ window.methodDraw = function() {
 
     var clickShapelib = function() {
       if (toolButtonClick('#tool_shapelib')) {
-        $('#workarea').one("mousedown", function(){$('#tools_shapelib').hide()})
         $("#tools_shapelib").css({
           "top": $('#tool_shapelib').offset().top,
           "margin-left": 3,
@@ -809,7 +808,6 @@ window.methodDraw = function() {
       var fill = getPaint(fill_color, fill_opacity, "fill");
       Editor.paintBox.fill.setPaint(stroke, true);
       Editor.paintBox.stroke.setPaint(fill, true);
-      
     };
     
     var zoomImage = function(multiplier) {

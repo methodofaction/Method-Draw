@@ -39,6 +39,8 @@ MD.Panel = function(){
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: editor.changeAttribute,     cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: editor.changeBlur,          cursor: true,  start: 0               });
     
+    // Align
+
     $('#position_opts .draginput_cell').on("click", function(){
         $('#align_relative_to').val()
         svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0], 'page');
@@ -48,10 +50,36 @@ MD.Panel = function(){
         svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0],  $('#align_relative_to').val());
     });
 
+    // Stroke dash
+
     $('#stroke_style').change(function(){
       svgCanvas.setStrokeAttr('stroke-dasharray', $(this).val());
       $("#stroke_style_label").html(this.options[this.selectedIndex].text);
     });
+
+    // Segment type
+
+    $('#seg_type').change(function() {
+      svgCanvas.setSegType($(this).val());
+      $("#seg_type_label").html(this.options[this.selectedIndex].text)
+    });
+
+    $("#tool_node_clone").on("click", function(){
+      if (svgCanvas.pathActions.getNodePoint()) {
+        svgCanvas.pathActions.clonePathNode();
+      }
+    });
+
+    $("#tool_node_delete").on("click", function(){
+      if (svgCanvas.pathActions.getNodePoint()) {
+        svgCanvas.pathActions.deletePathNode();
+      }
+    });
+
+    $("#tool_openclose_path").on("click", function(){
+      svgCanvas.pathActions.opencloseSubPath();
+    });
+
 
     function show(elem) {
       $('.context_panel').hide();
@@ -132,7 +160,7 @@ MD.Panel = function(){
        var elname = elem.nodeName;
        var angle = svgCanvas.getRotationAngle(elem);
        $('#angle').val(Math.round(angle));
-       
+       $('#tool_angle_indicator').css("transform", "rotate("+angle+"deg)");
        var blurval = svgCanvas.getBlur(elem);
        $('#blur').val(blurval);
        if(!isNode && currentMode != 'pathedit') {
@@ -170,7 +198,7 @@ MD.Panel = function(){
          $('#g_panel').show();
        }
        
-       if(elem.parentNode.tagName === 'a') {
+       if(elem && elem.parentNode.tagName === 'a') {
          if(!$(elem).siblings().length) {
            $('#a_panel').show();
            link_href = svgCanvas.getHref(elem.parentNode);

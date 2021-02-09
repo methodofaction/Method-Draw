@@ -1,5 +1,92 @@
 MD.PaintBox = function(container, type){
+
+  var colorPicker = function(elem) {
+  var picker = elem[0].id == 'stroke_color' ? 'stroke' : 'fill';
+  var is_background = elem[0].id == "canvas_color"
+  if (is_background) picker = 'canvas'
+  var paint = editor.paintBox[picker].paint;
+  
+  var title = (picker == 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
+  var was_none = false;
+  var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
+  
+  $("#color_picker")
+    .draggable({cancel:'.jGraduate_tabs, .jGraduate_colPick, .jGraduate_gradPick, .jPicker', containment: 'window'})
+    .removeAttr("style")
+    .css(pos)
+    .jGraduate(
+    { 
+      paint: paint,
+      window: { pickerTitle: title },
+      images: { clientPath: 'images/' },
+      newstop: 'inverse'
+    },
+    function(p) {
+      paint = new $.jGraduate.Paint(p);
+      
+      editor.paintBox[picker].setPaint(paint);
+      svgCanvas.setPaint(picker, paint);
+      
+      $('#color_picker').hide();
+    },
+    function(p) {
+      $('#color_picker').hide();
+    });
+  };
+  
+
+  $('#tool_fill').click(function(){
+      if ($('#tool_fill').hasClass('active')) {
+        colorPicker($('#fill_color'));
+      }
+      else {
+        $('#tool_fill').addClass('active');
+        $("#tool_stroke").removeClass('active');
+      }
+    });
+    
+  $('#tool_stroke').on("click", function(){
+    if ($('#tool_stroke').hasClass('active')) {
+      colorPicker($('#stroke_color'));
+    }
+    else {
+      $('#tool_stroke').addClass('active');
+      $("#tool_fill").removeClass('active');
+    }
+  });
+  
+  $('#tool_canvas').on("click touchstart", function(){
+      colorPicker($('#canvas_color'));
+  });
+
+  function createBackground(fill) {
+    const res = svgCanvas.getResolution();
+    svgCanvas.createLayer("background");
+    cur_shape = svgCanvas.addSvgElementFromJson({
+      "element": "rect",
+      "attr": {
+        "x": -1,
+        "y": -1,
+        "width": res.w+2,
+        "height": res.h+2,
+        "stroke": "none",
+        "id": "canvas_background",
+        "opacity": 1,
+        "fill": fill || "#fff",
+        "style": "pointer-events:none"
+      }
+    });
+    svgCanvas.setCurrentLayer("Layer 1")
+    svgCanvas.setCurrentLayerPosition("1")
+  }
+
   var background = document.getElementById("canvas_background");
+  
+  // create a new layer background if it doesn't exist
+  if (!document.getElementById('canvas_background')) createBackground();
+  var fill = document.getElementById('canvas_background').getAttribute("fill");
+
+  
   var cur = {color: "fff", opacity: 1}
   if (type === "stroke") cur = {color: 'fff', opacity: 1};
   if (type === "fill") cur = {color: 'fff', opacity: 1};
@@ -92,7 +179,7 @@ MD.PaintBox = function(container, type){
   
   this.update = function(apply) {
     const selectedElement = editor.selected[0];
-    if(!editor.selected) return;
+    if(!selectedElement) return;
     var type = this.type;
     switch ( selectedElement.tagName ) {
     case 'use':
