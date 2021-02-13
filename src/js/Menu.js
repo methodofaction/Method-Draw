@@ -5,6 +5,7 @@ MD.Menu = function(){
   $('#tool_move_up').on("click", editor.moveUpSelected);
   $('#tool_move_bottom').on("click", editor.moveToBottomSelected);
   $('#tool_move_down').on("click", editor.moveDownSelected);
+  $('#tool_topath').on("click", editor.convertToPath);
 
   // top dropdown menus
   $('.menu_title')

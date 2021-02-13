@@ -52,7 +52,8 @@ MD.Text = function(){
     .keyup(function(e){
       e.stopPropagation();
       if (e.key === "Escape") {
-        return svgCanvas.textActions.toSelectMode()
+        svgCanvas.textActions.toSelectMode()
+        return editor.escapeMode();
       }
       svgCanvas.setTextContent(this.value);
     });

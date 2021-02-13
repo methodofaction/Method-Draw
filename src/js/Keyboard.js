@@ -29,6 +29,8 @@ MD.Keyboard = function(){
       "cmd_b": ()=> editor.text.setBold(),
       "cmd_i": ()=> editor.text.setItalic(),
       "cmd_g": ()=> editor.groupSelected(),
+      "cmd_o": ()=> editor.import.open(),
+      "cmd_k": ()=> editor.import.place(),
       "cmd_shift_g": ()=> editor.ungroupSelected(),
       "backspace": () => editor.deleteSelected(),
       "ctrl_arrowleft": () => editor.rotateSelected(0,1),
@@ -54,6 +56,7 @@ MD.Keyboard = function(){
       "shift_arrowup":    () => editor.moveSelected(0, state.get("canvasSnapStep") * -1),
       "shift_arrowdown":  () => editor.moveSelected(0, state.get("canvasSnapStep") * 1),
       "escape": () => editor.escapeMode(),
+      "enter": () => editor.escapeMode(),
       " ": ()=> editor.pan.startPan(),
     };
 

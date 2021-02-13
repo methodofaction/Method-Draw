@@ -40,7 +40,7 @@ MD.Palette = function(){
     if (evt.type === "mousedown" || evt.type === "touchstart") picking = true;
     if (!picking) return;
 
-    var isStroke = toolStroke.classList.contains('active');
+    var isStroke = toolStroke.classList.contains('active') || evt.shiftKey;
     var picker = isStroke ? "stroke" : "fill";
     var color = this.getAttribute('data-rgb');
     var paint = null;

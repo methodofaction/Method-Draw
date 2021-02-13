@@ -134,16 +134,15 @@
     cursor: -moz-grabbing;
 }
 
-
-
- .draginput span {
-  font: 11px/130% sans-serif;
+.draginput span {
+  font: 12px/130% sans-serif;
   color: #ccc;
   display: block;
   position: absolute;
   top: 5px;
   left: 5px;
   text-align: left;
+  white-space: nowrap;
 }
 
  .draginput.error {

@@ -24,7 +24,7 @@ MD.PaintBox = function(container, type){
     function(p) {
       paint = new $.jGraduate.Paint(p);
       
-      editor.paintBox[picker].setPaint(paint);
+      editor.paintBox[picker].setPaint(paint, true);
       svgCanvas.setPaint(picker, paint);
       
       $('#color_picker').hide();
@@ -88,7 +88,7 @@ MD.PaintBox = function(container, type){
 
   
   var cur = {color: "fff", opacity: 1}
-  if (type === "stroke") cur = {color: 'fff', opacity: 1};
+  if (type === "stroke") cur = {color: '000', opacity: 1};
   if (type === "fill") cur = {color: 'fff', opacity: 1};
   if (type === "canvas") cur = {color: 'fff', opacity: 1};
 
@@ -127,7 +127,7 @@ MD.PaintBox = function(container, type){
     this.rect.setAttribute('fill', fillAttr);
     this.rect.setAttribute('opacity', opac);
 
-    if (this.type == "canvas") {
+    if (this.type === "canvas") {
       //recache background in case it changed
       var background = document.getElementById("canvas_background");
       if (background) {
@@ -140,8 +140,8 @@ MD.PaintBox = function(container, type){
       }
       else createBackground(fillAttr)
     }
-    
-    if(apply) {
+
+    if(true) {
       svgCanvas.setColor(this.type, fillAttr, true);
       svgCanvas.setPaintOpacity(this.type, opac, true);
     }

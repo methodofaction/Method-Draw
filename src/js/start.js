@@ -17,6 +17,8 @@ editor.palette = new MD.Palette();
 editor.keyboard = new MD.Keyboard();
 editor.pan = new MD.Pan();
 editor.modal = new MD.Modal();
+editor.import = new MD.Import();
+editor.contextMenu = new MD.ContextMenu();
 
 // bind the selected event to our function that handles updates to the UI
 svgCanvas.bind("selected", editor.selectedChanged);
@@ -34,5 +36,6 @@ const state = new State();
 state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));
 state.set("canvasSize", state.get("canvasSize"));
+svgCanvas.setSvgString(state.get("canvasContent"))
 
 editor.rulers.update();

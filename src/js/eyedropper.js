@@ -75,7 +75,7 @@ MD.Eyedropper = function(S) {
       icon: "extensions/eyedropper.png",
       events: {
         "click": function() {
-          svgCanvas.setMode("eyedropper");
+          state.set("canvasMode", "eyedropper");
         }
       }
     }],

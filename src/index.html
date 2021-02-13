@@ -70,8 +70,14 @@
     <div class="menu_title">File</div>
     <div class="menu_list" id="file_menu"> 
       <div id="tool_clear" class="menu_item">New Document</div>
-      <div id="tool_open" class="menu_item" style="display: none;"><div id="fileinputs"></div>Open SVG...</div>
-      <div id="tool_import" class="menu_item" style="display: none;"><div id="fileinputs_import"></div>Import Image...</div>
+      
+      <div id="tool_open" class="menu_item">
+        Open SVG...</div>
+      <input type="file" accept="image/svg+xml" />
+      
+      <div id="tool_import" class="menu_item">
+        Place Image... <span class="shortcut">⌘K</span></div>
+        <input type="file" accept="image/*" />
       <div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
       <div id="tool_export" class="menu_item">Export as PNG</div>
     </div>
@@ -485,11 +491,11 @@
     <div class="toolset" data-title="Change stroke">
       <label>
         <input id="stroke_width" size="2" value="1" data-attr="stroke-width" min="0" max="99" step="1" />
-        <span class="icon_label">Stroke Width</span>
+        <span class="icon_label">Width</span>
       </label>
     </div>
     <div class="stroke_tool draginput"> 
-      <span>Stroke Dash</span>
+      <span>Dash</span>
       <select id="stroke_style" data-title="Change stroke dash style">
         <option selected="selected" value="none">—</option>
         <option value="2,2">···</option>
@@ -700,10 +706,12 @@
   <script type="text/javascript" src="js/Toolbar.js"></script>
   <script type="text/javascript" src="js/Menu.js"></script>
   <script type="text/javascript" src="js/Keyboard.js"></script>
+  <script type="text/javascript" src="js/Import.js"></script>
   <script type="text/javascript" src="js/PaintBox.js"></script>
   <script type="text/javascript" src="js/Palette.js"></script>
   <script type="text/javascript" src="js/Zoom.js"></script>
   <script type="text/javascript" src="js/Modal.js"></script>
+  <script type="text/javascript" src="js/ContextMenu.js"></script>
   <script type="text/javascript" src="js/Shapelib.js"></script>
   <script type="text/javascript" src="js/fonts.js"></script>
   <script type="text/javascript" src="js/dialog.js"></script>

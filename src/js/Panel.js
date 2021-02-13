@@ -105,6 +105,7 @@ MD.Panel = function(){
      const isNode = svgCanvas.pathActions.getNodePoint()
      // If element has just been deleted, consider it null
      if(!elem || !elem.parentNode) elem = null;
+     elem = null;
 
      const multiselected = elems.length > 1;
      

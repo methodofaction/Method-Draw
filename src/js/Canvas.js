@@ -3,6 +3,13 @@ MD.Canvas = function(){
   const el = document.getElementById("svgcanvas");
   var workarea = document.getElementById("workarea");
 
+  workarea.addEventListener("mouseup", function(){
+    const mode = svgCanvas.getMode();
+    // todo why?
+    if (mode !== "textedit" && mode !== "path") state.set("canvasMode", mode);
+    workarea.className = mode;
+  })
+
   $('#resolution').change(function(){
     var w = $('#canvas_width')[0];
     var h = $('#canvas_height')[0];

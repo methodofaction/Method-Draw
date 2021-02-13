@@ -36,7 +36,7 @@ function State(){
     }
 
     Object.keys(localStorage).forEach(key => localStorage.removeItem(key));
-    write.reset();
+    window.location.reload();
   }
 
   // INNER UTILS

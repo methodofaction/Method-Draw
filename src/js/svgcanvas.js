@@ -88,7 +88,6 @@ var clearSvgContentElement = canvas.clearSvgContentElement = function() {
     height: dimensions[1],
     x: dimensions[0],
     y: dimensions[1],
-    overflow: curConfig.show_outside_canvas ? 'visible' : 'hidden',
     xmlns: svgns,
     "xmlns:se": se_ns,
     "xmlns:xlink": xlinkns
@@ -3078,7 +3077,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
   {
     canvas.addClones = false;
     window.removeEventListener("keyup", canvas.removeClones)
-    workarea.className = state.get("canvasMode");
     selectedElements = selectedElements.filter(Boolean)
     if(evt.button === 2) return;
     var tempJustSelected = justSelected;
@@ -5880,7 +5878,6 @@ this.setSvgString = function(xmlString) {
     
     var attrs = {
       id: 'svgcontent',
-      overflow: curConfig.show_outside_canvas?'visible':'hidden'
     };
     
     var percs = false;
@@ -6835,10 +6832,8 @@ this.getMode = function() {
 // Parameters:
 // name - String with the new mode to change to
 this.setMode = function(name) {
-  
   pathActions.clear();
   textActions.clear();
-  $("#workarea").attr("class", name);
   cur_properties = (selectedElements[0] && selectedElements[0].nodeName == 'text') ? cur_text : cur_shape;
   current_mode = name;
 };

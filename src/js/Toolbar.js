@@ -10,6 +10,7 @@ MD.Toolbar = function(){
   function setMode(mode) {
     $(".tool_button").removeClass("current");
     $("#tool_" + mode).addClass("current");
+    $("#workarea").attr("class", mode);
     svgCanvas.setMode(mode);
   }
 

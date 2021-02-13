@@ -4,6 +4,7 @@ MD.Editor = function(){
   
   const serializer = new XMLSerializer();
   const _self = this;
+  const workarea = document.getElementById("workarea");
   _self.selected = [];
 
   function save(){
@@ -36,7 +37,6 @@ MD.Editor = function(){
   
   function pasteSelected(){
     _self.menu.flash($('#edit_menu'));
-    const workarea = document.getElementById("workarea");
     var zoom = svgCanvas.getZoom();       
     var x = (workarea.scrollLeft + workarea.offsetWidth/2)/zoom  - svgCanvas.contentW; 
     var y = (workarea.scrollTop + workarea.offsetHeight/2)/zoom  - svgCanvas.contentH;
@@ -102,13 +102,13 @@ MD.Editor = function(){
   };
 
   function escapeMode(){
-    svgCanvas.setMode("select")
+    state.set("canvasMode", "select");
+    state.set("canvasContent", svgCanvas.getSvgString())
   }
 
   // called when we've selected a different element
   function selectedChanged(window,elems) {  
     const mode = svgCanvas.getMode();
-    if(mode === "select") editor.toolbar.setMode("select");
     _self.selected = elems.filter(Boolean);
     editor.panel.updateContextPanel(_self.selected);
   };
@@ -144,7 +144,7 @@ MD.Editor = function(){
     const mode = svgCanvas.getMode();
 
     // if the element changed was the svg, then it could be a resolution change
-    if (elems[0].tagName === "svg") editor.canvas.update();
+    if (elems[0].tagName === "svg")  return editor.canvas.update();
 
     editor.panel.updateContextPanel(elems);
     
@@ -157,6 +157,8 @@ MD.Editor = function(){
     svgCanvas.runExtensions("elementChanged", {
       elems: elems
     });
+
+    state.set("canvasContent", svgCanvas.getSvgString())
   }
 
   function changeAttribute(attr, value, completed) {
@@ -169,9 +171,6 @@ MD.Editor = function(){
   }
 
   function elementTransition(window, elems){
-    // Call when part of element is in process of changing, generally
-    // on mousemove actions like rotate, move, etc.
-    var elementTransition = function(window,elems) {
       var mode = svgCanvas.getMode();
       var elem = elems[0];
       
@@ -179,20 +178,13 @@ MD.Editor = function(){
       
       const multiselected = (elems.length >= 2 && elems[1] != null) ? elems : null;
       // Only updating fields for single elements for now
-      if(!multiselected) {
-        switch ( mode ) {
-          case "rotate":
-            var ang = svgCanvas.getRotationAngle(elem);
-            $('#angle').val(Math.round(ang));
-            rotateCursor(ang);
-            $('#tool_reorient').toggleClass('disabled', ang == 0);
-            break;
-        }
+      if(!multiselected && mode === "rotate") {
+        var rotate_string = 'rotate('+ svgCanvas.getRotationAngle(elem) + 'deg)';
+        $('#tool_angle_indicator').css("transform", rotate_string);
       }
       svgCanvas.runExtensions("elementTransition", {
         elems: elems
       });
-    };
   }
 
   function moveSelected(dx,dy) {
@@ -288,6 +280,17 @@ MD.Editor = function(){
     }
   }
 
+  function convertToPath(){
+    if (!_self.selected.length) return;
+    svgCanvas.convertToPath();
+    var elems = svgCanvas.getSelectedElems();
+    svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0])
+    svgCanvas.selectorManager.requestSelector(elems[0]).selectorRect.setAttribute("display", "none");
+    svgCanvas.setMode("pathedit")
+    svgCanvas.pathActions.toEditMode(elems[0]);
+    svgCanvas.clearSelection();
+    editor.panel.updateContextPanel();
+  }
 
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
@@ -316,4 +319,5 @@ MD.Editor = function(){
   this.toggleWireframe = toggleWireframe;
   this.groupSelected = groupSelected;
   this.ungroupSelected = ungroupSelected;
+  this.convertToPath = convertToPath;
 }

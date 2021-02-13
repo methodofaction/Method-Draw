@@ -62,6 +62,11 @@
   border: solid #ccc 1px;
 }
 
+#tool_fill .color_block svg {
+  width: 24px;
+  height: 24px;
+}
+
 .touch  #tool_eyedropper {
   margin-top: 6px;
 }
