@@ -2,7 +2,7 @@
 
 body {
   background: #3f3f3c;
-  font: 13px/120% 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font: 14px/120% -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -51,24 +51,20 @@ html, body {
  #svgroot {
   -moz-user-select: none;
   -webkit-user-select: none;
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
 }
 
 #svg_editor {
   background: #2f2f2c;
 }
 
-
 #svgcanvas {
-  line-height: normal;
-  display: inline-block;
   background-color: #A0A0A0;
-  text-align: center;
-  vertical-align: middle;
-  width: 640px;
-  height: 480px;
+  width: 800px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   background: #3F3F3C;
 }
@@ -202,9 +198,7 @@ html, body {
   position: relative;
 }
 
-
-
- #color_tools .icon_label {
+#color_tools .icon_label {
   padding: 0;
   width: 24px;
   height: 100%;
@@ -217,8 +211,8 @@ html, body {
   padding-top: 4px;
 }
 
- div#workarea {
-  display: inline-table-cell;
+ #workarea {
+  display: flex;
   position:absolute;
   top: 30px;
   left: 50px;
@@ -226,16 +220,9 @@ html, body {
   right: 175px;
   background-color: #444;
   overflow: auto;
-  text-align: center;
-  -webkit-transition: -webkit-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
-  -moz-transition: -moz-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
-  -o-transition: -o-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
-  -ms-transition: -ms-transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+  align-items: center;
+  justify-content: center;
   transition: transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
-}
-
-.touch  div#workarea {
-  top: 40px;
 }
 
  #main_icon span {
@@ -246,7 +233,7 @@ html, body {
   z-index: 2;
 }
 
- #tools_top {
+ #panels {
   position: absolute;
   width: 160px;
   height: 100%;
@@ -258,7 +245,7 @@ html, body {
   padding: 0 0 0 15px;
 }
 
-.touch  #tools_top {
+.touch  #panels {
   top: 30px;
 }
 
@@ -299,15 +286,15 @@ div#font-selector .font-item:hover {
   background-color: #eee;
 }
 
- #tools_top #marker_panel * {
+ #panels #marker_panel * {
   float: left;
 }
 
- #tools_top #marker_panel h4 {
+ #panels #marker_panel h4 {
   float: none;
 }
 
- #tools_top #marker_panel .dropdown .icon_label {
+ #panels #marker_panel .dropdown .icon_label {
   width: 36px;
   height: 20px;
   margin-top: 2px;
@@ -315,17 +302,17 @@ div#font-selector .font-item:hover {
   text-align: center;
 }
 
- #tools_top #marker_panel .dropdown button {
+ #panels #marker_panel .dropdown button {
   margin-top: 2px;
 }
 
- #tools_top #marker_panel #marker_panel_title {
+ #panels #marker_panel #marker_panel_title {
   float: none;
   color: #fff;
   margin-bottom: 3px;
 }
 
- #tools_top #marker_panel .dropdown .icon_label img {
+ #panels #marker_panel .dropdown .icon_label img {
   float: none;
 }
 
@@ -376,7 +363,11 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   z-index: 4;
 }
 
-#workarea.wireframe #svgcontent * {
+#svgcontent {
+  overflow: hidden;
+}
+
+.wireframe #svgcontent * {
   fill: none;
   stroke: #000;
   stroke-width: 1px;
@@ -388,16 +379,16 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   filter: none;
 }
 
-#workarea.wireframe #svgcontent text {
+.wireframe #svgcontent text {
   fill: #000;
   stroke: none;
 }
 
-#workarea.wireframe #canvasBackground > rect {
+#canvasBackground > rect {
   fill: #FFF !important;
 }
 
-#workarea #canvasBackground > rect {
+#canvasBackground > rect {
   stroke: transparent !important;
 }
 
@@ -479,16 +470,15 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   overflow: hidden;
 }
 
-#tool_open input, 
-#tool_import input,
-#tool_import_bitmap input {
+input[type=file] {
+  -webkit-appearance: none;
   position: absolute;
   opacity: 0;
-  font-size: 10em;
-  top: -5px;
-  right: -5px;
-  margin: 0;
-  cursor: pointer; /* Sadly doesn't appear to have an effect */
+  background: red;
+  z-index: 10;
+  height: 30px;
+  width: 100%;
+  transform: translate(-100%, 0);
 }
 
  .disabled {
@@ -496,13 +486,12 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   cursor: default;
 }
 
- .width_label {
+.width_label {
   padding-right: 5px;
 }
 
 #text {
   position: absolute;
-  left: -9999px;
 }
 
  #tool_bold span,  #tool_italic span { 
@@ -536,27 +525,27 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 }
 
 
- #tools_top h4 {
+ #panels h4 {
   color: #fff;
   font-weight: normal;
   margin: 0;
   padding: 10px 0 5px 0;
 }
 
-#tools_top .dropdown .icon_label {
+#panels .dropdown .icon_label {
   border: 1px solid transparent;
   height: auto;
 }
 
-#tools_top.multiselected #align_tools {
+#panels.multiselected #align_tools {
   display: none;
 }
 
-#tools_top.multiselected #multiselected_panel {
+#panels.multiselected #multiselected_panel {
   display: block !important;
 }
 
-#tools_top.multiselected #multiselected_panel .hidable {
+#panels.multiselected #multiselected_panel .hidable {
   display: none;
 }
 
@@ -588,6 +577,12 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
 
 .draginput_cell:hover svg {
   fill: #fff;
+}
+
+.draginput.textcontent {
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
 }
 
  .align_buttons  .draginput_cell:nth-child(1) {border-radius: 3px 0 0 0;}
@@ -648,7 +643,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   width: 100%;
   height: 100%;
   line-height: 140%;
-  font-family: 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
 }
 
@@ -946,7 +941,7 @@ box-shadow: inset 0 3px 10px rgba(255, 255, 255, 0.1),
   color: #ccc;
   font-size: 13px;
   height: auto;
-  width: auto;
+  width: 50px;
   padding: 0;
   cursor: default;
   position: static;

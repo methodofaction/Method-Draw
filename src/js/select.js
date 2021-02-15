@@ -391,7 +391,6 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
       'height': dims[1],
       'x': 0,
       'y': 0,
-      'overflow': (svgedit.browser.isWebkit() ? 'none' : 'visible'), // Chrome 7 has a problem with this when zooming out
       'style': 'pointer-events:none'
     }
   });
@@ -403,51 +402,7 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
     }
   })
   
-  var pattern = svgFactory_.createSVGElement({
-    'element': 'pattern',
-    'attr': {
-      'id': 'checkerPattern',
-      'patternUnits': 'userSpaceOnUse',
-      'x': 0,
-      'y': 0,
-      'width': 20,
-      'height': 20,
-      'viewBox': '0 0 10 10'
-    }
-  })
-  
-  var pattern_bg = svgFactory_.createSVGElement({
-    'element': 'rect',
-    'attr': {
-      'x': 0,
-      'y': 0,
-      'width': 10,
-      'height': 10,
-      'fill': "#fff"
-    }
-  })
 
-  var pattern_square1 = svgFactory_.createSVGElement({
-    'element': 'rect',
-    'attr': {
-      'x': 0,
-      'y': 0,
-      'width': 5,
-      'height': 5,
-      'fill': "#eee"
-    }
-  })
-  
-  var pattern_square2 = svgFactory_.createSVGElement({
-    'element': 'rect',
-    'attr': {
-      'x': 5,
-      'y': 5,
-      'width': 5,
-      'height': 5,
-      'fill': "#eee"
-    }
-  })
 
   var rect = svgFactory_.createSVGElement({
     'element': 'rect',
@@ -456,9 +411,9 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
       'height': '100%',
       'x': 0,
       'y': 0,
-      'stroke-width': 1,
-      'stroke': '#000',
-      'fill': 'url(#checkerPattern)',
+      'stroke-width': 0,
+      'stroke': 'transparent',
+      'fill': '#fff',
       'style': 'pointer-events:none'
     }
   });
@@ -467,12 +422,7 @@ svgedit.select.SelectorManager.prototype.initGroup = function() {
   // zoom levels) and Opera has at least one bug
 //  if (!svgedit.browser.isOpera()) rect.setAttribute('filter', 'url(#canvashadow)');
   canvasbg.appendChild(defs);
-  defs.appendChild(pattern);
-  pattern.appendChild(pattern_bg);
-  pattern.appendChild(pattern_square1);
-  pattern.appendChild(pattern_square2);
   canvasbg.appendChild(rect);
-
   svgFactory_.svgRoot().insertBefore(canvasbg, svgFactory_.svgContent());
 };
 

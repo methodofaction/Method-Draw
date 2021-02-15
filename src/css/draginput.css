@@ -110,7 +110,9 @@
   width: 145px;
 }
 
-
+.draginput.twocol {
+  width: 145px;
+}
 
 .draginput input, .draginput input:hover, .draginput input:active {  
     cursor: url(../images/drag.png), move;
@@ -132,20 +134,19 @@
     cursor: -moz-grabbing;
 }
 
-
 .draginput input:invalid {
   color: #f33;
 }
 
-
- .draginput span {
-  font: 11px/130% sans-serif;
+.draginput span {
+  font: 12px/130% sans-serif;
   color: #ccc;
   display: block;
   position: absolute;
   top: 5px;
   left: 5px;
   text-align: left;
+  white-space: nowrap;
 }
 
  .draginput.error {

@@ -1,4 +1,4 @@
-function Palette(){
+MD.Palette = function(){
   var palette = [
     "#444444", "#482816", "#422C10", "#3B2F0E", "#32320F", 
     "#293414", "#1F361B", "#153723", "#0C372C", "#083734", 
@@ -40,7 +40,7 @@ function Palette(){
     if (evt.type === "mousedown" || evt.type === "touchstart") picking = true;
     if (!picking) return;
 
-    var isStroke = toolStroke.classList.contains('active');
+    var isStroke = toolStroke.classList.contains('active') || evt.shiftKey;
     var picker = isStroke ? "stroke" : "fill";
     var color = this.getAttribute('data-rgb');
     var paint = null;
@@ -50,7 +50,7 @@ function Palette(){
       ? new $.jGraduate.Paint() 
       : new $.jGraduate.Paint({alpha: 100, solidColor: color.substr(1)});
 
-    methodDraw.paintBox[picker].setPaint(paint);
+    editor.paintBox[picker].setPaint(paint);
     
     if (isStroke) {
       svgCanvas.setColor('stroke', color, noUndo);
@@ -65,7 +65,5 @@ function Palette(){
     }
   }).bind('contextmenu', function(e) {e.preventDefault()});
 };
-
-var palette = new Palette();
 
 

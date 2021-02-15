@@ -45,7 +45,7 @@
 </div>
 
 <div id="workarea">
-<div id="svgcanvas" style="position:relative">
+<div id="svgcanvas">
 
 </div>
 </div>
@@ -61,6 +61,7 @@
     <div class="menu_list">
       <div id="tool_about" class="menu_item">About this Editor...</div>
       <div class="separator"></div>
+      <div id="tool_about" class="menu_item">Preferences...</div>
       <div id="tool_about" class="menu_item">Keyboard Shortcuts...</div>
     </div>
   </a>
@@ -69,8 +70,14 @@
     <div class="menu_title">File</div>
     <div class="menu_list" id="file_menu"> 
       <div id="tool_clear" class="menu_item">New Document</div>
-      <div id="tool_open" class="menu_item" style="display: none;"><div id="fileinputs"></div>Open SVG...</div>
-      <div id="tool_import" class="menu_item" style="display: none;"><div id="fileinputs_import"></div>Import Image...</div>
+      
+      <div id="tool_open" class="menu_item">
+        Open SVG...</div>
+      <input type="file" accept="image/svg+xml" />
+      
+      <div id="tool_import" class="menu_item">
+        Place Image... <span class="shortcut">⌘K</span></div>
+        <input type="file" accept="image/*" />
       <div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
       <div id="tool_export" class="menu_item">Export as PNG</div>
     </div>
@@ -109,7 +116,7 @@
   <div class="menu">
     <div class="menu_title">View</div>
     <div class="menu_list" id="view_menu">
-        <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers</div>
+        <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers <span class="shortcut">⇧R</span></div>
         <div class="menu_item" id="tool_wireframe">View Wireframe</div>
         <div class="menu_item" id="tool_snap">Snap to Grid</div>
         <div class="separator"></div>
@@ -118,21 +125,21 @@
   </div>
 </div>
 
-<div id="tools_top" class="tools_panel">
+<div id="panels" class="tools_panel">
 
   <div id="canvas_panel" class="context_panel">
     
     <h4 class="clearfix">Canvas</h4>
-    
+
     <label data-title="Change canvas width">
-      <input size="3" id="canvas_width" type="text" pattern="[0-9]*" />
+      <input id="canvas_width" type="text" pattern="[0-9]*" value="800" />
       <span class="icon_label">Width</span>
     </label>
+
     <label data-title="Change canvas height">
-      <input id="canvas_height" size="3" type="text" pattern="[0-9]*" />
+      <input id="canvas_height" type="text" pattern="[0-9]*" value="600" />
       <span class="icon_label">Height</span>
     </label>
-        
     
     <label data-title="Change canvas color" class="draginput">
       <span>Color</span>
@@ -166,19 +173,19 @@
   <div id="rect_panel" class="context_panel">
     <h4 class="clearfix">Rectangle</h4>
     <label>
-      <input id="rect_x" class="attr_changer" data-title="Change X coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+      <input id="rect_x" class="attr_changer" data-title="Change X coordinate" data-attr="x" pattern="[0-9]*" />
       <span>X</span> 
     </label>
     <label>
-      <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+      <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y" pattern="[0-9]*" />
       <span>Y</span> 
     </label>
     <label id="rect_width_tool attr_changer" data-title="Change rectangle width">
-      <input id="rect_width" class="attr_changer" size="3" data-attr="width" type="text" pattern="[0-9]*" />
+      <input id="rect_width" class="attr_changer" data-attr="width" type="text" pattern="[0-9]*" />
       <span class="icon_label">Width</span>
     </label>
     <label id="rect_height_tool" data-title="Change rectangle height">
-      <input id="rect_height" class="attr_changer" size="3" data-attr="height" type="text" pattern="[0-9]*" />
+      <input id="rect_height" class="attr_changer" data-attr="height" type="text" pattern="[0-9]*" />
       <span class="icon_label">Height</span>
     </label>
   </div>
@@ -186,11 +193,11 @@
   <div id="path_panel" class="context_panel clearfix">
     <h4 class="clearfix">Path</h4>
     <label>
-      <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+      <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="x" pattern="[0-9]*" />
       <span>X</span>
     </label>
     <label>
-      <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+      <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="y" pattern="[0-9]*" />
       <span>Y</span>
     </label>
   </div>
@@ -198,19 +205,19 @@
   <div id="image_panel" class="context_panel clearfix">
   <h4>Image</h4>
     <label>
-      <input id="image_x" class="attr_changer" data-title="Change X coordinate" size="3" data-attr="x"  pattern="[0-9]*"/>
+      <input id="image_x" class="attr_changer" data-title="Change X coordinate" data-attr="x"  pattern="[0-9]*"/>
       <span>X</span> 
     </label>
     <label>
-      <input id="image_y" class="attr_changer" data-title="Change Y coordinate" size="3" data-attr="y"  pattern="[0-9]*"/>
+      <input id="image_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y"  pattern="[0-9]*"/>
       <span>Y</span> 
     </label>
     <label>
-      <input id="image_width" class="attr_changer" data-title="Change image width" size="3" data-attr="width" pattern="[0-9]*" />
+      <input id="image_width" class="attr_changer" data-title="Change image width" data-attr="width" pattern="[0-9]*" />
       <span class="icon_label">Width</span>
     </label>
     <label>
-      <input id="image_height" class="attr_changer" data-title="Change image height" size="3" data-attr="height" pattern="[0-9]*" />
+      <input id="image_height" class="attr_changer" data-title="Change image height" data-attr="height" pattern="[0-9]*" />
       <span class="icon_label">Height</span>
     </label>
   </div>
@@ -219,34 +226,34 @@
     <h4>Circle</h4>
     <label id="tool_circle_cx">
       <span>Center X</span>
-      <input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" size="3" data-attr="cx"/>
+      <input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" data-attr="cx"/>
     </label>
     <label id="tool_circle_cy">
       <span>Center Y</span>
-      <input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" size="3" data-attr="cy"/>
+      <input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" data-attr="cy"/>
     </label>
     <label id="tool_circle_r">
       <span>Radius</span>
-      <input id="circle_r" class="attr_changer" title="Change circle's radius" size="3" data-attr="r"/>
+      <input id="circle_r" class="attr_changer" title="Change circle's radius" data-attr="r"/>
     </label>
   </div>
 
   <div id="ellipse_panel" class="context_panel clearfix">
     <h4>Ellipse</h4>
     <label id="tool_ellipse_cx">
-      <input id="ellipse_cx" class="attr_changer" data-title="Change ellipse's cx coordinate" size="3" data-attr="cx" pattern="[0-9]*" />
+      <input id="ellipse_cx" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="cx" pattern="[0-9]*" />
       <span>X</span>
     </label>
     <label id="tool_ellipse_cy">
-      <input id="ellipse_cy" class="attr_changer" data-title="Change ellipse's cy coordinate" size="3" data-attr="cy" pattern="[0-9]*" />
+      <input id="ellipse_cy" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="cy" pattern="[0-9]*" />
       <span>Y</span>
     </label>
     <label id="tool_ellipse_rx">
-      <input id="ellipse_rx" class="attr_changer" data-title="Change ellipse's x radius" size="3" data-attr="rx" pattern="[0-9]*" />
+      <input id="ellipse_rx" class="attr_changer" data-title="Change ellipse's x radius" data-attr="rx" pattern="[0-9]*" />
       <span>Radius X</span>
     </label>
     <label id="tool_ellipse_ry">
-      <input id="ellipse_ry" class="attr_changer" data-title="Change ellipse's y radius" size="3" data-attr="ry" pattern="[0-9]*" />
+      <input id="ellipse_ry" class="attr_changer" data-title="Change ellipse's y radius" data-attr="ry" pattern="[0-9]*" />
       <span>Radius Y</span>
     </label>
   </div>
@@ -254,31 +261,35 @@
   <div id="line_panel" class="context_panel clearfix">
     <h4>Line</h4>
     <label id="tool_line_x1">
-      <input id="line_x1" class="attr_changer" data-title="Change line's starting x coordinate" size="3" data-attr="x1" pattern="[0-9]*" />
+      <input id="line_x1" class="attr_changer" data-title="Change line's starting x coordinate" data-attr="x1" pattern="[0-9]*" />
       <span>Start X</span>
     </label>
     <label id="tool_line_y1">
-      <input id="line_y1" class="attr_changer" data-title="Change line's starting y coordinate" size="3" data-attr="y1" pattern="[0-9]*" />
+      <input id="line_y1" class="attr_changer" data-title="Change line's starting y coordinate" data-attr="y1" pattern="[0-9]*" />
       <span>Start Y</span>
     </label>
     <label id="tool_line_x2">
-      <input id="line_x2" class="attr_changer" data-title="Change line's ending x coordinate" size="3" data-attr="x2"   pattern="[0-9]*" />
+      <input id="line_x2" class="attr_changer" data-title="Change line's ending x coordinate" data-attr="x2"   pattern="[0-9]*" />
       <span>End X</span>
     </label>
     <label id="tool_line_y2">
-      <input id="line_y2" class="attr_changer" data-title="Change line's ending y coordinate" size="3" data-attr="y2"   pattern="[0-9]*" />
+      <input id="line_y2" class="attr_changer" data-title="Change line's ending y coordinate" data-attr="y2"   pattern="[0-9]*" />
       <span>End Y</span>
     </label>
   </div>
 
   <div id="text_panel" class="context_panel">
     <h4>Text</h4>
+    <label class="draginput twocol textcontent" data-title="Change Content">
+      <span>Content</span>
+      <input id="text" type="text"/>
+    </label>
     <label>
-      <input id="text_x" class="attr_changer" data-title="Change text x coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+      <input id="text_x" class="attr_changer" data-title="Change text x coordinate" data-attr="x" pattern="[0-9]*" />
       <span>X</span>
     </label>
     <label>
-      <input id="text_y" class="attr_changer" data-title="Change text y coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+      <input id="text_y" class="attr_changer" data-title="Change text y coordinate" data-attr="y" pattern="[0-9]*" />
       <span>Y</span>
     </label>
     <div class="toolset draginput select twocol" id="tool_font_family">
@@ -294,11 +305,9 @@
     </div>
 
     <label id="tool_font_size" data-title="Change Font Size">
-      <input id="font_size" size="3" value="0" />
+      <input id="font_size" value="0" />
       <span id="font_sizeLabel" class="icon_label">Font Size</span>
     </label>
-    <!-- Not visible, but still used -->
-    <input id="text" type="text" size="35"/>
   </div>
 
   <!-- formerly gsvg_panel -->
@@ -312,11 +321,11 @@
   <div id="g_panel" class="context_panel clearfix">
     <h4>Group</h4>
     <label>
-      <input id="g_x" class="attr_changer" data-title="Change groups's x coordinate" size="3" data-attr="x" pattern="[0-9]*" />
+      <input id="g_x" class="attr_changer" data-title="Change groups's x coordinate" data-attr="x" pattern="[0-9]*" />
       <span>X</span>
     </label>
     <label>
-      <input id="g_y" class="attr_changer" data-title="Change groups's y coordinate" size="3" data-attr="y" pattern="[0-9]*" />
+      <input id="g_y" class="attr_changer" data-title="Change groups's y coordinate" data-attr="y" pattern="[0-9]*" />
       <span>Y</span>
     </label>
   </div>
@@ -325,11 +334,11 @@
     <h4>Edit Path</h4>
 
     <label id="tool_node_x">
-      <input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" size="3" data-attr="x" />
+      <input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" data-attr="x" />
       <span>X</span>
     </label>
     <label id="tool_node_y">
-      <input id="path_node_y" class="attr_changer" data-title="Change node's y coordinate" size="3" data-attr="y" />
+      <input id="path_node_y" class="attr_changer" data-title="Change node's y coordinate" data-attr="y" />
       <span>Y</span>
     </label>
     
@@ -369,7 +378,7 @@
     </label>
     
       <label class="toolset" id="tool_opacity" data-title="Change selected item opacity">
-        <input id="group_opacity" class="attr_changer" data-attr="opacity" data-multiplier="0.01" size="3" value="100" step="5" min="0" max="100" />
+        <input id="group_opacity" class="attr_changer" data-attr="opacity" value="100" step="5" min="0" max="100" />
         <span id="group_opacityLabel" class="icon_label">Opacity</span>
       </label>
     
@@ -381,7 +390,7 @@
     </div>
     
     <label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
-      <input id="rect_rx" size="3" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
+      <input id="rect_rx" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
       <span class="icon_label">Roundness</span>
     </label>
     
@@ -391,32 +400,32 @@
       <div class="toolset align_buttons" id="tool_position">
           <label>
             <div class="col last clear" id="position_opts">
-              <div class="draginput_cell" id="tool_posleft" title="Align Left">
+              <div class="draginput_cell" id="tool_posleft" title="Align Left" data-align="left">
                 <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
                   <path d="M 2 1 L 2 5 L 14 5 L 14 11 L 2 11 L 2 16 L 20 16 L 20 22 L 2 22 L 2 26 L 1 26 L 1 1 L 2 1 Z" />
                 </svg>
               </div>
-              <div class="draginput_cell" id="tool_poscenter" title="Align Center">
+              <div class="draginput_cell" id="tool_poscenter" title="Align Center" data-align="center">
                 <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
                   <path d="M 13 1 L 14 1 L 14 6 L 22 6 L 22 12 L 14 12 L 14 15 L 19 15 L 19 21 L 14 21 L 14 26 L 13 26 L 13 21 L 8 21 L 8 15 L 13 15 L 13 12 L 5 12 L 5 6 L 13 6 L 13 1 Z" />
                 </svg>
               </div>
-              <div class="draginput_cell" id="tool_posright" title="Align Right">
+              <div class="draginput_cell" id="tool_posright" title="Align Right" data-align="right">
                   <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
                     <path d="M 25 1 L 25 5 L 13 5 L 13 11 L 25 11 L 25 16 L 7 16 L 7 22 L 25 22 L 25 26 L 26 26 L 26 1 L 25 1 Z"/>
                   </svg>
               </div>
-              <div class="draginput_cell" id="tool_postop" title="Align Top">
+              <div class="draginput_cell" id="tool_postop" title="Align Top" data-align="top">
                   <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
                     <path d="M 1 2 L 5 2 L 5 14 L 11 14 L 11 2 L 16 2 L 16 20 L 22 20 L 22 2 L 26 2 L 26 1 L 1 1 L 1 2 Z"/>
                   </svg>
               </div>
-              <div class="draginput_cell" id="tool_posmiddle" title="Align Middle">
+              <div class="draginput_cell" id="tool_posmiddle" title="Align Middle" data-align="middle">
                 <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
                   <path d="M 26 13 L 26 14 L 21 14 L 21 22 L 15 22 L 15 14 L 12 14 L 12 19 L 6 19 L 6 14 L 1 14 L 1 13 L 6 13 L 6 8 L 12 8 L 12 13 L 15 13 L 15 5 L 21 5 L 21 13 L 26 13 Z"/>
                 </svg>
               </div>
-              <div class="draginput_cell" id="tool_posbottom" title="Align Bottom">
+              <div class="draginput_cell" id="tool_posbottom" title="Align Bottom" data-align="bottom">
                 <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
                   <path d="M 1 25 L 5 25 L 5 13 L 11 13 L 11 25 L 16 25 L 16 7 L 22 7 L 22 25 L 26 25 L 26 26 L 1 26 L 1 25"/>
                 </svg>
@@ -440,32 +449,32 @@
       </label>
       <h4>.</h4>
         <div class="col last clear">
-          <div class="draginput_cell" id="tool_alignleft" title="Align Left">
+          <div class="draginput_cell" id="tool_alignleft" title="Align Left" data-align="left">
             <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
               <path d="M 2 1 L 2 5 L 14 5 L 14 11 L 2 11 L 2 16 L 20 16 L 20 22 L 2 22 L 2 26 L 1 26 L 1 1 L 2 1 Z" />
             </svg>
           </div>
-          <div class="draginput_cell" id="tool_aligncenter" title="Align Center">
+          <div class="draginput_cell" id="tool_aligncenter" title="Align Center" data-align="center">
             <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
               <path d="M 13 1 L 14 1 L 14 6 L 22 6 L 22 12 L 14 12 L 14 15 L 19 15 L 19 21 L 14 21 L 14 26 L 13 26 L 13 21 L 8 21 L 8 15 L 13 15 L 13 12 L 5 12 L 5 6 L 13 6 L 13 1 Z" />
             </svg>
           </div>
-          <div class="draginput_cell" id="tool_alignright" title="Align Right">
+          <div class="draginput_cell" id="tool_alignright" title="Align Right" data-align="right">
             <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
               <path d="M 25 1 L 25 5 L 13 5 L 13 11 L 25 11 L 25 16 L 7 16 L 7 22 L 25 22 L 25 26 L 26 26 L 26 1 L 25 1 Z"/>
             </svg>
           </div>
-          <div class="draginput_cell" id="tool_aligntop" title="Align Top">
+          <div class="draginput_cell" id="tool_aligntop" title="Align Top"  data-align="top">
             <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
               <path d="M 1 2 L 5 2 L 5 14 L 11 14 L 11 2 L 16 2 L 16 20 L 22 20 L 22 2 L 26 2 L 26 1 L 1 1 L 1 2 Z"/>
             </svg>
           </div>
-          <div class="draginput_cell" id="tool_alignmiddle" title="Align Middle">
+          <div class="draginput_cell" id="tool_alignmiddle" title="Align Middle" data-align="middle">
             <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
               <path d="M 26 13 L 26 14 L 21 14 L 21 22 L 15 22 L 15 14 L 12 14 L 12 19 L 6 19 L 6 14 L 1 14 L 1 13 L 6 13 L 6 8 L 12 8 L 12 13 L 15 13 L 15 5 L 21 5 L 21 13 L 26 13 Z"/>
             </svg>
           </div>
-          <div class="draginput_cell" id="tool_alignbottom" title="Align Bottom">
+          <div class="draginput_cell" id="tool_alignbottom" title="Align Bottom"  data-align="bottom">
             <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
               <path d="M 1 25 L 5 25 L 5 13 L 11 13 L 11 25 L 16 25 L 16 7 L 22 7 L 22 25 L 26 25 L 26 26 L 1 26 L 1 25"/>
             </svg>
@@ -481,12 +490,12 @@
     <h4>Stroke</h4>
     <div class="toolset" data-title="Change stroke">
       <label>
-        <input id="stroke_width" size="2" value="5" data-attr="stroke-width" min="0" max="99" step="1" />
-        <span class="icon_label">Stroke Width</span>
+        <input id="stroke_width" size="2" value="1" data-attr="stroke-width" min="0" max="99" step="1" />
+        <span class="icon_label">Width</span>
       </label>
     </div>
     <div class="stroke_tool draginput"> 
-      <span>Stroke Dash</span>
+      <span>Dash</span>
       <select id="stroke_style" data-title="Change stroke dash style">
         <option selected="selected" value="none">—</option>
         <option value="2,2">···</option>
@@ -514,31 +523,31 @@
 
 
 <div id="tools_left" class="tools_panel">
-  <div class="tool_button" id="tool_select" title="Select Tool [V]">
+  <div class="tool_button" id="tool_select" data-mode="select" title="Select Tool [V]">
     <svg viewBox="0 0 24 24" width="24" height="24">
       <path d="M17.15 20.76l-2.94 1.5-3.68-6-4.41 3V1.24l12.5 12.01-4.41 1.5 2.94 6z"/>
     </svg>
   </div>
-  <div class="tool_button" id="tool_fhpath" title="Pencil Tool [P]">
+  <div class="tool_button" id="tool_fhpath" data-mode="fhpath" title="Pencil Tool [P]">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" style="transform: scale(-1,1)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
   </div>
-  <div class="tool_button" id="tool_line" title="Line Tool [L]">
+  <div class="tool_button" id="tool_line" data-mode="line" title="Line Tool [L]">
     <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="24" height="24" >
       <path d="M 3 1 L 26 24 L 24 26 L 1 3 L 3 1 Z"></path>
     </svg>
   </div>
-  <div class="tool_button" id="tool_rect" title="Square/Rect Tool [R]">
+  <div class="tool_button" id="tool_rect" data-mode="rect" title="Square/Rect Tool [R]">
     <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <path d="M 0 8 L 0 24 L 24 24 L 25 8 L 0 8 Z"/>
     </svg>
   </div>
-  <div class="tool_button" id="tool_ellipse" title="Ellipse/Circle Tool [C]">
+  <div class="tool_button" id="tool_ellipse" data-mode="ellipse" title="Ellipse/Circle Tool [C]">
     <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <ellipse cx="13" cy="13" rx="13" ry="9"></ellipse>
     </svg>
   </div>
 
-  <div class="tool_button" title="Shape Tool [C]" id="tool_shapelib">
+  <div class="tool_button" id="tool_shapelib" data-mode="shapelib" title="Shape Tool [s]" >
     <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="0 0 24 24" >
       <polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"/>
     </svg>
@@ -547,20 +556,20 @@
     </div>
 </div>
 
-  <div class="tool_button" id="tool_path" title="Path Tool [P]">
+  <div class="tool_button" id="tool_path" data-mode="path" title="Path Tool [P]">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" width="27" height="27">
       <path d="M12.2 1.9c0-.36.86 0 .86 0V14a1.3 1.3 0 10.88 0V1.9s.87-.36.87 0c0 6.81 5.22 11.68 5.22 11.68l-3.25 8.2h-6.55l-3.26-8.2s5.22-4.87 5.22-11.68zM7.83 25.26v-2.61h11.32v2.6H7.84z"/>
     </svg>
   </div>
-  <div class="tool_button" id="tool_text" title="Text Tool [T]">
+  <div class="tool_button" id="tool_text" data-mode="text" title="Text Tool [T]">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27" height="27"><path d="M5 4v3h5.5v12h3V7H19V4z"/></svg>
   </div>
 
-  <div class="tool_button" id="tool_zoom" title="Zoom Tool [Z]">
+  <div class="tool_button" id="tool_zoom" data-mode="zoom" title="Zoom Tool [Z]">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
   </div>
 
-  <div class="tool_button" id="tool_eyedropper" title="Eyedropper Tool [Z]">
+  <div class="tool_button" id="tool_eyedropper" data-mode="eyedropper" title="Eyedropper Tool [e]">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27" style="transform: scale(-1, 1)"><path d="M20.71 5.63l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42zM6.92 19L5 17.08l8.06-8.06 1.92 1.92L6.92 19z"/></svg>
   </div>
   
@@ -609,7 +618,7 @@
         <option value="1600">1600%</option>
       </select>
       <div class="caret"></div>
-      <input id="zoom" size="3" value="100%" type="text" readonly="readonly" />
+      <input id="zoom" value="100%" type="text" readonly="readonly" />
     </div>
   </div>
   
@@ -622,7 +631,7 @@
 </div> <!-- svg_editor -->
 
 <div id="svg_source_editor">
-  <div id="svg_source_overlay"></div>
+  <div id="svg_source_overlay" class="overlay"></div>
   <div id="svg_source_container">
     <div id="save_output_btns">
       <p id="copy_save_note">Copy the contents of this box into a text editor, then save the file with a .svg extension.</p>
@@ -663,42 +672,60 @@
   <div id="shape_buttons"></div>
 </div>
 
-
 <!-- build:js all.js -->
   <script type="text/javascript" src="js/lib/jquery-3.5.1.min.js"></script>
   <script type="text/javascript" src="js/lib/pathseg.js"></script>
-  <script type="text/javascript" src="js/lib/touch.js"></script>
   <script type="text/javascript" src="js/lib/jquery.hotkeys.min.js"></script>
   <script type="text/javascript" src="js/lib/jquery.jgraduate.js"></script>
   <script type="text/javascript" src="js/lib/jquery.contextMenu.js"></script>
   <script type="text/javascript" src="js/lib/jquery-ui-1.8.17.custom.min.js"></script>
-  <script type="text/javascript" src="js/fonts.js"></script>
-  <script type="text/javascript" src="js/browser.js"></script>
-  <script type="text/javascript" src="js/svgtransformlist.js"></script>
-  <script type="text/javascript" src="js/math.js"></script>
-  <script type="text/javascript" src="js/units.js"></script>
-  <script type="text/javascript" src="js/svgutils.js"></script>
+  <script type="text/javascript" src="js/lib/jquery-draginput.js"></script>
+  <script type="text/javascript" src="js/jquery.attr.js"></script>
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/dao.js"></script>
+  <script type="text/javascript" src="js/state.js"></script>
   <script type="text/javascript" src="js/sanitize.js"></script>
+  <script type="text/javascript" src="js/browser.js"></script>
+  <script type="text/javascript" src="js/svgutils.js"></script>
   <script type="text/javascript" src="js/history.js"></script>
   <script type="text/javascript" src="js/select.js"></script>
-  <script type="text/javascript" src="js/draw.js"></script>
   <script type="text/javascript" src="js/path.js"></script>
-  <script type="text/javascript" src="js/dialog.js"></script>
+  <script type="text/javascript" src="js/sanitize.js"></script>
+  <script type="text/javascript" src="js/units.js"></script>
+  <script type="text/javascript" src="js/math.js"></script>
+  <script type="text/javascript" src="js/translate.js"></script>
+  <script type="text/javascript" src="js/svgtransformlist.js"></script>
+  <script type="text/javascript" src="js/draw.js"></script>
   <script type="text/javascript" src="js/svgcanvas.js"></script>
-  <script type="text/javascript" src="js/rulers.js"></script>
-  <script type="text/javascript" src="js/method-draw.js"></script>
-  <script type="text/javascript" src="js/palette.js"></script>
-  <script type="text/javascript" src="js/lib/jquery-draginput.js"></script>
+  <script type="text/javascript" src="js/editor.js"></script>
+  <script type="text/javascript" src="js/Canvas.js"></script>
+  <script type="text/javascript" src="js/Text.js"></script>
+  <script type="text/javascript" src="js/Pan.js"></script>
+  <script type="text/javascript" src="js/Panel.js"></script>
+  <script type="text/javascript" src="js/Rulers.js"></script>
+  <script type="text/javascript" src="js/Toolbar.js"></script>
+  <script type="text/javascript" src="js/Menu.js"></script>
+  <script type="text/javascript" src="js/Keyboard.js"></script>
+  <script type="text/javascript" src="js/Import.js"></script>
+  <script type="text/javascript" src="js/PaintBox.js"></script>
+  <script type="text/javascript" src="js/Palette.js"></script>
+  <script type="text/javascript" src="js/Zoom.js"></script>
+  <script type="text/javascript" src="js/Modal.js"></script>
+  <script type="text/javascript" src="js/ContextMenu.js"></script>
+  <script type="text/javascript" src="js/Shapelib.js"></script>
+  <script type="text/javascript" src="js/fonts.js"></script>
+  <script type="text/javascript" src="js/dialog.js"></script>
   <script type="text/javascript" src="js/lib/contextmenu.js"></script>
   <script type="text/javascript" src="js/lib/jpicker.min.js"></script>
   <script type="text/javascript" src="js/lib/mousewheel.js"></script>
   <script type="text/javascript" src="js/eyedropper.js"></script>
-  <script type="text/javascript" src="js/shapes.js"></script>
-  <script type="text/javascript" src="js/grid.js"></script>
+  <!--<script type="text/javascript" src="js/grid.js"></script>-->
   <script type="text/javascript" src="js/lib/requestanimationframe.js"></script>
   <script type="text/javascript" src="js/lib/taphold.js"></script>
   <script type="text/javascript" src="js/lib/filesaver.js"></script>
   <script type="text/javascript" src="js/paste.js"></script>
+  <script type="text/javascript" src="js/start.js"></script>
+
 
 <!-- endbuild -->
 

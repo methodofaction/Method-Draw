@@ -24,68 +24,6 @@
 
 /*jslint browser: true*/
 
-
-(function() {
-
-  // This fixes $(...).attr() to work as expected with SVG elements.
-  // Does not currently use *AttributeNS() since we rarely need that.
-  
-  // See http://api.jquery.com/attr/ for basic documentation of .attr()
-  
-  // Additional functionality: 
-  // - When getting attributes, a string that's a number is return as type number.
-  // - If an array is supplied as first parameter, multiple values are returned
-  // as an object with values for each given attributes
-
-  var proxied = jQuery.fn.attr, svgns = "http://www.w3.org/2000/svg";
-  jQuery.fn.attr = function(key, value) {
-    var len = this.length;
-    if(!len) return proxied.apply(this, arguments);
-    for(var i=0; i<len; i++) {
-      var elem = this[i];
-      // set/get SVG attribute
-      if(elem.namespaceURI === svgns) {
-        // Setting attribute
-        if(value !== undefined) {
-          elem.setAttribute(key, value);
-        } else if($.isArray(key)) {
-          // Getting attributes from array
-          var j = key.length, obj = {};
-
-          while(j--) {
-            var aname = key[j];
-            var attr = elem.getAttribute(aname);
-            // This returns a number when appropriate
-            if(attr || attr === "0") {
-              attr = isNaN(attr)?attr:attr-0;
-            }
-            obj[aname] = attr;
-          }
-          return obj;
-        
-        } else if(typeof key === "object") {
-          // Setting attributes form object
-          for(var v in key) {
-            elem.setAttribute(v, key[v]);
-          }
-        // Getting attribute
-        } else {
-          var attr = elem.getAttribute(key);
-          if(attr || attr === "0") {
-            attr = isNaN(attr)?attr:attr-0;
-          }
-
-          return attr;
-        }
-      } else {
-        return proxied.apply(this, arguments);
-      }
-    }
-    return this;
-  };
-  
-}());
-
 // Class: SvgCanvas
 // The main SvgCanvas class that manages all SVG-related functions
 //
@@ -107,7 +45,11 @@ var svgns = "http://www.w3.org/2000/svg",
 var curConfig = {
   show_outside_canvas: true,
   selectNew: true,
-  dimensions: [640, 480]
+  dimensions: [800, 600],
+  initFill: {color: 'fff', opacity: 1},
+  initStroke: {width: 1, color: '000', opacity: 1},
+  imgPath: 'images/',
+  baseUnit: 'px'
 };
 
 // Update config with new one if given
@@ -146,7 +88,6 @@ var clearSvgContentElement = canvas.clearSvgContentElement = function() {
     height: dimensions[1],
     x: dimensions[0],
     y: dimensions[1],
-    overflow: curConfig.show_outside_canvas ? 'visible' : 'hidden',
     xmlns: svgns,
     "xmlns:se": se_ns,
     "xmlns:xlink": xlinkns
@@ -410,15 +351,6 @@ var visElems = 'a,circle,ellipse,foreignObject,g,image,line,path,polygon,polylin
 var ref_attrs = ["clip-path", "fill", "filter", "marker-end", "marker-mid", "marker-start", "mask", "stroke"];
 
 var elData = $.data;
-
-// Animation element to change the opacity of any newly created element
-var opac_ani = false; //document.createElementNS(svgns, 'animate');
-//$(opac_ani).attr({
-//  attributeName: 'opacity',
-//  begin: 'indefinite',
-//  dur: 0,
-//  fill: 'freeze'
-//}).appendTo(svgroot);
 
 var restoreRefElems = function(elem) {
   // Look for missing reference elements, restore any found
@@ -898,6 +830,9 @@ var getId, getNextId, call;
     if (events[event]) {
       return events[event](this, arg);
     }
+    //else {
+    //  console.log("event: " + event + " not found", events)
+    //}
   };
   
   // Function: bind
@@ -2638,7 +2573,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         started = true;
         // we are starting an undoable change (a drag-rotation)
         canvas.undoMgr.beginUndoableChange("transform", selectedElements);
-        document.getElementById("workarea").className = "rotate";
         break;
       default:
         // This could occur in an extension
@@ -2658,8 +2592,8 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       }
     });
     if (current_mode) {
-      document.getElementById("workarea").className = 
-        (current_mode == "resize")
+      container.parentNode.className = 
+        (current_mode === "resize")
         ? evt.target.style.cursor
         : current_mode
       }
@@ -3420,21 +3354,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       
       if(useUnit) svgedit.units.convertAttrs(element);
       
-      var ani_dur = .2, c_ani;
-      if(opac_ani.beginElement && element.getAttribute('opacity') != cur_shape.opacity) {
-        c_ani = $(opac_ani).clone().attr({
-          to: cur_shape.opacity,
-          dur: ani_dur
-        }).appendTo(element);
-        try {
-          // Fails in FF4 on foreignObject
-          c_ani[0].beginElement();
-        } catch(e){}
-      } else {
-        ani_dur = 0;
-      }
-      
-      if(c_ani) c_ani.remove();
       element.setAttribute("opacity", cur_shape.opacity);
       element.setAttribute("style", "pointer-events:inherit");
       cleanupElement(element);
@@ -5959,7 +5878,6 @@ this.setSvgString = function(xmlString) {
     
     var attrs = {
       id: 'svgcontent',
-      overflow: curConfig.show_outside_canvas?'visible':'hidden'
     };
     
     var percs = false;
@@ -6018,11 +5936,11 @@ this.setSvgString = function(xmlString) {
       var opacity = background.attr("fill-opacity")
       opacity = opacity ? parseInt(opacity)*100 : 100
       fill = this.getPaint(background.attr("fill"), opacity, "canvas")
-      methodDraw.paintBox.canvas.setPaint(fill)
+      editor.paintBox.canvas.setPaint(fill)
     }
     else {
       fill = this.getPaint("none", 100, "canvas")
-      methodDraw.paintBox.canvas.setPaint(fill)
+      editor.paintBox.canvas.setPaint(fill)
     }
 
     batchCmd.addSubCommand(new InsertElementCommand(svgcontent));
@@ -6914,10 +6832,8 @@ this.getMode = function() {
 // Parameters:
 // name - String with the new mode to change to
 this.setMode = function(name) {
-  
   pathActions.clear();
   textActions.clear();
-  $("#workarea").attr("class", name);
   cur_properties = (selectedElements[0] && selectedElements[0].nodeName == 'text') ? cur_text : cur_shape;
   current_mode = name;
 };
@@ -8041,8 +7957,9 @@ var changeSelectedAttribute = this.changeSelectedAttribute = function(attr, val,
 // Removes all selected elements from the DOM and adds the change to the 
 // history stack
 this.deleteSelectedElements = function() {
-  var batchCmd = new BatchCommand("Delete Elements");
   var len = selectedElements.length;
+  if (!len) return false;
+  var batchCmd = new BatchCommand("Delete Elements");
   var selectedCopy = []; //selectedElements is being deleted
   for (var i = 0; i < len; ++i) {
     var selected = selectedElements[i];

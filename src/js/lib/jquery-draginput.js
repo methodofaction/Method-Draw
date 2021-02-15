@@ -20,7 +20,7 @@ $.fn.dragInput = function(cfg){
       _direction: null,
       _delay: null,
       _repeat: null,
-      callback: cfg && cfg.callback ? cfg.callback : null
+      callback: cfg && cfg.callback ? cfg.callback : () => console.log("cb does not exist")
     };
     // if a smallStep isn't supplied, use half the regular step
     this.dragCfg.smallStep = cfg && cfg.smallStep ? cfg.smallStep : this.dragCfg.step/2;
@@ -35,8 +35,7 @@ $.fn.dragInput = function(cfg){
     var scale = area/cursorHeight * step;
     var lastY = 0;
     var attr = this.getAttribute("data-attr");
-    var canvas = methodDraw.canvas
-    var isTouch = svgedit.browser.isTouch();
+    var canvas = svgCanvas;
     var completed = true //for mousewheel
     var $cursor = (area && this.dragCfg.cursor)
       ? $("<div class='draginput_cursor' />").appendTo($label) 
@@ -45,7 +44,7 @@ $.fn.dragInput = function(cfg){
     if ($cursor && !isNaN(this.dragCfg.start)) $cursor.css("top", (this.dragCfg.start*-1)/scale+cursorHeight)
    
     //this is where all the magic happens  
-    this.adjustValue = function(i, completed){
+    this.adjustValue = function(i, completed = false){
       var v;
       i = parseFloat(i);
       if(isNaN(this.value)) {
@@ -59,17 +58,13 @@ $.fn.dragInput = function(cfg){
       if (min !== null) v = Math.max(v, min);
       if ($cursor) this.updateCursor(v);
       this.value = v;
-      $label.attr("data-value", v)
-      if ($.isFunction(this.dragCfg.callback)) this.dragCfg.callback(this, completed)
+      this.dragCfg.callback(attr, v, completed);
     };
           
     $label.toggleClass("draginput", $label.is("label"))
     
     // when the mouse is down and moving
     this.move = function(e, oy, val) {
-      if (isTouch) {
-        e = e.originalEvent.touches[0]
-      }
       // just got started let's save for undo purposes
       if (lastY === 0) {
         lastY = oy;
@@ -104,7 +99,6 @@ $.fn.dragInput = function(cfg){
     
     this.launch = function(e) {
       var selectedElems = canvas.getSelectedElems();
-      if (isTouch) e = e.originalEvent.touches[0];
       var oy = e.pageY;
       var val = this.value;
       var el = this;

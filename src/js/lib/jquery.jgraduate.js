@@ -547,7 +547,8 @@ jQuery.fn.jGraduate =
                 images: { clientPath: $settings.images.clientPath },
                 color: { active: color, alphaSupport: true }
               }, function(color, arg2){
-                stopColor = color.val('hex') ? ('#'+color.val('hex')) : "none";
+                // todo if color is 'none' it should get the same color as the next color stop
+                stopColor = color.val('hex') ? ('#'+color.val('hex')) : "rgba(255,255,255,0)";
                 stopOpacity = color.val('a') !== null ? color.val('a')/256 : 1;
                 colorhandle.setAttribute('fill', stopColor);
                 colorhandle.setAttribute('fill-opacity', stopOpacity);
@@ -1085,7 +1086,7 @@ jQuery.fn.jGraduate =
       var thisAlpha = ($this.paint.alpha*255/100).toString(16);
       while (thisAlpha.length < 2) { thisAlpha = "0" + thisAlpha; }
       thisAlpha = thisAlpha.split(".")[0];
-      color = $this.paint.solidColor == "none" ? "" : $this.paint.solidColor + thisAlpha;
+      color = $this.paint.solidColor === "none" ? "" : $this.paint.solidColor + thisAlpha;
       
       if(!isSolid) {
         color = stops[0].getAttribute('stop-color');
