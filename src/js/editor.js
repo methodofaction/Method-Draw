@@ -107,9 +107,11 @@ MD.Editor = function(){
   }
 
   // called when we've selected a different element
-  function selectedChanged(window,elems) {  
+  function selectedChanged(window,elems) {
     const mode = svgCanvas.getMode();
     _self.selected = elems.filter(Boolean);
+    editor.paintBox.fill.update();
+    editor.paintBox.stroke.update();
     editor.panel.updateContextPanel(_self.selected);
   };
 
@@ -147,12 +149,6 @@ MD.Editor = function(){
     if (elems[0].tagName === "svg")  return editor.canvas.update();
 
     editor.panel.updateContextPanel(elems);
-    
-    // In the event a gradient was flipped:
-    if(_self.selected && mode === "select") {
-      editor.paintBox.fill.update();
-      editor.paintBox.stroke.update();
-    }
     
     svgCanvas.runExtensions("elementChanged", {
       elems: elems

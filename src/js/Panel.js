@@ -105,7 +105,6 @@ MD.Panel = function(){
      const isNode = svgCanvas.pathActions.getNodePoint()
      // If element has just been deleted, consider it null
      if(!elem || !elem.parentNode) elem = null;
-     elem = null;
 
      const multiselected = elems.length > 1;
      
@@ -122,7 +121,6 @@ MD.Panel = function(){
          var seg_type = $('#seg_type');
          point.x = svgedit.units.convertUnit(point.x);
          point.y = svgedit.units.convertUnit(point.y);
-         console.log(point)
          $('#path_node_x').val(Math.round(point.x));
          $('#path_node_y').val(Math.round(point.y));
          if(point.type) {

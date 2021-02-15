@@ -568,6 +568,12 @@ input[type=file] {
   fill: #fff;
 }
 
+.draginput.textcontent {
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
+}
+
  .align_buttons  .draginput_cell:nth-child(1) {border-radius: 3px 0 0 0;}
  .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 3px 0 0;}
  .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 3px;}

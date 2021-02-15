@@ -141,7 +141,7 @@ MD.PaintBox = function(container, type){
       else createBackground(fillAttr)
     }
 
-    if(true) {
+    if(apply) {
       svgCanvas.setColor(this.type, fillAttr, true);
       svgCanvas.setPaintOpacity(this.type, opac, true);
     }
