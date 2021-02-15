@@ -13,10 +13,10 @@
 // 3) svg_editor.js
 // 4) svgcanvas.js
 
-MD.Eyedropper = function(S) {
-  var svgcontent = S.svgcontent,
+MD.Eyedropper = function() {
+  var svgcontent = svgCanvas.svgcontent,
     svgns = "http://www.w3.org/2000/svg",
-    svgdoc = S.svgroot.parentNode.ownerDocument,
+    svgdoc = svgCanvas.svgroot.parentNode.ownerDocument,
     ChangeElementCommand = svgedit.history.ChangeElementCommand,
     addToHistory = function(cmd) { svgCanvas.undoMgr.addCommandToHistory(cmd); },
     currentStyle = {fillPaint: "red", fillOpacity: 1.0,
@@ -131,4 +131,4 @@ MD.Eyedropper = function(S) {
       }
     }
   };
-}
+};

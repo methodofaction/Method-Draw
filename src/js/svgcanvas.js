@@ -72,6 +72,7 @@ svgroot.setAttribute("width", dimensions[0]);
 svgroot.setAttribute("height", dimensions[1]);
 svgroot.id = "svgroot";
 svgroot.setAttribute("xlinkns", xlinkns);
+this.svgroot = svgroot; 
 container.appendChild(svgroot);
 
 // The actual element that represents the final output SVG element

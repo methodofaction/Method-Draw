@@ -29,7 +29,6 @@ svgCanvas.bind("zoomed", editor.zoom.changed);
 svgCanvas.bind("contextset", editor.contextChanged);
 svgCanvas.bind("extension_added", editor.extensionAdded);
 svgCanvas.textActions.setInputElem($("#text")[0]);
-
 const shapeLib = svgCanvas.addExtension.apply(this, ["shapes", MD.Shapelib]);
 const eyedropper = svgCanvas.addExtension.apply(this, ["eyedropper", MD.Eyedropper]);
 const state = new State();
