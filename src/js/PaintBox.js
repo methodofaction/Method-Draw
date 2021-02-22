@@ -1,5 +1,5 @@
 MD.PaintBox = function(container, type){
-
+  var _self = this;
   var colorPicker = function(elem) {
   var picker = elem[0].id == 'stroke_color' ? 'stroke' : 'fill';
   var is_background = elem[0].id == "canvas_color"
@@ -57,6 +57,23 @@ MD.PaintBox = function(container, type){
   
   $('#tool_canvas').on("click touchstart", function(){
       colorPicker($('#canvas_color'));
+  });
+
+  $('#tool_switch').on("click touchstart", function(){
+    var stroke_rect = document.querySelector('#tool_stroke rect');
+    $("#tool_stroke").toggleClass('active')
+    $("#tool_fill").toggleClass('active')
+    var fill_rect = document.querySelector('#tool_fill rect');
+    var fill_color = fill_rect.getAttribute("fill");
+    var stroke_color = stroke_rect.getAttribute("fill");
+    var stroke_opacity = parseFloat(stroke_rect.getAttribute("stroke-opacity"));
+    if (isNaN(stroke_opacity)) {stroke_opacity = 100;}
+    var fill_opacity = parseFloat(fill_rect.getAttribute("fill-opacity"));
+    if (isNaN(fill_opacity)) {fill_opacity = 100;}
+    var stroke = _self.getPaint(stroke_color, stroke_opacity, "stroke");
+    var fill = _self.getPaint(fill_color, fill_opacity, "fill");
+    editor.paintBox.fill.setPaint(stroke, true);
+    editor.paintBox.stroke.setPaint(fill, true);
   });
 
   function createBackground(fill) {
