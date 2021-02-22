@@ -19,8 +19,7 @@ MD.Menu = function(){
        $(this).parent().addClass('open');
      });
   
-  function blink(e) {
-    const el = e.target;
+  function blink(el) {
     el.style.background = "#fff";
     setTimeout(()=> el.style.background = "#ddd", 50);
     setTimeout(()=> el.style.background = "#fff", 150);
@@ -33,7 +32,7 @@ MD.Menu = function(){
   function close(e){
     if (e.target.nodeName && e.target.nodeName.toLowerCase() === "input") return false;
     if (!$(e.target).hasClass("menu_title") && !$(e.target).parent().hasClass("menu_title")) {
-      if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blink(e)
+      if(!$(e.target).hasClass("disabled") && $(e.target).hasClass("menu_item")) blink(e.target)
       else $('#menu_bar').removeClass('active')
     } 
   }
@@ -55,7 +54,14 @@ MD.Menu = function(){
    }); 
   }
   
-  $('.menu_item').on('click', blink);
+  $('.menu_item').on('click', function(e){
+    const action = this.getAttribute("data-action");
+    if (action && editor[action]) {
+      editor[action]();
+      blink(this);
+    }
+  });
+
   $("body").on('mousedown', close);
 
   this.flash = flash;

@@ -24,6 +24,7 @@ MD.Keyboard = function(){
       "cmd_c": ()=> editor.copySelected(),
       "cmd_x": ()=> editor.cutSelected(),
       "cmd_v": ()=> editor.pasteSelected(),
+      "cmd_d": ()=> editor.duplicateSelected(),
       "cmd_u": ()=> editor.modal.viewSource(),
       "cmd_a": ()=> svgCanvas.selectAllInCurrentLayer(),
       "cmd_b": ()=> editor.text.setBold(),

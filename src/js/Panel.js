@@ -138,8 +138,7 @@ MD.Panel = function(){
      
      var menu_items = $('#cmenu_canvas li');
      $('.context_panel').hide();
-     $('.menu_item', '#edit_menu').addClass('disabled');
-     $('.menu_item', '#object_menu').addClass('disabled');
+     
      
      //hack to show the proper multialign box
      if (multiselected) {
@@ -293,21 +292,16 @@ MD.Panel = function(){
      
      if (!elem) {
        menu_items.disableContextMenuItems('#delete,#cut,#copy,#ungroup,#move_front,#move_up,#move_down,#move_back');
+       $('.menu_item', '#edit_menu').addClass('disabled');
+       $('.menu_item', '#object_menu').addClass('disabled');
      }
      
      // update history buttons
-     if (svgCanvas.undoMgr.getUndoStackSize() > 0) {
-       $('#tool_undo').removeClass( 'disabled');
-     }
-     else {
-       $('#tool_undo').addClass( 'disabled');
-     }
-     if (svgCanvas.undoMgr.getRedoStackSize() > 0) {
-       $('#tool_redo').removeClass( 'disabled');
-     }
-     else {
-       $('#tool_redo').addClass( 'disabled');
-     }
+     setTimeout(function(){
+       $('#tool_paste').toggleClass( 'disabled', !svgCanvas.clipBoard.length > 0);
+     }, 10)
+     $('#tool_undo').toggleClass( 'disabled', !svgCanvas.undoMgr.getUndoStackSize() > 0);
+     $('#tool_redo').toggleClass( 'disabled', !svgCanvas.undoMgr.getRedoStackSize() > 0);
      
      svgCanvas.addedNew = false;
      

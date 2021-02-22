@@ -18,6 +18,19 @@ MD.Editor = function(){
     svgCanvas.undoMgr.undo();
   }
 
+  function redo(){
+    if (svgCanvas.undoMgr.getRedoStackSize() > 0) {
+      _self.menu.flash($('#edit_menu'));
+      svgCanvas.undoMgr.redo();
+    }
+  }
+
+  function duplicateSelected(){
+    if (!_self.selected.length) return false;
+    _self.menu.flash($('#edit_menu'));
+    svgCanvas.cloneSelectedElements(20,20);
+  };
+
   function deleteSelected(){
     if (svgCanvas.pathActions.getNodePoint()) svgCanvas.pathActions.deletePathNode();
     else svgCanvas.deleteSelectedElements();
@@ -296,6 +309,8 @@ MD.Editor = function(){
   this.switchPaint = switchPaint;
   this.save = save;
   this.undo = undo;
+  this.redo = redo;
+  this.duplicateSelected = duplicateSelected;
   this.deleteSelected = deleteSelected;
   this.cutSelected = cutSelected;
   this.copySelected = copySelected;
