@@ -7,6 +7,23 @@ MD.Editor = function(){
   const workarea = document.getElementById("workarea");
   _self.selected = [];
 
+  function clear(){
+    var dims = state.get("canvasSize");
+    $.confirm("<strong>Do you want to clear the drawing?</strong>\nThis will also erase your undo history", function(ok) {
+      if(!ok) return;
+      state.set("canvasMode", "select")
+      svgCanvas.clear();
+      svgCanvas.setResolution(dims[0], dims[1]);
+      editor.canvas.update();
+      _self.createBackground();
+      editor.zoom.reset();
+      editor.panel.updateContextPanel();
+      editor.paintBox.fill.prep();
+      editor.paintBox.stroke.prep();
+      svgCanvas.runExtensions('onNewDocument');
+    });
+  }
+
   function save(){
     _self.menu.flash($('#file_menu'));
     svgCanvas.save();
@@ -89,7 +106,7 @@ MD.Editor = function(){
     svgCanvas.setMode("pathedit")
     path.toEditMode(elems[0]);
     svgCanvas.clearSelection();
-    updateContextPanel();
+    editor.panel.updateContextPanel();
   }
 
   function reorientPath(){
@@ -301,6 +318,27 @@ MD.Editor = function(){
     editor.panel.updateContextPanel();
   }
 
+  function createBackground(fill) {
+    const res = svgCanvas.getResolution();
+    svgCanvas.createLayer("background");
+    cur_shape = svgCanvas.addSvgElementFromJson({
+      "element": "rect",
+      "attr": {
+        "x": -1,
+        "y": -1,
+        "width": res.w+2,
+        "height": res.h+2,
+        "stroke": "none",
+        "id": "canvas_background",
+        "opacity": 1,
+        "fill": fill || "#fff",
+        "style": "pointer-events:none"
+      }
+    });
+    svgCanvas.setCurrentLayer("Layer 1")
+    svgCanvas.setCurrentLayerPosition("1")
+  }
+
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;
@@ -310,6 +348,7 @@ MD.Editor = function(){
   this.save = save;
   this.undo = undo;
   this.redo = redo;
+  this.clear = clear;
   this.duplicateSelected = duplicateSelected;
   this.deleteSelected = deleteSelected;
   this.cutSelected = cutSelected;
@@ -331,4 +370,15 @@ MD.Editor = function(){
   this.groupSelected = groupSelected;
   this.ungroupSelected = ungroupSelected;
   this.convertToPath = convertToPath;
+  this.createBackground = createBackground;
+  this.export = function(){ 
+    if(window.canvg) {
+        svgCanvas.rasterExport();
+      } else {
+        $.getScript('js/lib/rgbcolor.js', function() {
+          $.getScript('js/lib/canvg.js', function() {
+            svgCanvas.rasterExport();
+          });
+        });
+      }}
 }

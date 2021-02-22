@@ -69,17 +69,17 @@
   <div class="menu">
     <div class="menu_title">File</div>
     <div class="menu_list" id="file_menu"> 
-      <div id="tool_clear" class="menu_item">New Document</div>
+      <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
       
-      <div id="tool_open" class="menu_item">
+      <div data-action="clear" id="tool_open" class="menu_item">
         Open SVG...</div>
       <input type="file" accept="image/svg+xml" />
       
       <div id="tool_import" class="menu_item">
         Place Image... <span class="shortcut">⌘K</span></div>
         <input type="file" accept="image/*" />
-      <div id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
-      <div id="tool_export" class="menu_item">Export as PNG</div>
+      <div data-action="save" id="tool_save" class="menu_item">Save Image... <span class="shortcut">⌘S</span></div>
+      <div data-action="export" id="tool_export" class="menu_item">Export as PNG</div>
     </div>
   </div>
 

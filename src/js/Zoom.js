@@ -90,6 +90,11 @@ MD.Zoom = function(){
     editor.canvas.update(true);
   };
 
-  this.multiply = multiply
+  function reset(){
+    multiply(1);
+  }
+
+  this.multiply = multiply;
+  this.reset = reset;
   this.changed = changed;
 }

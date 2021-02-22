@@ -76,31 +76,10 @@ MD.PaintBox = function(container, type){
     editor.paintBox.stroke.setPaint(fill, true);
   });
 
-  function createBackground(fill) {
-    const res = svgCanvas.getResolution();
-    svgCanvas.createLayer("background");
-    cur_shape = svgCanvas.addSvgElementFromJson({
-      "element": "rect",
-      "attr": {
-        "x": -1,
-        "y": -1,
-        "width": res.w+2,
-        "height": res.h+2,
-        "stroke": "none",
-        "id": "canvas_background",
-        "opacity": 1,
-        "fill": fill || "#fff",
-        "style": "pointer-events:none"
-      }
-    });
-    svgCanvas.setCurrentLayer("Layer 1")
-    svgCanvas.setCurrentLayerPosition("1")
-  }
-
   var background = document.getElementById("canvas_background");
   
   // create a new layer background if it doesn't exist
-  if (!document.getElementById('canvas_background')) createBackground();
+  if (!document.getElementById('canvas_background')) editor.createBackground();
   var fill = document.getElementById('canvas_background').getAttribute("fill");
 
   
