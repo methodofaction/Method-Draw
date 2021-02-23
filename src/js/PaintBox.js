@@ -134,7 +134,7 @@ MD.PaintBox = function(container, type){
         background.setAttribute("height", res.h+2);
         if (fillAttr.indexOf("url") == -1) background.setAttribute('fill', fillAttr)
       }
-      else createBackground(fillAttr)
+      else editor.createBackground(fillAttr)
     }
 
     if(apply) {
