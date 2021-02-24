@@ -14,6 +14,9 @@ MD.Text = function(){
     svgCanvas.setFontFamily(this.value);
   });
 
+  $("#tool_bold").on("click", setBold);
+  $("#tool_italic").on("click", setItalic);
+
   $('#font_family_dropdown').change(function() {
     var fam = this.options[this.selectedIndex].value;
     const isSystemFont = fam === "sans-serif" || fam === "serif" || fam === "monospace";
@@ -58,7 +61,12 @@ MD.Text = function(){
       svgCanvas.setTextContent(this.value);
     });
 
+  function changeFontSize(){
+    svgCanvas.setFontSize($("#font_size").val());
+  }
+
   this.setBold = setBold;
   this.setItalic = setItalic;
+  this.changeFontSize = changeFontSize;
 
 }

@@ -5,9 +5,9 @@ editor.menu = new MD.Menu();
 editor.toolbar = new MD.Toolbar();
 editor.rulers = new MD.Rulers();
 editor.canvas = new MD.Canvas();
+editor.text = new MD.Text();
 editor.panel = new MD.Panel();
 editor.zoom = new MD.Zoom();
-editor.text = new MD.Text();
 editor.paintBox = {
   fill: new MD.PaintBox('#fill_color', 'fill'),
   stroke: new MD.PaintBox('#stroke_color', 'stroke'),

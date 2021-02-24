@@ -35,10 +35,11 @@ MD.Panel = function(){
     $('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: editor.changeAttribute,     cursor: true   });
     $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: editor.changeAttribute,   cursor: true, smallStep: 0.1, start: 1.5          });
     $('#angle')        .dragInput({ min: -180, max: 180,   step:  1,  callback: editor.changeRotationAngle, cursor: false, dragAdjust: 0.5      });
-    $('#font_size')    .dragInput({ min: 1,    max: 250,   step: 1,   callback: editor.changeFontSize,      cursor: true, stepfunc: editor.stepFontSize, dragAdjust: .15 });
+    $('#font_size')    .dragInput({ min: 1,    max: 250,   step: 1,   callback: editor.text.changeFontSize,      cursor: true, stepfunc: editor.stepFontSize, dragAdjust: .15 });
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: editor.changeAttribute,     cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: editor.changeBlur,          cursor: true,  start: 0               });
-    
+
+
     // Align
 
     $('#position_opts .draginput_cell').on("click", function(){
