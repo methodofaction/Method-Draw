@@ -6158,7 +6158,6 @@ this.createLayer = function(name) {
   var new_layer = getCurrentDrawing().createLayer(name);
   batchCmd.addSubCommand(new InsertElementCommand(new_layer));
   addCommandToHistory(batchCmd);
-  clearSelection();
   call("changed", [new_layer]);
 };
 
@@ -8737,6 +8736,7 @@ this.updateCanvas = function(w, h) {
 // color - String with fill color to apply
 // url - URL or path to image to use
 this.setBackground = function(color, url) {
+  if (color === "none") color = "#fff"
   var bg =  getElem('canvasBackground');
   var border = $(bg).find('rect')[0];
   var bg_img = getElem('background_image');

@@ -3,6 +3,7 @@ function State(){
   const _self = this;
   const tenThousandThings = dao.map(thing => thing.name);
   const saveableKeys = dao.filter(thing => thing.save).map(thing => thing.name);
+  const ID = window.location.pathname;
 
   this.data = _loadData();
   
@@ -27,7 +28,9 @@ function State(){
   this.canvasSize = (size)  => { editor.canvas.resize(...size.map(Number)) }
   this.canvasContent = (svgString)  => { /* noop */ }
   this.canvasRulers = (bool)  => { /* noop */ }
-
+  this.canvasFill = (paint)  => { /* noop */ }
+  this.canvasStroke = (paint)  => { /* noop */ }
+  this.canvasBackground = (paint)  => { /* noop */ }
 
   this.clean = (warn = true) => {
     if (warn) {
@@ -43,17 +46,16 @@ function State(){
 
   function _save(key, val) {
     // basic checks
-    //console.log(key, val)
     if (val === undefined || val === null) throw "wont save nuthin, " + key + " " + val;
-    localStorage.setItem("write" + "-" + key, val.toString());
+    const isObject = dao.find(thing => thing.name === key).type === "object";
+    localStorage.setItem("write" + "-" + key, isObject ? JSON.stringify(val) : val.toString());
   }
 
   function _getKey(name) {
-    const key = name.indexOf("page") !== -1
-          || name.indexOf("assignment") !== -1
-          ? name + ID
-          : name + "-0"; // system
-     return key;
+    //const key = name.indexOf("canvas") !== -1
+    //      ? name + "-" + ID
+    //      : name + "-0"; // system
+     return name;
   }
 
   function _loadData() {

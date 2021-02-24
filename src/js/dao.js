@@ -78,7 +78,7 @@ const dao = [
     name: "canvasFill",
     label: "Canvas Fill",
     type: "object",
-    default: {color: 'fff', opacity: 1},
+    default: {type: "solidColor", solidColor: 'ffffff', alpha: 100},
     private: true,
     save: true
   },
@@ -87,16 +87,16 @@ const dao = [
     name: "canvasStroke",
     label: "Canvas Stroke",
     type: "object",
-    default: {color: '000', opacity: 1},
+    default: {type: "solidColor", solidColor: '000000', alpha: 100},
     private: true,
     save: true
   },
 
   {
     name: "canvasBackground",
-    label: "Canvas Fill",
+    label: "Canvas Background",
     type: "object",
-    default: {color: '000', opacity: 0},
+    default: {type: "solidColor", solidColor: 'ffffff', alpha: 100},
     private: true,
     save: true
   },

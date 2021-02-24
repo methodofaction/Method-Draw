@@ -427,6 +427,7 @@ svgedit.draw.Drawing.prototype.createLayer = function(name) {
   var svgdoc = this.svgElem_.ownerDocument;
   var new_layer = svgdoc.createElementNS(svg_ns, "g");
   var layer_title = svgdoc.createElementNS(svg_ns, "title");
+  new_layer.id = name.replace(" ", "_")
   layer_title.textContent = name;
   new_layer.appendChild(layer_title);
   this.svgElem_.appendChild(new_layer);

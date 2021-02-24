@@ -35,6 +35,9 @@ const state = new State();
 state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));
 state.set("canvasSize", state.get("canvasSize"));
-svgCanvas.setSvgString(state.get("canvasContent"))
+svgCanvas.setSvgString(state.get("canvasContent"));
+editor.paintBox.fill.setPaint(state.get("canvasFill"))
+editor.paintBox.stroke.setPaint(state.get("canvasStroke"))
+editor.paintBox.canvas.setPaint(state.get("canvasBackground"))
 
 editor.rulers.update();

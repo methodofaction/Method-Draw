@@ -91,7 +91,8 @@ MD.Import = function(){
 
   function openImage(e){
     const f = this;
-    if(f.files.length==1) {
+    if(f.files.length===1) {
+      console.log("clear")
       svgCanvas.clear();
       var reader = new FileReader();
       reader.onloadend = function(e) {

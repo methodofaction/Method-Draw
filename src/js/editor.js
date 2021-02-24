@@ -15,7 +15,6 @@ MD.Editor = function(){
       svgCanvas.clear();
       svgCanvas.setResolution(dims[0], dims[1]);
       editor.canvas.update();
-      _self.createBackground();
       editor.zoom.reset();
       editor.panel.updateContextPanel();
       editor.paintBox.fill.prep();
@@ -318,27 +317,6 @@ MD.Editor = function(){
     editor.panel.updateContextPanel();
   }
 
-  function createBackground(fill) {
-    const res = svgCanvas.getResolution();
-    svgCanvas.createLayer("background");
-    cur_shape = svgCanvas.addSvgElementFromJson({
-      "element": "rect",
-      "attr": {
-        "x": -1,
-        "y": -1,
-        "width": res.w+2,
-        "height": res.h+2,
-        "stroke": "none",
-        "id": "canvas_background",
-        "opacity": 1,
-        "fill": fill || "#fff",
-        "style": "pointer-events:none"
-      }
-    });
-    svgCanvas.setCurrentLayer("Layer 1")
-    svgCanvas.setCurrentLayerPosition("1")
-  }
-
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;
@@ -370,7 +348,6 @@ MD.Editor = function(){
   this.groupSelected = groupSelected;
   this.ungroupSelected = ungroupSelected;
   this.convertToPath = convertToPath;
-  this.createBackground = createBackground;
   this.export = function(){ 
     if(window.canvg) {
         svgCanvas.rasterExport();

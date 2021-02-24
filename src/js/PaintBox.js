@@ -25,6 +25,9 @@ MD.PaintBox = function(container, type){
       paint = new $.jGraduate.Paint(p);
       
       editor.paintBox[picker].setPaint(paint, true);
+      if (picker === "fill") state.set("canvasFill", paint);
+      if (picker === "stroke") state.set("canvasStroke", paint);
+      if (picker === "canvas") state.set("canvasBackground", paint);
       svgCanvas.setPaint(picker, paint);
       
       $('#color_picker').hide();
@@ -33,7 +36,6 @@ MD.PaintBox = function(container, type){
       $('#color_picker').hide();
     });
   };
-  
 
   $('#tool_fill').click(function(){
       if ($('#tool_fill').hasClass('active')) {
@@ -75,13 +77,6 @@ MD.PaintBox = function(container, type){
     editor.paintBox.fill.setPaint(stroke, true);
     editor.paintBox.stroke.setPaint(fill, true);
   });
-
-  var background = document.getElementById("canvas_background");
-  
-  // create a new layer background if it doesn't exist
-  if (!document.getElementById('canvas_background')) editor.createBackground();
-  var fill = document.getElementById('canvas_background').getAttribute("fill");
-
   
   var cur = {color: "fff", opacity: 1}
   if (type === "stroke") cur = {color: '000', opacity: 1};
@@ -124,17 +119,7 @@ MD.PaintBox = function(container, type){
     this.rect.setAttribute('opacity', opac);
 
     if (this.type === "canvas") {
-      //recache background in case it changed
-      var background = document.getElementById("canvas_background");
-      if (background) {
-        res = svgCanvas.getResolution()
-        background.setAttribute("x", -1);
-        background.setAttribute("y", -1);
-        background.setAttribute("width", res.w+2);
-        background.setAttribute("height", res.h+2);
-        if (fillAttr.indexOf("url") == -1) background.setAttribute('fill', fillAttr)
-      }
-      else editor.createBackground(fillAttr)
+      if (fillAttr.indexOf("url") === -1) svgCanvas.setBackground(fillAttr)
     }
 
     if(apply) {
