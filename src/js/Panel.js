@@ -255,8 +255,8 @@ MD.Panel = function(){
            }
          });
          
-         if(el_name == 'text') {
-           var font_family = elem.getAttribute("font-family");
+         if(el_name === 'text') {
+           var font_family = elem.getAttribute("font-family") || "serif";
            var cleanFontFamily = font_family.split(",")[0].replace(/'/g, "");
            var select = document.getElementById("font_family_dropdown");
            $('#text_panel').css("display", "inline");  
