@@ -91,7 +91,7 @@ svgedit.math.hasMatrixTransform = function(tlist) {
   var num = tlist.numberOfItems;
   while (num--) {
     var xform = tlist.getItem(num);
-    if (xform.type == 1 && !svgedit.math.isIdentity(xform.matrix)) return true;
+    if (xform.type === 1 && !svgedit.math.isIdentity(xform.matrix)) return true;
   }
   return false;
 };
@@ -162,12 +162,12 @@ svgedit.math.transformBox = function(l, t, w, h, m) {
 // Returns:
 // A single matrix transform object
 svgedit.math.transformListToTransform = function(tlist, min, max) {
-  if(tlist == null) {
+  if(tlist === null) {
     // Or should tlist = null have been prevented before this?
     return svg.createSVGTransformFromMatrix(svg.createSVGMatrix());
   }
-  var min = min == undefined ? 0 : min;
-  var max = max == undefined ? (tlist.numberOfItems-1) : max;
+  var min = min === undefined ? 0 : min;
+  var max = max === undefined ? (tlist.numberOfItems-1) : max;
   min = parseInt(min);
   max = parseInt(max);
   if (min > max) { var temp = max; max = min; min = temp; }

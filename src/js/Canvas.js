@@ -18,11 +18,11 @@ MD.Canvas = function(){
       w.removeAttribute("readonly");
       w.focus();
       w.select();
-      if(w.value == 'fit') {
+      if(w.value === 'fit') {
         w.value = 100
         h.value = 100
       }
-    } else if(this.value == 'content') {
+    } else if(this.value === 'content') {
       w.value = 'fit'
       h.value = 'fit'
       changeSize();

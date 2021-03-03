@@ -10,7 +10,7 @@
   
   var dbox = function(type, msg, callback, defText) {
     $('#dialog_content').html('<p>'+msg.replace(/\n/g,'</p><p>')+'</p>')
-      .toggleClass('prompt',(type=='prompt'));
+      .toggleClass('prompt',(type==='prompt'));
     btn_holder.empty();
     
     var ok = $('<input type="button" value="OK">').appendTo(btn_holder);
@@ -21,13 +21,13 @@
         .on("click touchstart", function() { box.hide();callback(false)});
     }
     
-    if(type == 'prompt') {
+    if(type === 'prompt') {
       var input = $('<input type="text">').prependTo(btn_holder);
       input.val(defText || '');
       input.bind('keydown', 'return', function() {ok.trigger("click touchstart");});
     }
     
-    if(type == 'process') {
+    if(type === 'process') {
       ok.hide();
     }
 
@@ -35,11 +35,11 @@
     
     ok.on("click touchstart", function() { 
       box.hide();
-      var resp = (type == 'prompt')?input.val():true;
+      var resp = (type === 'prompt')?input.val():true;
       if(callback) callback(resp);
     }).focus();
     
-    if(type == 'prompt') input.focus();
+    if(type === 'prompt') input.focus();
   }
   
   $.alert = function(msg, cb) { dbox('alert', msg, cb);};

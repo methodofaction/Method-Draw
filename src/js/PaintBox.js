@@ -1,12 +1,12 @@
 MD.PaintBox = function(container, type){
   var _self = this;
   var colorPicker = function(elem) {
-  var picker = elem[0].id == 'stroke_color' ? 'stroke' : 'fill';
-  var is_background = elem[0].id == "canvas_color"
+  var picker = elem[0].id === 'stroke_color' ? 'stroke' : 'fill';
+  var is_background = elem[0].id === "canvas_color"
   if (is_background) picker = 'canvas'
   var paint = editor.paintBox[picker].paint;
   
-  var title = (picker == 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
+  var title = (picker === 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
   var was_none = false;
   var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
   
@@ -106,7 +106,7 @@ MD.PaintBox = function(container, type){
     var opac = paint.alpha / 100;
     switch ( ptype ) {
       case 'solidColor':
-        fillAttr = (paint[ptype] == 'none' || paint[ptype] == 'one') ? 'none' : "#" + paint[ptype];
+        fillAttr = (paint[ptype] === 'none' || paint[ptype] === 'one') ? 'none' : "#" + paint[ptype];
         break;
       case 'linearGradient':
       case 'radialGradient':

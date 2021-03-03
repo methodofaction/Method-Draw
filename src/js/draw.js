@@ -58,13 +58,13 @@ svgedit.draw.Layer.prototype.getGroup = function() {
 // Params:
 // enableRandomization - flag indicating if documents should have randomized ids
 svgedit.draw.randomizeIds = function(enableRandomization, current_drawing) {
-  randomize_ids = enableRandomization == false ?
+  randomize_ids = enableRandomization === false ?
     RandomizeModes.NEVER_RANDOMIZE :
     RandomizeModes.ALWAYS_RANDOMIZE;
 
-  if (randomize_ids == RandomizeModes.ALWAYS_RANDOMIZE && !current_drawing.getNonce()) {
+  if (randomize_ids === RandomizeModes.ALWAYS_RANDOMIZE && !current_drawing.getNonce()) {
     current_drawing.setNonce(Math.floor(Math.random() * 100001));
-  } else if (randomize_ids == RandomizeModes.NEVER_RANDOMIZE && current_drawing.getNonce()) {
+  } else if (randomize_ids === RandomizeModes.NEVER_RANDOMIZE && current_drawing.getNonce()) {
     current_drawing.clearNonce();
   }
 };
@@ -133,7 +133,7 @@ svgedit.draw.Drawing = function(svgElem, opt_idPrefix) {
   // else, if randomizeIds(true) has been called, create and set the nonce.
   if (!!n && randomize_ids != RandomizeModes.NEVER_RANDOMIZE) {
     this.nonce_ = n;
-  } else if (randomize_ids == RandomizeModes.ALWAYS_RANDOMIZE) {
+  } else if (randomize_ids === RandomizeModes.ALWAYS_RANDOMIZE) {
     this.setNonce(Math.floor(Math.random() * 100001));
   }
 };
@@ -258,7 +258,7 @@ svgedit.draw.Drawing.prototype.getNumLayers = function() {
 // Check if layer with given name already exists
 svgedit.draw.Drawing.prototype.hasLayer = function(name) {
   for(var i = 0; i < this.getNumLayers(); i++) {
-    if(this.all_layers[i][0] == name) return true;
+    if(this.all_layers[i][0] === name) return true;
   }
   return false;
 };
@@ -294,7 +294,7 @@ svgedit.draw.Drawing.prototype.getCurrentLayer = function() {
 // The name of the currently active layer.
 svgedit.draw.Drawing.prototype.getCurrentLayerName = function() {
   for (var i = 0; i < this.getNumLayers(); ++i) {
-    if (this.all_layers[i][1] == this.current_layer) {
+    if (this.all_layers[i][1] === this.current_layer) {
       return this.getLayerName(i);
     }
   }
@@ -312,7 +312,7 @@ svgedit.draw.Drawing.prototype.getCurrentLayerName = function() {
 // true if the current layer was switched, otherwise false
 svgedit.draw.Drawing.prototype.setCurrentLayer = function(name) {
   for (var i = 0; i < this.getNumLayers(); ++i) {
-    if (name == this.getLayerName(i)) {
+    if (name === this.getLayerName(i)) {
       if (this.current_layer != this.all_layers[i][1]) {
         this.current_layer.setAttribute("style", "pointer-events:none");
         this.current_layer = this.all_layers[i][1];
@@ -355,8 +355,8 @@ svgedit.draw.Drawing.prototype.identifyLayers = function() {
   for (var i = 0; i < numchildren; ++i) {
     var child = this.svgElem_.childNodes.item(i);
     // for each g, find its layer name
-    if (child && child.nodeType == 1) {
-      if (child.tagName == "g") {
+    if (child && child.nodeType === 1) {
+      if (child.tagName === "g") {
         childgroups = true;
         var name = $("title",child).text();
         
@@ -448,7 +448,7 @@ svgedit.draw.Drawing.prototype.getLayerVisibility = function(layername) {
   // find the layer
   var layer = null;
   for (var i = 0; i < this.getNumLayers(); ++i) {
-    if (this.getLayerName(i) == layername) {
+    if (this.getLayerName(i) === layername) {
       layer = this.all_layers[i][1];
       break;
     }
@@ -474,7 +474,7 @@ svgedit.draw.Drawing.prototype.setLayerVisibility = function(layername, bVisible
   // find the layer
   var layer = null;
   for (var i = 0; i < this.getNumLayers(); ++i) {
-    if (this.getLayerName(i) == layername) {
+    if (this.getLayerName(i) === layername) {
       layer = this.all_layers[i][1];
       break;
     }
@@ -499,7 +499,7 @@ svgedit.draw.Drawing.prototype.setLayerVisibility = function(layername, bVisible
 // if layername is not a valid layer
 svgedit.draw.Drawing.prototype.getLayerOpacity = function(layername) {
   for (var i = 0; i < this.getNumLayers(); ++i) {
-    if (this.getLayerName(i) == layername) {
+    if (this.getLayerName(i) === layername) {
       var g = this.all_layers[i][1];
       var opacity = g.getAttribute('opacity');
       if (!opacity) {
@@ -523,7 +523,7 @@ svgedit.draw.Drawing.prototype.setLayerOpacity = function(layername, opacity) {
     return;
   }
   for (var i = 0; i < this.getNumLayers(); ++i) {
-    if (this.getLayerName(i) == layername) {
+    if (this.getLayerName(i) === layername) {
       var g = this.all_layers[i][1];
       g.setAttribute("opacity", opacity);
       break;

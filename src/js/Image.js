@@ -3,7 +3,7 @@ MD.Image = function(){
   const reader = new FileReader();
 
   function importImage(e){
-    const file = (e.type == "drop") ? e.dataTransfer.files[0] : this.files[0];
+    const file = (e.type === "drop") ? e.dataTransfer.files[0] : this.files[0];
     if (!file || file.type.indexOf("image") ) return alert("That doesn't seem to be an image");
     
     if(file.type.indexOf("svg") != -1) importSvg(file)

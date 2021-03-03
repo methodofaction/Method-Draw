@@ -411,7 +411,7 @@ svgedit.path.Segment.prototype.update = function(full) {
   if(this.ptgrip) {
     var pt = svgedit.path.getGripPt(this);
     var reposition = (svgedit.browser.isTouch() ? 15 : 2.5)
-    var properties = (this.ptgrip.nodeName == "rect") ? {'x': pt.x-reposition, 'y': pt.y-reposition} : {'cx': pt.x, 'cy': pt.y};
+    var properties = (this.ptgrip.nodeName === "rect") ? {'x': pt.x-reposition, 'y': pt.y-reposition} : {'cx': pt.x, 'cy': pt.y};
     svgedit.utilities.assignAttributes(this.ptgrip, properties);
     svgedit.path.getSegSelector(this, true);
 
@@ -460,7 +460,7 @@ svgedit.path.Segment.prototype.move = function(dx, dy) {
 
 svgedit.path.Segment.prototype.setLinked = function(num) {
   var seg, anum, pt;
-  if (num == 2) {
+  if (num === 2) {
     anum = 1;
     seg = this.next;
     if(!seg) return;
@@ -568,7 +568,7 @@ svgedit.path.Path.prototype.init = function() {
       seg.next.prev = seg;
       seg.mate = segs[start_i];
       seg.addGrip();
-      if(this.first_seg == null) {
+      if(this.first_seg === null) {
         this.first_seg = seg;
       }
     } else if(!next_seg) {

@@ -91,7 +91,7 @@ var supportsHVLineContainerBBox_ = (function() {
   var bbox = g.getBBox();
   document.documentElement.removeChild(svgcontent);
   // Webkit gives 0, FF gives 10, Opera (correctly) gives 15
-  return (bbox.width == 15);
+  return (bbox.width === 15);
 })();
 
 var supportsEditableText_ = (function() {
@@ -104,7 +104,7 @@ var supportsGoodDecimals_ = (function() {
   var rect = document.createElementNS(svgns, 'rect');
   rect.setAttribute('x',.1);
   var crect = rect.cloneNode(false);
-  var retValue = (crect.getAttribute('x').indexOf(',') == -1);
+  var retValue = (crect.getAttribute('x').indexOf(',') === -1);
   if(!retValue) {
     $.alert("NOTE: This version of Opera is known to contain bugs in SVG-edit.\n\
     Please upgrade to the <a href='http://opera.com'>latest version</a> in which the problems have been fixed.");
@@ -124,7 +124,7 @@ var supportsNativeSVGTransformLists_ = (function() {
   
   var t1 = svg.createSVGTransform();
   rxform.appendItem(t1);
-  return rxform.getItem(0) == t1;
+  return rxform.getItem(0) === t1;
 })();
 
 var supportsBlobs_ = (function() {

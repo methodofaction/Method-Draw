@@ -29,7 +29,7 @@ MD.Eyedropper = function() {
   function getStyle(opts) {
     // if we are in eyedropper mode, we don't want to disable the eye-dropper tool
     var mode = svgCanvas.getMode();
-    if (mode == "eyedropper") return;
+    if (mode === "eyedropper") return;
     var tool = $('#tool_eyedropper');
 
   }
@@ -84,7 +84,7 @@ MD.Eyedropper = function() {
       var mode = svgCanvas.getMode();
       var e = opts.event;
       var target = (e.target.id === "svgroot") ? document.getElementById('canvas_background') : e.target;
-      if (mode == "eyedropper" && target) {
+      if (mode === "eyedropper" && target) {
         currentStyle.fillPaint = target.getAttribute("fill") || "white";
         currentStyle.fillOpacity = target.getAttribute("fill-opacity") || 1.0;
         currentStyle.strokePaint = target.getAttribute("stroke") || 'none';
@@ -102,7 +102,7 @@ MD.Eyedropper = function() {
           editor.paintBox.stroke.setPaint(stroke)
           return;
         }
-        if ($.inArray(opts.selectedElements.nodeName, ['g', 'use']) == -1) {
+        if ($.inArray(opts.selectedElements.nodeName, ['g', 'use']) === -1) {
           var changes = {};
           var change = function(elem, attrname, newvalue) {
             changes[attrname] = elem.getAttribute(attrname);

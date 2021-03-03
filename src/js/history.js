@@ -223,7 +223,7 @@ svgedit.history.RemoveElementCommand.prototype.unapply = function(handler) {
   }
 
   svgedit.transformlist.removeElementFromListMap(this.elem);
-  if(this.nextSibling == null) {
+  if(this.nextSibling === null) {
     if(window.console) console.log('Error: reference element was lost');
   }
   this.parent.insertBefore(this.elem, this.nextSibling);
@@ -256,8 +256,8 @@ svgedit.history.ChangeElementCommand = function(elem, attrs, text) {
   this.newValues = {};
   this.oldValues = attrs;
   for (var attr in attrs) {
-    if (attr == "#text") this.newValues[attr] = elem.textContent;
-    else if (attr == "#href") this.newValues[attr] = svgedit.utilities.getHref(elem);
+    if (attr === "#text") this.newValues[attr] = elem.textContent;
+    else if (attr === "#href") this.newValues[attr] = svgedit.utilities.getHref(elem);
     else this.newValues[attr] = elem.getAttribute(attr);
   }
 };
@@ -279,12 +279,12 @@ svgedit.history.ChangeElementCommand.prototype.apply = function(handler) {
   var bChangedTransform = false;
   for(var attr in this.newValues ) {
     if (this.newValues[attr]) {
-      if (attr == "#text") this.elem.textContent = this.newValues[attr];
-      else if (attr == "#href") svgedit.utilities.setHref(this.elem, this.newValues[attr])
+      if (attr === "#text") this.elem.textContent = this.newValues[attr];
+      else if (attr === "#href") svgedit.utilities.setHref(this.elem, this.newValues[attr])
       else this.elem.setAttribute(attr, this.newValues[attr]);
     }
     else {
-      if (attr == "#text") {
+      if (attr === "#text") {
         this.elem.textContent = "";
       }
       else {
@@ -293,7 +293,7 @@ svgedit.history.ChangeElementCommand.prototype.apply = function(handler) {
       }
     }
 
-    if (attr == "transform") { bChangedTransform = true; }
+    if (attr === "transform") { bChangedTransform = true; }
   }
 
   // relocate rotational transform, if necessary
@@ -327,17 +327,17 @@ svgedit.history.ChangeElementCommand.prototype.unapply = function(handler) {
   var bChangedTransform = false;
   for(var attr in this.oldValues ) {
     if (this.oldValues[attr]) {
-      if (attr == "#text") this.elem.textContent = this.oldValues[attr];
-      else if (attr == "#href") svgedit.utilities.setHref(this.elem, this.oldValues[attr]);
+      if (attr === "#text") this.elem.textContent = this.oldValues[attr];
+      else if (attr === "#href") svgedit.utilities.setHref(this.elem, this.oldValues[attr]);
       else this.elem.setAttribute(attr, this.oldValues[attr]);
     }
     else {
-      if (attr == "#text") {
+      if (attr === "#text") {
         this.elem.textContent = "";
       }
       else this.elem.removeAttribute(attr);
     }
-    if (attr == "transform") { bChangedTransform = true; }
+    if (attr === "transform") { bChangedTransform = true; }
   }
   // relocate rotational transform, if necessary
   if(!bChangedTransform) {
@@ -435,7 +435,7 @@ svgedit.history.BatchCommand.prototype.elements = function() {
     var thisElems = this.stack[cmd].elements();
     var elem = thisElems.length;
     while (elem--) {
-      if (elems.indexOf(thisElems[elem]) == -1) elems.push(thisElems[elem]);
+      if (elems.indexOf(thisElems[elem]) === -1) elems.push(thisElems[elem]);
     }
   }
   return elems;
@@ -453,7 +453,7 @@ svgedit.history.BatchCommand.prototype.addSubCommand = function(cmd) {
 // Function: svgedit.history.BatchCommand.isEmpty
 // Returns a boolean indicating whether or not the batch command is empty
 svgedit.history.BatchCommand.prototype.isEmpty = function() {
-  return this.stack.length == 0;
+  return this.stack.length === 0;
 };
 
 
@@ -562,7 +562,7 @@ svgedit.history.UndoManager.prototype.beginUndoableChange = function(attrName, e
   var oldValues = new Array(i), elements = new Array(i);
   while (i--) {
     var elem = elems[i];
-    if (elem == null) continue;
+    if (elem === null) continue;
     elements[i] = elem;
     oldValues[i] = elem.getAttribute(attrName);
   }
@@ -586,7 +586,7 @@ svgedit.history.UndoManager.prototype.finishUndoableChange = function() {
   var batchCmd = new svgedit.history.BatchCommand("Change " + attrName);
   while (i--) {
     var elem = changeset['elements'][i];
-    if (elem == null) continue;
+    if (elem === null) continue;
     var changes = {};
     changes[attrName] = changeset['oldValues'][i];
     if (changes[attrName] != elem.getAttribute(attrName)) {

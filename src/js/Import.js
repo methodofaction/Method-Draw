@@ -16,7 +16,7 @@ MD.Import = function(){
     workarea.removeAttribute("style");
     $('#main_menu').hide();
     var file = null;
-    if (e.type == "drop") file = e.dataTransfer.files[0]
+    if (e.type === "drop") file = e.dataTransfer.files[0]
     else file = this.files[0];
     if (!file) return $.alert("File not found");
     if (file.type.indexOf("image") === -1) return $.alert("File is not image"); 
@@ -91,7 +91,7 @@ MD.Import = function(){
 
   function openImage(e){
     const f = this;
-    if(f.files.length===1) {
+    if(f.files.length === 1) {
       console.log("clear")
       svgCanvas.clear();
       var reader = new FileReader();

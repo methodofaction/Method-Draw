@@ -126,7 +126,7 @@ MD.Panel = function(){
          $('#path_node_y').val(Math.round(point.y));
          if(point.type) {
            seg_type.val(point.type).removeAttr('disabled');
-           $("#seg_type_label").html(point.type == 4 ? "Straight" : "Curve")
+           $("#seg_type_label").html(point.type === 4 ? "Straight" : "Curve")
          } else {
            seg_type.val(4).attr('disabled','disabled');
          }
@@ -185,7 +185,7 @@ MD.Panel = function(){
          }
                    
          // Elements in this array cannot be converted to a path
-         var no_path = ['image', 'text', 'path', 'g', 'use'].indexOf(elname) == -1;
+         var no_path = ['image', 'text', 'path', 'g', 'use'].indexOf(elname) === -1;
          if (no_path) $('.action_path_convert_selected').removeClass('disabled');
          if (elname === "path") $('.action_path_selected').removeClass('disabled');
 
@@ -231,7 +231,7 @@ MD.Panel = function(){
          $('#g_panel').show();
        }
        
-       if (el_name == "path" || el_name == "polyline") {
+       if (el_name === "path" || el_name === "polyline") {
          $('#path_panel').show();
        }
        
@@ -242,7 +242,7 @@ MD.Panel = function(){
          // corner radius has to live in a different panel
          // because otherwise it changes the position of the 
          // of the elements
-         if(el_name == "rect") $("#cornerRadiusLabel").show()
+         if(el_name === "rect") $("#cornerRadiusLabel").show()
          else $("#cornerRadiusLabel").hide()
          
          $.each(cur_panel, function(i, item) {
@@ -270,7 +270,7 @@ MD.Panel = function(){
            $('#text').val(elem.textContent);
            $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
          } // text
-         else if(el_name == 'image') {
+         else if(el_name === 'image') {
            setImageURL(svgCanvas.getHref(elem));
          } // image
          else if(el_name === 'g' || el_name === 'use') {
