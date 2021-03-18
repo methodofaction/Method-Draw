@@ -1,5 +1,6 @@
 MD.Keyboard = function(){
   document.addEventListener("keydown", function(e){
+    if ($("#color_picker").is(":visible")) return e;
     const modKey = !svgedit.browser.isMac() ? "ctrlKey" : "metaKey";
     const cmd = e[modKey] ? "cmd_" : "";
     const shift = e.shiftKey ? "shift_" : "";
@@ -69,6 +70,7 @@ MD.Keyboard = function(){
   });
 
   document.addEventListener("keyup", function(e){
+    if ($("#color_picker").is(":visible")) return e;
     const canvasMode = state.get("canvasMode");
     const key = e.key.toLowerCase();
     const keys = {

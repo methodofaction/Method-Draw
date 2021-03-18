@@ -1,83 +1,39 @@
 MD.PaintBox = function(container, type){
   var _self = this;
   var colorPicker = function(elem) {
-  var picker = elem[0].id === 'stroke_color' ? 'stroke' : 'fill';
-  var is_background = elem[0].id === "canvas_color"
-  if (is_background) picker = 'canvas'
-  var paint = editor.paintBox[picker].paint;
-  
-  var title = (picker === 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
-  var was_none = false;
-  var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
-  
-  $("#color_picker")
-    .draggable({cancel:'.jGraduate_tabs, .jGraduate_colPick, .jGraduate_gradPick, .jPicker', containment: 'window'})
-    .removeAttr("style")
-    .css(pos)
-    .jGraduate(
-    { 
-      paint: paint,
-      window: { pickerTitle: title },
-      images: { clientPath: 'images/' },
-      newstop: 'inverse'
-    },
-    function(p) {
-      paint = new $.jGraduate.Paint(p);
-      
-      editor.paintBox[picker].setPaint(paint, true);
-      if (picker === "fill") state.set("canvasFill", paint);
-      if (picker === "stroke") state.set("canvasStroke", paint);
-      if (picker === "canvas") state.set("canvasBackground", paint);
-      svgCanvas.setPaint(picker, paint);
-      
-      $('#color_picker').hide();
-    },
-    function(p) {
-      $('#color_picker').hide();
-    });
-  };
-
-  $('#tool_fill').click(function(){
-      if ($('#tool_fill').hasClass('active')) {
-        colorPicker($('#fill_color'));
-      }
-      else {
-        $('#tool_fill').addClass('active');
-        $("#tool_stroke").removeClass('active');
-      }
-    });
+    var picker = elem[0].id === 'stroke_color' ? 'stroke' : 'fill';
+    var is_background = elem[0].id === "canvas_color"
+    if (is_background) picker = 'canvas'
+    var paint = editor.paintBox[picker].paint;
     
-  $('#tool_stroke').on("click", function(){
-    if ($('#tool_stroke').hasClass('active')) {
-      colorPicker($('#stroke_color'));
-    }
-    else {
-      $('#tool_stroke').addClass('active');
-      $("#tool_fill").removeClass('active');
-    }
-  });
-  
-  $('#tool_canvas').on("click touchstart", function(){
-      colorPicker($('#canvas_color'));
-  });
-
-  $('#tool_switch').on("click touchstart", function(){
-    var stroke_rect = document.querySelector('#tool_stroke rect');
-    $("#tool_stroke").toggleClass('active')
-    $("#tool_fill").toggleClass('active')
-    var fill_rect = document.querySelector('#tool_fill rect');
-    var fill_color = fill_rect.getAttribute("fill");
-    var stroke_color = stroke_rect.getAttribute("fill");
-    var stroke_opacity = parseFloat(stroke_rect.getAttribute("stroke-opacity"));
-    if (isNaN(stroke_opacity)) {stroke_opacity = 100;}
-    var fill_opacity = parseFloat(fill_rect.getAttribute("fill-opacity"));
-    if (isNaN(fill_opacity)) {fill_opacity = 100;}
-    var stroke = _self.getPaint(stroke_color, stroke_opacity, "stroke");
-    var fill = _self.getPaint(fill_color, fill_opacity, "fill");
-    editor.paintBox.fill.setPaint(stroke, true);
-    editor.paintBox.stroke.setPaint(fill, true);
-  });
-  
+    var title = (picker === 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
+    var was_none = false;
+    var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
+    
+    $("#color_picker")
+      .removeAttr("style")
+      .css(pos)
+      .jGraduate(
+      { 
+        paint: paint,
+        window: { pickerTitle: title },
+        images: { clientPath: 'images/' },
+        newstop: 'inverse'
+      },
+      function(p) {
+        paint = new $.jGraduate.Paint(p);
+        editor.paintBox[picker].setPaint(paint, true);
+        if (picker === "fill") state.set("canvasFill", paint);
+        if (picker === "stroke") state.set("canvasStroke", paint);
+        if (picker === "canvas") state.set("canvasBackground", paint);
+        svgCanvas.setPaint(picker, paint);
+        
+        $('#color_picker').hide();
+      },
+      function(p) {
+        $('#color_picker').hide();
+      });
+  };
   var cur = {color: "fff", opacity: 1}
   if (type === "stroke") cur = {color: '000', opacity: 1};
   if (type === "fill") cur = {color: 'fff', opacity: 1};
@@ -224,4 +180,52 @@ MD.PaintBox = function(container, type){
         svgCanvas.setPaint(type, paint);
     }
   }
+
+  this.colorPicker = colorPicker;
 };
+
+
+// todo organize
+(function(){
+
+  $('#tool_fill').click(function(){
+      if ($('#tool_fill').hasClass('active')) {
+        editor.paintBox.fill.colorPicker($('#fill_color'));
+      }
+      else {
+        $('#tool_fill').addClass('active');
+        $("#tool_stroke").removeClass('active');
+      }
+    });
+    
+  $('#tool_stroke').on("click", function(){
+    if ($('#tool_stroke').hasClass('active')) {
+      editor.paintBox.stroke.colorPicker($('#stroke_color'));
+    }
+    else {
+      $('#tool_stroke').addClass('active');
+      $("#tool_fill").removeClass('active');
+    }
+  });
+  
+  $('#tool_canvas').on("click touchstart", function(){
+      editor.paintBox.canvas.colorPicker($('#canvas_color'));
+  });
+
+  $('#tool_switch').on("click touchstart", function(){
+    var stroke_rect = document.querySelector('#tool_stroke rect');
+    $("#tool_stroke").toggleClass('active')
+    $("#tool_fill").toggleClass('active')
+    var fill_rect = document.querySelector('#tool_fill rect');
+    var fill_color = fill_rect.getAttribute("fill");
+    var stroke_color = stroke_rect.getAttribute("fill");
+    var stroke_opacity = parseFloat(stroke_rect.getAttribute("stroke-opacity"));
+    if (isNaN(stroke_opacity)) {stroke_opacity = 100;}
+    var fill_opacity = parseFloat(fill_rect.getAttribute("fill-opacity"));
+    if (isNaN(fill_opacity)) {fill_opacity = 100;}
+    var stroke = _self.getPaint(stroke_color, stroke_opacity, "stroke");
+    var fill = _self.getPaint(fill_color, fill_opacity, "fill");
+    editor.paintBox.fill.setPaint(stroke, true);
+    editor.paintBox.stroke.setPaint(fill, true);
+  });
+})();

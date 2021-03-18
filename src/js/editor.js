@@ -220,7 +220,7 @@ MD.Editor = function(){
       dx *= multi;
       dy *= multi;
     }
-    $('input').blur()
+    //$('input').blur()
     svgCanvas.moveSelectedElements(dx,dy);
   };
 
