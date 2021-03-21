@@ -14,7 +14,7 @@ Develop and run a local web server under `src`;
 
 ```
 cd src
-python -m SimpleHTTPServer
+python3 -m http.server
 ```
 
 ## Build
