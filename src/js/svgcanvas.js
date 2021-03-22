@@ -2150,6 +2150,7 @@ var removeFromSelection = this.removeFromSelection = function(elemsToRemove) {
   }
   // the copy becomes the master now
   selectedElements = newSelectedItems;
+  call("selected", selectedElements);
 };
 
 // Function: selectAllInCurrentLayer
