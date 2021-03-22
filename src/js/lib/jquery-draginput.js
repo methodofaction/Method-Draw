@@ -102,7 +102,7 @@ $.fn.dragInput = function(cfg){
       var oy = e.pageY;
       var val = this.value;
       var el = this;
-      canvas.undoMgr.beginUndoableChange(attr, selectedElems)
+      if (attr && selectedElems.length) canvas.undoMgr.beginUndoableChange(attr, selectedElems)
       $('body').addClass('dragging');
       $label.addClass('active');
       $(window).bind("mousemove.draginput touchmove.draginput", function(e){el.move(e, oy, parseFloat(val))})
