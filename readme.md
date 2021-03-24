@@ -14,7 +14,14 @@ Develop and run a local web server under `src`;
 
 ```
 cd src
-python -m SimpleHTTPServer
+python -m SimpleHTTPServer 8000
+```
+
+or if you have Python 3: 
+
+```
+cd src
+python -m http.server 8000
 ```
 
 ## Build
@@ -31,7 +38,7 @@ Deploy `dist` to your static file server of choice.
 
 ## Release notes
 
-**2021.02.15** Major code refactor
+**2021.02.15** Major code refactor  
 **2021.01.15** Added new fonts  
 **2021.01.01** Text handling improvements  
 **2020.12.10** Gradient fixes on Windows and Safari MacOS  
