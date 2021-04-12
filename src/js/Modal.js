@@ -53,7 +53,12 @@ MD.Modal = function(){
     }
   };
 
+  function isVisible(){
+    return $('#svg_source_editor').is(":visible");
+  }
+
   this.cancelOverlays = cancelOverlays;
+  this.isVisible = isVisible;
   this.viewSource = viewSource;
   this.saveSource = saveSource;
 

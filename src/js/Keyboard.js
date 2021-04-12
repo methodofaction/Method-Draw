@@ -64,6 +64,7 @@ MD.Keyboard = function(){
 
     // keyboard shortcut exists
     if (keys[key]) {
+      if (editor.modal.isVisible()) return; 
       e.preventDefault();
       keys[key]();
     }
