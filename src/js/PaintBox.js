@@ -223,8 +223,8 @@ MD.PaintBox = function(container, type){
     if (isNaN(stroke_opacity)) {stroke_opacity = 100;}
     var fill_opacity = parseFloat(fill_rect.getAttribute("fill-opacity"));
     if (isNaN(fill_opacity)) {fill_opacity = 100;}
-    var stroke = _self.getPaint(stroke_color, stroke_opacity, "stroke");
-    var fill = _self.getPaint(fill_color, fill_opacity, "fill");
+    var stroke = editor.paintBox.stroke.getPaint(stroke_color, stroke_opacity, "stroke");
+    var fill = editor.paintBox.fill.getPaint(fill_color, fill_opacity, "fill");
     editor.paintBox.fill.setPaint(stroke, true);
     editor.paintBox.stroke.setPaint(fill, true);
   });
