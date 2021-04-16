@@ -120,10 +120,12 @@ MD.Editor = function(){
     var fill_rect = document.querySelector('#tool_fill rect');
     var fill_color = fill_rect.getAttribute("fill");
     var stroke_color = stroke_rect.getAttribute("fill");
-    var stroke_opacity = parseFloat(stroke_rect.getAttribute("stroke-opacity"));
-    if (isNaN(stroke_opacity)) {stroke_opacity = 100;}
-    var fill_opacity = parseFloat(fill_rect.getAttribute("fill-opacity"));
-    if (isNaN(fill_opacity)) {fill_opacity = 100;}
+    var stroke_opacity = parseFloat(stroke_rect.getAttribute("opacity"));
+    if (isNaN(stroke_opacity)) {stroke_opacity = 1;}
+    var fill_opacity = parseFloat(fill_rect.getAttribute("opacity"));
+    if (isNaN(fill_opacity)) {fill_opacity = 1;}
+    stroke_opacity *= 100;
+    fill_opacity   *= 100;
     var stroke = editor.paintBox.stroke.getPaint(stroke_color, stroke_opacity, "stroke");
     var fill = editor.paintBox.fill.getPaint(fill_color, fill_opacity, "fill");
     editor.paintBox.fill.setPaint(stroke, true);
