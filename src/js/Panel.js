@@ -315,6 +315,17 @@ MD.Panel = function(){
      }
     }
 
+    $('#cur_context_panel').delegate('a', 'click', function() {
+      var link = $(this);
+      if(link.attr('data-root')) {
+        svgCanvas.leaveContext();
+      } else {
+        svgCanvas.setContext(link.text());
+      }
+      svgCanvas.clearSelection();
+      return false;
+    });
+
     this.show = show;
     this.updateContextPanel = updateContextPanel;
 }
