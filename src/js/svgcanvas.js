@@ -4430,7 +4430,7 @@ var pathActions = canvas.pathActions = function() {
         });
 
       }
-    }, 
+    },
     mouseUp: function(evt, element, mouse_x, mouse_y) {
       var lastpointgrip = getElem('ctrlpointgrip_1c1');
       var firstpointgrip = getElem('ctrlpointgrip_0c2');
@@ -4470,7 +4470,6 @@ var pathActions = canvas.pathActions = function() {
         svgedit.path.path.dragctrl = false;
         svgedit.path.path.update();
         
-      
         if(hasMoved) {
           svgedit.path.path.endChanges("Move path point(s)");
         } 

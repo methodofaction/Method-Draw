@@ -102,15 +102,15 @@ MD.Editor = function(){
     var elems = svgCanvas.getSelectedElems()
     svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0])
     svgCanvas.selectorManager.requestSelector(elems[0]).selectorRect.setAttribute("display", "none");
-    svgCanvas.setMode("pathedit")
-    path.toEditMode(elems[0]);
+    svgCanvas.setMode("pathedit");
+    svgCanvas.pathActions.toEditMode(elems[0]);
     svgCanvas.clearSelection();
     editor.panel.updateContextPanel();
   }
 
   function reorientPath(){
     if (!_self.selected.length) return false;
-    path.reorient();
+    svgCanvas.pathActions.reorient();
   }
 
   function switchPaint(strokeOrFill) {
