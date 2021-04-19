@@ -48,8 +48,10 @@ MD.Editor = function(){
   };
 
   function deleteSelected(){
-    if (svgCanvas.pathActions.getNodePoint()) svgCanvas.pathActions.deletePathNode();
-    else svgCanvas.deleteSelectedElements();
+    if (svgCanvas.getMode() === "pathedit" && svgCanvas.pathActions.getNodePoint())
+      svgCanvas.pathActions.deletePathNode();
+    else 
+      svgCanvas.deleteSelectedElements();
   }
 
   function cutSelected(){

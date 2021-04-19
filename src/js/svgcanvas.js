@@ -3355,8 +3355,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       canvas.addedNew = true;
       
       if(useUnit) svgedit.units.convertAttrs(element);
-      
-      element.setAttribute("opacity", cur_shape.opacity);
+      element.setAttribute("opacity", cur_shape.opacity || 1);
       element.setAttribute("style", "pointer-events:inherit");
       cleanupElement(element);
       if(current_mode === "path") {
@@ -3398,9 +3397,16 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       mouse_target = selectedElements[0];
       clearSelection(true);
     }
+    
     // Reset context
     if(current_group) {
       leaveContext();
+    }
+
+    // Reset context
+    if(tagName === "path") {
+      canvas.setMode("pathedit");
+      canvas.pathActions.toEditMode(evt_target);
     }
     
     if((parent.tagName !== 'g' && parent.tagName !== 'a') ||
@@ -4462,21 +4468,16 @@ var pathActions = canvas.pathActions = function() {
       }
       
       // Edit mode
-      
+
       if (svgedit.path.path.dragging) {
         var last_pt = svgedit.path.path.cur_pt;
-
         svgedit.path.path.dragging = false;
         svgedit.path.path.dragctrl = false;
         svgedit.path.path.update();
         
-        if(hasMoved) {
-          svgedit.path.path.endChanges("Move path point(s)");
-        } 
-        
         if(!evt.shiftKey && !hasMoved) {
           svgedit.path.path.selectPt(last_pt);
-        } 
+        }
       }
       else if(rubberBox && rubberBox.getAttribute('display') != 'none') {
         // Done with multi-node-select
@@ -4487,9 +4488,8 @@ var pathActions = canvas.pathActions = function() {
         }
         
       // else, move back to select mode 
-      } else {
-        pathActions.toSelectMode(evt.target);
       }
+
       hasMoved = false;
     },
     toEditMode: function(element) {
@@ -4840,12 +4840,6 @@ var pathActions = canvas.pathActions = function() {
       
       svgedit.path.path.clearSelection();
       
-      // TODO: Find right way to select point now
-      // path.selectPt(sel_pt);
-      if(window.opera) { // Opera repaints incorrectly
-        var cp = $(svgedit.path.path.elem); cp.attr('d',cp.attr('d'));
-      }
-      svgedit.path.path.endChanges("Delete path node(s)");
     },
     smoothPolylineIntoPath: smoothPolylineIntoPath,
     setSegType: function(v) {
