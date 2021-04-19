@@ -307,18 +307,6 @@ MD.Editor = function(){
     }
   }
 
-  function convertToPath(){
-    if (!_self.selected.length) return;
-    svgCanvas.convertToPath();
-    var elems = svgCanvas.getSelectedElems();
-    svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0])
-    svgCanvas.selectorManager.requestSelector(elems[0]).selectorRect.setAttribute("display", "none");
-    svgCanvas.setMode("pathedit")
-    svgCanvas.pathActions.toEditMode(elems[0]);
-    svgCanvas.clearSelection();
-    editor.panel.updateContextPanel();
-  }
-
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;
@@ -349,7 +337,6 @@ MD.Editor = function(){
   this.toggleWireframe = toggleWireframe;
   this.groupSelected = groupSelected;
   this.ungroupSelected = ungroupSelected;
-  this.convertToPath = convertToPath;
   this.export = function(){ 
     if(window.canvg) {
         svgCanvas.rasterExport();
