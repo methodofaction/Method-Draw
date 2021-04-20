@@ -429,7 +429,7 @@ svgedit.path.Segment.prototype.update = function(full) {
 svgedit.path.Segment.prototype.move = function(dx, dy) {
   var item = this.item;
   // fix for path tool dom breakage, amending item does bad things now, so we take a copy and use that. Can probably improve to just take a shallow copy of object
-  var cloneItem = $.extend({}, item);
+  var cloneItem = item;
   var cur_pts = (this.ctrlpts) 
     ? [cloneItem.x += dx,  cloneItem.y += dy, 
        cloneItem.x1,       cloneItem.y1, 

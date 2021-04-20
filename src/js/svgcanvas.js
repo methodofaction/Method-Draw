@@ -3325,14 +3325,13 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
         started = r.started || started;
       }
     });
-    
+
     if (!keep && element != null) {
       getCurrentDrawing().releaseId(getId());
       element.parentNode.removeChild(element);
       element = null;
       
       var t = evt.target;
-      
       // if this element is in a group, go up until we reach the top-level group 
       // just below the layer groups
       // TODO: once we implement links, we also would have to check for <a> elements
@@ -4452,6 +4451,7 @@ var pathActions = canvas.pathActions = function() {
           svgedit.path.first_grip = [mouse_x, mouse_y];
         }
       }
+
       // Create mode
       if(current_mode === "path") {
         newPoint = null;
@@ -4460,7 +4460,6 @@ var pathActions = canvas.pathActions = function() {
           started = false;
           firstCtrl = null;
         }
-
         return {
           keep: true,
           element: element
@@ -4489,6 +4488,9 @@ var pathActions = canvas.pathActions = function() {
         
       // else, move back to select mode 
       }
+      else {
+        pathActions.toSelectMode(evt.target);
+     }
 
       hasMoved = false;
     },
@@ -4627,7 +4629,6 @@ var pathActions = canvas.pathActions = function() {
     getNodePoint: function() {
       if (!svgedit.path.path) return;
       var sel_pt = svgedit.path.path.selected_pts.length ? svgedit.path.path.selected_pts[0] : 1;
-
       var seg = svgedit.path.path.segs[sel_pt];
       return {
         x: seg.item.x,

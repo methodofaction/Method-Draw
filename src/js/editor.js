@@ -175,19 +175,20 @@ MD.Editor = function(){
   }
 
   function elementChanged(window,elems){
-    
     const mode = svgCanvas.getMode();
 
     // if the element changed was the svg, then it could be a resolution change
     if (elems[0].tagName === "svg")  return editor.canvas.update();
 
+    
     editor.panel.updateContextPanel(elems);
     
     svgCanvas.runExtensions("elementChanged", {
       elems: elems
     });
 
-    state.set("canvasContent", svgCanvas.getSvgString())
+    //if (mode !== "pathedit")
+      state.set("canvasContent", svgCanvas.getSvgString())
   }
 
   function changeAttribute(attr, value, completed) {
