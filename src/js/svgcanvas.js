@@ -1863,7 +1863,6 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
         var m = transformListToTransform(tlist).matrix;
         var gtlist = getTransformList(paint);
         var gmatrix = transformListToTransform(gtlist).matrix;
-        console.log(gmatrix)
         m = matrixMultiply(m, gmatrix);
         var m_str = "matrix(" + [m.a,m.b,m.c,m.d,m.e,m.f].join(",") + ")";
         paint.setAttribute(type + 'Transform', m_str);
