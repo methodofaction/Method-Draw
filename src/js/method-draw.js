@@ -898,6 +898,7 @@ window.methodDraw = function() {
     };
     
     var clickSave = function(){
+      console.log("hi")
       flash($('#file_menu'));
       svgCanvas.save();
     };

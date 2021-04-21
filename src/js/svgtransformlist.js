@@ -260,21 +260,8 @@ svgedit.transformlist.removeElementFromListMap = function(elem) {
 // Parameters:
 // elem - DOM element to get a transformlist from
 svgedit.transformlist.getTransformList = function(elem) {
-  if (!svgedit.browser.supportsNativeTransformLists()) {
-    var id = elem.id;
-    if(!id) {
-      // Get unique ID for temporary element
-      id = 'temp';
-    }
-    var t = listMap_[id];
-    if (!t || id == 'temp') {
-      listMap_[id] = new svgedit.transformlist.SVGTransformList(elem);
-      listMap_[id]._init();
-      t = listMap_[id];
-    }
-    return t;
-  }
-  else if (elem.transform) {
+
+  if (elem.transform) {
     return elem.transform.baseVal;
   }
   else if (elem.gradientTransform) {

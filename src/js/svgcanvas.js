@@ -1852,22 +1852,21 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
     // Check if it has a gradient with userSpaceOnUse, in which case
     // adjust it by recalculating the matrix transform.
     // TODO: Make this work in Webkit using svgedit.transformlist.SVGTransformList
-    if(!svgedit.browser.isWebkit()) {
-      var fill = selected.getAttribute('fill');
-      if(fill && fill.indexOf('url(') === 0) {
-        var paint = getRefElem(fill);
-        var type = 'pattern';
-        if(paint.tagName !== type) type = 'gradient';
-        var attrVal = paint.getAttribute(type + 'Units');
-        if(attrVal === 'userSpaceOnUse') {
-          //Update the userSpaceOnUse element
-          m = transformListToTransform(tlist).matrix;
-          var gtlist = getTransformList(paint);
-          var gmatrix = transformListToTransform(gtlist).matrix;
-          m = matrixMultiply(m, gmatrix);
-          var m_str = "matrix(" + [m.a,m.b,m.c,m.d,m.e,m.f].join(",") + ")";
-          paint.setAttribute(type + 'Transform', m_str);
-        }
+
+    var fill = selected.getAttribute('fill');
+    if(fill && fill.indexOf('url(') === 0) {
+      var paint = getRefElem(fill);
+      var type = paint.tagName !== 'pattern' ? 'gradient' : 'pattern';
+      var attrVal = paint.getAttribute(type + 'Units');
+      if(attrVal === 'userSpaceOnUse') {
+        //Update the userSpaceOnUse element
+        var m = transformListToTransform(tlist).matrix;
+        var gtlist = getTransformList(paint);
+        var gmatrix = transformListToTransform(gtlist).matrix;
+        console.log(gmatrix)
+        m = matrixMultiply(m, gmatrix);
+        var m_str = "matrix(" + [m.a,m.b,m.c,m.d,m.e,m.f].join(",") + ")";
+        paint.setAttribute(type + 'Transform', m_str);
       }
     }
 
