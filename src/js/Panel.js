@@ -294,8 +294,9 @@ MD.Panel = function(){
      if (!elem && !multiselected) {
        menu_items.disableContextMenuItems('#delete,#cut,#copy,#ungroup,#move_front,#move_up,#move_down,#move_back');
        $('.menu_item', '#edit_menu').addClass('disabled');
-       $('.menu_item', '#object_menu').addClass('disabled');
      }
+
+     $('.menu_item', '#object_menu').toggleClass('disabled', !elem && !multiselected);
      
      // update history buttons
      setTimeout(function(){
