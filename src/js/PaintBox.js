@@ -23,11 +23,12 @@ MD.PaintBox = function(container, type){
       function(p) {
         paint = new $.jGraduate.Paint(p);
         editor.paintBox[picker].setPaint(paint, true);
+        svgCanvas.setPaint(picker, paint);
+        if (paint.radialGradient) paint.radialGradient = paint.radialGradient.outerHTML
+        if (paint.linearGradient) paint.linearGradient = paint.linearGradient.outerHTML
         if (picker === "fill") state.set("canvasFill", paint);
         if (picker === "stroke") state.set("canvasStroke", paint);
         if (picker === "canvas") state.set("canvasBackground", paint);
-        svgCanvas.setPaint(picker, paint);
-        
         $('#color_picker').hide();
       },
       function(p) {
@@ -66,6 +67,11 @@ MD.PaintBox = function(container, type){
         break;
       case 'linearGradient':
       case 'radialGradient':
+        if (typeof paint[ptype] === "string") {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(paint[ptype], "image/svg+xml");
+          paint[ptype] = doc.documentElement;
+        }
         this.defs.removeChild(this.grad);
         this.grad = this.defs.appendChild(paint[ptype]);
         var id = this.grad.id = 'gradbox_' + this.type;
