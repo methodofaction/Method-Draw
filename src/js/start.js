@@ -68,7 +68,10 @@ editor.modal = {
   donate: new MD.Modal({
     html: `
       <h1>Donate</h1>
-      <p>Lorem ipsum dolor sit amet</p>`
+      <p>
+        Method Draw relies on your generous donations for continued development.
+        <a href="https://method.ac/donate/">Donate now</a> if you find this application useful.
+      </p>`
   }),
   shortcuts: new MD.Modal({
     html: `
@@ -79,6 +82,8 @@ editor.modal = {
     }
   })
 };
+
+editor.donate();
 
 editor.keyboard = new MD.Keyboard();
 
