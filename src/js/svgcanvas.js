@@ -4073,11 +4073,13 @@ var pathActions = canvas.pathActions = function() {
               var endseg = drawn_path.createSVGPathSegClosePath();
               seglist.appendItem(newseg);
               seglist.appendItem(endseg);
+              selectorManager.requestSelector(newpath).showGrips(true)
             } else if(len < 3) {
               keep = false;
               return keep;
             }
-            $(stretchy).remove();
+
+            stretchy.parentNode.removeChild(stretchy);
             
             // this will signal to commit the path
             element = newpath;

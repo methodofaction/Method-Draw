@@ -12,7 +12,7 @@ MD.Keyboard = function(){
     "z":     { name: "Zoom tool",           cb: ()=> state.set("canvasMode", "zoom")},
     "e":     { name: "Eyedropper tool",     cb: ()=> state.set("canvasMode", "eyedropper")},
     "x":     { name: "Switch fill/stroke",  cb: ()=> editor.switchPaint()},  
-    "alt":   { name: false,                 cb: ()=> $("#workarea").toggleClass("out", canvasMode === "zoom" )},  
+    "alt":   { name: false,                 cb: ()=> $("#workarea").toggleClass("out", state.get("canvasMode") === "zoom" )},  
     "cmd_s": { name: "Save SVG File",       cb: ()=> editor.save()},
     "cmd_z": { name: "Undo",                cb: ()=> editor.undo()},
     "cmd_y": { name: "Redo",                cb: ()=> editor.redo()},

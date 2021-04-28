@@ -84,7 +84,6 @@ editor.modal = {
 };
 
 editor.keyboard = new MD.Keyboard();
-
 editor.menu = new MD.Menu();
 editor.toolbar = new MD.Toolbar();
 editor.rulers = new MD.Rulers();
