@@ -80,8 +80,6 @@ editor.modal = {
   })
 };
 
-editor.source();
-
 editor.keyboard = new MD.Keyboard();
 
 editor.menu = new MD.Menu();
