@@ -115,10 +115,14 @@ MD.Editor = function(){
     svgCanvas.pathActions.reorient();
   }
 
-  function switchPaint(strokeOrFill) {
-    var stroke_rect = document.querySelector('#tool_stroke rect');
+  function focusPaint(){
     $("#tool_stroke").toggleClass('active')
     $("#tool_fill").toggleClass('active')
+  }
+
+  function switchPaint(strokeOrFill) {
+    focusPaint();
+    var stroke_rect = document.querySelector('#tool_stroke rect');
     var fill_rect = document.querySelector('#tool_fill rect');
     var fill_color = fill_rect.getAttribute("fill");
     var stroke_color = stroke_rect.getAttribute("fill");
@@ -340,6 +344,7 @@ MD.Editor = function(){
   this.contextChanged = contextChanged;
   this.elementTransition = elementTransition;
   this.switchPaint = switchPaint;
+  this.focusPaint = focusPaint;
   this.save = save;
   this.undo = undo;
   this.redo = redo;
