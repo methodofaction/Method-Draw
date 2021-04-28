@@ -83,8 +83,6 @@ editor.modal = {
   })
 };
 
-editor.donate();
-
 editor.keyboard = new MD.Keyboard();
 
 editor.menu = new MD.Menu();
