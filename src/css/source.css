@@ -1,0 +1,45 @@
+#svg_source_editor {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  margin: -48px;
+}
+
+#svg_source_container {
+  width: 800px;
+  position: relative;
+  height: 100%;
+}
+
+#svg_source_editor form {
+  position: absolute;
+  top: 0;
+  bottom: 55px;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+  background-color: #eee;
+  border-radius: 8px 8px 0 0;
+}
+
+#svg_source_textarea {
+  width: calc(100% - 64px);
+  height: calc(100% - 64px);
+  line-height: 140%;
+  font-family: var(--mono-font);
+  font-size: 14px;
+  color: #555;
+  border: none;
+  padding: 32px;
+  background-color: transparent;
+}
+
+#svg_source_editor #tool_source_back {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--x2) var(--x2);
+}

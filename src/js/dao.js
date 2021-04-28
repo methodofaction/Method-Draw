@@ -7,7 +7,7 @@ const dao = [
     label: "Canvas ID",
     type: "id",
     default: "",
-    private: false,
+    private: true,
     save: true
   },
 

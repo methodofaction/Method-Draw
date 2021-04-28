@@ -1,0 +1,25 @@
+#shortcuts {
+  columns: 4;
+}
+.shortcut-keys {
+  display: flex;
+  margin: var(--x1) 0;
+  break-inside: avoid;
+}
+
+.shortcut-key {
+  text-transform: uppercase;
+  color: var(--z4);
+  border: solid var(--z4) 1px;
+  border-radius: var(--x1);
+  padding: 0 var(--x1);
+  margin: 2px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.shortcut-name {
+  margin-left: var(--x2);
+  line-height: 160%;
+  white-space: nowrap;
+}

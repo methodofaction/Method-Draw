@@ -94,9 +94,6 @@ var clearSvgContentElement = canvas.clearSvgContentElement = function() {
     "xmlns:xlink": xlinkns
   }).appendTo(svgroot);
 
-  // TODO: make this string optional and set by the client
-  var comment = svgdoc.createComment(" Created with Method Draw - http://github.com/duopixel/Method-Draw/ ");
-  svgcontent.appendChild(comment);
 };
 clearSvgContentElement();
 

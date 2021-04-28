@@ -1,66 +1,47 @@
-MD.Modal = function(){
+MD.Modal = function(config){
 
-  var orig_source = false;
+  const el = document.createElement("div");
+  el.classList.add("modal", "hidden");
 
-  $("button.cancel, .overlay").on("click", cancelOverlays);
-  $("#tool_source").on("click", viewSource);
-  $("#tool_source_save").on("click", saveSource);
+  const item = document.createElement("div");
+  item.innerHTML = config.html;
+  item.classList.add("modal-item");
+  el.appendChild(item);
 
-  function viewSource(e, forSaving){
-    editor.menu.flash($('#view_menu'));
-    $('#save_output_btns').toggle(!!forSaving);
-    $('#tool_source_back').toggle(!forSaving);
-    orig_source = svgCanvas.getSvgString();
-    $('#svg_source_textarea').val(orig_source);
-    $('#svg_source_editor').fadeIn();
-    $('#svg_source_textarea').focus().select();
-  };
+  el.addEventListener("click", close);
+  
+  item.addEventListener("click", function(e){
+    e.stopPropagation();
+  });
 
-  function saveSource(){
-    var saveChanges = function() {
-      svgCanvas.clearSelection();
-      $('#svg_source_editor').hide();
-      $('#svg_source_textarea').blur();
-      editor.zoom.multiply(1);
-      editor.rulers.update();
-      editor.paintBox.fill.prep();
-      editor.paintBox.stroke.prep();
-    }
+  document.body.appendChild(el);
 
-    if (!svgCanvas.setSvgString($('#svg_source_textarea').val())) {
-      $.confirm("There were parsing errors in your SVG source.\nRevert back to original SVG source?", function(ok) {
-        if(!ok) return false;
-        saveChanges();
-      });
-    } else {
-      saveChanges();
-    }   
-  };
 
-  function cancelOverlays() {
-    $('#dialog_box').hide();
 
-    if (orig_source && orig_source !== $('#svg_source_textarea').val()) {
-      $.confirm("Ignore changes made to SVG source?", function(ok) {
-        if(ok) {
-          $('#svg_source_editor').hide();
-          $('#svg_source_textarea').blur();
-        };
-      });
-    } else {
-      $('#svg_source_editor').hide();
-      $('#svg_source_textarea').blur();
-    }
-  };
-
-  function isVisible(){
-    return $('#svg_source_editor').is(":visible");
+  function open(){
+    el.classList.remove("hidden");
   }
 
-  this.cancelOverlays = cancelOverlays;
-  this.isVisible = isVisible;
-  this.viewSource = viewSource;
-  this.saveSource = saveSource;
+  function close(){
+    el.classList.add("hidden");
+  }
 
+  function confirm(cb){
+    if (cb) cb();
+    close();
+  }
+
+  this.open = open;
+  this.close = close;
+  this.confirm = confirm;
+  this.cb = config.cb || function(){};
+  this.el = el;
+
+  if (config.js) {
+    const el = this.el;
+    config.js(el);
+  }
+
+  return this
 
 }

@@ -9,14 +9,14 @@
   var box = $('#dialog_box'), btn_holder = $('#dialog_buttons');
   
   var dbox = function(type, msg, callback, defText) {
-    $('#dialog_content').html('<p>'+msg.replace(/\n/g,'</p><p>')+'</p>')
+    $('#dialog_content').html(msg)
       .toggleClass('prompt',(type==='prompt'));
     btn_holder.empty();
     
     var ok = $('<input type="button" value="OK">').appendTo(btn_holder);
   
     if(type != 'alert') {
-      $('<input type="button" value="Cancel">')
+      $('<input type="button" class="cancel" value="Cancel">')
         .appendTo(btn_holder)
         .on("click touchstart", function() { box.hide();callback(false)});
     }

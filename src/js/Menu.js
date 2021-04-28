@@ -8,7 +8,9 @@ MD.Menu = function(){
   $('#tool_topath').on("click", editor.convertToPath);
   $('#tool_group').on("click", editor.groupSelected);
   $('#tool_ungroup').on("click", editor.ungroupSelected);
-
+  $('#tool_ungroup').on("click", editor.ungroupSelected);
+  if (window.location.host !== "editor.method.ac")
+    $('#modal_donate').hide();
   // top dropdown menus
   $('.menu_title')
     .on('mousedown', function() {

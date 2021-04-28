@@ -34,7 +34,7 @@ function State(){
 
   this.clean = (warn = true) => {
     if (warn) {
-      const confirmed = confirm("Deletes all configuration and text, are you sure?");
+      const confirmed = confirm("Clears all editor configuration and canvas, are you sure?");
       if (!confirmed) return;
     }
 

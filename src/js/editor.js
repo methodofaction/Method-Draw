@@ -9,7 +9,7 @@ MD.Editor = function(){
 
   function clear(){
     var dims = state.get("canvasSize");
-    $.confirm("<strong>Do you want to clear the drawing?</strong>\nThis will also erase your undo history", function(ok) {
+    $.confirm("<h4>Do you want to clear the drawing?</h4><p>This will also erase your undo history</p>", function(ok) {
       if(!ok) return;
       state.set("canvasMode", "select")
       svgCanvas.clear();
@@ -135,6 +135,7 @@ MD.Editor = function(){
   };
 
   function escapeMode(){
+    for (key in editor.modal) editor.modal[key].close();
     state.set("canvasMode", "select");
     state.set("canvasContent", svgCanvas.getSvgString())
   }
@@ -310,6 +311,29 @@ MD.Editor = function(){
     }
   }
 
+  function about(){
+    editor.modal.about.open();
+  }
+
+  function configure(){
+    //const props = dao.filter
+    editor.modal.configure.open();
+  }
+
+  function shortcuts(){
+    editor.modal.shortcuts.open();
+  }
+
+  function donate(){
+    editor.modal.donate.open();
+  }
+
+  function source(){
+    const textarea = editor.modal.source.el.querySelector("textarea");
+    textarea.value = svgCanvas.getSvgString();
+    editor.modal.source.open();
+  }
+
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;
@@ -340,6 +364,12 @@ MD.Editor = function(){
   this.toggleWireframe = toggleWireframe;
   this.groupSelected = groupSelected;
   this.ungroupSelected = ungroupSelected;
+  this.about = about;
+  this.configure = configure;
+  this.shortcuts = shortcuts;
+  this.donate = donate;
+  this.source = source;
+
   this.export = function(){ 
     if(window.canvg) {
         svgCanvas.rasterExport();

@@ -27,7 +27,6 @@
   font-size: 14px;
   color: white;
   font-weight: bold;
-  font-family: sans-serif;
 }
 
  .draginput label#resolution_label,  .draginput label#seg_type_label {
@@ -73,7 +72,6 @@
   padding: 0 5px;
   color: #333;
   z-index: 10;
-  font-family: sans-serif;
   font-weight: bold;
   text-align: right;
   padding-right: 10px;
