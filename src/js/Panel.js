@@ -97,7 +97,6 @@ MD.Panel = function(){
 
       $.fn.dragInput.updateCursor($('#stroke_width')[0])
       $.fn.dragInput.updateCursor($('#blur')[0])
-
     }
 
     function updateContextPanel(elems) {
@@ -162,7 +161,7 @@ MD.Panel = function(){
        $('#tool_angle_indicator').css("transform", "rotate("+angle+"deg)");
        var blurval = svgCanvas.getBlur(elem);
        $('#blur').val(blurval);
-       if(!isNode && currentMode != 'pathedit') {
+       if(!isNode && currentMode !== 'pathedit') {
          $('#selected_panel').show();
          $('.action_selected').removeClass('disabled');
          // Elements in this array already have coord fields

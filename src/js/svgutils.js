@@ -610,6 +610,7 @@ if (svgedit.browser.supportsSelectors()) {
 svgedit.utilities.assignAttributes = function(node, attrs, suspendLength, unitCheck) {
 
   for (var i in attrs) {
+    if (attrs[i] === NaN || attrs[i] === null) continue;
     var ns = (i.substr(0,4) === "xml:" ? XMLNS : 
       i.substr(0,6) === "xlink:" ? XLINKNS : null);
       

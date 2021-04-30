@@ -4624,7 +4624,7 @@ var pathActions = canvas.pathActions = function() {
       }
     },
     getNodePoint: function() {
-      if (!svgedit.path.path) return;
+      if (!svgedit.path.path || current_mode !== "pathedit") return;
       var sel_pt = svgedit.path.path.selected_pts.length ? svgedit.path.path.selected_pts[0] : 1;
       var seg = svgedit.path.path.segs[sel_pt];
       return {

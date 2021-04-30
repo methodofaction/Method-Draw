@@ -205,7 +205,6 @@ MD.Shapelib = function(){
           "style": "pointer-events:none"
         }
       });
-      console.log(current_d)
       cur_shape.setAttribute("d", current_d);
       // Make sure shape uses absolute values
       if(/[a-z]/.test(current_d)) {
