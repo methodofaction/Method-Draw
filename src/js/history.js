@@ -581,7 +581,7 @@ svgedit.history.UndoManager.prototype.beginUndoableChange = function(attrName, e
 svgedit.history.UndoManager.prototype.finishUndoableChange = function() {
   var p = this.undoChangeStackPointer--;
   var changeset = this.undoableChangeStack[p];
-  var i = changeset['elements'].length;
+  var i = changeset['elements'].filter(Boolean).length;
   var attrName = changeset['attrName'];
   var batchCmd = new svgedit.history.BatchCommand("Change " + attrName);
   while (i--) {
