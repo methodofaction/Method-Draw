@@ -936,9 +936,8 @@ this.setRotationAngle = function(val, preventUndo) {
 // Runs recalculateDimensions on the selected elements, 
 // adding the changes to a single batch command
 var recalculateAllSelectedDimensions = this.recalculateAllSelectedDimensions = function() {
-  var text = (current_resize_mode == "none" ? "position" : "size");
+  var text = (current_resize_mode === "none" ? "position" : "size");
   var batchCmd = new BatchCommand(text);
-
   var i = selectedElements.length;
   while(i--) {
     var elem = selectedElements[i];
@@ -1355,7 +1354,7 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
       tlist.appendItem(mt);
     }
   }
-  
+
   // If it still has a single [M] or [R][M], return null too (prevents BatchCommand from being returned).
   switch ( selected.tagName ) {
     // Ignore these elements, as they can absorb the [M]
@@ -2011,7 +2010,6 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
   }
   
   batchCmd.addSubCommand(new ChangeElementCommand(selected, initial));
-  
   return batchCmd;
 };
 
@@ -3143,7 +3141,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           var difference_x = Math.abs(real_x-r_start_x);
           var difference_y = Math.abs(real_y-r_start_y);
 
-          if (difference_y > 1 || difference_y > 1) {
+          if (difference_y > 1 || difference_x > 1) {
             var len = selectedElements.length;
             for (var i = 0; i < len; ++i) {
               if (selectedElements[i] == null) break;
@@ -3152,6 +3150,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
                 selectorManager.requestSelector(selectedElements[i]).resize();
               }
             }
+
           }
           // no change in position/size, so maybe we should move to pathedit
           else {
@@ -3167,6 +3166,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
             }
           } // no change in mouse position
           
+
           // Remove non-scaling stroke
           if(svgedit.browser.supportsNonScalingStroke()) {
             var elem = selectedElements[0];

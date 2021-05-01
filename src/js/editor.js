@@ -154,7 +154,6 @@ MD.Editor = function(){
   };
 
   function contextChanged(win, context) {
-  
     var link_str = '';
     if(context) {
       var str = '';
@@ -192,7 +191,7 @@ MD.Editor = function(){
       elems: elems
     });
 
-    //if (mode !== "pathedit")
+    if (!$("#cur_context_panel").is(":visible"))
       state.set("canvasContent", svgCanvas.getSvgString())
   }
 
