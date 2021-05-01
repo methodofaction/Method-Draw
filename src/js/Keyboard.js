@@ -59,7 +59,8 @@ MD.Keyboard = function(){
   };
 
   document.addEventListener("keydown", function(e){
-    if ($("#color_picker").is(":visible")) return e;
+    const exceptions = $(":focus").length || $("#color_picker").is(":visible");
+    if (exceptions) return false;
     const modKey = !svgedit.browser.isMac() ? "ctrlKey" : "metaKey";
     const cmd = e[modKey] ? "cmd_" : "";
     const shift = e.shiftKey ? "shift_" : "";
@@ -92,7 +93,6 @@ MD.Keyboard = function(){
       e.preventDefault();
       keys[key]();
     }
-
   })
 
   // modal shortcuts

@@ -141,7 +141,10 @@ MD.Editor = function(){
   function escapeMode(){
     for (key in editor.modal) editor.modal[key].close();
     state.set("canvasMode", "select");
-    state.set("canvasContent", svgCanvas.getSvgString())
+    if ($("#cur_context_panel").is(":visible"))
+      svgCanvas.leaveContext()
+    else
+      state.set("canvasContent", svgCanvas.getSvgString())
   }
 
   // called when we've selected a different element
@@ -191,6 +194,7 @@ MD.Editor = function(){
       elems: elems
     });
 
+    // todo svgCanvas.getCurrentContext is needed
     if (!$("#cur_context_panel").is(":visible"))
       state.set("canvasContent", svgCanvas.getSvgString())
   }
