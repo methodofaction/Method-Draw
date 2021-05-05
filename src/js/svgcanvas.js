@@ -6680,8 +6680,7 @@ this.setResolution = function(x, y) {
   var res = getResolution();
   var w = res.w, h = res.h;
   var batchCmd;
-
-  if(x == 'fit') {
+  if(x === 'fit') {
     // Get bounding box
     var bbox = getStrokedBBox();
     
@@ -6705,7 +6704,7 @@ this.setResolution = function(x, y) {
       return false;
     }
   }
-  if (x != w || y != h) {
+  if (x !== w || y !== h) {
     if(!batchCmd) {
       batchCmd = new BatchCommand("Change Image Dimensions");
     }

@@ -23,6 +23,7 @@ MD.Canvas = function(){
         h.value = 100
       }
     } else if(this.value === 'content') {
+      $('#resolution_label').html("Custom");
       w.value = 'fit'
       h.value = 'fit'
       changeSize();
@@ -62,13 +63,12 @@ MD.Canvas = function(){
   });
 
   function resize(w, h){
-    el.style.width = w + "px";
-    el.style.height = h + "px";
-    svgCanvas.contentW = w;
-    svgCanvas.contentH = h;
-    svgCanvas.updateCanvas(w, h);
+    const res = svgCanvas.setResolution(w, h);
+    if (!res) return $.alert("No content to fit to");
+    if (w === 'fit' || h === 'fit') state.set("canvasSize", res);
     $("#canvas_width").val(w);
     $("#canvas_height").val(h);
+    state.set("canvasContent", svgCanvas.getSvgString());
   }
 
   function changeSize(){
