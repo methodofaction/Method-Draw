@@ -55,7 +55,6 @@ MD.Rulers = function(){
   }
 
   function update(zoom) {
-    console.log("happens")
     const gray = getComputedStyle(document.body).getPropertyValue('--z6') || "#999";
     if(!zoom) zoom = svgCanvas.getZoom();
     var limit = 30000;
@@ -73,7 +72,6 @@ MD.Rulers = function(){
     
       // Set the canvas size to the width of the container
       var ruler_len = svgcanvas[lentype === "width" ? "offsetWidth" : "offsetHeight"];
-      console.log(ruler_len)
       var total_len = ruler_len;
       hcanv.parentNode.style[lentype] = total_len + 'px';
       
