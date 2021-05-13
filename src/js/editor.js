@@ -141,8 +141,9 @@ MD.Editor = function(){
   function escapeMode(){
     for (key in editor.modal) editor.modal[key].close();
     state.set("canvasMode", "select");
-    if ($("#cur_context_panel").is(":visible"))
+    if ($("#cur_context_panel").is(":visible")) {
       svgCanvas.leaveContext()
+    }
     else
       state.set("canvasContent", svgCanvas.getSvgString())
   }
@@ -194,8 +195,7 @@ MD.Editor = function(){
       elems: elems
     });
 
-    // todo svgCanvas.getCurrentContext is needed
-    if (!$("#cur_context_panel").is(":visible"))
+    if (!svgCanvas.getContext())
       state.set("canvasContent", svgCanvas.getSvgString())
   }
 
@@ -203,7 +203,7 @@ MD.Editor = function(){
     if (attr === "opacity") value *= 0.01;
     if (completed) {
       svgCanvas.changeSelectedAttribute(attr, value);
-      state.set("canvasContent", serializer.serializeToString(svgCanvas.getContentElem()));
+      state.set("canvasContent", svgCanvas.getSvgString());
     }
     else svgCanvas.changeSelectedAttributeNoUndo(attr, value);      
   }

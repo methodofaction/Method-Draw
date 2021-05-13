@@ -1,6 +1,7 @@
 // globals
 const svgCanvas = new $.SvgCanvas(document.getElementById("svgcanvas"));
 const editor = new MD.Editor();
+const state = new State();
 
 editor.modal = {
   about: new MD.Modal({
@@ -113,10 +114,8 @@ svgCanvas.bind("extension_added", editor.extensionAdded);
 svgCanvas.textActions.setInputElem($("#text")[0]);
 const shapeLib = svgCanvas.addExtension.apply(this, ["shapes", MD.Shapelib]);
 const eyedropper = svgCanvas.addExtension.apply(this, ["eyedropper", MD.Eyedropper]);
-const state = new State();
 state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));
-state.set("canvasSize", state.get("canvasSize"));
 svgCanvas.setSvgString(state.get("canvasContent"));
 editor.paintBox.fill.setPaint(state.get("canvasFill"));
 editor.paintBox.stroke.setPaint(state.get("canvasStroke"));

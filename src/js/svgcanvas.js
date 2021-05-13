@@ -6461,6 +6461,13 @@ var leaveContext = this.leaveContext = function() {
   current_group = null;
 }
 
+// Function: getContext
+// Get the current context (in-group editing)
+var getContext = this.getContext = function() {
+  return current_group;
+}
+
+
 // Function: setContext
 // Set the current context (for in-group editing)
 var setContext = this.setContext = function(elem) {
