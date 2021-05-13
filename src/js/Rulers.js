@@ -2,6 +2,11 @@ MD.Rulers = function(){
 
   $('#tool_rulers').on("click", toggleRulers);
 
+  const workarea = document.getElementById("workarea");
+  const svgcanvas = document.getElementById("svgcanvas");
+  const ruler_x = document.getElementById("ruler_x");
+  const ruler_y = document.getElementById("ruler_y");
+
   function toggleRulers(){
     editor.menu.flash($('#view_menu'));
     var rulers = !$('#tool_rulers').hasClass('push_button_pressed');
@@ -23,9 +28,9 @@ MD.Rulers = function(){
     state.set("canvasRulers", false);
   }
 
-  workarea.scroll(function() {
-    $('#ruler_x')[0].scrollLeft = workarea[0].scrollLeft;
-    $('#ruler_y')[0].scrollTop = workarea[0].scrollTop; 
+  workarea.addEventListener("scroll", function() {
+    ruler_x.scrollLeft = workarea.scrollLeft;
+    ruler_y.scrollTop = workarea.scrollTop; 
   });
 
   var r_intervals = [];
@@ -36,14 +41,8 @@ MD.Rulers = function(){
   }
 
   function update(zoom) {
-
-    var workarea = document.getElementById("workarea");
-    var title_show = document.getElementById("title_show");
-    var offset_x = 66;
-    var offset_y = 48;
+    const gray = getComputedStyle(document.body).getPropertyValue('--z6') || "#999";
     if(!zoom) zoom = svgCanvas.getZoom();
-    const scanvas = $("#svgcanvas");
-    
     var limit = 30000;
     var c_elem = svgCanvas.getContentElem();    
     var units = svgedit.units.getTypeMap();
@@ -54,18 +53,12 @@ MD.Rulers = function(){
       var dim = is_x ? 'x' : 'y';
       var lentype = is_x ?'width':'height';
       var notlentype = is_x ?'height':'width';
-      var content_d = c_elem.getAttribute(dim)-0;
+      var content_d = c_elem.getAttribute(dim);
       
-      var $hcanv_orig = $('#ruler_' + dim + ' canvas:first');
-      
-      // Bit of a hack to fully clear the canvas in Safari & IE9
-      $hcanv = $hcanv_orig.clone();
-      $hcanv_orig.replaceWith($hcanv);
-      
-      var hcanv = $hcanv[0];
-      
+      var hcanv = document.querySelector('#ruler_' + dim + ' canvas');
+    
       // Set the canvas size to the width of the container
-      var ruler_len = scanvas[lentype]()*2;
+      var ruler_len = svgcanvas[lentype === "width" ? "offsetWidth" : "offsetHeight"]*2;
       var total_len = ruler_len;
       hcanv.parentNode.style[lentype] = total_len + 'px';
       
@@ -73,18 +66,16 @@ MD.Rulers = function(){
       var ctx_num = 0;
       var ctx_arr;
       var ctx = hcanv.getContext("2d");
-      var scale = window.devicePixelRatio || 1;
+      var scale = window.devicePixelRatio*2 || 1;
       hcanv.style[lentype] = total_len + "px";
       hcanv.style[notlentype] = 15 + "px";
       hcanv[lentype] = Math.floor(total_len * scale);
       hcanv[notlentype] = Math.floor(15 * scale);
       ctx.scale(scale,scale);
-
-      ctx.fillStyle = "rgb(200,0,0)"; 
       ctx.fillRect(0,0,hcanv.width/scale,hcanv.height/scale); 
       
       // Remove any existing canvasses
-      $hcanv.siblings().remove();
+      $(hcanv).siblings().remove();
       
       // Create multiple canvases when necessary (due to browser limits)
       if(ruler_len >= limit) {
@@ -120,17 +111,18 @@ MD.Rulers = function(){
       }
       
       var big_int = multi * u_multi;
-      ctx.font = "normal 9px 'Verdana', sans-serif";
-      ctx.fillStyle = "#777";
+      ctx.font = "600 9px -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif";
+      ctx.fillStyle = gray;
+      ctx.strokeStyle = gray;
       ctx.scale(scale,scale);
 
-      var ruler_d = ((content_d / u_multi) % multi) * u_multi;
+      var ruler_d = ((content_d / u_multi) % multi) * u_multi - 50;
       var label_pos = ruler_d - big_int;
       for (; ruler_d < total_len; ruler_d += big_int) {
         label_pos += big_int;
         var real_d = ruler_d - content_d;
 
-        var cur_d = Math.round(ruler_d) + .5;
+        var cur_d = Math.round(ruler_d);
         if(is_x) {
           ctx.moveTo(cur_d, 15);
           ctx.lineTo(cur_d, 0);
@@ -155,12 +147,12 @@ MD.Rulers = function(){
         
         if(is_x) {
           ctx.fillText(label, ruler_d+2, 8);
-          ctx.fillStyle = "#777";
+          ctx.fillStyle = gray;
         } else {
           var str = (label+'').split('');
           for(var i = 0; i < str.length; i++) {
             ctx.fillText(str[i], 1, (ruler_d+9) + i*9);
-            ctx.fillStyle = "#777";
+            ctx.fillStyle = gray;
           }
         }
         
@@ -190,7 +182,7 @@ MD.Rulers = function(){
           }
         }
       }
-      ctx.strokeStyle = "#666";
+      ctx.strokeStyle = gray;
       ctx.stroke();
     }
   }

@@ -10,21 +10,21 @@
   color: #fff;
 }
 
- #menu_bar {
+#menu_bar {
   padding: 0 0 0 50px;
-  background: #2f2f2c;
+  background: var(--z1);
   position: relative;
   z-index: 2;
 }
 
- #menu_bar.active .menu.open .menu_list {
+#menu_bar.active .menu.open .menu_list {
   display: block;
 }
 
- .menu {
+.menu {
   position: relative;
   z-index: 5;
-  color: #333;
+  color: var(--z3);
   display: inline-block;
 }
 
@@ -33,34 +33,28 @@
   display: inline-block;
   padding: 7px 10px;
   z-index: 10;
-  color: #fff;
+  color: var(--z15);
   position: relative;
   height: 16px;
   vertical-align: top;
 }
 
-.touch   .menu_title { 
-  padding: 7px 17px;
-  height: 26px;
-  line-height: 26px;
-}
-
- .menu .menu_title:hover {
+.menu .menu_title:hover {
   background: rgba(255,255,255,0.1);
 }
 
- .menu_list .separator {
+.menu_list .separator {
   margin: 5px 0;
-  border-top: solid #ddd 1px;
+  border-top: solid var(--z14) 1px;
 }
 
- .menu_list {
+.menu_list {
   display: none;
   position: absolute;
   top: 28px;
   left: 0;
   white-space: nowrap;
-  background: white;
+  background: var(--z15);
   padding: 7px 0;
   border-radius: 0 3px 3px 3px;
   box-shadow: 0 0 20px rgba(0,0,0,0.8);
@@ -70,7 +64,7 @@
   top: 38px;
 }
 
- #menu_bar.active .menu.open .menu_title {
+#menu_bar.active .menu.open .menu_title {
   background: white;
   color: #333;
 }
@@ -80,13 +74,13 @@
   position: absolute;
 }
 
- .menu_list .menu_item {
+.menu_list .menu_item {
   position: relative;
   overflow: hidden;
   line-height: 22px;
   padding: 5px 69px 5px 25px;
   cursor: default;
-  color: #333;
+  color: var(--z3);
 }
 
 .menu_list .menu_item.tool_button {
@@ -98,7 +92,7 @@
   width: auto;
 }
 
- .menu_list .menu_item.push_button_pressed:before {
+.menu_list .menu_item.push_button_pressed:before {
   content: '✔';
   position: absolute;
   display: block;
@@ -108,35 +102,41 @@
   height: 20px;
 }
 
- .menu_list .menu_item:hover,
- .menu_list .menu_item.push_button_pressed:hover {
-  background: var(--a14);
+.menu_list .menu_item:hover,
+.menu_list .menu_item.push_button_pressed:hover {
+  background: var(--d15);
   color: #000;
 }
 
- .menu_list .menu_item.disabled:hover,
- .menu_list .menu_item.push_button_pressed.disabled:hover {
+.menu_list .menu_item.disabled:hover,
+.menu_list .menu_item.push_button_pressed.disabled:hover {
   background: transparent;
-  color: #333;
+  color: var(--z3);
 }
 
- .menu_list .menu_item.push_button_pressed {
- background: transparent;
- border: none; 
- width: auto;
- height: auto;
- margin: 0;
+.menu_list .menu_item.push_button_pressed {
+  background: transparent;
+  border: none; 
+  width: auto;
+  height: auto;
+  margin: 0;
 }
 
- .menu_list .menu_item span {
+.menu_list .menu_item span {
   display: block;
   position: absolute;
-  right: 10px;
-  padding: 5px;
-  background: rgba(0,0,0, 0.1);
-  top: 6px;
-  height: 10px;
+  right: var(--x2);
+  padding: 0 var(--x1);
+  background: var(--z14);
+  top: 50%;
+  transform: translate(0, -50%);
   text-align: center;
-  font-size: 10px;
-  line-height: 120%;
+  font-size: 11px;
+  line-height: var(--x6);
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.menu_list .menu_item:not(.disabled):hover span {
+  background: var(--d13);
 }

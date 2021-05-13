@@ -4,26 +4,26 @@
   float: left;
 }
 
- .dropdown button {
+.dropdown button {
   width: 21px;
   height: 22px;
   padding: 0 3px 0 3px;
   border: none;
-  background-color: #555;
+  background-color: var(--z6);
   border-radius: 0 2px 2px 0;
   margin-left: -1px;
   position: relative;
 }
 
  .dropdown button:hover {
-  background-color: #666;
+  background-color: var(--z7);
 }
 
  .dropdown button:after {
   content: '';
   position: absolute;
   border: solid transparent 4px;
-  border-top-color: #999;
+  border-top-color: var(--z9);
   top: 9px;
   left: 6px;
 }

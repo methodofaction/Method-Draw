@@ -1,8 +1,6 @@
-
- .draginput {
-  background: #3f3f3c;
+.draginput {
+  background: var(--z2);
   border-radius: 3px;
-  -webkit-font-smoothing: antialiased;
   width: 70px;
   height: 70px;
   display: block;
@@ -13,7 +11,7 @@
 
  .draginput .caret {
   border: solid transparent 5px;
-  border-top-color: #999;
+  border-top-color: var(--z9);
   position: absolute;
   width: 0;
   height: 0;
@@ -22,14 +20,14 @@
   top: 50%;
 }
 
- .draginput label {
+.draginput label {
   margin: 28px 10px 0 5px;
   font-size: 14px;
-  color: white;
+  color: var(--z15);
   font-weight: bold;
 }
 
- .draginput label#resolution_label,  .draginput label#seg_type_label {
+.draginput label#resolution_label,  .draginput label#seg_type_label {
   font: bold 12px/110% sans-serif;
   position: absolute;
   left: auto;
@@ -38,20 +36,20 @@
   text-align: right;
 }
 
-  .draginput label#seg_type_label {
+.draginput label#seg_type_label {
   margin-top: 40px;
 }
 
-  .draginput label#seg_type_label .caret {
+.draginput label#seg_type_label .caret {
   top: 66%;
 }
 
- .draginput label#resolution_label .pull {
+.draginput label#resolution_label .pull {
   position: relative;
   left: -15px;
 }
 
- .draginput label#resolution_label span {
+.draginput label#resolution_label span {
   right: -13px;
   left: auto;
   font-size: 16px;
@@ -60,43 +58,12 @@
   color: white;
 }
 
-.touch  .draginput.active:after {
-  content: attr(data-value);
-  display: block;
-  position: absolute;
-  background: #fff;
-  font-size: 16px;
-  top: 0;
-  width: 30px;
-  left: -50px;
-  padding: 0 5px;
-  color: #333;
-  z-index: 10;
-  font-weight: bold;
-  text-align: right;
-  padding-right: 10px;
-  height: 20px;
-  line-height: 20px;
-  letter-spacing: -1px;
-}
-
-.touch  .draginput.active:before {
-  content: '';
-  height: 0;
-  width: 0;
-  position: absolute;
-  top: 5px;
-  left: -5px;
-  border: solid transparent 5px;
-  border-left-color: #fff;
-}
-
- .draginput input {
+.draginput input {
   border: none;
   background: transparent;
   font: 24px/normal sans-serif;
   text-align: center;
-  color: #4F80FF;
+  color: var(--d7);
   padding: 30px 0 16px;
   width: 100%;
   height: 24px;
@@ -133,29 +100,27 @@
 }
 
 .draginput input:invalid {
-  color: #f33;
+  color: var(--a7);
+}
+
+.draginput.error {
+  background-color: var(--a7);
+  color: var(--a15);
 }
 
 .draginput span {
   font: 12px/130% sans-serif;
-  color: #ccc;
+  color: var(--z8);
   display: block;
   position: absolute;
   top: 5px;
   left: 5px;
   text-align: left;
   white-space: nowrap;
+  z-index: 1;
 }
 
- .draginput.error {
-  background: #900;
-}
-
- .draginput.error input {
-  color: #fff;
-}
-
- .draginput.stroke_tool {
+.draginput.stroke_tool {
   text-align: center;
 }
 
@@ -172,17 +137,16 @@
   left: 0;  
 }
 
-
 .draginput_cursor{
   position: absolute;
   top: 50%;
   width: 100%;
-  border-top: solid rgba(50,100,200,0.25) 3px;
+  border-top: solid var(--d2) 3px;
   margin-top: -2px;
   z-index: 0;
 }
 
- .draginput input[readonly=readonly] {
+.draginput input[readonly=readonly] {
   -webkit-appearance: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -192,17 +156,16 @@
   user-select: none;
 }
 
-
- .draginput input:focus {
-  background: #50A0FF;
-  color: #fff;
+.draginput input:focus {
+  background: var(--d7);
+  color: var(--d15);
   outline: none;
-  box-shadow: 0 0 5px 2px #50A0FF;
+  box-shadow: 0 0 5px 2px var(--d7);
 }
 
  .draginput input:focus+span {
   z-index: 10;
-  color:#fff;
+  color: var(--z15);
 }
 
 .draginput .push_bottom {

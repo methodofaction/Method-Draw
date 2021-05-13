@@ -1,3 +1,76 @@
+#color_tools #tool_fill .color_block > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.touch  #color_tools #tool_fill .color_block > div {
+  position: relative;
+}
+
+ #color_tools #tool_fill .color_block #fill_bg,  #color_tools #tool_stroke .color_block #stroke_bg {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
+}
+
+#stroke_color:after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 8px;
+  height: 8px;
+  left: 8px;
+  top: 8px;
+  background: var(--z9);
+  box-shadow: 0 0 0 1px var(--z0);
+}
+
+#tool_switch {
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  top: -5px;
+  left: 30px;
+  cursor: nwse-resize
+}
+
+#tool_switch svg {
+  fill: var(--z10);
+}
+
+#tool_switch:hover svg {
+    fill: var(--z15);
+}
+
+#tool_stroke:hover #stroke_color:after {
+  background: var(--z15);
+}
+
+.color_block {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border: solid #ccc 1px;
+}
+
+.color_block:hover {
+  border-color: #fff;
+}
+
+.color_block svg {
+  width: 24px;
+  height: 24px;
+}
+
+ #tool_stroke .color_block > div {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
 #color_tools {
   position: relative;
@@ -18,15 +91,8 @@
   z-index: 1;
 }
 
-.touch #tool_fill {
-    position: static;
-    width: 36px;
-    height: 36px;
-    margin-bottom: 10px;
-}
-
-
-#tool_fill.active, #tool_stroke.active {
+#tool_fill.active, 
+#tool_stroke.active {
   z-index: 2;
 }
 
@@ -35,52 +101,18 @@
   left: 14px;
 }
 
-.touch #tool_fill.active, .touch #tool_stroke.active {
-  outline: 4px solid #09f;
-}
-
 #tool_fill, #tool_stroke, #tool_canvas {
-  box-shadow: 0 0 0 1px #2f2f2c;
+  box-shadow: 0 0 0 1px var(--z0);
   position: absolute;
 }
 
-.touch #tool_fill, .touch #tool_stroke, .touch #tool_canvas {
-  position: relative;
-  top: 0;
-  left: 0;
+#tool_canvas .color_block {
+  width: 100%;
+  height: 100%;
 }
 
-#color_canvas_tools {
-  float: left;
-  cursor: pointer;
+#tool_canvas .color_block svg {
+  width: auto;
+  height: auto;
 }
 
-#tool_fill .color_block {
-  width: 24px;
-  height: 24px;
-  overflow: hidden;
-  border: solid #ccc 1px;
-}
-
-#tool_fill .color_block svg {
-  width: 24px;
-  height: 24px;
-}
-
-.touch  #tool_eyedropper {
-  margin-top: 6px;
-}
-
-.touch #tool_fill .color_block {
-  width: 36px;
-  height: 36px;
-}
-
-.touch #tool_fill .color_block svg {
-  width: 36px !important;
-  height: 36px !important;
-}
-
-.touch  #tool_switch {
-  display: none;
-} 

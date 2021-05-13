@@ -3,40 +3,13 @@
 .contextMenu {
   position: absolute;
   z-index: 99999;
-  border: solid 1px rgba(0,0,0,.33);
-  background: rgba(255,255,255,.95);
+  background: var(--z15);
   padding: 5px 0;
   margin: 0px;
   display: none;
   font: 14px/18px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
   border-radius: 5px;
-  -moz-border-radius: 5px;
-  -moz-box-shadow: 2px 5px 10px rgba(0,0,0,.3);
-  -webkit-box-shadow: 2px 5px 10px rgba(0,0,0,.3);
   box-shadow: 2px 5px 10px rgba(0,0,0,.3);
-}
-
-.touch .contextMenu {
-  border: solid 5px rgba(0,0,0,.7);
-  padding: 0;
-  margin: 0 0 0 20px;
-  font: 18px/24px sans-serif;
-  border-radius: 5px;
-  -webkit-box-shadow: 2px 5px 20px 3px #000;
-  box-shadow: 2px 5px 20px rgba(0,0,0,0.5);
-}
-
-.touch .contextMenu:after {
-  content: '';
-  width: 0;
-  height: 0;
-  border: solid transparent 10px;
-  border-right-color: rgba(0,0,0,.7);
-  position: absolute;
-  top: 50%;
-  left: -25px;
-  margin-top: -10px;
-  z-index: 1000;
 }
 
 .contextMenu LI {
@@ -51,16 +24,10 @@
   float:right;
 }
 
-.touch .contextMenu .shortcut {
-  display: none;
-}
-
-
-
 .contextMenu A {
   -moz-user-select: none;
   -webkit-user-select: none;
-  color: #222;
+  color: var(--z2);
   text-decoration: none;
   display: block;
   line-height: 20px;
@@ -71,29 +38,14 @@
   padding: 0px 15px 1px 20px;
 }
 
-.touch .contextMenu A {
-  padding: 0 15px;
-  border-bottom: #;
-  font-weight: bold;
-  border-top: solid 1px #E3E3E3;
-  height: 40px;
-  line-height: 40px;
-  min-width: 200px;
-}
-
 .contextMenu LI.hover A {
-  background-color: #2e5dea;
-  color: white;
+  background-color: var(--d7);
+  color: var(--z15);
   cursor: default;
 }
 
 .contextMenu LI.disabled A {
   color: #999;
-
-}
-
-.touch .contextMenu LI.disabled A {
-  display: none;
 }
 
 .contextMenu LI.hover.disabled A {
@@ -104,10 +56,4 @@
   border-top: solid 1px #E3E3E3;
   padding-top: 5px;
   margin-top: 5px;
-}
-
-.touch .contextMenu LI.separator {
-  border-top: none;
-  margin: 0;
-  padding: 0;
 }

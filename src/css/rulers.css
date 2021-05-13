@@ -1,7 +1,7 @@
 
 #rulers > div {
   position: absolute;
-  background: #2f2f2c;
+  background: var(--z2);
   z-index: 1;
   overflow: hidden;
   -webkit-font-smoothing: none;
@@ -10,9 +10,8 @@
 #rulers #ruler_corner {
   top: 30px;
   left: 50px;
-  width: 15px;
-  height: 15px;
-  border: solid #444 1px;
+  width: var(--x4);
+  height: var(--x4);
   z-index: 2;
 }
 
@@ -21,22 +20,7 @@
   top: 30px;
   left: 66px;
   right: 175px;
-  border-top: solid #444 1px;
-  border-right: solid #444 1px;
-}
-
-#ruler_x_cursor {
-  height: 15px;
-  border-right: dotted #999 1px;
-  position: absolute;
-  background: #2f2f2c;
-}
-
-#ruler_y_cursor {
-  width: 15px;
-  border-top: dotted #999 1px;
-  position: absolute;
-  background: #2f2f2c;
+  
 }
 
 #rulers.moved #ruler_corner,
@@ -49,14 +33,11 @@
   top: 46px;
   left: 50px;
   bottom: 40px;
-  border-left: solid #444 1px;
-  border-bottom: solid #444 1px;
 }
 
 #rulers.moved #ruler_y {
   top: 116px;
 }
-
 
 #ruler_x canvas:first-child {
   margin-left: -16px;

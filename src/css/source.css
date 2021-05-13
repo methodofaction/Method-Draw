@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   font-size: 14px;
-  background-color: #eee;
+  background-color: var(--z14);
   border-radius: 8px 8px 0 0;
 }
 
@@ -28,7 +28,7 @@
   line-height: 140%;
   font-family: var(--mono-font);
   font-size: 14px;
-  color: #555;
+  color: var(--z4);
   border: none;
   padding: 32px;
   background-color: transparent;
