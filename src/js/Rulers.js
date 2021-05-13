@@ -6,8 +6,8 @@ MD.Rulers = function(){
   const svgcanvas = document.getElementById("svgcanvas");
   const ruler_x = document.getElementById("ruler_x");
   const ruler_y = document.getElementById("ruler_y");
-  ruler_x.appendChild(document.createElement("canvas"));
-  ruler_y.appendChild(document.createElement("canvas"));
+  
+  $("#ruler_x, #ruler_y").append("<div><canvas></canvas></div>");
 
   function clear(){
     ruler_x.innerHTML = "";
