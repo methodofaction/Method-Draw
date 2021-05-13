@@ -1,4 +1,3 @@
-
 #rulers > div {
   position: absolute;
   background: var(--z2);
@@ -9,46 +8,28 @@
 
 #rulers #ruler_corner {
   top: 30px;
-  left: 50px;
+  left: var(--x12);
   width: var(--x4);
   height: var(--x4);
   z-index: 2;
 }
 
 #ruler_x {
-  height: 15px;
+  height: var(--x4);
   top: 30px;
-  left: 66px;
+  left: var(--x12);
+  margin-left: 2px;
   right: 175px;
-  
-}
-
-#rulers.moved #ruler_corner,
-#rulers.moved #ruler_x {
-  top: 101px;
+  overflow: hidden;
 }
 
 #ruler_y {
-  width: 15px;
-  top: 46px;
-  left: 50px;
-  bottom: 40px;
-}
-
-#rulers.moved #ruler_y {
-  top: 116px;
-}
-
-#ruler_x canvas:first-child {
-  margin-left: -16px;
-}
-
-#ruler_x canvas {
-  float: left;
-}
-
-#ruler_y canvas {
-  margin-top: -16px;
+  width: var(--x4);
+  top: var(--x8);
+  margin-top: -2px;
+  left: var(--x12);
+  bottom: var(--x10);
+  overflow: hidden;
 }
 
 #ruler_x > div, 

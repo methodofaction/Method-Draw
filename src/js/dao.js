@@ -128,7 +128,7 @@ const dao = [
     private: true,
     save: true,
   },
-  // english or spanish, set by the browser
+  // future use
   {
     name: "language",
     label: "Language",
@@ -137,7 +137,7 @@ const dao = [
     private: true,
     save: true,
   },
-  // if it is the first time visitor we onboard them
+  // if it is the first time visitor we can onboard them
   {
     name: "visited",
     label: "Has visited before",
@@ -147,17 +147,6 @@ const dao = [
     save: true,
   },
 
-  // how many seconds have passed since the user moved the mouse
-  // mostly for hiding UI, but we could also use it for exercises
-  // where we want to force keyboard usage to edit, for example
-  {
-    name: "mouseIdle",
-    label: "Mouse Idle",
-    type: "number",
-    default: false,
-    private: true,
-    save: false,
-  },
 ];
 
 dao.forEach(thing => {

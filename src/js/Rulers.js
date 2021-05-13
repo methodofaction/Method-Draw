@@ -6,6 +6,15 @@ MD.Rulers = function(){
   const svgcanvas = document.getElementById("svgcanvas");
   const ruler_x = document.getElementById("ruler_x");
   const ruler_y = document.getElementById("ruler_y");
+  ruler_x.appendChild(document.createElement("canvas"));
+  ruler_y.appendChild(document.createElement("canvas"));
+
+  function clear(){
+    ruler_x.innerHTML = "";
+    ruler_y.innerHTML = "";
+    ruler_x.appendChild(canvas_x);
+    ruler_y.appendChild(canvas_y);
+  }
 
   function toggleRulers(){
     editor.menu.flash($('#view_menu'));
@@ -33,6 +42,11 @@ MD.Rulers = function(){
     ruler_y.scrollTop = workarea.scrollTop; 
   });
 
+  window.addEventListener("resize", function(){
+    editor.canvas.update();
+    update();
+  })
+
   var r_intervals = [];
   for(var i = .1; i < 1E5; i *= 10) {
     r_intervals.push(1 * i);
@@ -41,11 +55,11 @@ MD.Rulers = function(){
   }
 
   function update(zoom) {
+    console.log("happens")
     const gray = getComputedStyle(document.body).getPropertyValue('--z6') || "#999";
     if(!zoom) zoom = svgCanvas.getZoom();
     var limit = 30000;
     var c_elem = svgCanvas.getContentElem();    
-    var units = svgedit.units.getTypeMap();
     var unit = 1;
 
     for(var d = 0; d < 2; d++) {
@@ -58,7 +72,8 @@ MD.Rulers = function(){
       var hcanv = document.querySelector('#ruler_' + dim + ' canvas');
     
       // Set the canvas size to the width of the container
-      var ruler_len = svgcanvas[lentype === "width" ? "offsetWidth" : "offsetHeight"]*2;
+      var ruler_len = svgcanvas[lentype === "width" ? "offsetWidth" : "offsetHeight"];
+      console.log(ruler_len)
       var total_len = ruler_len;
       hcanv.parentNode.style[lentype] = total_len + 'px';
       
@@ -68,11 +83,10 @@ MD.Rulers = function(){
       var ctx = hcanv.getContext("2d");
       var scale = window.devicePixelRatio*2 || 1;
       hcanv.style[lentype] = total_len + "px";
-      hcanv.style[notlentype] = 15 + "px";
+      hcanv.style[notlentype] = 16 + "px";
       hcanv[lentype] = Math.floor(total_len * scale);
-      hcanv[notlentype] = Math.floor(15 * scale);
+      hcanv[notlentype] = Math.floor(16 * scale);
       ctx.scale(scale,scale);
-      ctx.fillRect(0,0,hcanv.width/scale,hcanv.height/scale); 
       
       // Remove any existing canvasses
       $(hcanv).siblings().remove();
@@ -115,7 +129,6 @@ MD.Rulers = function(){
       ctx.fillStyle = gray;
       ctx.strokeStyle = gray;
       ctx.scale(scale,scale);
-
       var ruler_d = ((content_d / u_multi) % multi) * u_multi - 50;
       var label_pos = ruler_d - big_int;
       for (; ruler_d < total_len; ruler_d += big_int) {
@@ -124,10 +137,10 @@ MD.Rulers = function(){
 
         var cur_d = Math.round(ruler_d);
         if(is_x) {
-          ctx.moveTo(cur_d, 15);
+          ctx.moveTo(cur_d, 16);
           ctx.lineTo(cur_d, 0);
         } else {
-          ctx.moveTo(15, cur_d);
+          ctx.moveTo(16, cur_d);
           ctx.lineTo(0, cur_d);
         }
 
