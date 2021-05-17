@@ -11,7 +11,7 @@
 }
 
 #menu_bar {
-  padding: 0 0 0 50px;
+  padding: 0 0 0 var(--x12);
   background: var(--z1);
   position: relative;
   z-index: 2;
