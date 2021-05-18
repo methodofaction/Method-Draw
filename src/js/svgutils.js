@@ -319,13 +319,14 @@ svgedit.utilities.getUrlFromAttr = function(attrVal) {
 // Function: svgedit.utilities.getHref
 // Returns the given element's xlink:href value
 svgedit.utilities.getHref = function(elem) {
-  if (elem) return elem.getAttributeNS(XLINKNS, "href");
+  if (elem) return elem.getAttributeNS(XLINKNS, "href") || elem.getAttribute("href");
 }
 
 // Function: svgedit.utilities.setHref
 // Sets the given element's xlink:href value
 svgedit.utilities.setHref = function(elem, val) {
   elem.setAttributeNS(XLINKNS, "xlink:href", val);
+  elem.setAttribute("href", val);
 }
 
 // Function: findDefs
