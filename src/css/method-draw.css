@@ -16,10 +16,13 @@ body {
 ::selection {background: #000; color: #fff; /* Safari */}
 ::-moz-selection {background: #000; color: #fff; /* Firefox */}
 
+
+
 html, body {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+  overscroll-behavior-x: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 ::-webkit-scrollbar {
