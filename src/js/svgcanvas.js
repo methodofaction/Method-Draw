@@ -5786,6 +5786,8 @@ this.setSvgString = function(xmlString) {
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);
+    //var parser = new DOMParser();
+    //var newDoc = parser.parseFromString(stringContainingXMLSource, "image/svg+xml");
 
     this.prepareSvg(newDoc);
 

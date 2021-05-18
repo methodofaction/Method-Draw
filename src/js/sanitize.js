@@ -147,6 +147,7 @@ svgedit.sanitize.sanitizeSvg = function(node) {
     if(!node.nodeValue.length) node.parentNode.removeChild(node);
   }
   if (node.nodeType != 1) return;
+
   var doc = node.ownerDocument;
   var parent = node.parentNode;
   // can parent ever be null here?  I think the root node's parent is the document...
@@ -195,7 +196,7 @@ svgedit.sanitize.sanitizeSvg = function(node) {
       
       // for the style attribute, rewrite it in terms of XML presentational attributes
       if (attrName == "style") {
-        var props = attr.nodeValue.split(";"),
+        var props = attr.nodeValue.replace(' ', '').split(";"),
           p = props.length;
         while(p--) {
           var nv = props[p].split(":");
@@ -220,7 +221,7 @@ svgedit.sanitize.sanitizeSvg = function(node) {
        "radialGradient", "textPath", "use"].indexOf(node.nodeName) >= 0)
     {
       // TODO: we simply check if the first character is a #, is this bullet-proof?
-      if (href[0] != "#") {
+      if (href[0] !== "#") {
         // remove the attribute (but keep the element)
         svgedit.utilities.setHref(node, "");
         node.removeAttributeNS(xlinkns, "href");
