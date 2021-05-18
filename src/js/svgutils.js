@@ -219,7 +219,7 @@ svgedit.utilities.text2xml = function(sXML) {
   }
 
   if(sXML.indexOf('xlink:href') >= 0) {
-    sXML = sXML.replace('xlink:href', 'href');
+    sXML = sXML.split("xlink:href").join("href");
   }
 
   var out;
