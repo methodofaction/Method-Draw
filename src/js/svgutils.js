@@ -218,10 +218,6 @@ svgedit.utilities.text2xml = function(sXML) {
     sXML = sXML.replace(/<(\/?)svg:/g, '<$1').replace('xmlns:svg', 'xmlns');
   }
 
-  if(sXML.indexOf('xlink:href') >= 0) {
-    sXML = sXML.split("xlink:href").join("href");
-  }
-
   var out;
   try{
     var dXML = (window.DOMParser)?new DOMParser():new ActiveXObject("Microsoft.XMLDOM");

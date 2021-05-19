@@ -180,7 +180,10 @@ svgedit.sanitize.sanitizeSvg = function(node) {
         if(attrName.indexOf('se:') == 0) {
           se_attrs.push([attrName, attr.nodeValue]);
         } 
-        node.removeAttributeNS(attrNsURI, attrLocalName);
+
+        // TODO looks dangerous
+
+        //node.removeAttributeNS(attrNsURI, attrLocalName);
       }
       
       // Add spaces before negative signs where necessary
