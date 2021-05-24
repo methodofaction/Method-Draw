@@ -111,35 +111,12 @@ MD.Panel = function(){
      
      var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
      var currentMode = svgCanvas.getMode();
-     if (currentMode === 'pathedit') {
-       $('.context_panel').hide();
-       $('#path_node_panel').show();
-       $('#stroke_panel').hide();
-       var point = svgCanvas.pathActions.getNodePoint();
-       $('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
-       $('#tool_node_delete').toggleClass('disabled', !svgCanvas.pathActions.canDeleteNodes);
-       if(point) {
-         var seg_type = $('#seg_type');
-         point.x = svgedit.units.convertUnit(point.x);
-         point.y = svgedit.units.convertUnit(point.y);
-         $('#path_node_x').val(Math.round(point.x));
-         $('#path_node_y').val(Math.round(point.y));
-         if(point.type) {
-           seg_type.val(point.type).removeAttr('disabled');
-           $("#seg_type_label").html(point.type === 4 ? "Straight" : "Curve")
-         } else {
-           seg_type.val(4).attr('disabled','disabled');
-         }
-       }
-       $("#panels").removeClass("multiselected")        
-       $("#stroke_panel").hide();
-       $("#canvas_panel").hide();
-       return;
-     }
+
+     $('.context_panel').hide();
+
+     if (currentMode === 'pathedit') return showPathEdit();
      
      var menu_items = $('#cmenu_canvas li');
-     $('.context_panel').hide();
-     
      
      //hack to show the proper multialign box
      if (multiselected) {
@@ -326,6 +303,30 @@ MD.Panel = function(){
       svgCanvas.clearSelection();
       return false;
     });
+
+    function showPathEdit(){
+       $('#path_node_panel').show();
+       $('#stroke_panel').hide();
+       var point = svgCanvas.pathActions.getNodePoint();
+       $('#tool_node_delete').toggleClass('disabled', !svgCanvas.pathActions.canDeleteNodes);
+       if(point) {
+         var seg_type = $('#seg_type');
+         point.x = svgedit.units.convertUnit(point.x);
+         point.y = svgedit.units.convertUnit(point.y);
+         $('#path_node_x').val(Math.round(point.x));
+         $('#path_node_y').val(Math.round(point.y));
+         if(point.type) {
+           seg_type.val(point.type).removeAttr('disabled');
+           $("#seg_type_label").html(point.type === 4 ? "Straight" : "Curve")
+         } else {
+           seg_type.val(4).attr('disabled','disabled');
+         }
+       }
+       $("#panels").removeClass("multiselected")        
+       $("#stroke_panel").hide();
+       $("#canvas_panel").hide();
+       return;
+     }
 
     this.show = show;
     this.updateContextPanel = updateContextPanel;

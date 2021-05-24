@@ -16,8 +16,6 @@ body {
 ::selection {background: #000; color: #fff; /* Safari */}
 ::-moz-selection {background: #000; color: #fff; /* Firefox */}
 
-
-
 html, body {
   overscroll-behavior-x: none;
   overflow: hidden;
@@ -46,65 +44,21 @@ html, body {
 }
 
 
- #workarea {
-  display: flex;
-  position:absolute;
-  top: 30px;
-  left: 50px;
-  bottom: 40px;
-  right: 175px;
-  background-color: var(--z2);
-  overflow: auto;
-  align-items: center;
-  justify-content: center;
-  transition: transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
-}
-
- #main_icon span {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: block;
-  z-index: 2;
-}
-
- #panels {
-  position: absolute;
-  width: 160px;
-  height: 100%;
-  background: var(--z1);
-  right: 0;
-  top: 20px;
-  border-bottom: none;
-  overflow: visible;
-  padding: 0 0 0 15px;
-}
-
-.touch  #panels {
-  top: 30px;
-}
-
- label {
-  display: block;
-  color: #999;
-  white-space: nowrap;
-}
-
 div#font-selector { 
-    width:140px; 
-    height:300px; 
-    overflow:auto;  
-    margin:0 auto; 
-    position:absolute; 
-    top:27px;
-    right:0;
-    border:1px solid black; 
-    padding:10px; 
-    display:none; 
-    background-color:white;
-    z-index: 10;
-    border-radius: 3px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.7);
+  width:140px; 
+  height:300px; 
+  overflow:auto;  
+  margin:0 auto; 
+  position:absolute; 
+  top:27px;
+  right:0;
+  border:1px solid black; 
+  padding:10px; 
+  display:none; 
+  background-color:white;
+  z-index: 10;
+  border-radius: 3px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.7);
 }
 
 div#font-selector img {
@@ -208,10 +162,6 @@ button:focus {
   stroke: none;
 }
 
-.context_panel {
-  display: none;
-}
-
 #canvas_panel {
   display: block;
 }
@@ -312,30 +262,6 @@ input[type=file] {
 
 .toolset {
   position: relative;
-}
-
- #panels h4 {
-  color: var(--z15);
-  font-weight: normal;
-  margin: 0;
-  padding: 10px 0 5px 0;
-}
-
-#panels .dropdown .icon_label {
-  border: 1px solid transparent;
-  height: auto;
-}
-
-#panels.multiselected #align_tools {
-  display: none;
-}
-
-#panels.multiselected #multiselected_panel {
-  display: block !important;
-}
-
-#panels.multiselected #multiselected_panel .hidable {
-  display: none;
 }
 
 .draginput.text-input input, 

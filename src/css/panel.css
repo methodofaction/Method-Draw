@@ -1,0 +1,42 @@
+ #panels {
+  position: absolute;
+  width: 160px;
+  height: 100%;
+  background: var(--z1);
+  right: 0;
+  top: 20px;
+  border-bottom: none;
+  overflow: visible;
+  padding: 0 0 0 15px;
+}
+
+.context_panel {
+  display: none;
+}
+
+.context_panel h4 {
+  color: var(--z15);
+  font-weight: normal;
+  margin: 0;
+  padding: 10px 0 5px 0;
+}
+
+.context_panel label {
+  display: block;
+  color: var(--z13);
+  white-space: nowrap;
+}
+
+
+
+#align_tools {
+  display: none;
+}
+
+#panels.multiselected #multiselected_panel {
+  display: block !important;
+}
+
+#panels.multiselected #multiselected_panel .hidable {
+  display: none;
+}

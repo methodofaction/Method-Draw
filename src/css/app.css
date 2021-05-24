@@ -18,3 +18,17 @@
   position: relative;
   background: var(--z2);
 }
+
+ #workarea {
+  display: flex;
+  position:absolute;
+  top: 30px;
+  left: 50px;
+  bottom: 40px;
+  right: 175px;
+  background-color: var(--z2);
+  overflow: auto;
+  align-items: center;
+  justify-content: center;
+  transition: transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+}
