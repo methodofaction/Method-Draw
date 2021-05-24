@@ -275,43 +275,10 @@ input[type=file] {
   text-indent: 8px;
 }
 
-.draginput_cell {
-  float: left;
-  height: 26px;
-  height: 26px;
-  border: solid var(--z2) 10px;
-  outline: solid var(--z1) 1px;
-  background-color: var(--z2);
-  cursor: pointer;
-  position: relative;
-}
-
-.draginput_cell:hover {
-  background-color: var(--z5);
-}
-
-.draginput_cell svg {
-  fill: #999;
-}
-
-.draginput_cell:hover svg {
-  fill: #fff;
-}
-
 .draginput.textcontent {
   position: absolute;
   opacity: 0;
   z-index: 0;
-}
-
- .align_buttons  .draginput_cell:nth-child(1) {border-radius: var(--x1) 0 0 0;}
- .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 var(--x1) 0 0;}
- .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 var(--x1);}
- .align_buttons  .draginput_cell:nth-child(6) {border-radius: 0 0 var(--x1) 0;}
-
-.align_buttons .push_button {
-  display: block;
-  float: left;
 }
 
  ul li.current {

@@ -1,0 +1,33 @@
+.align_button {
+  float: left;
+  height: 26px;
+  height: 26px;
+  border: solid var(--z2) 10px;
+  outline: solid var(--z1) 1px;
+  background-color: var(--z2);
+  cursor: pointer;
+  position: relative;
+}
+
+.align_button:hover {
+  background-color: var(--z3);
+  border-color: var(--z3);
+}
+
+.align_button svg {
+  fill: #999;
+}
+
+.align_button:hover svg {
+  fill: #fff;
+}
+
+.align_button:nth-child(1) {border-radius: var(--x1) 0 0 0;}
+.align_button:nth-child(3) {border-radius: 0 var(--x1) 0 0;}
+.align_button:nth-child(4) {border-radius: 0 0 0 var(--x1);}
+.align_button:nth-child(6) {border-radius: 0 0 var(--x1) 0;}
+
+.align_buttons .push_button {
+  display: block;
+  float: left;
+}

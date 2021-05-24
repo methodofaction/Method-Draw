@@ -42,12 +42,12 @@ MD.Panel = function(){
 
     // Align
 
-    $('#position_opts .draginput_cell').on("click", function(){
+    $('#position_opts .align_button').on("click", function(){
         $('#align_relative_to').val()
         svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0], 'page');
     });
 
-    $('.align_buttons .draginput_cell').on("click", function(){
+    $('.align_buttons .align_button').on("click", function(){
         svgCanvas.alignSelectedElements(this.getAttribute("data-align")[0],  $('#align_relative_to').val());
     });
 
