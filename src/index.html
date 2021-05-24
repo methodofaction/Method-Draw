@@ -28,11 +28,15 @@
   <link rel="stylesheet" href="css/keyboard.css" type="text/css"/>
   <link rel="stylesheet" href="css/dialog.css" type="text/css"/>
   <link rel="stylesheet" href="css/method-draw.css" type="text/css"/>
+  <link rel="stylesheet" href="css/app.css" type="text/css"/>
+  <link rel="stylesheet" href="css/tools.css" type="text/css"/>
+  <link rel="stylesheet" href="css/button.css" type="text/css"/>
+  <link rel="stylesheet" href="css/select.css" type="text/css"/>
   <!-- endbuild -->
 </head>
 <body>
 
-<div id="svg_editor">
+<div id="method-draw" class="app">
 <div id="rulers">
   <div id="ruler_corner"></div>
   <div id="ruler_x"></div>
@@ -168,7 +172,7 @@
         </optgroup>
 
         <optgroup label="Presentation">
-          <option value="920x1080">16:9 (920 × 1080)</option>
+          <option value="1920x1080">16:9 (1920 × 1080)</option>
           <option value="1024x768">4:3 (1024 × 768)</option>
         </optgroup>
         
@@ -336,7 +340,7 @@
       <input id="text_y" class="attr_changer" data-title="Change text y coordinate" data-attr="y" pattern="[0-9]*" />
       <span>Y</span>
     </label>
-    <div class="toolset draginput select twocol" id="tool_font_family">
+    <div class="toolset draginput twocol" id="tool_font_family">
         <!-- Font family -->
       <span>Font</span>
       <div id="preview_font" style="font-family: sans-serif">sans-serif</div>
@@ -344,8 +348,8 @@
       <input id="font_family" data-title="Change Font Family" size="12" type="hidden" />
       <select id="font_family_dropdown">
       </select>
-      <div class="tool_button" id="tool_bold" data-title="Bold Text [B]">B</div>
-      <div class="tool_button" id="tool_italic" data-title="Italic Text [I]">i</div>
+      <div id="tool_bold" data-title="Bold Text [B]">B</div>
+      <div id="tool_italic" data-title="Italic Text [I]">i</div>
     </div>
 
     <label id="tool_font_size" data-title="Change Font Size">
@@ -359,7 +363,7 @@
   </div>
   
   <div id="use_panel" class="context_panel clearfix">
-    <div class="tool_button clearfix" id="tool_unlink_use" data-title="Break link to reference element (make unique)">Break link reference</div>
+    <div class="button" id="tool_unlink_use" data-title="Break link to reference element (make unique)">Break link reference</div>
   </div>
   
   <div id="g_panel" class="context_panel clearfix">
@@ -396,17 +400,11 @@
       <label id="seg_type_label">Straight</label>
     </div>
     
-    <!--
-    <label class="draginput checkbox" data-title="Link Control Points">
-      <span>Linked Control Points</span>
-      <div class="push_bottom"><input type="checkbox" id="tool_node_link" checked="checked" /></div>
-    </label>
-  -->
-    
-    <div class="clearfix"></div>
-    <div class="tool_button" id="tool_node_clone" title="Adds a node">Add Node</div>
-    <div class="tool_button" id="tool_node_delete" title="Delete Node">Delete Node</div>
-    <div class="tool_button" id="tool_openclose_path" title="Open/close sub-path">Open Path</div>
+    <div class="button-container clearfix">
+      <div class="button full" id="tool_node_clone" title="Adds a node">Add Node</div>
+      <div class="button full" id="tool_node_delete" title="Delete Node">Delete Node</div>
+      <div class="button full" id="tool_openclose_path" title="Open/close sub-path">Open Path</div>
+    </div>
     <!--<div class="tool_button" id="tool_add_subpath" title="Add sub-path"></div>-->
   </div>
   
@@ -486,10 +484,12 @@
     
     <div class="toolset align_buttons">
       <label id="tool_align_relative">
-        <select id="align_relative_to" title="Align relative to ..." class="select_tool">
-        <option id="selected_objects" value="selected">Align to objects</option>
-        <option id="page" value="page">Align to page</option>
-        </select>
+        <div class="select">
+          <select id="align_relative_to" title="Align relative to ..." class="select_tool">
+          <option id="selected_objects" value="selected">Align to objects</option>
+          <option id="page" value="page">Align to page</option>
+          </select>
+        </div>
       </label>
       <div class="col last clear">
           <div class="draginput_cell" id="tool_alignleft" title="Align Left" data-align="left">

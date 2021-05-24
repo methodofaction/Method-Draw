@@ -67,7 +67,8 @@ MD.Panel = function(){
 
     $("#tool_node_clone").on("click", function(){
       if (svgCanvas.pathActions.getNodePoint()) {
-        svgCanvas.pathActions.clonePathNode();
+        const path = svgCanvas.pathActions.clonePathNode();
+        svgCanvas.pathActions.toEditMode(svgedit.path.path.elem);
       }
     });
 

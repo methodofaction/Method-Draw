@@ -4655,6 +4655,7 @@ var pathActions = canvas.pathActions = function() {
       svgedit.path.path.init().addPtsToSelection(nums);
 
       svgedit.path.path.endChanges("Clone path node(s)");
+      return svgedit.path.path;
     },
     opencloseSubPath: function() {
       var sel_pts = svgedit.path.path.selected_pts;

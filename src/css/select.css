@@ -1,0 +1,32 @@
+.select {
+  margin: var(--x2) 0;
+  position: relative;
+}
+
+.select:after {
+  content: '↓';
+  font-weight: bold;
+  position: absolute;
+  right: var(--x6);
+  top: 50%;
+  color: var(--z7);
+  transform: translate(0, -50%);
+}
+
+.select select {
+  -webkit-appearance: none;
+  background-color: var(--z3);
+  color: var(--z14);
+  height: var(--x8);
+  display: block;
+  width: calc(100% - var(--x4));
+  padding: 0 var(--x4);
+  border: none;
+  border-radius: var(--x1);
+}
+
+.select select:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--d7);
+
+}

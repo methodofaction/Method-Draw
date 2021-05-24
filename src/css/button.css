@@ -1,0 +1,52 @@
+.button-container {
+  clear: both;
+  margin-top: var(--x4);
+}
+
+.button {
+  height: var(--x12);
+  cursor: pointer;
+  line-height: var(--x12);
+  text-align: left;
+  color: var(--z13);
+  border: solid var(--z5) 2px;
+  border-radius: var(--x1);
+  white-space: nowrap;
+  margin: var(--x2) var(--x4) var(--x2) 0;
+  padding: 0 var(--x4);
+  display: inline-block;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: var(--z2);
+}
+
+.button.full {
+  display: block;
+  text-align: center;
+}
+
+.button svg {
+  vertical-align: center;
+  fill: var(--z5);
+}
+
+.button:hover svg {
+  fill: var(--z10);
+}
+
+.button.current {
+  background-color: var(--z0);
+}
+
+.button.current svg {
+  fill: var(--d15);
+}
+
+.button.disabled svg {
+  background-color: #aaa;
+  cursor: not-allowed;
+  fill: var(--z3);
+  pointer-events: none;
+}

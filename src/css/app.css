@@ -1,0 +1,20 @@
+#svgroot {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  display: block;
+}
+
+#svg_editor {
+  background: var(--z1);
+}
+
+#svgcanvas {
+  background-color: var(--z1);
+  width: 800px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--z2);
+}

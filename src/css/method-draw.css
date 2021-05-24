@@ -45,63 +45,6 @@ html, body {
   background: var(--z1);
 }
 
- #svgroot {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  display: block;
-}
-
-#svg_editor {
-  background: var(--z1);
-}
-
-#svgcanvas {
-  background-color: var(--z1);
-  width: 800px;
-  height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: var(--z2);
-}
-
-
-#use_panel .tool_button,
-#path_node_panel .tool_button {
-  color: #999;
-  border: solid #3F3F3C 1px;
-  border-radius: 3px;
-  background: transparent;
-  margin-top: 10px;
-  width: 90%;
-  line-height: 40px;
-}
-
-#use_panel .tool_button:hover,
-#path_node_panel .tool_button:hover {
-  border-color: #666;
-  color: #aaa;
-}
-
-#use_panel .tool_button {
-  padding-left: 10px;
-  margin-bottom: 10px;
-  width: 124px;
-}
-
- #path_node_panel .tool_button img,  #path_node_panel .tool_button svg {
-  position: absolute;
-  left: 5px;
-  top: 3px;
-}
-
-
-
- #linkLabel > svg {
-  height: 20px;
-  padding-top: 4px;
-}
 
  #workarea {
   display: flex;
@@ -244,17 +187,6 @@ button:focus {
   background-color: var(--b7);
  }
 
- #tools_left {
-  position: absolute;
-  border-right: none;
-  width: var(--x12);
-  top: 30px;
-  bottom: 0;
-  left: 0;
-  background: var(--z1);
-  z-index: 4;
-}
-
 #svgcontent {
   overflow: hidden;
 }
@@ -313,38 +245,6 @@ button:focus {
 
  #cur_context_panel a:hover {
   text-decoration: underline;
-}
-
-.tool_button {
-  height: var(--x12);
-  width: var(--x12);
-  cursor: pointer;
-  line-height: 60px;
-  text-align: center;
-}
-
-.tool_button svg {
-  vertical-align: center;
-  fill: var(--z5);
-}
-
-.tool_button:hover svg {
-  fill: var(--z10);
-}
-
-.tool_button.current {
-  background-color: var(--z0);
-}
-
-.tool_button.current svg {
-  fill: var(--d15);
-}
-
-.tool_button.disabled svg {
-  background-color: #aaa;
-  cursor: not-allowed;
-  fill: var(--z3);
-  pointer-events: none;
 }
 
 #main_menu li#tool_open,  #main_menu li#tool_import {
@@ -414,16 +314,6 @@ input[type=file] {
   position: relative;
 }
 
-.select_tool {
-  -webkit-appearance: none;
-  background: var(--z3);
-  color: var(--z14);
-  height: var(--x8);
-  width: 100%;
-  border: none;
-}
-
-
  #panels h4 {
   color: var(--z15);
   font-weight: normal;
@@ -470,6 +360,10 @@ input[type=file] {
   position: relative;
 }
 
+.draginput_cell:hover {
+  background-color: var(--z5);
+}
+
 .draginput_cell svg {
   fill: #999;
 }
@@ -484,10 +378,10 @@ input[type=file] {
   z-index: 0;
 }
 
- .align_buttons  .draginput_cell:nth-child(1) {border-radius: 3px 0 0 0;}
- .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 3px 0 0;}
- .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 3px;}
- .align_buttons  .draginput_cell:nth-child(6) {border-radius: 0 0 3px 0;}
+ .align_buttons  .draginput_cell:nth-child(1) {border-radius: var(--x1) 0 0 0;}
+ .align_buttons  .draginput_cell:nth-child(3) {border-radius: 0 var(--x1) 0 0;}
+ .align_buttons  .draginput_cell:nth-child(4) {border-radius: 0 0 0 var(--x1);}
+ .align_buttons  .draginput_cell:nth-child(6) {border-radius: 0 0 var(--x1) 0;}
 
 .align_buttons .push_button {
   display: block;
@@ -727,7 +621,6 @@ input[readonly=readonly]:focus {
   display: block;
 }
 
-
 #tool_angle_indicator {
   width:         50px;
   height:        50px;
@@ -755,9 +648,4 @@ input[readonly=readonly]:focus {
 
 .stroke_tool .caret {
   top: 60%;
-}
-
-#tool_align_relative select {
-  width: 100%;
-  display: block;
 }
