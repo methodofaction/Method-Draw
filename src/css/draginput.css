@@ -7,6 +7,7 @@
   position: relative;
   float: left;
   margin: 0 5px 5px 0;
+  overflow: hidden;
 }
 
  .draginput .caret {

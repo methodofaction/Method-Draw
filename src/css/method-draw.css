@@ -410,6 +410,19 @@ input[type=file] {
   background-color: var(--z1);
 }
 
+.toolset {
+  position: relative;
+}
+
+.select_tool {
+  -webkit-appearance: none;
+  background: var(--z3);
+  color: var(--z14);
+  height: var(--x8);
+  width: 100%;
+  border: none;
+}
+
 
  #panels h4 {
   color: var(--z15);
@@ -742,14 +755,6 @@ input[readonly=readonly]:focus {
 
 .stroke_tool .caret {
   top: 60%;
-}
-
-#tool_align_relative {
-  position: absolute;
-  top: -5px;
-  left: 0;
-  right: 20px;
-  display: block;
 }
 
 #tool_align_relative select {
