@@ -20,12 +20,12 @@
   content: '';
   position: absolute;
   display: block;
-  width: 8px;
-  height: 8px;
-  left: 8px;
-  top: 8px;
-  background: var(--z9);
-  box-shadow: 0 0 0 1px var(--z0);
+  left: var(--x1);
+  right: var(--x1);
+  top: var(--x1);
+  bottom: var(--x1);
+  background: var(--z1);
+  box-shadow: 0 0 0 1px var(--z13);
 }
 
 #tool_switch {
@@ -34,27 +34,27 @@
   height: 11px;
   position: absolute;
   top: -5px;
-  left: 30px;
+  right: var(--x3);
   cursor: nwse-resize
 }
 
 #tool_switch svg {
-  fill: var(--z10);
+  fill: var(--z6);
 }
 
 #tool_switch:hover svg {
     fill: var(--z15);
 }
 
-#tool_stroke:hover #stroke_color:after {
-  background: var(--z15);
+#stroke_color:hover:after {
+  box-shadow: 0 0 0 1px var(--z15);
 }
 
 .color_block {
-  width: 24px;
-  height: 24px;
+  width: var(--x5);
+  height: var(--x5);
   overflow: hidden;
-  border: solid #ccc 1px;
+  border: solid var(--z12) 1px;
 }
 
 .color_block:hover {

@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/select.css" type="text/css"/>
   <link rel="stylesheet" href="css/panel.css" type="text/css"/>
   <link rel="stylesheet" href="css/align_buttons.css" type="text/css"/>
+  <link rel="stylesheet" href="css/text.css" type="text/css"/>
   <!-- endbuild -->
 </head>
 <body>
@@ -130,234 +131,253 @@
 
   <div id="canvas_panel" class="context_panel">
     
-    <h4 class="clearfix">Canvas</h4>
+    <h4>Canvas</h4>
 
-    <label data-title="Change canvas width">
-      <input id="canvas_width" type="text" pattern="[0-9]*" value="800" />
-      <span class="icon_label">Width</span>
-    </label>
+    <div class="draginputs">
 
-    <label data-title="Change canvas height">
-      <input id="canvas_height" type="text" pattern="[0-9]*" value="600" />
-      <span class="icon_label">Height</span>
-    </label>
-    
-    <label data-title="Change canvas color" class="draginput">
-      <span>Color</span>
-      <div id="color_canvas_tools">
-        <div class="color_tool active" id="tool_canvas">
-          <div class="color_block">
-            <div id="canvas_bg"></div>
-            <div id="canvas_color"></div>
+      <label data-title="Change canvas width" class="draginput">
+        <input id="canvas_width" type="text" pattern="[0-9]*" value="800" />
+        <span class="icon_label">Width</span>
+      </label>
+
+      <label data-title="Change canvas height" class="draginput">
+        <input id="canvas_height" type="text" pattern="[0-9]*" value="600" />
+        <span class="icon_label">Height</span>
+      </label>
+      
+      <label data-title="Change canvas color" class="draginput">
+        <span>Color</span>
+        <div id="color_canvas_tools">
+          <div class="color_tool active" id="tool_canvas">
+            <div class="color_block">
+              <div id="canvas_bg"></div>
+              <div id="canvas_color"></div>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
+      </label>
 
-    <div class="draginput">
-      <span>Sizes</span>
-      <select id="resolution">
+      <div class="draginput">
+        <span>Sizes</span>
+        <select id="resolution">
 
-        <option id="selectedPredefined" selected="selected">Custom</option>
-        <option id="fitToContent" value="content">Fit to Content</option>
+          <option id="selectedPredefined" selected="selected">Custom</option>
+          <option id="fitToContent" value="content">Fit to Content</option>
 
-        <optgroup label="Social Media">
-          <option value="1012x506">Twitter Post (1012 × 506)</option>
-          <option value="1500x500">Twitter Header (1500 × 500)</option>
-          <option value="1200x630">Facebook Post (1200 × 630)</option>
-          <option value="820x312">Facebook Cover (820 × 312)</option>
-          <option value="1080x1080">Instagram Post (1080 × 1080)</option>
-          <option value="1080x1920">Instagram Story (1080 × 1920)</option>
-          <option value="300">Dribble Shot (400 × 300)</option>
-          <option value="800x600">Dribble Shot HD (800 × 600)</option>
-          <option value="1584x396">LinkedIn Cover (1584 × 396)</option>
-        </optgroup>
+          <optgroup label="Social Media">
+            <option value="1012x506">Twitter Post (1012 × 506)</option>
+            <option value="1500x500">Twitter Header (1500 × 500)</option>
+            <option value="1200x630">Facebook Post (1200 × 630)</option>
+            <option value="820x312">Facebook Cover (820 × 312)</option>
+            <option value="1080x1080">Instagram Post (1080 × 1080)</option>
+            <option value="1080x1920">Instagram Story (1080 × 1920)</option>
+            <option value="300">Dribble Shot (400 × 300)</option>
+            <option value="800x600">Dribble Shot HD (800 × 600)</option>
+            <option value="1584x396">LinkedIn Cover (1584 × 396)</option>
+          </optgroup>
 
-        <optgroup label="Presentation">
-          <option value="1920x1080">16:9 (1920 × 1080)</option>
-          <option value="1024x768">4:3 (1024 × 768)</option>
-        </optgroup>
-        
-        <optgroup label="Desktop">
-          <option value="1140x1024">Desktop (1140 × 1024)</option>
-          <option value="375x700">MacBook (834 × 1194)</option>
-          <option value="1440x900">MacBook Pro (1024 × 1366)</option>
-          <option value="1500x1000">Surface Book (1440 × 990)</option>
-          <option value="1280x720">iMac (1368 × 912)</option>
-        </optgroup>
-
-
-        <optgroup label="Tablet">
-          <option value="414x896">iPad Mini (768 × 1024)</option>
-          <option value="375x812">iPad Pro 11" (834 × 1194)</option>
-          <option value="375x812">iPad Pro 12.9" (1024 × 1366)</option>
-          <option value="414x736">Surface Pro 3 (1440 × 990)</option>
-          <option value="414x736">Surface Pro 4 (1368 × 912)</option>
-        </optgroup>
-
-        <optgroup label="Phone">
-          <option value="414x896">iPhone 11 ProMax (414 × 896)</option>
-          <option value="375x812">iPhone 11 Pro / X (375 × 812)</option>
-          <option value="414x736">iPhone 8 Plus (414 × 736)</option>
-          <option value="375x667">iPhone 8 (375 × 667)</option>
-          <option value="411x731">Google Pixel 2 (411 × 731)</option>
-          <option value="411x823">Google Pixel XL (411 × 823)</option>
-          <option value="360x640">Android (360 × 640)</option>
-        </optgroup>
-        
-        <optgroup label="Paper">
-          <option value="595x842">A4 (595 × 842)</option>
-          <option value="420x595">A5 (420 × 595)</option>
-          <option value="297x420">A6 (297 × 420)</option>
-          <option value="612x792">Letter (612 × 792) </option>
-          <option value="792x1224">Tabloid (792 × 1224)</option>
+          <optgroup label="Presentation">
+            <option value="1920x1080">16:9 (1920 × 1080)</option>
+            <option value="1024x768">4:3 (1024 × 768)</option>
+          </optgroup>
           
-        </optgroup>
-      </select>
-      <div class="caret"></div>
-      <label id="resolution_label">Custom</label>
-    </div>
+          <optgroup label="Desktop">
+            <option value="1140x1024">Desktop (1140 × 1024)</option>
+            <option value="375x700">MacBook (834 × 1194)</option>
+            <option value="1440x900">MacBook Pro (1024 × 1366)</option>
+            <option value="1500x1000">Surface Book (1440 × 990)</option>
+            <option value="1280x720">iMac (1368 × 912)</option>
+          </optgroup>
 
+
+          <optgroup label="Tablet">
+            <option value="414x896">iPad Mini (768 × 1024)</option>
+            <option value="375x812">iPad Pro 11" (834 × 1194)</option>
+            <option value="375x812">iPad Pro 12.9" (1024 × 1366)</option>
+            <option value="414x736">Surface Pro 3 (1440 × 990)</option>
+            <option value="414x736">Surface Pro 4 (1368 × 912)</option>
+          </optgroup>
+
+          <optgroup label="Phone">
+            <option value="414x896">iPhone 11 ProMax (414 × 896)</option>
+            <option value="375x812">iPhone 11 Pro / X (375 × 812)</option>
+            <option value="414x736">iPhone 8 Plus (414 × 736)</option>
+            <option value="375x667">iPhone 8 (375 × 667)</option>
+            <option value="411x731">Google Pixel 2 (411 × 731)</option>
+            <option value="411x823">Google Pixel XL (411 × 823)</option>
+            <option value="360x640">Android (360 × 640)</option>
+          </optgroup>
+          
+          <optgroup label="Paper">
+            <option value="595x842">A4 (595 × 842)</option>
+            <option value="420x595">A5 (420 × 595)</option>
+            <option value="297x420">A6 (297 × 420)</option>
+            <option value="612x792">Letter (612 × 792) </option>
+            <option value="792x1224">Tabloid (792 × 1224)</option>
+            
+          </optgroup>
+        </select>
+        <div class="caret"></div>
+        <label id="resolution_label">Custom</label>
+      </div>
+
+    </div>
   </div>
   
   <div id="rect_panel" class="context_panel">
-    <h4 class="clearfix">Rectangle</h4>
-    <label>
-      <input id="rect_x" class="attr_changer" data-title="Change X coordinate" data-attr="x" pattern="[0-9]*" />
-      <span>X</span> 
-    </label>
-    <label>
-      <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y" pattern="[0-9]*" />
-      <span>Y</span> 
-    </label>
-    <label id="rect_width_tool attr_changer" data-title="Change rectangle width">
-      <input id="rect_width" class="attr_changer" data-attr="width" type="text" pattern="[0-9]*" />
-      <span class="icon_label">Width</span>
-    </label>
-    <label id="rect_height_tool" data-title="Change rectangle height">
-      <input id="rect_height" class="attr_changer" data-attr="height" type="text" pattern="[0-9]*" />
-      <span class="icon_label">Height</span>
-    </label>
+    <h4>Rectangle</h4>
+    <div class="draginputs">
+      <label class="draginput">
+        <input id="rect_x" class="attr_changer" data-title="Change X coordinate" data-attr="x" pattern="[0-9]*" />
+        <span>X</span> 
+      </label>
+      <label class="draginput">
+        <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y" pattern="[0-9]*" />
+        <span>Y</span> 
+      </label>
+      <label  class="draginput" id="rect_width_tool attr_changer" data-title="Change rectangle width">
+        <input id="rect_width" class="attr_changer" data-attr="width" type="text" pattern="[0-9]*" />
+        <span class="icon_label">Width</span>
+      </label>
+      <label  class="draginput" id="rect_height_tool" data-title="Change rectangle height">
+        <input id="rect_height" class="attr_changer" data-attr="height" type="text" pattern="[0-9]*" />
+        <span class="icon_label">Height</span>
+      </label>
+    </div>
   </div>
   
   <div id="path_panel" class="context_panel clearfix">
-    <h4 class="clearfix">Path</h4>
-    <label>
-      <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="x" pattern="[0-9]*" />
-      <span>X</span>
-    </label>
-    <label>
-      <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="y" pattern="[0-9]*" />
-      <span>Y</span>
-    </label>
+      <h4>Path</h4>
+      <div class="draginputs">
+        <label>
+          <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="x" pattern="[0-9]*" />
+          <span>X</span>
+        </label>
+        <label>
+          <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="y" pattern="[0-9]*" />
+          <span>Y</span>
+        </label>
+    </div>
   </div>
 
   <div id="image_panel" class="context_panel clearfix">
   <h4>Image</h4>
-    <label>
-      <input id="image_x" class="attr_changer" data-title="Change X coordinate" data-attr="x"  pattern="[0-9]*"/>
-      <span>X</span> 
-    </label>
-    <label>
-      <input id="image_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y"  pattern="[0-9]*"/>
-      <span>Y</span> 
-    </label>
-    <label>
-      <input id="image_width" class="attr_changer" data-title="Change image width" data-attr="width" pattern="[0-9]*" />
-      <span class="icon_label">Width</span>
-    </label>
-    <label>
-      <input id="image_height" class="attr_changer" data-title="Change image height" data-attr="height" pattern="[0-9]*" />
-      <span class="icon_label">Height</span>
-    </label>
+    <div class="draginputs">
+      <label class="draginput">
+        <input id="image_x" class="attr_changer" data-title="Change X coordinate" data-attr="x"  pattern="[0-9]*"/>
+        <span>X</span> 
+      </label>
+      <label class="draginput">
+        <input id="image_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y"  pattern="[0-9]*"/>
+        <span>Y</span> 
+      </label>
+      <label class="draginput">
+        <input id="image_width" class="attr_changer" data-title="Change image width" data-attr="width" pattern="[0-9]*" />
+        <span class="icon_label">Width</span>
+      </label>
+      <label class="draginput">
+        <input id="image_height" class="attr_changer" data-title="Change image height" data-attr="height" pattern="[0-9]*" />
+        <span class="icon_label">Height</span>
+      </label>
+    </div>
   </div>
   
   <div id="circle_panel" class="context_panel">
     <h4>Circle</h4>
-    <label id="tool_circle_cx">
-      <span>Center X</span>
-      <input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" data-attr="cx"/>
-    </label>
-    <label id="tool_circle_cy">
-      <span>Center Y</span>
-      <input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" data-attr="cy"/>
-    </label>
-    <label id="tool_circle_r">
-      <span>Radius</span>
-      <input id="circle_r" class="attr_changer" title="Change circle's radius" data-attr="r"/>
-    </label>
+    <div class="draginputs">
+      <label id="tool_circle_cx" class="draginput">
+        <span>Center X</span>
+        <input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" data-attr="cx"/>
+      </label>
+      <label id="tool_circle_cy" class="draginput">
+        <span>Center Y</span>
+        <input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" data-attr="cy"/>
+      </label>
+      <label id="tool_circle_r" class="draginput">
+        <span>Radius</span>
+        <input id="circle_r" class="attr_changer" title="Change circle's radius" data-attr="r"/>
+      </label>
+    </div>
   </div>
 
-  <div id="ellipse_panel" class="context_panel clearfix">
-    <h4>Ellipse</h4>
-    <label id="tool_ellipse_cx">
-      <input id="ellipse_cx" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="cx" pattern="[0-9]*" />
-      <span>X</span>
-    </label>
-    <label id="tool_ellipse_cy">
-      <input id="ellipse_cy" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="cy" pattern="[0-9]*" />
-      <span>Y</span>
-    </label>
-    <label id="tool_ellipse_rx">
-      <input id="ellipse_rx" class="attr_changer" data-title="Change ellipse's x radius" data-attr="rx" pattern="[0-9]*" />
-      <span>Radius X</span>
-    </label>
-    <label id="tool_ellipse_ry">
-      <input id="ellipse_ry" class="attr_changer" data-title="Change ellipse's y radius" data-attr="ry" pattern="[0-9]*" />
-      <span>Radius Y</span>
-    </label>
+  <div id="ellipse_panel" class="context_panel">
+      <h4>Ellipse</h4>
+      <div class="draginputs">
+      <label id="tool_ellipse_cx">
+        <input id="ellipse_cx" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="cx" pattern="[0-9]*" />
+        <span>X</span>
+      </label>
+      <label id="tool_ellipse_cy">
+        <input id="ellipse_cy" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="cy" pattern="[0-9]*" />
+        <span>Y</span>
+      </label>
+      <label id="tool_ellipse_rx">
+        <input id="ellipse_rx" class="attr_changer" data-title="Change ellipse's x radius" data-attr="rx" pattern="[0-9]*" />
+        <span>Radius X</span>
+      </label>
+      <label id="tool_ellipse_ry">
+        <input id="ellipse_ry" class="attr_changer" data-title="Change ellipse's y radius" data-attr="ry" pattern="[0-9]*" />
+        <span>Radius Y</span>
+      </label>
+    </div>
   </div>
 
   <div id="line_panel" class="context_panel clearfix">
     <h4>Line</h4>
-    <label id="tool_line_x1">
-      <input id="line_x1" class="attr_changer" data-title="Change line's starting x coordinate" data-attr="x1" pattern="[0-9]*" />
-      <span>Start X</span>
-    </label>
-    <label id="tool_line_y1">
-      <input id="line_y1" class="attr_changer" data-title="Change line's starting y coordinate" data-attr="y1" pattern="[0-9]*" />
-      <span>Start Y</span>
-    </label>
-    <label id="tool_line_x2">
-      <input id="line_x2" class="attr_changer" data-title="Change line's ending x coordinate" data-attr="x2"   pattern="[0-9]*" />
-      <span>End X</span>
-    </label>
-    <label id="tool_line_y2">
-      <input id="line_y2" class="attr_changer" data-title="Change line's ending y coordinate" data-attr="y2"   pattern="[0-9]*" />
-      <span>End Y</span>
-    </label>
+    <div class="draginputs">
+      <label id="tool_line_x1">
+        <input id="line_x1" class="attr_changer" data-title="Change line's starting x coordinate" data-attr="x1" pattern="[0-9]*" />
+        <span>Start X</span>
+      </label>
+      <label id="tool_line_y1">
+        <input id="line_y1" class="attr_changer" data-title="Change line's starting y coordinate" data-attr="y1" pattern="[0-9]*" />
+        <span>Start Y</span>
+      </label>
+      <label id="tool_line_x2">
+        <input id="line_x2" class="attr_changer" data-title="Change line's ending x coordinate" data-attr="x2"   pattern="[0-9]*" />
+        <span>End X</span>
+      </label>
+      <label id="tool_line_y2">
+        <input id="line_y2" class="attr_changer" data-title="Change line's ending y coordinate" data-attr="y2"   pattern="[0-9]*" />
+        <span>End Y</span>
+      </label>
+    </div>
   </div>
 
   <div id="text_panel" class="context_panel">
     <h4>Text</h4>
-    <label class="draginput twocol textcontent" data-title="Change Content">
-      <span>Content</span>
-      <input id="text" type="text"/>
-    </label>
-    <label>
-      <input id="text_x" class="attr_changer" data-title="Change text x coordinate" data-attr="x" pattern="[0-9]*" />
-      <span>X</span>
-    </label>
-    <label>
-      <input id="text_y" class="attr_changer" data-title="Change text y coordinate" data-attr="y" pattern="[0-9]*" />
-      <span>Y</span>
-    </label>
-    <div class="toolset draginput twocol" id="tool_font_family">
-        <!-- Font family -->
-      <span>Font</span>
-      <div id="preview_font" style="font-family: sans-serif">sans-serif</div>
-      <div class="caret"></div>
-      <input id="font_family" data-title="Change Font Family" size="12" type="hidden" />
-      <select id="font_family_dropdown">
-      </select>
-      <div id="tool_bold" data-title="Bold Text [B]">B</div>
-      <div id="tool_italic" data-title="Italic Text [I]">i</div>
+    <div class="draginputs">
+      <label class="draginput twocol textcontent" data-title="Change Content">
+        <span>Content</span>
+        <input id="text" type="text"/>
+      </label>
+      <label>
+        <input id="text_x" class="attr_changer" data-title="Change text x coordinate" data-attr="x" pattern="[0-9]*" />
+        <span>X</span>
+      </label>
+      <label>
+        <input id="text_y" class="attr_changer" data-title="Change text y coordinate" data-attr="y" pattern="[0-9]*" />
+        <span>Y</span>
+      </label>
+      <div class="toolset draginput twocol" id="tool_font_family">
+          <!-- Font family -->
+        <span>Font</span>
+        <div id="preview_font" style="font-family: sans-serif">sans-serif</div>
+        <div class="caret"></div>
+        <input id="font_family" data-title="Change Font Family" size="12" type="hidden" />
+        <select id="font_family_dropdown">
+        </select>
+      </div>
+      <div class="draginput">
+          <span>Font Style</span>
+          <div id="tool_bold" data-title="Bold Text [B]">B</div>
+          <div id="tool_italic" data-title="Italic Text [I]">i</div>
+        </div>
+      <label id="tool_font_size" data-title="Change Font Size">
+        <input id="font_size" value="0" />
+        <span id="font_sizeLabel" class="icon_label">Font Size</span>
+      </label>
     </div>
-
-    <label id="tool_font_size" data-title="Change Font Size">
-      <input id="font_size" value="0" />
-      <span id="font_sizeLabel" class="icon_label">Font Size</span>
-    </label>
   </div>
 
   <!-- formerly gsvg_panel -->
@@ -365,41 +385,46 @@
   </div>
   
   <div id="use_panel" class="context_panel clearfix">
-    <div class="button" id="tool_unlink_use" data-title="Break link to reference element (make unique)">Break link reference</div>
+    <div class="button" id="tool_unlink_use" data-title="Break link">Break link reference</div>
   </div>
   
   <div id="g_panel" class="context_panel clearfix">
-    <h4>Group</h4>
-    <label>
-      <input id="g_x" class="attr_changer" data-title="Change groups's x coordinate" data-attr="x" pattern="[0-9]*" />
-      <span>X</span>
-    </label>
-    <label>
-      <input id="g_y" class="attr_changer" data-title="Change groups's y coordinate" data-attr="y" pattern="[0-9]*" />
-      <span>Y</span>
-    </label>
+      <h4>Group</h4>
+      <div class="draginput">
+      <label>
+        <input id="g_x" class="attr_changer" data-title="Change groups's x coordinate" data-attr="x" pattern="[0-9]*" />
+        <span>X</span>
+      </label>
+      <label>
+        <input id="g_y" class="attr_changer" data-title="Change groups's y coordinate" data-attr="y" pattern="[0-9]*" />
+        <span>Y</span>
+      </label>
+    </div>
   </div>
   
   <div id="path_node_panel" class="context_panel clearfix">
     <h4>Edit Path</h4>
 
-    <label id="tool_node_x">
-      <input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" data-attr="x" />
-      <span>X</span>
-    </label>
-    <label id="tool_node_y">
-      <input id="path_node_y" class="attr_changer" data-title="Change node's y coordinate" data-attr="y" />
-      <span>Y</span>
-    </label>
-    
-    <div id="segment_type" class="draginput label">
-      <span>Segment Type</span>
-      <select id="seg_type" data-title="Change Segment type">
-        <option id="straight_segments" selected="selected" value="4">Straight</option>
-        <option id="curve_segments" value="6">Curve</option>
-      </select>
-      <div class="caret"></div>
-      <label id="seg_type_label">Straight</label>
+    <div class="draginputs">
+      <label id="tool_node_x">
+        <input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" data-attr="x" />
+        <span>X</span>
+      </label>
+      <label id="tool_node_y">
+        <input id="path_node_y" class="attr_changer" data-title="Change node's y coordinate" data-attr="y" />
+        <span>Y</span>
+      </label>
+      
+      <div id="segment_type" class="draginput label">
+        <span>Segment Type</span>
+        <select id="seg_type" data-title="Change Segment type">
+          <option id="straight_segments" selected="selected" value="4">Straight</option>
+          <option id="curve_segments" value="6">Curve</option>
+        </select>
+        <div class="caret"></div>
+        <label id="seg_type_label">Straight</label>
+      </div>
+
     </div>
     
     <div class="button-container clearfix">
@@ -411,33 +436,33 @@
   
   <!-- Buttons when a single element is selected -->
   <div id="selected_panel" class="context_panel">
-
-    <label id="tool_angle" data-title="Change rotation angle" class="draginput">
-      <input id="angle" class="attr_changer" size="2" value="0" data-attr="transform" data-min="-180" data-max="180" type="text"/>
-      <span class="icon_label">Rotation</span>
-      <div id="tool_angle_indicator">
-        <div id="tool_angle_indicator_cursor"></div>
-      </div>
-    </label>
-    
-      <label class="toolset" id="tool_opacity" data-title="Change selected item opacity">
+    <div class="draginputs">
+      <label id="tool_angle" data-title="Change rotation angle" class="draginput">
+        <input id="angle" class="attr_changer" size="2" value="0" data-attr="transform" data-min="-180" data-max="180" type="text"/>
+        <span class="icon_label">Rotation</span>
+        <div id="tool_angle_indicator">
+          <div id="tool_angle_indicator_cursor"></div>
+        </div>
+      </label>
+      
+      <label id="tool_opacity" data-title="Change selected item opacity">
         <input id="group_opacity" class="attr_changer" data-attr="opacity" value="100" step="5" min="0" max="100" />
         <span id="group_opacityLabel" class="icon_label">Opacity</span>
       </label>
-    
-    <div class="toolset" id="tool_blur" data-title="Change gaussian blur value">
-      <label>
-        <input id="blur" size="2" value="0" step=".1"  min="0" max="10" />
-        <span class="icon_label">Blur</span>
+      
+      <label id="tool_blur" data-title="Change gaussian blur value">
+          <input id="blur" size="2" value="0" step=".1"  min="0" max="10" />
+          <span class="icon_label">Blur</span>
       </label>
+      
+      <label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
+        <input id="rect_rx" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
+        <span class="icon_label">Roundness</span>
+      </label>
+
     </div>
     
-    <label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
-      <input id="rect_rx" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
-      <span class="icon_label">Roundness</span>
-    </label>
     
-    <div class="clearfix"></div>
     <div id="align_tools">
       <h4>Align</h4>
       <div class="toolset align_buttons" id="tool_position">
@@ -485,7 +510,7 @@
     
     <div class="toolset align_buttons">
       <label id="tool_align_relative">
-        <div class="select">
+        <div class="select-input">
           <select id="align_relative_to" title="Align relative to ..." class="select_tool">
           <option id="selected_objects" value="selected">Align to objects</option>
           <option id="page" value="page">Align to page</option>
@@ -529,35 +554,35 @@
 
   </div>
   
-  <div id="stroke_panel" class="context_panel clearfix">
-    <div class="clearfix"></div>
+  <div id="stroke_panel" class="context_panel">
     <h4>Stroke</h4>
-    <div class="toolset" data-title="Change stroke">
-      <label>
+    <div class="draginputs">
+      <label class="draginput" data-title="Change stroke">
         <input id="stroke_width" size="2" value="1" data-attr="stroke-width" min="0" max="99" step="1" />
         <span class="icon_label">Width</span>
       </label>
+      <div class="stroke_tool draginput"> 
+        <span>Dash</span>
+        <select id="stroke_style" data-title="Change stroke dash style">
+          <option selected="selected" value="none">—</option>
+          <option value="2,2">···</option>
+          <option value="5,5">- -</option>
+          <option value="5,2,2,2">-·-</option>
+          <option value="5,2,2,2,2,2">-··-</option>
+        </select>
+        <div class="caret"></div>
+        <label id="stroke_style_label">—</label>
+      </div>
+      
+      <label style="display: none;">
+        <span class="icon_label">Stroke Join</span>
+      </label>
+      
+      <label  style="display: none;">
+        <span class="icon_label">Stroke Cap</span>
+      </label>
+
     </div>
-    <div class="stroke_tool draginput"> 
-      <span>Dash</span>
-      <select id="stroke_style" data-title="Change stroke dash style">
-        <option selected="selected" value="none">—</option>
-        <option value="2,2">···</option>
-        <option value="5,5">- -</option>
-        <option value="5,2,2,2">-·-</option>
-        <option value="5,2,2,2,2,2">-··-</option>
-      </select>
-      <div class="caret"></div>
-      <label id="stroke_style_label">—</label>
-    </div>
-    
-    <label style="display: none;">
-      <span class="icon_label">Stroke Join</span>
-    </label>
-    
-    <label  style="display: none;">
-      <span class="icon_label">Stroke Cap</span>
-    </label>
   </div>
 
 </div> <!-- tools_top -->

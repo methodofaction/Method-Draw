@@ -248,7 +248,10 @@ MD.Panel = function(){
            $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
          } // text
          else if(el_name === 'image') {
-           setImageURL(svgCanvas.getHref(elem));
+            const url = svgCanvas.getHref(elem)
+            if(!url) url = default_img_url;
+            svgCanvas.setImageURL(url);
+            $('#image_url').val(url);
          } // image
          else if(el_name === 'g' || el_name === 'use') {
            $('#container_panel').show();

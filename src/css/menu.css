@@ -1,20 +1,8 @@
-#menu {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 30px;
-  background: #000;
-  z-index: 10;
-  color: #fff;
-}
-
 #menu_bar {
   padding: 0 0 0 var(--x12);
-  background: var(--z1);
   position: relative;
   z-index: 2;
+  height: var(--x8);
 }
 
 #menu_bar.active .menu.open .menu_list {
@@ -28,45 +16,41 @@
   display: inline-block;
 }
 
- .menu_title {
+.menu_title {
   cursor: pointer;
   display: inline-block;
-  padding: 7px 10px;
   z-index: 10;
   color: var(--z15);
   position: relative;
-  height: 16px;
+  line-height: var(--x8);
+  padding: 0 var(--x3);
   vertical-align: top;
 }
 
 .menu .menu_title:hover {
-  background: rgba(255,255,255,0.1);
+  background: var(--z2);
 }
 
 .menu_list .separator {
-  margin: 5px 0;
+  margin: var(--x1) 0;
   border-top: solid var(--z14) 1px;
 }
 
 .menu_list {
   display: none;
   position: absolute;
-  top: 28px;
   left: 0;
+  top: var(--x8);
   white-space: nowrap;
   background: var(--z15);
-  padding: 7px 0;
-  border-radius: 0 3px 3px 3px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.8);
-}
-
-.touch  .menu_list {
-  top: 38px;
+  padding: var(--x2) 0;
+  border-radius: 0 var(--x2) var(--x2) var(--x2);
+  box-shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.4);
 }
 
 #menu_bar.active .menu.open .menu_title {
-  background: white;
-  color: #333;
+  background: var(--z15);
+  color: var(--z1);
 }
 
 .menu .menu_list {
@@ -77,8 +61,8 @@
 .menu_list .menu_item {
   position: relative;
   overflow: hidden;
-  line-height: 22px;
-  padding: 5px 69px 5px 25px;
+  line-height: var(--x6);
+  padding: var(--x1) var(--x16) var(--x1) var(--x6);
   cursor: default;
   color: var(--z3);
 }
@@ -87,7 +71,7 @@
   background: transparent;
   border: none;
   margin: 0;
-  padding: 5px 55px 5px 25px;
+  padding: var(--x1) var(--x16) var(--x1) var(--x6);
   height: auto;
   width: auto;
 }
@@ -96,10 +80,8 @@
   content: '✔';
   position: absolute;
   display: block;
-  left: 7px;
-  top: 3px;
-  width: 20px;
-  height: 20px;
+  left: 6px;
+  top: var(--x1);
 }
 
 .menu_list .menu_item:hover,
@@ -126,14 +108,14 @@
   display: block;
   position: absolute;
   right: var(--x2);
-  padding: 0 var(--x1);
+  padding: 0 var(--x2);
   background: var(--z14);
   top: 50%;
   transform: translate(0, -50%);
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
   line-height: var(--x6);
-  border-radius: 2px;
+  border-radius: var(--x1);
   font-weight: 600;
 }
 

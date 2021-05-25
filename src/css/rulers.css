@@ -7,29 +7,30 @@
 }
 
 #rulers #ruler_corner {
-  top: 30px;
+  top: var(--x8);
   left: var(--x12);
   width: var(--x4);
   height: var(--x4);
   z-index: 2;
+  border-radius: var(--x2) 0 0 0;
 }
 
 #ruler_x {
   height: var(--x4);
-  top: 30px;
+  top: var(--x8);
   left: var(--x12);
-  margin-left: 2px;
-  right: 175px;
+  right: calc(var(--panel-width) + var(--x4));;
   overflow: hidden;
+  border-radius: var(--x2);
 }
 
 #ruler_y {
   width: var(--x4);
   top: var(--x8);
-  margin-top: -2px;
   left: var(--x12);
   bottom: var(--x10);
   overflow: hidden;
+  border-radius: var(--x2);
 }
 
 #ruler_x > div, 

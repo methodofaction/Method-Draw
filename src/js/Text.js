@@ -1,11 +1,13 @@
 MD.Text = function(){
 
   function setBold(){
+    if ($(this).hasClass("disabled")) return;
     svgCanvas.setBold( !svgCanvas.getBold() );
     editor.panel.updateContextPanel();
   }
 
   function setItalic(){
+    if ($(this).hasClass("disabled")) return;
     svgCanvas.setItalic( !svgCanvas.getItalic() );
     editor.panel.updateContextPanel();
   }

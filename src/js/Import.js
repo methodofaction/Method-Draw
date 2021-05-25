@@ -56,7 +56,7 @@ MD.Import = function(){
           svgCanvas.selectOnly([newImage])
           svgCanvas.alignSelectedElements("m", "page")
           svgCanvas.alignSelectedElements("c", "page")
-          updateContextPanel();
+          editor.panel.updateContextPanel();
         }
         // put a placeholder img so we know the default dimensions
         var img_width = 100;

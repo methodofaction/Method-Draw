@@ -1,13 +1,12 @@
  #panels {
   position: absolute;
-  width: 160px;
-  height: 100%;
-  background: var(--z1);
-  right: 0;
-  top: 20px;
+  box-sizing: border-box;
+  width: var(--panel-width);
+  right: var(--x1);
+  top: var(--x5);
   border-bottom: none;
   overflow: visible;
-  padding: 0 0 0 15px;
+  padding: 0;
 }
 
 .context_panel {
@@ -26,7 +25,6 @@
   color: var(--z13);
   white-space: nowrap;
 }
-
 
 #align_tools {
   display: none;

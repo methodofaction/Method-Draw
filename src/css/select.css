@@ -1,9 +1,9 @@
-.select {
+.select-input {
   margin: var(--x2) 0;
   position: relative;
 }
 
-.select:after {
+.select-input:after {
   content: '↓';
   font-weight: bold;
   position: absolute;
@@ -13,7 +13,7 @@
   transform: translate(0, -50%);
 }
 
-.select select {
+.select-input select {
   -webkit-appearance: none;
   background-color: var(--z3);
   color: var(--z14);
@@ -25,7 +25,7 @@
   border-radius: var(--x1);
 }
 
-.select select:focus {
+.select-input select:focus {
   outline: none;
   box-shadow: 0 0 0 1px var(--d7);
 

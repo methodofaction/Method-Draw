@@ -90,11 +90,13 @@
   --x13: 52px;
   --x14: 56px;
   --x15: 60px;
+  --x16: 64px;
 
   --mono-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   --ui-font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
   --transition-duration: 333ms;
   --transition-fast: 200ms;
+  --panel-width: calc(var(--x10)*2*2 + var(--x1));
 }
 
 a, a:link, a:active, a:visited {

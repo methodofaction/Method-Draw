@@ -22,13 +22,15 @@
  #workarea {
   display: flex;
   position:absolute;
-  top: 30px;
-  left: 50px;
-  bottom: 40px;
-  right: 175px;
+  top: var(--x8);
+  left: var(--x12);
+  bottom: var(--x10);
+  right: calc(var(--panel-width) + var(--x4));
   background-color: var(--z2);
   overflow: auto;
   align-items: center;
   justify-content: center;
   transition: transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
+  border-radius: var(--x2);
+  box-shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.2);
 }

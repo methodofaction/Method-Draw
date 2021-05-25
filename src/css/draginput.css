@@ -1,12 +1,18 @@
+.draginputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
 .draginput {
   background: var(--z2);
-  border-radius: 3px;
-  width: 70px;
-  height: 70px;
+  border-radius: var(--x1);
+  width: calc(50% - var(--x2));
+  height: calc(var(--x9) * 2);
   display: block;
   position: relative;
-  float: left;
-  margin: 0 5px 5px 0;
+  margin: 0 var(--x2) var(--x2) 0;
   overflow: hidden;
 }
 
@@ -73,11 +79,7 @@
 }
 
 .draginput.twocol {
-  width: 145px;
-}
-
-.draginput.twocol {
-  width: 145px;
+  width: 100%;
 }
 
 .draginput input, .draginput input:hover, .draginput input:active {  
@@ -125,7 +127,7 @@
   text-align: center;
 }
 
- .draginput select {
+.draginput select {
   -webkit-appearance: none;
   opacity: 0;
   display: block;
