@@ -4,7 +4,7 @@ Method Draw is a web based vector drawing application.
 
 ### [Try Method Draw](https://editor.method.ac) online.
 
-![Method Draw](https://method.ac/assets/editor.png)
+![Method Draw](https://method.ac/img/method-draw2021.png)
 
 The purpose of Method Draw is to provide a simple and easy-to-use SVG editor experience. It purposely removes some features such as layers and line-caps/corners in exchange for a more simple and pleasant experience. If you are looking for a more complete vector editing open-source solution, please check out [SVG Edit](https://github.com/SVG-Edit/svgedit).
 
@@ -38,6 +38,7 @@ Deploy `dist` to your static file server of choice.
 
 ## Release notes
 
+**2021.05.26** Minor redesign
 **2021.05.12** Solved stability issues
 **2021.02.15** Major code refactor  
 **2021.01.15** Added new fonts  
