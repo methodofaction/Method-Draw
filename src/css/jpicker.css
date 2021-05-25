@@ -1,11 +1,11 @@
-#svg_editor .jPicker .Icon {
+.jPicker .Icon {
     display: inline-block;
     height: 24px;
     position: relative;
     text-align: left;
     width: 25px;
 }
-#svg_editor .jPicker .Icon span.Color, #svg_editor .jPicker .Icon span.Alpha {
+.jPicker .Icon span.Color, .jPicker .Icon span.Alpha {
     background-position: 2px 2px;
     display: block;
     height: 100%;
@@ -13,7 +13,7 @@
     position: absolute;
     top: 0;
     width: 100%}
-#svg_editor .jPicker .Icon span.Image {
+.jPicker .Icon span.Image {
     background-repeat: no-repeat;
     cursor: pointer;
     display: block;
@@ -22,16 +22,16 @@
     position: absolute;
     top: 0;
     width: 100%}
-#svg_editor .jPicker.Container {
+.jPicker.Container {
     z-index: 10;
 }
 
-table#svg_editor .jPicker {
+table.jPicker {
     width: 545px;
      z-index: 20;
 }
 
-#svg_editor .jPicker .Move {
+.jPicker .Move {
     background-color: #ddd;
     border-color: #fff #666 #666 #fff;
     border-style: solid;
@@ -40,48 +40,45 @@ table#svg_editor .jPicker {
     height: 12px;
     padding: 0;
 }
-#svg_editor .jPicker .Title {
+.jPicker .Title {
     display:  none;
 }
 
-#svg_editor .jPicker div.Map {
-    
+.jPicker .Map {
   border:  solid #000 1px;
-     
+  height: 256px;
+  width: 256px;
   cursor: crosshair;
-    
-  height: 260px;
-    
   margin: 0;
-    
   overflow: hidden;
-    
   padding: 0;
-    
   position: relative;
-    
-  width: 260px;
-    
 }
-#svg_editor .jPicker div[class="Map"] {
-    height: 256px;
-    width: 256px;
-}
-#svg_editor .jPicker div.Bar {
+
+
+.jPicker .Bar {
     border:  solid #000 1px;
-     cursor: n-resize;
+    cursor: n-resize;
     height: 260px;
     margin: 0 15px;
     overflow: hidden;
     padding: 0;
     position: relative;
     width: 24px;
-}
-#svg_editor .jPicker div[class="Bar"] {
     height: 256px;
     width: 20px;
 }
-#svg_editor .jPicker .Map .Map1, #svg_editor .jPicker .Map .Map2, #svg_editor .jPicker .Map .Map3, #svg_editor .jPicker .Bar .Map1, #svg_editor .jPicker .Bar .Map2, #svg_editor .jPicker .Bar .Map3, #svg_editor .jPicker .Bar .Map4, #svg_editor .jPicker .Bar .Map5, #svg_editor .jPicker .Bar .Map6 {
+
+
+.jPicker .Map .Map1, 
+.jPicker .Map .Map2, 
+.jPicker .Map .Map3, 
+.jPicker .Bar .Map1, 
+.jPicker .Bar .Map2, 
+.jPicker .Bar .Map3, 
+.jPicker .Bar .Map4, 
+.jPicker .Bar .Map5, 
+.jPicker .Bar .Map6 {
     background-color: transparent;
     background-image: none;
     display: block;
@@ -89,41 +86,44 @@ table#svg_editor .jPicker {
     position: absolute;
     top: 0;
 }
-#svg_editor .jPicker .Map .Map1, #svg_editor .jPicker .Map .Map2, #svg_editor .jPicker .Map .Map3 {
+
+.jPicker .Map .Map1, 
+.jPicker .Map .Map2, 
+.jPicker .Map .Map3 {
     height: 2596px;
     width: 256px;
 }
-#svg_editor .jPicker .Bar .Map1, #svg_editor .jPicker .Bar .Map2, #svg_editor .jPicker .Bar .Map3, #svg_editor .jPicker .Bar .Map4 {
+.jPicker .Bar .Map1, .jPicker .Bar .Map2, .jPicker .Bar .Map3, .jPicker .Bar .Map4 {
     height: 3896px;
     width: 20px;
 }
-#svg_editor .jPicker .Bar .Map5, #svg_editor .jPicker .Bar .Map6 {
+.jPicker .Bar .Map5, .jPicker .Bar .Map6 {
     height: 256px;
     width: 20px;
 }
-#svg_editor .jPicker .Map .Map1, #svg_editor .jPicker .Map .Map2, #svg_editor .jPicker .Bar .Map6 {
+.jPicker .Map .Map1, .jPicker .Map .Map2, .jPicker .Bar .Map6 {
     background-repeat: no-repeat;
 }
-#svg_editor .jPicker .Map .Map3, #svg_editor .jPicker .Bar .Map5 {
+.jPicker .Map .Map3, .jPicker .Bar .Map5 {
     background-repeat: repeat;
 }
-#svg_editor .jPicker .Bar .Map1, #svg_editor .jPicker .Bar .Map2, #svg_editor .jPicker .Bar .Map3, #svg_editor .jPicker .Bar .Map4 {
+.jPicker .Bar .Map1, .jPicker .Bar .Map2, .jPicker .Bar .Map3, .jPicker .Bar .Map4 {
     background-repeat: repeat-x;
 }
-#svg_editor .jPicker .Map .Arrow {
+.jPicker .Map .Arrow {
     display: block;
     position: absolute;
 }
-#svg_editor .jPicker .Bar .Arrow {
+.jPicker .Bar .Arrow {
     display: block;
     left: 0;
     position: absolute;
 }
-#svg_editor .jPicker .Preview {
+.jPicker .Preview {
     font-size: 9px;
     text-align: center;
 }
-#svg_editor .jPicker .Preview div.bgt  {
+.jPicker .Preview div.bgt  {
     height: 62px;
     margin: 0 auto;
     padding: 0;
@@ -131,7 +131,7 @@ table#svg_editor .jPicker {
 }
 
 
-#svg_editor .jPicker .Preview div span {
+.jPicker .Preview div span {
     border: 1px solid #000;
     display: block;
     height: 30px;
@@ -139,33 +139,33 @@ table#svg_editor .jPicker {
     padding: 0;
     width: 60px;
 }
-#svg_editor .jPicker .Preview .Active {
+.jPicker .Preview .Active {
     border-bottom-width: 0;
 }
-#svg_editor .jPicker .Preview .Current {
+.jPicker .Preview .Current {
     border-top-width: 0;
     cursor: pointer;
 }
-#svg_editor .jPicker .Button {
+.jPicker .Button {
     text-align: center;
     width: 115px;
 }
-#svg_editor .jPicker .Button input {
+.jPicker .Button input {
     width: 100px;
     cursor: pointer;
 }
 
-#svg_editor .jPicker td.Radio {
+.jPicker td.Radio {
     margin: 0;
     padding: 0;
-    width: 31px;
+    width: var(--x8);
 }
-#svg_editor .jPicker td.Radio input {
-    margin: 0 5px 0 0;
+.jPicker td.Radio input {
+    margin: 0 var(--x1) 0 0;
     padding: 0;
     cursor: pointer;
 }
-#svg_editor .jPicker td.Text {
+.jPicker td.Text {
     font-size: 12px!important;
     height: 22px;
     margin: 0;
@@ -173,16 +173,16 @@ table#svg_editor .jPicker {
     text-align: left;
     width: 70px;
 }
-#svg_editor .jPicker tr.Hex td.Text {
+.jPicker tr.Hex td.Text {
     width: 100px;
     color: #666;
 }
 
-#svg_editor .jPicker tr.Hex td.Text span {
+.jPicker tr.Hex td.Text span {
     width: 100px;
     color: #333;
 }
-#svg_editor .jPicker td.Text input {
+.jPicker td.Text input {
     background-color: #fff;
     height: 15px;
     margin: 0 0 0 5px;
@@ -191,22 +191,22 @@ table#svg_editor .jPicker {
     color: #333;
 }
 
-#svg_editor #color_picker .jPicker tr.Hex td.Text input.Hex {
+#color_picker .jPicker tr.Hex td.Text input.Hex {
     width: 50px;
     display: inline-block;
     float: none;
 }
 
-#svg_editor .jPicker tr.Hex td.Text input.AHex {
+.jPicker tr.Hex td.Text input.AHex {
     width: 20px;
     display: none;
 }
-#svg_editor .jPicker .Grid {
+.jPicker .Grid {
     text-align: center;
     float: right;
     width: 108px;
 }
-#svg_editor .jPicker .Grid span.QuickColor {
+.jPicker .Grid span.QuickColor {
     cursor: pointer;
     display: inline-block;
     height: 15px;
@@ -215,37 +215,37 @@ table#svg_editor .jPicker {
     padding: 0;
     width: 18px;
 }
-#svg_editor .jPicker td  {
+.jPicker td  {
   vertical-align:  top;
 }
-#svg_editor .jPicker td.colorsquare  {
+.jPicker td.colorsquare  {
   width:  275px;
 }
 
-#svg_editor .jPicker .prev_div  {
+.jPicker .prev_div  {
   margin-top:  -15px;
 }
 
-#svg_editor .jPicker .actions {
+.jPicker .actions {
   position: absolute;
   bottom: 20px;
   left: 20px;
   right: 20px;
 }
 
-#svg_editor .jPicker .actions .Ok{
+.jPicker .actions .Ok{
   position: absolute;
   top: 0;
   right: 0px;
 }
 
-#svg_editor .jPicker .actions .Cancel{
+.jPicker .actions .Cancel{
   position: absolute;
   top: 0;
   left: 0px;
 }
 
-#svg_editor .jPicker .color_preview {
+.jPicker .color_preview {
   width: 62px;
   margin: 0 auto;
 }
