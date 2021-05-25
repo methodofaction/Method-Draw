@@ -242,7 +242,7 @@ MD.Panel = function(){
            $('#tool_italic').toggleClass('disabled', fonts[cleanFontFamily] ? !fonts[cleanFontFamily]["Italic"] : false)
            $('#tool_bold').toggleClass('disabled', fonts[cleanFontFamily] ? !fonts[cleanFontFamily]["Bold"] : false);
            $('#font_family').val(font_family);
-           $(select).find(`option[value=${font_family}]`).prop("selected", true);
+           $(select).find(`option[value='${cleanFontFamily}']`).prop("selected", true);
            $('#font_size').val(elem.getAttribute("font-size"));
            $('#text').val(elem.textContent);
            $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
