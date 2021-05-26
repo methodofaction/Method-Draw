@@ -55,7 +55,7 @@ MD.Keyboard = function(){
     "cmd_shift_arrowdown":{ name: "Send to back", cb: () => editor.moveToBottomSelected()},
     "escape":  { name: false,    cb: ()=> editor.escapeMode()},
     "enter":    { name: false,    cb: ()=> editor.escapeMode()},
-    " ":  { name: "Pan canvas",    cb: ()=> editor.pan.startPan()},
+    " ":  { name: "Pan canvas",    cb: (e)=> editor.pan.startPan(e)},
   };
 
   document.addEventListener("keydown", function(e){

@@ -43,7 +43,7 @@ MD.Rulers = function(){
   });
 
   window.addEventListener("resize", function(){
-    editor.canvas.update();
+    editor.canvas.update(true);
     update();
   })
 

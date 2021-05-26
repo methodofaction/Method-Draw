@@ -47,10 +47,6 @@ MD.Zoom = function(){
 
     if(!z_info) return;
     
-    if(zoomlevel < .001) {
-      changeZoom({value: .1});
-      return;
-    }
     if (typeof animatedZoom !== 'undefined') window.cancelAnimationFrame(animatedZoom)
     // zoom duration 500ms
     var start = Date.now();
@@ -65,7 +61,8 @@ MD.Zoom = function(){
       editor.rulers.update();
       tick = (Math.pow((tick-1), 3) +1);
       svgCanvas.setZoom(current_zoom + (diff*tick));
-      updateCanvas();
+      var isCentered = !Boolean(bbox.width);
+      updateCanvas(isCentered, {x: bbox.x + bbox.width/2, y: bbox.y + bbox.height/2});
       if (tick < 1 && tick > -.90) {
         window.animatedZoom = requestAnimationFrame(animateZoom)
       }

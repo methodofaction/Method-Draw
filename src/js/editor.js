@@ -14,7 +14,7 @@ MD.Editor = function(){
       state.set("canvasMode", "select")
       svgCanvas.clear();
       svgCanvas.setResolution(dims[0], dims[1]);
-      editor.canvas.update();
+      editor.canvas.update(true);
       editor.zoom.reset();
       editor.panel.updateContextPanel();
       editor.paintBox.fill.prep();
@@ -186,7 +186,7 @@ MD.Editor = function(){
     const mode = svgCanvas.getMode();
 
     // if the element changed was the svg, then it could be a resolution change
-    if (elems[0].tagName === "svg")  return editor.canvas.update();
+    if (elems[0].tagName === "svg")  return editor.canvas.update(true);
 
     
     editor.panel.updateContextPanel(elems);

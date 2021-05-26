@@ -3421,10 +3421,17 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
   
   // Added mouseup to the container here.
   // TODO(codedread): Figure out why after the Closure compiler, the window mouseup is ignored.
-  $(container).mousedown(mouseDown).mousemove(mouseMove).click(handleLinkInCanvas).dblclick(dblClick).mouseup(mouseUp);
-//  $(window).mouseup(mouseUp);
-  
-  $(container).bind("mousewheel DOMMouseScroll", function(e){
+  $(container)
+    .mousedown(mouseDown)
+    .mousemove(mouseMove)
+    .click(handleLinkInCanvas)
+    .dblclick(dblClick)
+    .mouseup(mouseUp);
+
+  container.addEventListener("mousewheel", resizeCanvas);
+  container.addEventListener("gesturechange", resizeCanvas);
+
+  function resizeCanvas(e){
     if(!e.shiftKey) return;
     e.preventDefault();
 
@@ -3437,13 +3444,11 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       'height': 0
     };
 
-    // Respond to mouse wheel in IE/Webkit/Opera.
-    // (It returns up/dn motion in multiples of 120)
     if(e.wheelDelta) {
-      if (e.wheelDelta >= 120) {
-        bbox.factor = 2;
-      } else if (e.wheelDelta <= -120) {
-        bbox.factor = .5;
+      if (e.wheelDelta > 0) {
+        bbox.factor = 1.5;
+      } else {
+        bbox.factor = .7;
       }
     } else if(e.detail) {
       if (e.detail > 0) {
@@ -3453,9 +3458,11 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       }       
     }
     
-    if(!bbox.factor) return;
+    if(!bbox.factor) bbox.factor = 1;
+
     call("zoomed", bbox);
-  });
+  };
+
   
 }());
 

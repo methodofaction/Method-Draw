@@ -5,7 +5,7 @@ MD.Pan = function(){
   let last_x = null;
   let last_y = null;
 
-  function startPan(){
+  function startPan(e){
     panning = true;
     svgCanvas.spaceKey = true;
     document.body.classList.add("dragging");

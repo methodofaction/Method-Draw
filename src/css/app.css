@@ -20,7 +20,7 @@
 }
 
  #workarea {
-  display: flex;
+  display: block;
   position:absolute;
   top: var(--x8);
   left: var(--x12);

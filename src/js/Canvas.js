@@ -78,21 +78,22 @@ MD.Canvas = function(){
   }
 
   function update(center, new_ctr) {
-    var w = workarea.offsetWidth, h = workarea.offsetHeight;
+    var w = $(workarea).width(), h = $(workarea).height();
     var w_orig = w, h_orig = h;
     var zoom = svgCanvas.getZoom();
-    var cnvs = $(el);
-    
+    var cnvs = $("#svgcanvas");
+      
     var old_ctr = {
       x: workarea.scrollLeft + w_orig/2,
       y: workarea.scrollTop + h_orig/2
     };
     
-    // curConfig.canvas_expansion
-    var multi = 1;
+    var multi = 2;
     w = Math.max(w_orig, svgCanvas.contentW * zoom * multi);
     h = Math.max(h_orig, svgCanvas.contentH * zoom * multi);
     
+    workarea.style.overflow = (w == w_orig && h == h_orig) ? "hidden" : "scroll";
+  
     var old_can_y = cnvs.height()/2;
     var old_can_x = cnvs.width()/2;
     cnvs.width(w).height(h);
@@ -123,6 +124,22 @@ MD.Canvas = function(){
       new_ctr.y += offset.y;
     }
     
+    if(center) {
+      // Go to top-left for larger documents
+      if(svgCanvas.contentW > $(workarea).width()) {
+        // Top-left
+        workarea.scrollLeft = offset.x - 10;
+        workarea.scrollTop = offset.y - 10;
+      } else {
+        // Center
+        workarea.scrollLeft = scroll_x;
+        workarea.scrollTop = scroll_y;
+      }
+    } else {
+      workarea.scrollLeft = new_ctr.x - w_orig/2;
+      workarea.scrollTop = new_ctr.y - h_orig/2;
+    }
+
     editor.rulers.update();
     workarea.scroll();
   }

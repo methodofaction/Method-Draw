@@ -32,7 +32,7 @@ html, body {
 
 ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background: var(--z1);
+    background: var(--z2);
 }
 
 ::-webkit-scrollbar-thumb {
