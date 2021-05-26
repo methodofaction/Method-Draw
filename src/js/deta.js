@@ -1,24 +1,11 @@
 
 (function () {
     const close = () => {
-        if (window.deta.currOpen) {
-            const currOpenNodeMenu = document.querySelector('#curr_open_drawing');
-            if (currOpenNodeMenu) {
-                currOpenNodeMenu.remove();
-            }
-        }
+        const currOpenNodeMenu = document.querySelector('#curr_open_drawing');
 
-        // clear canvas
-        const dims = state.get("canvasSize");
-        state.set("canvasMode", "select");
-        svgCanvas.clear();
-        svgCanvas.setResolution(dims[0], dims[1]);
-        editor.canvas.update(true);
-        editor.zoom.reset();
-        editor.panel.updateContextPanel();
-        editor.paintBox.fill.prep();
-        editor.paintBox.stroke.prep();
-        svgCanvas.runExtensions('onNewDocument');
+        if (currOpenNodeMenu) {
+            currOpenNodeMenu.remove();
+        }
 
         // remove delete node
         const deleteNode = document.getElementById('tool_cdelete');
@@ -31,11 +18,25 @@
         window.deta.currOpen = null;
     };
 
+    const clearCanvas = () => {
+        // clear canvas
+        const dims = state.get("canvasSize");
+        state.set("canvasMode", "select");
+        svgCanvas.clear();
+        svgCanvas.setResolution(dims[0], dims[1]);
+        editor.canvas.update(true);
+        editor.zoom.reset();
+        editor.panel.updateContextPanel();
+        editor.paintBox.fill.prep();
+        editor.paintBox.stroke.prep();
+        svgCanvas.runExtensions('onNewDocument');
+    }
+
     const setOpen = (filename) => {
         // sets a recently saved file as open
-
-        // close existing file if open
-        close();
+        if (window.deta.currOpen) {
+            close();
+        }
 
         // add new menu item to show the file name
         const menu = document.querySelector('#menu_bar');
@@ -76,6 +77,7 @@
             reader.onload = function () {
                 // set open
                 setOpen(filename);
+                clearCanvas();
                 svgCanvas.setSvgString(JSON.parse(reader.result));
                 // change share modal values
             };
@@ -91,6 +93,7 @@
         const response = await window.api.app.deleteDrawing(window.deta.currOpen);
         if (response.status === 200) {
             close();
+            clearCanvas();
             return 200;
         } else {
             return null;
