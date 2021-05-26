@@ -50,3 +50,12 @@ def get_drawing(name):
     base.delete(encoded_name)
     drive.delete(name)
     return None
+
+def delete_drawing(name):
+    encoded_name = str(base64.urlsafe_b64encode(name.encode("utf-8")), 'utf-8')
+    try:
+        base.delete(encoded_name)
+        drive.delete(name)
+        return name
+    except:
+        return None

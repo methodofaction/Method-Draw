@@ -11,7 +11,7 @@ MD.Editor = function () {
     var dims = state.get("canvasSize");
     $.confirm("<h4>Do you want to clear the drawing?</h4><p>This will also erase your undo history</p>", function (ok) {
       if (!ok) return;
-      state.set("canvasMode", "select")
+      state.set("canvasMode", "select");
       svgCanvas.clear();
       svgCanvas.setResolution(dims[0], dims[1]);
       editor.canvas.update(true);
@@ -382,6 +382,11 @@ MD.Editor = function () {
     editor.modal.cloudOpen.open();
   }
   this.cloudOpen = cloudOpen;
+
+  function cloudDelete() {
+    editor.modal.cloudDelete.open();
+  }
+  this.cloudDelete = cloudDelete;
 
   function about() {
     editor.modal.about.open();

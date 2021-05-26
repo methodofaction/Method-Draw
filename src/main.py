@@ -56,6 +56,14 @@ def upload_img(file: UploadFile = File(...), overwrite: bool = Form(False)):
     else:
         raise HTTPException(status_code=409, detail="Drawing already exists")
 
+@app.delete("/api/drawings/{name}", status_code=200)
+def delete_drawing_handler(name: str):
+    did_delete = delete_drawing(name)
+    if did_delete:
+        return {"message": "success"}
+    else:
+        raise HTTPException(status_code=502, detail="Internal server error")
+
 
 app.mount("/public", StaticFiles(directory=".", html="true"), name="static")
 app.mount("/", StaticFiles(directory=".", html="true"), name="static")

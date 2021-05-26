@@ -15,6 +15,7 @@ const detaMods = () => {
   <div class="menu_list" id="file_menu">
     <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
     <div data-action="cloudOpen" id="tool_copen" class="menu_item">Open Document</div>
+    <div data-action="cloudSave" id="tool_csave" class="menu_item">Save</div>
     <div data-action="cloudSave" id="tool_csaveas" class="menu_item">Save As<span class="shortcut">⌘S</span>
     </div>
     <div id="tool_open" class="menu_item">
@@ -142,7 +143,7 @@ editor.modal = {
   }),
   cloudOpen: new MD.Modal({
     html: `
-    <div class="open_title">Please select an svg to open:</div>
+    <div class="modal_header">Please select an svg to open:</div>
     <div id="drawing_list" class="open_drawing_list">
       Loading drawings...
     </div>
@@ -162,10 +163,40 @@ editor.modal = {
         } else {
           // load the drawing
           window.deta.open();
-
           editor.modal.cloudOpen.close();
         }
       });
+    }
+  }),
+  cloudDelete: new MD.Modal({
+    html: `
+    <div class="delete_wrapper">
+    <div class="modal_header">Do you want to delete the drawing?</div>
+    <p>This will delete the drawing from the cloud, clear the canvas, and erase your undo history.</p>
+    <p id="delete_error" class="delete_error">There was an error deleting your drawing, please refresh and try again.</p>
+    </div>
+    <div class="modal_btn_row">
+       <button id="delete_cancel_btn" class="cancel">Cancel</button>
+       <button id="delete_btn" class="delete_btn">Delete</button>
+    </div>
+    `,
+    js: function (el) {
+      const revertState = () => {
+        document.getElementById("delete_warning").style.display = "none";
+      };
+      el.querySelector("#delete_cancel_btn").addEventListener("click", function () {
+        revertState();
+        editor.modal.cloudDelete.close();
+      })
+      el.querySelector("#delete_btn").addEventListener("click", function () {
+        window.deta.deleteDocument().then(res => {
+          if (res) {
+            editor.modal.cloudDelete.close();
+          } else {
+            document.getElementById("delete_warning").style.display = inherit;
+          }
+        })
+      })
     }
   }),
   configure: new MD.Modal({

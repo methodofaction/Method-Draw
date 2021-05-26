@@ -14,6 +14,12 @@
     background-color: transparent !important;
 }
 
+.modal_header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: var(--x2);
+}
+
 /* /* save as to deta */
 
 .save_text_block {
@@ -54,12 +60,6 @@
 
 /* /* open from deta */
 
-.open_title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: var(--x2);
-}
-
 .open_drawing_list {
     display: flex;
     flex-direction: column;
@@ -91,3 +91,25 @@
     cursor: default !important;
     background-color: transparent !important;
 }
+
+/* /* delete modal */
+
+.delete_wrapper {
+    max-width: 300px;
+    margin-top: var(--x4);
+    margin-bottom: var(--x8);
+}
+
+.delete_error {
+    display: none;
+    color: var(--a6);
+}
+
+
+.delete_btn {
+    background-color: var(--a6);
+}
+
+.delete_btn:hover {
+    background-color: var(--a8);
+}  

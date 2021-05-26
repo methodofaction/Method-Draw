@@ -31,6 +31,10 @@
             loadDrawing: function (name) {
                 const resp = api("GET", `./api/drawings/${name}`);
                 return resp;
+            },
+            deleteDrawing: function (name) {
+                const resp = api("DELETE", `./api/drawings/${name}`);
+                return resp;
             }
         },
     };
