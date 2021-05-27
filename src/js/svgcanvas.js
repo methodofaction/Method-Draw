@@ -5128,13 +5128,6 @@ this.svgCanvasToString = function() {
   
   pathActions.clear(true);
   
-  // Keep SVG-Edit comment on top
-  $.each(svgcontent.childNodes, function(i, node) {
-    if(i && node.nodeType === 8 && node.data.indexOf('Created with') >= 0) {
-      svgcontent.insertBefore(node, svgcontent.firstChild);
-    }
-  });
-  
   // Move out of in-group editing mode
   if(current_group) {
     leaveContext();
@@ -5162,6 +5155,7 @@ this.svgCanvasToString = function() {
       $(this).replaceWith(svg);
     }
   });
+
   var output = this.svgToString(svgcontent, 0);
   
   // Rewrap gsvg
@@ -5202,17 +5196,6 @@ this.svgToString = function(elem, indent) {
       var res = getResolution();
       
       var vb = "";
-      // TODO: Allow this by dividing all values by current baseVal
-      // Note that this also means we should properly deal with this on import
-//      if(curConfig.baseUnit !== "px") {
-//        var unit = curConfig.baseUnit;
-//        var unit_m = svgedit.units.getTypeMap()[unit];
-//        res.w = svgedit.units.shortFloat(res.w / unit_m)
-//        res.h = svgedit.units.shortFloat(res.h / unit_m)
-//        vb = ' viewBox="' + [0, 0, res.w, res.h].join(' ') + '"';       
-//        res.w += unit;
-//        res.h += unit;
-//      }
       
       if(unit !== "px") {
         res.w = svgedit.units.convertUnit(res.w, unit) + unit;
@@ -5780,6 +5763,13 @@ var convertToGroup = this.convertToGroup = function(elem) {
   }
 }
 
+this.styleToAttributes = function(doc) {
+  const docEl = doc.documentElement;
+
+  return doc;
+
+}
+
 //   
 // Function: setSvgString
 // This function sets the current drawing as the input SVG XML.
@@ -5796,6 +5786,9 @@ this.setSvgString = function(xmlString) {
     this.prepareSvg(newDoc);
 
     var batchCmd = new BatchCommand("Change Source");
+
+    newDoc = this.styleToAttributes(newDoc);
+    
 
     // remove old svg document
     var nextSibling = svgcontent.nextSibling;
