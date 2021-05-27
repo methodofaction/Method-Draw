@@ -7,10 +7,6 @@ import base64
 
 deta = Deta(os.getenv("PROJ_KEY"))
 
-
-def get_base():
-    return 
-
 base = deta.Base("drawings")
 
 drive = deta.Drive("drawings")
@@ -25,9 +21,10 @@ def get_all(db, query):
 
 # list all drawings
 def get_drawings():
-    return get_all(base, {})
-
-
+    try:
+        return get_all(base, {})
+    except:
+        return None
 
 # save existing drawing
 def save(name, file):
@@ -54,7 +51,6 @@ def save_as(name, file, overwrite):
     else:  # Overwrite False and Record Exists
         return None
 
-
 def get_drawing(name):
     encoded_name = str(base64.urlsafe_b64encode(name.encode("utf-8")), 'utf-8')
     b = base.get(encoded_name)
@@ -71,5 +67,26 @@ def delete_drawing(name):
         base.delete(encoded_name)
         drive.delete(name)
         return name
+    except:
+        return None
+    
+def modify_public(name, public):
+    encoded_name = str(base64.urlsafe_b64encode(name.encode("utf-8")), 'utf-8')
+    try:
+        b = base.get(encoded_name)
+        if (b):
+            b["public"] = public
+            return base.put(b)
+        return None
+    except:
+        return None
+    
+def get_public_drawing(name):
+    encoded_name = str(base64.urlsafe_b64encode(name.encode("utf-8")), 'utf-8')
+    try:
+        b = base.get(encoded_name)
+        if (b and b["public"]):
+            return drive.get(name)
+        return None
     except:
         return None

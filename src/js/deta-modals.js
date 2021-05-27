@@ -1,5 +1,10 @@
 // deta modals
 
+const urlParams = new URLSearchParams(window.location.search);
+const paths = window.location.pathname.split("/");
+const isPublic = paths[1] === "public" && paths[2] !== "raw";
+const publicSvgName = urlParams.get("name");
+
 const detaModals = {
     cloudSaveAs: new MD.Modal({
         html: `<h3>Please name your drawing.</h3>
@@ -202,32 +207,23 @@ const detaModals = {
                 "change",
                 async function () {
                     const isPublic = document.getElementById("switch-1");
-                    if (isPublic.checked) {
-                        /*
-                        const res = await window.api.app.togglePublic(
-                            window.deta.currOpen,
-                            isPublic.checked
-                        );
-                        */
+                    const res = await window.deta.modifyIsPublic(
+                        isPublic.checked
+                    );
+
+                    if (isPublic.checked && res.status === 200) {
                         document.getElementById("share_links").style.display = "block";
-                        document.getElementById(
-                            "raw_url"
-                        ).value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`;
-                        document.getElementById(
-                            "edit_url"
-                        ).value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`;
+                        document.getElementById("raw_url").value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`;
+                        document.getElementById("edit_url").value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`;
                         document.getElementById("share_desc").innerHTML =
                             "Anyone with the link can view your work.";
-                    } else {
-                        /*
-                        const res = await window.api.app.togglePublic(
-                            window.deta.currOpen,
-                            isPublic.checked
-                        );
-                        */
+                    } else if (!isPublic.checked && res.status === 200) {
+
                         document.getElementById("share_desc").innerHTML =
                             "Make your drawing public and share a link with anyone.";
                         document.getElementById("share_links").style.display = "none";
+                    } else {
+                        // handle errors
                     }
                 }
             );
@@ -247,8 +243,22 @@ const detaModals = {
     })
 }
 
+const publicLoader = async () => {
+    if (isPublic && publicSvgName) {
+        const success = await window.deta.loadPublicDocument(publicSvgName);
+        if (!success) {
+            svgCanvas.setSvgString(state.get("canvasContent"));
+        }
+    } else {
+        svgCanvas.setSvgString(state.get("canvasContent"));
+    }
+}
+
+
+
 if (isDetaRuntime) {
     Object.keys(detaModals).forEach(modal => {
         editor.modal[modal] = detaModals[modal]
     });
+    publicLoader();
 }

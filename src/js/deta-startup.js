@@ -1,11 +1,11 @@
 const isDetaRuntime = location.hostname === "deta.app"
-    || location.hostname === "deta.dev"
-    || location.hostname === "127.0.0.1";
+  || location.hostname === "deta.dev"
+  || location.hostname === "127.0.0.1";
 
-const detaMods = () => {
-    // replace menu with Deta Options
-    document.getElementById("file_menu_main").innerHTML =
-        `
+const detaMenuMods = () => {
+  // replace menu with Deta Options
+  document.getElementById("file_menu_main").innerHTML =
+    `
       <div class="menu_title">File</div>
       <div class="menu_list" id="file_menu">
         <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
@@ -24,22 +24,22 @@ const detaMods = () => {
         <div data-action="export" id="tool_export" class="menu_item">Export as PNG</div>
       </div>`;
 
-    // add share option
-    const menu = document.querySelector("#menu_bar");
-    const shareDiv = document.createElement("div");
-    shareDiv.setAttribute("class", "menu");
-    shareDiv.setAttribute("id", "share_drawing");
-    const shareDivTitle = document.createElement("div");
-    shareDivTitle.setAttribute("id", "share_drawing_title");
-    shareDivTitle.setAttribute("class", "menu_title");
-    shareDivTitle.addEventListener("click", function () {
-        editor.share();
-    });
-    shareDivTitle.innerText = `Share`;
-    shareDiv.appendChild(shareDivTitle);
-    menu.appendChild(shareDiv);
+  // add share option
+  const menu = document.querySelector("#menu_bar");
+  const shareDiv = document.createElement("div");
+  shareDiv.setAttribute("class", "menu");
+  shareDiv.setAttribute("id", "share_drawing");
+  const shareDivTitle = document.createElement("div");
+  shareDivTitle.setAttribute("id", "share_drawing_title");
+  shareDivTitle.setAttribute("class", "menu_title");
+  shareDivTitle.addEventListener("click", function () {
+    editor.share();
+  });
+  shareDivTitle.innerText = `Share`;
+  shareDiv.appendChild(shareDivTitle);
+  menu.appendChild(shareDiv);
 }
 
 if (isDetaRuntime) {
-    detaMods();
+  detaMenuMods();
 }

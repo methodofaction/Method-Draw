@@ -68,11 +68,6 @@ def save_drawing_handler(file: UploadFile = File(...)):
     else:
         raise HTTPException(status_code=502, detail="Internal server error")
 
-@app.post("/api/saveas")
-def save_as_drawing_handler(overwrite: bool = Form(...), file: UploadFile = File(...)):
-    name = file.filename
-    f = file.file
-    return save_as(name, f, overwrite)
 
 @app.delete("/api/drawings/{name}", status_code=200)
 def delete_drawing_handler(name: str):
@@ -82,6 +77,36 @@ def delete_drawing_handler(name: str):
     else:
         raise HTTPException(status_code=502, detail="Internal server error")
 
+# toggle public
+@app.put("/api/public/{name}")
+def modify_public_handler(name: str, drawing: Drawing):
+    did_toggle = modify_public(name, drawing.public)
+    print(did_toggle)
+    if did_toggle:
+        return {"message": "success"}
+    else:
+        raise HTTPException(status_code=502, detail="Internal server error")
+
+app.mount("/", StaticFiles(directory=".", html="true"), name="static")
+
+#public routes
+
+# drawing data
+@app.get("/public/bytes/{name}")
+def public_bytes_handler(name: str):
+    drawing = get_public_drawing(name)
+    if drawing: 
+        return drawing.read()
+    else:
+        raise HTTPException(status_code=502, detail="Internal server error")
+
+@app.get("/public/raw/{name}")
+def stream_drawing(name: str):
+    drawing = get_public_drawing(name)
+    if drawing:
+        return StreamingResponse(drawing.iter_chunks(1024), media_type="image/svg+xml")
+    else:
+        return FileResponse("./404.html")
+
 
 app.mount("/public", StaticFiles(directory=".", html="true"), name="static")
-app.mount("/", StaticFiles(directory=".", html="true"), name="static")

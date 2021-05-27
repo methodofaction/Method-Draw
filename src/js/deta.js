@@ -190,6 +190,28 @@
     }
 
     // open a sepcific document
+    const setShareStatus = async () => {
+        const md_response = await window.api.app.getMetadata(filename);
+
+        if (md_response.status === 200) {
+            const meta_data = md_response.json();
+            const { public } = meta_data;
+            document.getElementById("public_toggle").checked = public;
+            if (public) {
+                document.getElementById("share_links").style.display = "block";
+                document.getElementById("raw_url").value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`
+                document.getElementById("edit_url").value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`
+                document.getElementById("share_desc").innerHTML =
+                    "Anyone with the link can view your work.";
+            } else {
+                document.getElementById("share_desc").innerHTML =
+                    "Make your drawing public and share a link with anyone.";
+                document.getElementById("share_links").style.display = "none";
+            }
+        } else {
+            // error handling
+        }
+    }
 
     const loadDocument = async () => {
         const filename = window.deta.toOpen.innerText;
@@ -207,12 +229,35 @@
                 // needs to come after the svg is loaded onto canvas
                 setOpen(filename);
                 // change share modal values
+                setShareStatus();
             };
             reader.onerror = function () {
                 console.log(reader.error);
             };
         } else {
 
+        }
+    }
+
+    // load a public document DRY refactor with last function ?
+    const loadPublicDocument = async (name) => {
+        const response = await window.api.app.loadPublicDrawing(name);
+        if (response.status === 200) {
+            const bod = response.body;
+            const stream = new Response(bod);
+            const file = await stream.blob();
+            const reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = function () {
+                svgCanvas.setSvgString(JSON.parse(reader.result));
+                return true;
+            };
+            reader.onerror = function () {
+                console.log(reader.error);
+                return false;
+            };
+        } else {
+            return false;
         }
     }
 
@@ -254,6 +299,16 @@
         }
     }
 
+    const modifyIsPublic = async (nextPublic) => {
+        if (!window.deta.currOpen) {
+            // no open drawing
+            return null;
+        }
+        const name = window.deta.currOpen;
+        const response = await window.api.app.modifyPublicity(name, nextPublic);
+        return response;
+    }
+
     window.deta = {
         toOpen: null,
         // dom node
@@ -266,8 +321,10 @@
         setStatus,
         listDocuments,
         loadDocument,
+        loadPublicDocument,
         deleteDocument,
         saveDocumentAs,
-        saveDocument
+        saveDocument,
+        modifyIsPublic
     }
 })();

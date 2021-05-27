@@ -7,6 +7,7 @@
         return fetch(resource, init);
     };
     var api = function (method, endpoint, data) {
+        console.log(data);
         const resp = xfetch(endpoint, {
             method: method,
             body: data,
@@ -36,8 +37,21 @@
                 const resp = api("GET", `./api/drawings/${name}`);
                 return resp;
             },
+            getMetadata: function (name) {
+                const resp = api("GET", `./api/metadata/${name}`);
+                return resp;
+            },
             deleteDrawing: function (name) {
                 const resp = api("DELETE", `./api/drawings/${name}`);
+                return resp;
+            },
+            modifyPublicity: function (name, isPublic) {
+                const bod = { public: isPublic };
+                const resp = api("PUT", `./api/public/${name}`, JSON.stringify(bod));
+                return resp;
+            },
+            loadPublicDrawing: function (name) {
+                const resp = api("GET", `/public/bytes/${name}`);
                 return resp;
             }
         },
