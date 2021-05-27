@@ -88,8 +88,13 @@
 }
 
 .curr_open_drawing {
-    cursor: default !important;
-    background-color: transparent !important;
+    display: inline-block;
+    z-index: 10;
+    color: var(--z15);
+    position: relative;
+    line-height: var(--x8);
+    padding: 0 var(--x3);
+    vertical-align: top;
 }
 
 /* /* delete modal */
@@ -113,3 +118,45 @@
 .delete_btn:hover {
     background-color: var(--a8);
 }  
+
+/* /* error */
+
+.cloud_error {
+    max-width: 300px;
+    margin-top: var(--x8);
+    margin-bottom: var(--x8);
+    color: var(--a6);
+    font-weight: bold;
+}
+
+#error_btn {
+    margin-left: auto;
+}
+
+/* /* status indicator */
+
+.status_title {
+    display: inline-block;
+    z-index: 10;
+    color: var(--z15);
+    position: relative;
+    line-height: var(--x8);
+    padding: 0 var(--x3);
+    vertical-align: top;
+}
+
+.status_saving {
+    color: var(--b7);
+}
+
+.status_saved {
+    color: var(--c7);
+}
+
+.status_error {
+    color: var(--a7);
+}
+
+.status_unsaved {
+    color: var(--b7);
+}

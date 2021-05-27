@@ -36,10 +36,6 @@
   <link rel="stylesheet" href="css/panel.css" type="text/css" />
   <link rel="stylesheet" href="css/align_buttons.css" type="text/css" />
   <link rel="stylesheet" href="css/text.css" type="text/css" />
-  <!-- deta stuff -->
-  <script type="text/javascript" src="js/api.js"></script>
-  <script type="text/javascript" src="js/deta.js"></script>
-  <link rel="stylesheet" href="css/deta.css" type="text/css" />
   <!-- endbuild -->
 </head>
 
@@ -792,6 +788,8 @@
   </div>
 
   <!-- build:js all.js -->
+  <!-- deta init -->
+  <script type="text/javascript" src="js/deta-startup.js"></script>
   <script type="text/javascript" src="js/lib/jquery-3.5.1.min.js"></script>
   <script type="text/javascript" src="js/lib/pathseg.js"></script>
   <script type="text/javascript" src="js/lib/jquery.hotkeys.min.js"></script>
@@ -844,6 +842,11 @@
   <script type="text/javascript" src="js/paste.js"></script>
   <script type="text/javascript" src="js/start.js"></script>
   <script type="text/javascript" src="js/fonts.js"></script>
+  <!-- rest of deta stuff, order important -->
+  <script type="text/javascript" src="js/api.js"></script>
+  <script type="text/javascript" src="js/deta.js"></script>
+  <script type="text/javascript" src="js/deta-modals.js"></script>
+  <link rel="stylesheet" href="css/deta.css" type="text/css" />
 
 
   <!-- endbuild -->

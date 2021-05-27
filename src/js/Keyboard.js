@@ -1,6 +1,6 @@
 MD.Keyboard = function () {
 
-  const keys = {
+  let keys = {
     "v": { name: "Select tool", cb: () => state.set("canvasMode", "select") },
     "q": { name: "Freehand tool", cb: () => state.set("canvasMode", "fhpath") },
     "l": { name: "Line tool", cb: () => state.set("canvasMode", "fhplineath") },

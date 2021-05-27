@@ -3,35 +3,6 @@ const svgCanvas = new $.SvgCanvas(document.getElementById("svgcanvas"));
 const editor = new MD.Editor();
 const state = new State();
 
-const isDetaRuntime = location.hostname === "deta.app"
-  || location.hostname === "deta.dev"
-  || location.hostname === "127.0.0.1";
-
-const detaMods = () => {
-  // replace menu with Deta Options
-  document.getElementById("file_menu_main").innerHTML =
-    `
-  <div class="menu_title">File</div>
-  <div class="menu_list" id="file_menu">
-    <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
-    <div data-action="cloudOpen" id="tool_copen" class="menu_item">Open Document</div>
-    <div data-action="cloudSave" id="tool_csave" class="menu_item">Save<span class="shortcut">⌘S</span></div>
-    <div data-action="cloudSaveAs" id="tool_csaveas" class="menu_item">Save As
-    </div>
-    <div id="tool_open" class="menu_item">
-      Import SVG... <span class="shortcut">⌘O</span></div>
-    <input type="file" accept="image/svg+xml" />
-
-    <div id="tool_import" class="menu_item">
-      Place Image... <span class="shortcut">⌘K</span></div>
-    <input type="file" accept="image/*" />
-    <div data-action="save" id="tool_save" class="menu_item">Export SVG </div>
-    <div data-action="export" id="tool_export" class="menu_item">Export as PNG</div>
-  </div>`;
-}
-
-if (isDetaRuntime) detaMods();
-
 editor.modal = {
   about: new MD.Modal({
     html: `
@@ -56,7 +27,8 @@ editor.modal = {
     </div>`,
     js: function (el) {
       el.children[0].classList.add("modal-item-source");
-      el.querySelector("#tool_source_save").addEventListener("click", function () {
+      const b1 = el.querySelector("#tool_source_save");
+      b1.addEventListener("click", function () {
         var saveChanges = function () {
           svgCanvas.clearSelection();
           $('#svg_source_textarea').blur();
@@ -64,6 +36,7 @@ editor.modal = {
           editor.rulers.update();
           editor.paintBox.fill.prep();
           editor.paintBox.stroke.prep();
+          b1.blur();
           editor.modal.source.close();
         }
 
@@ -75,124 +48,12 @@ editor.modal = {
         } else {
           saveChanges();
         }
-      })
-      el.querySelector("#tool_source_cancel").addEventListener("click", function () {
+      });
+      const b2 = el.querySelector("#tool_source_cancel");
+      b2.addEventListener("click", function (e) {
         editor.modal.source.close();
+        b2.blur();
       });
-    }
-  }),
-  // deta modals
-  cloudSaveAs: new MD.Modal({
-    html: `<h3>Please name your drawing.</h3>
-    <div class='save_text_block'>
-       <textarea id='filename' class='save_textarea' spellcheck='false'></textarea>
-       <div class='ext_tag'> .svg</div>
-    </div>
-    <h4 id="save_warning" class="save_warning"></h4>
-    <div class="modal_btn_row">
-       <button id="save_cancel_btn" class="cancel">Cancel</button>
-       <button id="save_ok_btn" class="ok">Ok</button>
-       <button id="save_confirm_btn" class="save_confirm_btn">Confirm</button>
-    </div>
-    `,
-    js: function (el) {
-      const revertState = () => {
-        document.getElementById("filename").value = "";
-        document.getElementById("save_warning").style.display = "none";
-        document.getElementById("save_confirm_btn").style.display = "none";
-        document.getElementById("save_ok_btn").style.display = "inherit";
-        $('#filename').prop('readonly', false);
-      };
-
-      const successHandler = (filename) => {
-        window.deta.setOpen(filename);
-        editor.modal.cloudSaveAs.close();
-        revertState();
-      }
-
-      el.querySelector("#save_cancel_btn").addEventListener("click", function () {
-        editor.modal.cloudSaveAs.close();
-        revertState();
-      })
-      el.querySelector("#save_ok_btn").addEventListener("click", function () {
-        let filename = `${document.getElementById("filename").value}.svg`;
-        window.deta.saveDocumentAs(filename).then(res => {
-          if (res.status === 409) {
-            document.getElementById("save_warning").innerHTML = `${filename} already exists. Please click 'confirm' if you would like to overwrite it.`
-            document.getElementById("save_warning").style.display = "block";
-            document.getElementById("save_ok_btn").style.display = "none";
-            document.getElementById("save_confirm_btn").style.display = "block";
-            $('#filename').prop('readonly', true);
-          } else if (res.status === 200) {
-            successHandler(filename);
-          } else {
-            document.getElementById("save_warning").innerHTML = `Internal Server Error.`
-            document.getElementById("save_warning").style.display = "block";
-          }
-        })
-      })
-      el.querySelector("#save_confirm_btn").addEventListener("click", function () {
-        filename = `${document.getElementById("filename").value}.svg`;
-        window.deta.saveDocumentAs(filename, true).then(res => {
-          if (res.status === 200) {
-            successHandler(filename);
-          }
-        })
-      })
-    }
-  }),
-  cloudOpen: new MD.Modal({
-    html: `
-    <div class="modal_header">Please select an svg to open:</div>
-    <div id="drawing_list" class="open_drawing_list">
-      Loading drawings...
-    </div>
-    <div class="modal_btn_row">
-      <button id="open_cancel" class="cancel">Cancel</button>
-      <button id="open_ok" class="open">Ok</button>
-    </div>
-    `,
-    js: function (el) {
-      window.deta.toOpen = null;
-      el.querySelector("#open_cancel").addEventListener("click", function () {
-        editor.modal.cloudOpen.close();
-      });
-      el.querySelector("#open_ok").addEventListener("click", function () {
-        if (window.deta.toOpen == null) {
-          editor.modal.cloudOpen.close();
-        } else {
-          // load the drawing
-          window.deta.loadDocument();
-          editor.modal.cloudOpen.close();
-        }
-      });
-    }
-  }),
-  cloudDelete: new MD.Modal({
-    html: `
-    <div class="delete_wrapper">
-    <div class="modal_header">Do you want to delete <span id="delete_name">your drawing</span>?</div>
-    <p>This will delete the drawing from the cloud, clear the canvas, and erase your undo history.</p>
-    <p id="delete_error" class="delete_error">There was an error deleting your drawing, please refresh and try again.</p>
-    </div>
-    <div class="modal_btn_row">
-       <button id="delete_cancel_btn" class="cancel">Cancel</button>
-       <button id="delete_btn" class="delete_btn">Delete</button>
-    </div>
-    `,
-    js: function (el) {
-      el.querySelector("#delete_cancel_btn").addEventListener("click", function () {
-        editor.modal.cloudDelete.close();
-      })
-      el.querySelector("#delete_btn").addEventListener("click", function () {
-        window.deta.deleteDocument().then(res => {
-          if (res) {
-            editor.modal.cloudDelete.close();
-          } else {
-            // add error handling
-          }
-        })
-      })
     }
   }),
   configure: new MD.Modal({
