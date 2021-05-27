@@ -20,6 +20,9 @@ MD.Editor = function () {
       editor.paintBox.fill.prep();
       editor.paintBox.stroke.prep();
       svgCanvas.runExtensions('onNewDocument');
+      if (isDetaRuntime) {
+        window.deta.close();
+      }
     });
   }
 
@@ -321,69 +324,28 @@ MD.Editor = function () {
   }
 
   // deta stuff
+  function cloudSaveAs() {
+    editor.modal.cloudSaveAs.open();
+  }
+  this.cloudSaveAs = cloudSaveAs;
+
   function cloudSave() {
-    editor.modal.cloudSave.open();
+    if (window.deta.currOpen) {
+      window.deta.saveDocument();
+    } else {
+      editor.modal.cloudSaveAs.open();
+    }
   }
   this.cloudSave = cloudSave;
 
-  async function saveBlock(name, overwrite = false) {
-    // editor.save_name = name;
-    svgCanvas.clearSelection(); // what does this do?
-    const str = svgCanvas.svgCanvasToString();
-    const blob = new Blob([str], { type: "image/svg+xml" });
-    const file = new File([blob], name, { type: "image/svg_xml" });
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("filename", name);
-    formData.append("overwrite", overwrite)
-    const response = await window.api.app.saveDrawing(formData);
-    return response;
-    // document.getElementById("save_name").innerText = editor.save_name;
-  }
-  this.saveBlock = saveBlock;
-
   async function cloudOpen() {
-    const response = await window.api.app.listDrawings();
-    if (response.status === 200) {
-      const drawings = await response.json();
-      drawings.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
-
-      const openList = document.querySelector('#drawing_list');
-      openList.textContent = "";
-
-      var onDrawingClick = function () {
-        this.style.backgroundColor = "var(--d15)";
-        this.style.fontWeight = "bold";
-        const lastSelect = window.deta.toOpen;
-        if (lastSelect !== null) {
-          lastSelect.style.backgroundColor = "white";
-          lastSelect.style.fontWeight = "normal";
-        }
-        window.deta.toOpen = this;
-      }
-
-      for (var i = 0; i < drawings.length; i++) {
-        const newNode = document.createElement("a");
-        newNode.setAttribute("id", drawings[i].key);
-        newNode.setAttribute("class", "open_drawing_item");
-        newNode.addEventListener("click", onDrawingClick);
-        newNode.textContent = drawings[i].name;
-        openList.appendChild(newNode);
-      }
-    }
+    await window.deta.listDocuments();
     editor.modal.cloudOpen.open();
   }
   this.cloudOpen = cloudOpen;
 
   function cloudDelete() {
+    document.querySelector("#delete_name").innerText = window.deta.currOpen || "your drawing";
     editor.modal.cloudDelete.open();
   }
   this.cloudDelete = cloudDelete;

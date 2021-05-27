@@ -45,16 +45,34 @@ def get_drawing_handler(name: str):
         return drawing
     raise HTTPException(status_code=404, detail="Drawing doesn't exist")
 
-@app.post("/api/save")
+# save as
+@app.post("/api/saveas")
 def upload_img(file: UploadFile = File(...), overwrite: bool = Form(False)):
     name = file.filename
     f = file.file
     # base and drive fix logic, unique names
-    success = save(name, f, overwrite)
+    success = save_as(name, f, overwrite)
     if success:
         return {"message": "success"}
     else:
         raise HTTPException(status_code=409, detail="Drawing already exists")
+
+# save
+@app.post("/api/save")
+def save_drawing_handler(file: UploadFile = File(...)):
+    name = file.filename
+    f = file.file
+    success = save(name, f)
+    if success:
+        return {"message": "success"}
+    else:
+        raise HTTPException(status_code=502, detail="Internal server error")
+
+@app.post("/api/saveas")
+def save_as_drawing_handler(overwrite: bool = Form(...), file: UploadFile = File(...)):
+    name = file.filename
+    f = file.file
+    return save_as(name, f, overwrite)
 
 @app.delete("/api/drawings/{name}", status_code=200)
 def delete_drawing_handler(name: str):

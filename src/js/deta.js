@@ -1,5 +1,9 @@
 
 (function () {
+
+    // client side interactions
+
+    // for closing an 'open' drawing
     const close = () => {
         const currOpenNodeMenu = document.querySelector('#curr_open_drawing');
 
@@ -18,6 +22,8 @@
         window.deta.currOpen = null;
     };
 
+    // for clearing the canvas
+
     const clearCanvas = () => {
         // clear canvas
         const dims = state.get("canvasSize");
@@ -31,6 +37,8 @@
         editor.paintBox.stroke.prep();
         svgCanvas.runExtensions('onNewDocument');
     }
+
+    // for setting a drawing as open in the client
 
     const setOpen = (filename) => {
         // sets a recently saved file as open
@@ -65,7 +73,69 @@
         window.deta.currOpen = filename;
     }
 
-    const open = async () => {
+    // for creating the form data from the 
+
+    const createFileForm = name => {
+        svgCanvas.clearSelection();
+        const str = svgCanvas.svgCanvasToString();
+        const blob = new Blob([str], { type: "image/svg+xml" });
+        const file = new File([blob], name, { type: "image/svg_xml" });
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("filename", name);
+        return formData;
+    }
+
+    // server side interactions
+
+    // list drawings
+
+    const listDocuments = async () => {
+        const response = await window.api.app.listDrawings();
+        if (response.status === 200) {
+            const drawings = await response.json();
+            drawings.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            const openList = document.querySelector('#drawing_list');
+            openList.textContent = "";
+
+            if (drawings.length === 0) {
+                openList.textContent = "No drawings saved to the cloud.";
+            }
+
+            var onDrawingClick = function () {
+                this.style.backgroundColor = "var(--d15)";
+                this.style.fontWeight = "bold";
+                const lastSelect = window.deta.toOpen;
+                if (lastSelect !== null) {
+                    lastSelect.style.backgroundColor = "white";
+                    lastSelect.style.fontWeight = "normal";
+                }
+                window.deta.toOpen = this;
+            }
+
+            for (var i = 0; i < drawings.length; i++) {
+                const newNode = document.createElement("a");
+                newNode.setAttribute("id", drawings[i].key);
+                newNode.setAttribute("class", "open_drawing_item");
+                newNode.addEventListener("click", onDrawingClick);
+                newNode.textContent = drawings[i].name;
+                openList.appendChild(newNode);
+            }
+        }
+    }
+
+    // open a sepcific document
+
+    const loadDocument = async () => {
         const filename = window.deta.toOpen.innerText;
         const response = await window.api.app.loadDrawing(filename);
         if (response.status === 200) {
@@ -101,14 +171,35 @@
 
     }
 
+    const saveDocumentAs = async (name, overwrite = false) => {
+        const form = createFileForm(name);
+        form.append("overwrite", overwrite);
+        const response = await window.api.app.saveDrawingAs(form);
+        return response;
+    }
+
+    const saveDocument = async () => {
+        if (!window.deta.currOpen) {
+            // no open drawing
+            return null;
+        }
+        const name = window.deta.currOpen;
+        const form = createFileForm(name);
+        const response = await window.api.app.saveDrawing(form);
+        return response;
+    }
+
     window.deta = {
         toOpen: null,
-        // string
+        // dom node
         currOpen: null,
         // string
         setOpen,
-        open,
         close,
+        listDocuments,
+        loadDocument,
         deleteDocument,
+        saveDocumentAs,
+        saveDocument
     }
 })();

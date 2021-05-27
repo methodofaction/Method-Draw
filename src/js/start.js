@@ -15,8 +15,8 @@ const detaMods = () => {
   <div class="menu_list" id="file_menu">
     <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
     <div data-action="cloudOpen" id="tool_copen" class="menu_item">Open Document</div>
-    <div data-action="cloudSave" id="tool_csave" class="menu_item">Save</div>
-    <div data-action="cloudSave" id="tool_csaveas" class="menu_item">Save As<span class="shortcut">⌘S</span>
+    <div data-action="cloudSave" id="tool_csave" class="menu_item">Save<span class="shortcut">⌘S</span></div>
+    <div data-action="cloudSaveAs" id="tool_csaveas" class="menu_item">Save As
     </div>
     <div id="tool_open" class="menu_item">
       Import SVG... <span class="shortcut">⌘O</span></div>
@@ -25,7 +25,7 @@ const detaMods = () => {
     <div id="tool_import" class="menu_item">
       Place Image... <span class="shortcut">⌘K</span></div>
     <input type="file" accept="image/*" />
-    <div data-action="save" id="tool_save" class="menu_item">Export SVG <span class="shortcut">⌘S</span></div>
+    <div data-action="save" id="tool_save" class="menu_item">Export SVG </div>
     <div data-action="export" id="tool_export" class="menu_item">Export as PNG</div>
   </div>`;
 }
@@ -82,7 +82,7 @@ editor.modal = {
     }
   }),
   // deta modals
-  cloudSave: new MD.Modal({
+  cloudSaveAs: new MD.Modal({
     html: `<h3>Please name your drawing.</h3>
     <div class='save_text_block'>
        <textarea id='filename' class='save_textarea' spellcheck='false'></textarea>
@@ -106,17 +106,17 @@ editor.modal = {
 
       const successHandler = (filename) => {
         window.deta.setOpen(filename);
-        editor.modal.cloudSave.close();
+        editor.modal.cloudSaveAs.close();
         revertState();
       }
 
       el.querySelector("#save_cancel_btn").addEventListener("click", function () {
-        editor.modal.cloudSave.close();
+        editor.modal.cloudSaveAs.close();
         revertState();
       })
       el.querySelector("#save_ok_btn").addEventListener("click", function () {
         let filename = `${document.getElementById("filename").value}.svg`;
-        editor.saveBlock(filename).then(res => {
+        window.deta.saveDocumentAs(filename).then(res => {
           if (res.status === 409) {
             document.getElementById("save_warning").innerHTML = `${filename} already exists. Please click 'confirm' if you would like to overwrite it.`
             document.getElementById("save_warning").style.display = "block";
@@ -133,7 +133,7 @@ editor.modal = {
       })
       el.querySelector("#save_confirm_btn").addEventListener("click", function () {
         filename = `${document.getElementById("filename").value}.svg`;
-        editor.saveBlock(filename, true).then(res => {
+        window.deta.saveDocumentAs(filename, true).then(res => {
           if (res.status === 200) {
             successHandler(filename);
           }
@@ -162,7 +162,7 @@ editor.modal = {
           editor.modal.cloudOpen.close();
         } else {
           // load the drawing
-          window.deta.open();
+          window.deta.loadDocument();
           editor.modal.cloudOpen.close();
         }
       });
@@ -171,7 +171,7 @@ editor.modal = {
   cloudDelete: new MD.Modal({
     html: `
     <div class="delete_wrapper">
-    <div class="modal_header">Do you want to delete the drawing?</div>
+    <div class="modal_header">Do you want to delete <span id="delete_name">your drawing</span>?</div>
     <p>This will delete the drawing from the cloud, clear the canvas, and erase your undo history.</p>
     <p id="delete_error" class="delete_error">There was an error deleting your drawing, please refresh and try again.</p>
     </div>
@@ -181,11 +181,7 @@ editor.modal = {
     </div>
     `,
     js: function (el) {
-      const revertState = () => {
-        document.getElementById("delete_warning").style.display = "none";
-      };
       el.querySelector("#delete_cancel_btn").addEventListener("click", function () {
-        revertState();
         editor.modal.cloudDelete.close();
       })
       el.querySelector("#delete_btn").addEventListener("click", function () {
@@ -193,7 +189,7 @@ editor.modal = {
           if (res) {
             editor.modal.cloudDelete.close();
           } else {
-            document.getElementById("delete_warning").style.display = inherit;
+            // add error handling
           }
         })
       })
