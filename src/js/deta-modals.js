@@ -159,6 +159,91 @@ const detaModals = {
                 editor.modal.cloudError.close();
             });
         }
+    }),
+
+    share: new MD.Modal({
+        html: `
+        <div class="share_wrap">
+            <div class="share_controls">
+                <div class="share_info">
+                    <div class="share_title">Share to the web.</div>
+                    <div id="share_desc" class="share_desc">Make your drawing public and share a link with anyone.</div>
+                </div>    
+                <div class="switch">
+                    <input id="switch-1" type="checkbox" class="switch-input" />
+                    <label for="switch-1" class="switch-label">Switch</label>
+                </div>
+            </div>
+            
+            <div id="share_links" class="share_links">
+                <div class="share_link_title">Raw SVG:</div>
+                <div class="share_url_wrapper">
+                    <textarea readonly class="share_url" id="raw_url">
+                    https://deta.dev
+                    </textarea>
+                    <button class="share_button" id="copy_raw"> 
+                        Copy
+                    </button>
+                </div>
+                <div class="share_link_title">Your SVG in Method Draw:</div>
+                <div class="share_url_wrapper">
+                    <textarea readonly class="share_url" id="edit_url">
+                    https://deta.dev/edit
+                    </textarea>
+                    <button class="share_button" id="copy_edit">
+                    Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+        `,
+        js: function (el) {
+            el.querySelector("#switch-1").addEventListener(
+                "change",
+                async function () {
+                    const isPublic = document.getElementById("switch-1");
+                    if (isPublic.checked) {
+                        /*
+                        const res = await window.api.app.togglePublic(
+                            window.deta.currOpen,
+                            isPublic.checked
+                        );
+                        */
+                        document.getElementById("share_links").style.display = "block";
+                        document.getElementById(
+                            "raw_url"
+                        ).value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`;
+                        document.getElementById(
+                            "edit_url"
+                        ).value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`;
+                        document.getElementById("share_desc").innerHTML =
+                            "Anyone with the link can view your work.";
+                    } else {
+                        /*
+                        const res = await window.api.app.togglePublic(
+                            window.deta.currOpen,
+                            isPublic.checked
+                        );
+                        */
+                        document.getElementById("share_desc").innerHTML =
+                            "Make your drawing public and share a link with anyone.";
+                        document.getElementById("share_links").style.display = "none";
+                    }
+                }
+            );
+            el.querySelector("#copy_raw").addEventListener("click", function () {
+                const raw_url = document.getElementById("raw_url");
+                raw_url.select();
+                raw_url.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+            });
+            el.querySelector("#copy_edit").addEventListener("click", function () {
+                const edit_url = document.getElementById("edit_url");
+                edit_url.select();
+                edit_url.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+            });
+        },
     })
 }
 

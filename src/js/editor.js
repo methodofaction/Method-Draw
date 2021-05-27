@@ -323,6 +323,29 @@ MD.Editor = function () {
     }
   }
 
+  function about() {
+    editor.modal.about.open();
+  }
+
+  function configure() {
+    //const props = dao.filter
+    editor.modal.configure.open();
+  }
+
+  function shortcuts() {
+    editor.modal.shortcuts.open();
+  }
+
+  function donate() {
+    editor.modal.donate.open();
+  }
+
+  function source() {
+    const textarea = editor.modal.source.el.querySelector("textarea");
+    textarea.value = svgCanvas.getSvgString();
+    editor.modal.source.open();
+  }
+
   // deta stuff
   function cloudSaveAs() {
     editor.modal.cloudSaveAs.open();
@@ -350,28 +373,17 @@ MD.Editor = function () {
   }
   this.cloudDelete = cloudDelete;
 
-  function about() {
-    editor.modal.about.open();
-  }
+  function share() {
 
-  function configure() {
-    //const props = dao.filter
-    editor.modal.configure.open();
-  }
+    if (window.deta.currOpen) {
+      editor.modal.share.open();
+    } else {
+      this.cloudSave();
+    }
 
-  function shortcuts() {
-    editor.modal.shortcuts.open();
   }
-
-  function donate() {
-    editor.modal.donate.open();
-  }
-
-  function source() {
-    const textarea = editor.modal.source.el.querySelector("textarea");
-    textarea.value = svgCanvas.getSvgString();
-    editor.modal.source.open();
-  }
+  this.share = share;
+  // end deta stuff
 
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;

@@ -39,6 +39,7 @@
     white-space: nowrap;
     font-size: 1.5rem;
     overflow-x: scroll;
+    overflow-y: hidden;
     resize: none;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 }
@@ -159,4 +160,138 @@
 
 .status_unsaved {
     color: var(--b7);
+}
+
+/* /* share modal */
+
+.share_wrap {
+    width: 400px;
+    max-width: 400px;
+}
+
+.share_controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.share_info {
+    display: flex;
+    flex-direction: column;
+    width: 325px;
+}
+
+.share_title {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+}
+
+.switch-input {
+    display: none;
+}
+
+.switch-label {
+    display: block;
+    width: 52px;
+    height: 30px;
+    text-indent: -150%;
+    clip: rect(0 0 0 0);
+    color: transparent;
+    user-select: none;
+}
+
+.switch-label::before,
+.switch-label::after {
+    content: "";
+    display: block;
+    position: absolute;
+    cursor: pointer;
+}
+
+.switch-label::before {
+    width: 52px;
+    height: 30px;
+    background-color: var(--z12);
+    border-radius: 9999em;
+    -webkit-transition: background-color 0.25s ease;
+    transition: background-color 0.25s ease;
+}
+
+.switch-label::after {
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+    -webkit-transition: left 0.25s ease;
+    transition: left 0.25s ease;
+}
+
+.switch-input:checked + .switch-label::before {
+    background-color: var(--d7);
+}
+
+.switch-input:checked + .switch-label::after {
+    left: 24px;
+}
+
+#share_links {
+    display: none;
+}
+
+.share_link_title {
+    font-weight: bold;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.share_url_wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    border-radius: var(--x1);
+    border: 1px solid var(--z12);
+    background-color: var(--z14);
+}
+
+.share_url {
+    height: 20px;
+    font-size: 14px;
+    width: calc(100% - 30px);
+    background-color: var(--z14);
+    color: var(--z4);
+    border: none;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    resize: none;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.share_url:focus {
+    outline: none;
+}
+
+.share_button {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    background-color: var(--z12);
+    color: var(--z3);
+}
+
+.share_button:hover {
+    background-color: var(--z13);
 }

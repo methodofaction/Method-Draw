@@ -23,6 +23,21 @@ const detaMods = () => {
         <div data-action="save" id="tool_save" class="menu_item">Export SVG </div>
         <div data-action="export" id="tool_export" class="menu_item">Export as PNG</div>
       </div>`;
+
+    // add share option
+    const menu = document.querySelector("#menu_bar");
+    const shareDiv = document.createElement("div");
+    shareDiv.setAttribute("class", "menu");
+    shareDiv.setAttribute("id", "share_drawing");
+    const shareDivTitle = document.createElement("div");
+    shareDivTitle.setAttribute("id", "share_drawing_title");
+    shareDivTitle.setAttribute("class", "menu_title");
+    shareDivTitle.addEventListener("click", function () {
+        editor.share();
+    });
+    shareDivTitle.innerText = `Share`;
+    shareDiv.appendChild(shareDivTitle);
+    menu.appendChild(shareDiv);
 }
 
 if (isDetaRuntime) {
