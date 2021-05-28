@@ -146,6 +146,7 @@ MD.Panel = function(){
      var currentMode = svgCanvas.getMode();
 
      $('.context_panel').hide();
+     $("#align_tools").toggle(elem && !multiselected);
 
      if (currentMode === 'pathedit') return showPathEdit();
      
