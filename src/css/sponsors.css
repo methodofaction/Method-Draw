@@ -123,3 +123,15 @@
   display: block;
   margin-bottom: var(--x2);
 }
+
+.sponsor-logo {
+  display: block;
+  width:  180px;
+  margin:  var(--x4) auto var(--x1);
+}
+
+.sponsor-disclaimer {
+  color: var(--z11);
+  text-align: center;
+  font-size:  0.8em;
+}
