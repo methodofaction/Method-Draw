@@ -104,7 +104,7 @@ def stream_drawing(name: str):
     if drawing:
         return StreamingResponse(drawing.iter_chunks(1024), media_type="image/svg+xml")
     else:
-        return FileResponse("./404.html")
+        return FileResponse("./404.svg")
 
 #public
 @app.get("/public/bytes/{name}")
