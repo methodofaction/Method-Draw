@@ -173,8 +173,9 @@
 
 .share_menu {
     cursor: pointer;
+    position: relative;
     display: inline-block;
-    z-index: 10;
+    z-index: 5;
     color: var(--z15);
     position: relative;
     line-height: var(--x8);
