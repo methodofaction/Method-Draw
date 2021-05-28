@@ -25,30 +25,34 @@ editor.modal = {
           </div>
         </div>
     </div>`,
-    js: function(el){
+    js: function (el) {
       el.children[0].classList.add("modal-item-source");
-      el.querySelector("#tool_source_save").addEventListener("click", function(){
-        var saveChanges = function() {
+      const b1 = el.querySelector("#tool_source_save");
+      b1.addEventListener("click", function () {
+        var saveChanges = function () {
           svgCanvas.clearSelection();
           $('#svg_source_textarea').blur();
           editor.zoom.multiply(1);
           editor.rulers.update();
           editor.paintBox.fill.prep();
           editor.paintBox.stroke.prep();
+          b1.blur();
           editor.modal.source.close();
         }
 
         if (!svgCanvas.setSvgString($('#svg_source_textarea').val())) {
-          $.confirm("There were parsing errors in your SVG source.\nRevert back to original SVG source?", function(ok) {
-            if(!ok) return false;
+          $.confirm("There were parsing errors in your SVG source.\nRevert back to original SVG source?", function (ok) {
+            if (!ok) return false;
             saveChanges();
           });
         } else {
           saveChanges();
-        } 
-      })
-      el.querySelector("#tool_source_cancel").addEventListener("click", function(){
+        }
+      });
+      const b2 = el.querySelector("#tool_source_cancel");
+      b2.addEventListener("click", function (e) {
         editor.modal.source.close();
+        b2.blur();
       });
     }
   }),
@@ -59,9 +63,9 @@ editor.modal = {
         <button class="warning">Erase all data</button>
         </div>
       </div>`,
-    js: function(el){
+    js: function (el) {
       const input = el.querySelector("#configuration button.warning");
-      input.addEventListener("click", function(){
+      input.addEventListener("click", function () {
         state.clean();
       })
     }
@@ -78,7 +82,7 @@ editor.modal = {
     html: `
       <h1>Shortcuts</h1>
       <div id="shortcuts"></div>`,
-    js: function(el){
+    js: function (el) {
       el.children[0].classList.add("modal-item-wide");
     }
   })
