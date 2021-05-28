@@ -49,8 +49,9 @@ const detaMenuMods = () => {
   shareDivTitle.innerText = `Share`;
   shareDiv.appendChild(shareDivTitle);
   menu.appendChild(shareDiv);
+  document.getElementById("sponsors").style.display = "none"
 }
 
 if (isDetaRuntime && !isPublic) {
   detaMenuMods();
-}
+} 
