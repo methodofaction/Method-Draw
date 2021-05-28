@@ -15,6 +15,26 @@ const detaModals = {
         </div>
         `,
         js: function (el) {
+
+            const sendSave = () => {
+                let filename = `${document.getElementById("filename").value}.svg`;
+                window.deta.saveDocumentAs(filename).then(res => {
+                    if (res.status === 409) {
+                        document.getElementById("save_warning").innerHTML = `${filename} already exists. Please click 'confirm' if you would like to overwrite it.`
+                        document.getElementById("save_warning").style.display = "block";
+                        document.getElementById("save_ok_btn").style.display = "none";
+                        document.getElementById("save_confirm_btn").style.display = "block";
+                        $('#filename').prop('readonly', true);
+                    } else if (res.status === 200) {
+                        b2.blur();
+                        successHandler(filename);
+                    } else {
+                        document.getElementById("save_warning").innerHTML = `Internal Server Error.`
+                        document.getElementById("save_warning").style.display = "block";
+                    }
+                });
+            }
+
             const revertState = () => {
                 document.getElementById("filename").value = "";
                 document.getElementById("save_warning").style.display = "none";
@@ -36,24 +56,19 @@ const detaModals = {
                 revertState();
             });
 
+            document.getElementById("filename").addEventListener('keydown', function (e) {
+                // Enter pressed
+                if (e.key === "Enter") {
+                    //method to prevent from default behaviour
+                    e.preventDefault();
+                    sendSave();
+                }
+            });
+
             const b2 = el.querySelector("#save_ok_btn");
+
             b2.addEventListener("click", function () {
-                let filename = `${document.getElementById("filename").value}.svg`;
-                window.deta.saveDocumentAs(filename).then(res => {
-                    if (res.status === 409) {
-                        document.getElementById("save_warning").innerHTML = `${filename} already exists. Please click 'confirm' if you would like to overwrite it.`
-                        document.getElementById("save_warning").style.display = "block";
-                        document.getElementById("save_ok_btn").style.display = "none";
-                        document.getElementById("save_confirm_btn").style.display = "block";
-                        $('#filename').prop('readonly', true);
-                    } else if (res.status === 200) {
-                        b2.blur();
-                        successHandler(filename);
-                    } else {
-                        document.getElementById("save_warning").innerHTML = `Internal Server Error.`
-                        document.getElementById("save_warning").style.display = "block";
-                    }
-                })
+                sendSave();
             });
 
             const b3 = el.querySelector("#save_confirm_btn");
