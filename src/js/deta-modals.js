@@ -1,10 +1,5 @@
 // deta modals
 
-const urlParams = new URLSearchParams(window.location.search);
-const paths = window.location.pathname.split("/");
-const isPublic = paths[1] === "public" && paths[2] !== "raw";
-const publicSvgName = urlParams.get("name");
-
 const detaModals = {
     cloudSaveAs: new MD.Modal({
         html: `<h3>Please name your drawing.</h3>
@@ -206,6 +201,7 @@ const detaModals = {
             el.querySelector("#switch-1").addEventListener(
                 "change",
                 async function () {
+                    console.log('hi');
                     const isPublic = document.getElementById("switch-1");
                     const res = await window.deta.modifyIsPublic(
                         isPublic.checked

@@ -58,7 +58,7 @@ MD.Keyboard = function () {
     " ": { name: "Pan canvas", cb: (e) => editor.pan.startPan(e) },
   };
 
-  if (isDetaRuntime) {
+  if (isDetaRuntime && !isPublic) {
     keys["cmd_s"] = { name: "Save SVG File to Cloud", cb: () => editor.cloudSave() }
   }
 

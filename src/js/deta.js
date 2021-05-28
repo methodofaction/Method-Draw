@@ -191,21 +191,19 @@
 
     // open a sepcific document
     const setShareStatus = async () => {
-        const md_response = await window.api.app.getMetadata(filename);
+        const md_response = await window.api.app.getMetadata(window.deta.currOpen);
 
         if (md_response.status === 200) {
-            const meta_data = md_response.json();
+            const meta_data = await md_response.json();
             const { public } = meta_data;
-            document.getElementById("public_toggle").checked = public;
+            document.getElementById("switch-1").checked = public;
             if (public) {
                 document.getElementById("share_links").style.display = "block";
-                document.getElementById("raw_url").value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`
-                document.getElementById("edit_url").value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`
+                document.getElementById("raw_url").value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`;
+                document.getElementById("edit_url").value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`;
                 document.getElementById("share_desc").innerHTML =
                     "Anyone with the link can view your work.";
             } else {
-                document.getElementById("share_desc").innerHTML =
-                    "Make your drawing public and share a link with anyone.";
                 document.getElementById("share_links").style.display = "none";
             }
         } else {

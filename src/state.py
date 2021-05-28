@@ -11,6 +11,7 @@ base = deta.Base("drawings")
 
 drive = deta.Drive("drawings")
 
+
 def get_all(db, query):
     blob_gen = db.fetch(query)
     blobs = []
@@ -59,6 +60,13 @@ def get_drawing(name):
         return d.read()
     base.delete(encoded_name)
     drive.delete(name)
+    return None
+
+def get_metadata(name):
+    encoded_name = str(base64.urlsafe_b64encode(name.encode("utf-8")), 'utf-8')
+    b = base.get(encoded_name)
+    if (b):
+        return b
     return None
 
 def delete_drawing(name):
