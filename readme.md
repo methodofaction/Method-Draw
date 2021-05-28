@@ -6,7 +6,7 @@ Method Draw is a web based vector drawing application.
 
 Cloud sync and sharing are available on Method Draw for Deta.
 
-[<img src="https://method.ac/img/install-on-deta.png">](https://deta.space/discovery/method-draw?ref=method.ac)
+[<img src="https://method.ac/img/install-on-deta.png" width="200">](https://deta.space/discovery/method-draw?ref=method.ac)
 
 #### [Try Method Draw](https://editor.method.ac) online.
 
