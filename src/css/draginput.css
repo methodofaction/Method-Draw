@@ -16,6 +16,14 @@
   overflow: hidden;
 }
 
+.draginput.button {
+  text-align: center;
+  color: #999;
+  padding-top: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
  .draginput .caret {
   border: solid transparent 5px;
   border-top-color: var(--z9);

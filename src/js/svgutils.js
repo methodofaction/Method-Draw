@@ -482,9 +482,11 @@ function groupBBFix(selected) {
 // elem - Optional DOM element to get the BBox for
 svgedit.utilities.getBBox = function(elem) {
   var selected = elem || editorContext_.getSelectedElements()[0];
+  if (selected.nodeName === "textPath") selected = elem.parentNode;
   if (elem.nodeType != 1) return null;
   var ret = null;
   var elname = selected.nodeName;
+
   
   switch ( elname ) {
   case 'text':

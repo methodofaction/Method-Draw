@@ -1,5 +1,27 @@
 MD.Text = function(){
 
+  function placeTextOnPath(){
+    const elems = editor.selected;
+    const needsConversion = elems.find(elem => ["ellipse", "circle", "line", "polyline", "polygon", "rect"].indexOf(elem.tagName) > -1);
+    if (needsConversion) {
+      const path = svgCanvas.convertToPath(needsConversion);
+      const text = elems.find(elem => elem.tagName === "text");
+      svgCanvas.addToSelection([path, text]);
+    }
+
+    const text = svgCanvas.textPath();
+    svgCanvas.clearSelection();
+    svgCanvas.addToSelection([text]);
+    editor.selectedChanged(window, [text]);
+  }
+
+  function releaseTextOnPath(){
+    const text = svgCanvas.releaseTextPath();
+    const selector = svgCanvas.selectorManager.requestSelector(text);
+    selector.resize();
+    editor.selectedChanged(window, [text]);
+  }
+
   function setBold(){
     if ($(this).hasClass("disabled")) return;
     svgCanvas.setBold( !svgCanvas.getBold() );
@@ -15,6 +37,9 @@ MD.Text = function(){
   $('#font_family').change(function() {
     svgCanvas.setFontFamily(this.value);
   });
+
+  $('#tool_text_on_path').click(placeTextOnPath);
+  $('#tool_release_text_on_path').click(releaseTextOnPath);
 
   $("#tool_bold").on("click", setBold);
   $("#tool_italic").on("click", setItalic);
@@ -43,8 +68,8 @@ MD.Text = function(){
     document.fonts.onloadingdone = function (fontFaceSetEvent) {
     const els = svgCanvas.getSelectedElems();
       els.forEach(el => {
-          var selector = svgCanvas.selectorManager.requestSelector(el);
-          selector.resize();
+        var selector = svgCanvas.selectorManager.requestSelector(el);
+        selector.resize();
       })
      };
     
@@ -67,8 +92,15 @@ MD.Text = function(){
     svgCanvas.setFontSize($("#font_size").val());
   }
 
+  function setTextPathAttr(a, val){
+    svgCanvas.setTextPathAttr('startOffset', val);
+    var elems = svgCanvas.getSelectedElems();
+    svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0]);
+  }
+
   this.setBold = setBold;
   this.setItalic = setItalic;
   this.changeFontSize = changeFontSize;
+  this.setTextPathAttr = setTextPathAttr;
 
 }

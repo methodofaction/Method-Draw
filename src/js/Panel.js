@@ -33,12 +33,12 @@ MD.Panel = function(){
     $('#text_x')       .dragInput({ min: null, max: null,  step:  1,  callback: editor.changeAttribute,     cursor: false  });
     $('#image_y')      .dragInput({ min: null, max: null,  step:  1,  callback: editor.changeAttribute,     cursor: false  });
     $('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: editor.changeAttribute,     cursor: true   });
-    $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: editor.changeAttribute,   cursor: true, smallStep: 0.1, start: 1.5          });
+    $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: editor.changeAttribute,     cursor: true, smallStep: 0.1, start: 1.5          });
     $('#angle')        .dragInput({ min: -180, max: 180,   step:  1,  callback: editor.changeRotationAngle, cursor: false, dragAdjust: 0.5      });
-    $('#font_size')    .dragInput({ min: 1,    max: 250,   step: 1,   callback: editor.text.changeFontSize,      cursor: true, stepfunc: editor.stepFontSize, dragAdjust: .15 });
+    $('#font_size')    .dragInput({ min: 1,    max: 250,   step: 1,   callback: editor.text.changeFontSize, cursor: true, stepfunc: editor.stepFontSize, dragAdjust: .15 });
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: editor.changeAttribute,     cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: editor.changeBlur,          cursor: true,  start: 0               });
-
+    $('#textPath_offset').dragInput({ min: 0,  max: null,   step: 1,  callback: editor.text.setTextPathAttr,cursor: true,  start: 0               });
 
     // Align
 
@@ -82,7 +82,6 @@ MD.Panel = function(){
       svgCanvas.pathActions.opencloseSubPath();
     });
 
-
     function show(elem) {
       $('.context_panel').hide();
       if (elem === "canvas") return $('#canvas_panel').show();
@@ -100,8 +99,42 @@ MD.Panel = function(){
       $.fn.dragInput.updateCursor($('#blur')[0])
     }
 
+    function pathEditContext(){
+       $('.context_panel').hide();
+       $('#path_node_panel').show();
+       $('#stroke_panel').hide();
+       var point = svgCanvas.pathActions.getNodePoint();
+       $('#tool_add_subpath').removeClass('push_button_pressed').addClass('tool_button');
+       $('#tool_node_delete').toggleClass('disabled', !svgCanvas.pathActions.canDeleteNodes);
+       if(point) {
+         var seg_type = $('#seg_type');
+         point.x = svgedit.units.convertUnit(point.x);
+         point.y = svgedit.units.convertUnit(point.y);
+         $('#path_node_x').val(Math.round(point.x));
+         $('#path_node_y').val(Math.round(point.y));
+         if(point.type) {
+           seg_type.val(point.type).removeAttr('disabled');
+           $("#seg_type_label").html(point.type === 4 ? "Straight" : "Curve")
+         } else {
+           seg_type.val(4).attr('disabled','disabled');
+         }
+       }
+       $("#panels").removeClass("multiselected")        
+       $("#stroke_panel").hide();
+       $("#canvas_panel").hide();
+       return;
+     }
+
+    function canPutTextOnPath(elems) {
+      if (elems.length !== 2) return false;
+      const text = elems.find(elem => elem.tagName === "text");
+      const path = elems.find(elem => ["ellipse", "circle", "line", "polyline", "polygon", "rect", "path"].indexOf(elem.tagName) > -1);
+      return (!!text && !!path);
+    }
+
+
     function updateContextPanel(elems) {
-     if (!elems) elems = editor.selected;
+      if (!elems) elems = editor.selected;
      var elem = elems[0] || editor.selected[0];
      const isNode = svgCanvas.pathActions.getNodePoint()
      // If element has just been deleted, consider it null
@@ -122,7 +155,9 @@ MD.Panel = function(){
      if (multiselected) {
        const multi = elems.filter(Boolean);
        elem = (svgCanvas.elementsAreSame(multi)) ? multi[0] : null
-       if (elem) $("#panels").addClass("multiselected")
+       if (elem) $("#panels").addClass("multiselected");
+       const canTextPath = canPutTextOnPath(multi);
+       $("#tool_text_on_path").toggle(canTextPath);
      }
 
      if (!elem && !multiselected) {
@@ -132,6 +167,7 @@ MD.Panel = function(){
      }
  
      if (elem !== null) {
+       
        $("#stroke_panel").show();
        var elname = elem.nodeName;
        var angle = svgCanvas.getRotationAngle(elem);
@@ -151,8 +187,10 @@ MD.Panel = function(){
              y = bb.y;
            }
          }
+         
          x = svgedit.units.convertUnit(x);
          y = svgedit.units.convertUnit(y);
+
          $("#" + elname +"_x").val(Math.round(x))
          $("#" + elname +"_y").val(Math.round(y))
          if (elname === "polyline") {
@@ -222,10 +260,18 @@ MD.Panel = function(){
          if(el_name === "rect") $("#cornerRadiusLabel").show()
          else $("#cornerRadiusLabel").hide()
          
-         $.each(cur_panel, function(i, item) {
-           var attrVal = elem.getAttribute(item);
+         cur_panel.forEach((item, i) => {
+            var attrVal = elem.getAttribute(item);
            //update the draginput cursors
            var name_item = document.getElementById(el_name + '_' + item);
+           // find a textPath to put correct x and y
+           if (el_name === "text") {
+             const textPath = elem.querySelector("textPath");
+             if (textPath) {
+              var bb = elem.getBBox();
+              if (bb) attrVal = bb[item];
+             }
+           }
            name_item.value = Math.round(attrVal) || 0;
            if (name_item.getAttribute("data-cursor") === "true") {
              $.fn.dragInput.updateCursor(name_item );
@@ -233,7 +279,7 @@ MD.Panel = function(){
          });
          
          if(el_name === 'text') {
-           var font_family = elem.getAttribute("font-family") || "serif";
+           var font_family = elem.getAttribute("font-family") || "default";
            var cleanFontFamily = font_family.split(",")[0].replace(/'/g, "");
            var select = document.getElementById("font_family_dropdown");
            $('#text_panel').css("display", "inline");  
@@ -246,6 +292,9 @@ MD.Panel = function(){
            $('#font_size').val(elem.getAttribute("font-size"));
            $('#text').val(elem.textContent);
            $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
+           const textPath = elem.querySelector("textPath");
+           document.getElementById("text_panel").classList.toggle("text-path", textPath);
+           $("#textPath_offset").val(textPath ? textPath.getAttribute("startOffset") : 0);
          } // text
          else if(el_name === 'image') {
             const url = svgCanvas.getHref(elem)
@@ -289,7 +338,7 @@ MD.Panel = function(){
      
      if ( (elem && !isNode) || multiselected) {
        // update the selected elements' layer
-       $('#selLayerNames').removeAttr('disabled').val(currentLayerName);
+       $('#selLayerNames').removeAttr('disabled').val(svgCanvas.getCurrentDrawing().getCurrentLayerName());
        
        // Enable regular menu options
        $("#cmenu_canvas").enableContextMenuItems('#delete,#cut,#copy,#move_front,#move_up,#move_down,#move_back');

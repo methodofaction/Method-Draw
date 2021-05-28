@@ -49,7 +49,8 @@ var curConfig = {
   initFill: {color: 'fff', opacity: 1},
   initStroke: {width: 1, color: '000', opacity: 1},
   imgPath: 'images/',
-  baseUnit: 'px'
+  baseUnit: 'px',
+  defaultFont: "Noto Sans JP"
 };
 
 // Update config with new one if given
@@ -146,7 +147,7 @@ $.extend(all_properties.text, {
   fill: "#000000",
   stroke_width: 0,
   font_size: 24,
-  font_family: 'sans-serif'
+  font_family: curConfig.defaultFont
 });
 
 // Current shape style properties
@@ -569,15 +570,11 @@ getStrokedBBox = this.getStrokedBBox = function(elems) {
       var angle = svgedit.utilities.getRotationAngle(elem);
       if ((angle && angle % 90) ||
           svgedit.math.hasMatrixTransform(svgedit.transformlist.getTransformList(elem))) {
-        // Accurate way to get BBox of rotated element in Firefox:
-        // Put element in group and get its BBox
-        
-        var good_bb = false;
         
         // Get the BBox from the raw path for these elements
         var elemNames = ['ellipse','path','line','polyline','polygon'];
         if(elemNames.indexOf(elem.tagName) >= 0) {
-          bb = good_bb = canvas.convertToPath(elem, true);
+          bb = canvas.convertToPath(elem, true);
         } else if(elem.tagName == 'rect') {
           // Look for radius
           var rx = elem.getAttribute('rx');
@@ -586,51 +583,6 @@ getStrokedBBox = this.getStrokedBBox = function(elems) {
             bb = good_bb = canvas.convertToPath(elem, true);
           }
         }
-        
-        if(!good_bb) {
-          // Must use clone else FF freaks out
-          var clone = elem.cloneNode(true); 
-          var g = document.createElementNS(svgns, "g");
-          var parent = elem.parentNode;
-          parent.appendChild(g);
-          g.appendChild(clone);
-          bb = svgedit.utilities.bboxToObj(g.getBBox());
-          parent.removeChild(g);
-        }
-        
-
-        // Old method: Works by giving the rotated BBox,
-        // this is (unfortunately) what Opera and Safari do
-        // natively when getting the BBox of the parent group
-//            var angle = angle * Math.PI / 180.0;
-//            var rminx = Number.MAX_VALUE, rminy = Number.MAX_VALUE, 
-//              rmaxx = Number.MIN_VALUE, rmaxy = Number.MIN_VALUE;
-//            var cx = round(bb.x + bb.width/2),
-//              cy = round(bb.y + bb.height/2);
-//            var pts = [ [bb.x - cx, bb.y - cy], 
-//                  [bb.x + bb.width - cx, bb.y - cy],
-//                  [bb.x + bb.width - cx, bb.y + bb.height - cy],
-//                  [bb.x - cx, bb.y + bb.height - cy] ];
-//            var j = 4;
-//            while (j--) {
-//              var x = pts[j][0],
-//                y = pts[j][1],
-//                r = Math.sqrt( x*x + y*y );
-//              var theta = Math.atan2(y,x) + angle;
-//              x = round(r * Math.cos(theta) + cx);
-//              y = round(r * Math.sin(theta) + cy);
-//    
-//              // now set the bbox for the shape after it's been rotated
-//              if (x < rminx) rminx = x;
-//              if (y < rminy) rminy = y;
-//              if (x > rmaxx) rmaxx = x;
-//              if (y > rmaxy) rmaxy = y;
-//            }
-//            
-//            bb.x = rminx;
-//            bb.y = rminy;
-//            bb.width = rmaxx - rminx;
-//            bb.height = rmaxy - rminy;
       }
       return bb;
     } catch(e) { 
@@ -856,6 +808,7 @@ var getId, getNextId, call;
 // Parameters:
 // newDoc - The SVG DOM document
 this.prepareSvg = function(newDoc) {
+
   this.sanitizeSvg(newDoc.documentElement);
 
   // convert paths into absolute commands
@@ -865,6 +818,7 @@ this.prepareSvg = function(newDoc) {
     path.setAttribute('d', pathActions.convertPath(path));
     pathActions.fixEnd(path);
   }
+
 };
 
 // Function getRefElem
@@ -1286,8 +1240,18 @@ var updateClipPath = function(attr, tx, ty) {
 // Undo command object with the resulting change
 var recalculateDimensions = this.recalculateDimensions = function(selected) {
   if (selected == null) return null;
-  
   var tlist = getTransformList(selected);
+
+  // apply transformation to path and to text if is textpath
+  const textPath = selected.querySelector("textPath");
+  if (textPath) {
+    return false;
+    const href = textPath.getAttribute("href");
+    const id = href.replace("#", "");
+    const path = svgroot.getElementById(id);
+    //recalculateDimensions(selected, true);
+    if (path) selected = path;
+  }
   
   // remove any unnecessary transforms
   if (tlist && tlist.numberOfItems > 0) {
@@ -1313,7 +1277,7 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
     // End here if all it has is a rotation
     if(tlist.numberOfItems === 1 && getRotationAngle(selected)) return null;
   }
-  
+
   // if this element had no transforms, we are done
   if (!tlist || tlist.numberOfItems == 0) {
     selected.removeAttribute("transform");
@@ -1399,6 +1363,7 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
     case "use":
     case "text":
     case "tspan":
+    case "textPath":
       attrs = ["x", "y"];
       break;
     case "polygon":
@@ -2263,7 +2228,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
     if(mouse_target.tagName === 'a' && mouse_target.childNodes.length === 1) {
       mouse_target = mouse_target.firstChild;
     }
-    
+
     // real_x/y ignores grid-snap value
     var real_x = r_start_x = start_x = x;
     var real_y = r_start_y = start_y = y;
@@ -2339,10 +2304,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           }
           r_start_x *= current_zoom;
           r_start_y *= current_zoom;
-//          console.log('p',[evt.pageX, evt.pageY]);          
-//          console.log('c',[evt.clientX, evt.clientY]);  
-//          console.log('o',[evt.offsetX, evt.offsetY]);  
-//          console.log('s',[start_x, start_y]);
           
           assignAttributes(rubberBox, {
             'x': r_start_x,
@@ -3104,7 +3065,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       case "select":
         if (selectedElements[0] != null) {
           // if we only have one selected element
-          if (selectedElements.length == 1) {
+          if (selectedElements.length === 1) {
             // set our current stroke/fill properties to the element's
             var selected = selectedElements[0];
             switch ( selected.tagName ) {
@@ -3556,7 +3517,7 @@ var textActions = canvas.textActions = function() {
       selblock = document.createElementNS(svgns, "path");
       assignAttributes(selblock, {
         'id': "text_selectblock",
-        'fill': "green",
+        'fill': "blue",
         'opacity': .5,
         'style': "pointer-events:none"
       });
@@ -5128,13 +5089,6 @@ this.svgCanvasToString = function() {
   
   pathActions.clear(true);
   
-  // Keep SVG-Edit comment on top
-  $.each(svgcontent.childNodes, function(i, node) {
-    if(i && node.nodeType === 8 && node.data.indexOf('Created with') >= 0) {
-      svgcontent.insertBefore(node, svgcontent.firstChild);
-    }
-  });
-  
   // Move out of in-group editing mode
   if(current_group) {
     leaveContext();
@@ -5162,6 +5116,7 @@ this.svgCanvasToString = function() {
       $(this).replaceWith(svg);
     }
   });
+
   var output = this.svgToString(svgcontent, 0);
   
   // Rewrap gsvg
@@ -5170,6 +5125,8 @@ this.svgCanvasToString = function() {
       groupSvgElem(this);
     });
   }
+  
+
   
   return output;
 };
@@ -5202,17 +5159,6 @@ this.svgToString = function(elem, indent) {
       var res = getResolution();
       
       var vb = "";
-      // TODO: Allow this by dividing all values by current baseVal
-      // Note that this also means we should properly deal with this on import
-//      if(curConfig.baseUnit !== "px") {
-//        var unit = curConfig.baseUnit;
-//        var unit_m = svgedit.units.getTypeMap()[unit];
-//        res.w = svgedit.units.shortFloat(res.w / unit_m)
-//        res.h = svgedit.units.shortFloat(res.h / unit_m)
-//        vb = ' viewBox="' + [0, 0, res.w, res.h].join(' ') + '"';       
-//        res.w += unit;
-//        res.h += unit;
-//      }
       
       if(unit !== "px") {
         res.w = svgedit.units.convertUnit(res.w, unit) + unit;
@@ -5220,7 +5166,7 @@ this.svgToString = function(elem, indent) {
       }
       
       out.push(' width="' + res.w + '" height="' + res.h + '"' + vb + ' xmlns="'+svgns+'"');
-      
+
       var nsuris = {};
       
       // Check elements for namespaces, add if found
@@ -5401,9 +5347,11 @@ this.save = function() {
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
   var str = this.svgCanvasToString();
+  if (str.includes(" href=")) str = str.replace(" href=", " xlink:href=");
+  console.log(str)
   var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
   var dropAutoBOM = true;
-  saveAs(blob, "method-draw-image.svg", dropAutoBOM);
+  saveAs(blob, "FVE-image.svg", dropAutoBOM);
 };
 
 // Function: rasterExport
@@ -5780,6 +5728,23 @@ var convertToGroup = this.convertToGroup = function(elem) {
   }
 }
 
+this.styleToAttr = function(doc) {
+  const docEl = doc.documentElement;
+  const styles = docEl.querySelectorAll("style");
+  var parser = new cssjs();
+  styles.forEach(style =>{
+    var parsed = parser.parseCSS(style.textContent);
+    parsed.forEach(ruleset => {
+      const els = docEl.querySelectorAll(ruleset.selector);
+      els.forEach(el => {
+        ruleset.rules.forEach(rule => el.setAttribute(rule.directive, rule.value));
+      })
+    })
+  });
+  styles.forEach(style => {style.parentNode.removeChild(style)});
+  return doc;
+}
+
 //   
 // Function: setSvgString
 // This function sets the current drawing as the input SVG XML.
@@ -5793,6 +5758,7 @@ this.setSvgString = function(xmlString) {
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);
+    this.styleToAttr(newDoc);
     this.prepareSvg(newDoc);
 
     var batchCmd = new BatchCommand("Change Source");
@@ -7176,6 +7142,25 @@ this.setStrokeAttr = function(attr, val) {
   }
 };
 
+this.setTextPathAttr = function(attr, val) {
+  cur_shape[attr.replace('-','_')] = val;
+  var elems = [];
+  var i = selectedElements.length;
+  while (i--) {
+    var elem = selectedElements[i];
+    if (elem) {
+      if (elem.tagName === "text") {
+        const textPath = elem.querySelector("textPath");
+        if (textPath) elems.push(textPath)
+      }
+    }
+  }
+  if (elems.length > 0) {
+    changeSelectedAttribute(attr, val, elems);
+    call("changed", selectedElements);
+  }
+};
+
 // Function: getStyle
 // Returns current style options
 this.getStyle = function() {
@@ -7505,10 +7490,64 @@ this.getText = function() {
 // Parameters:
 // val - String with the new text
 this.setTextContent = function(val) {
-  changeSelectedAttribute("#text", val);
+  const selected = selectedElements[0];
+  const textPath = selected.querySelector("textPath");
+  changeSelectedAttribute("#text", val, textPath ? [textPath] : null);
   textActions.init(val);
   textActions.setCursor();
 };
+
+this.textPath = function(){
+  const text = selectedElements.find(element => element.tagName === "text");
+  var path = selectedElements.find(element => element.tagName === "path" || element.tagName === "ellipse");
+  if (path.tagName === "ellipse") {
+    console.log("ellipse")
+  }
+  if (!text || !path) return false;
+  const textPath = svgdoc.createElementNS(svgns, "textPath");
+  textPath.textContent = text.textContent;
+  text.textContent = "";
+  text.setAttribute("text-anchor", "middle");
+  text.setAttribute("x", 0);
+  text.setAttribute("y", 0);
+  textPath.setAttribute("xlink:href", "#" + path.id);
+  textPath.setAttribute("href", "#" + path.id);
+  const offset = (path.getTotalLength()/2).toFixed(0)
+  textPath.setAttribute("startOffset", offset);
+  text.appendChild(textPath);
+  findDefs().appendChild(path);
+  selectorManager.releaseSelector(path);
+  selectorManager.requestSelector(text).resize();
+  call("changed", [textPath]);
+  return text;
+}
+
+this.releaseTextPath = function(){
+  const text = selectedElements.find(element => element.tagName === "text");
+  const textPath = text.querySelector("textPath");
+  const content = textPath.textContent;
+  if (!text) return false;
+  const path = svgCanvas.getTextPath(text);
+  if (!text || !path) return false;
+  text.removeChild(textPath);
+  text.textContent = content;
+  getCurrentDrawing().getCurrentLayer().appendChild(path);
+  const bb = path.getBBox();
+  text.setAttribute("x", bb.x);
+  text.setAttribute("y", bb.y);
+  return text;
+}
+
+this.getTextPath = function(elem){
+  const textPath = elem.querySelector("textPath");
+  var path = null;
+  if (textPath) {
+    const href = textPath.getAttribute("href");
+    const id = href.replace("#", "");
+    path = svgroot.getElementById(id);
+  }
+  return path;
+}
 
 // Function: setImageURL
 // Sets the new image URL for the selected image element. Updates its size if
@@ -7743,15 +7782,24 @@ this.convertToPath = function(elem, getBBox) {
     if(elem.tagName == 'circle') {
       rx = ry = $(elem).attr('r');
     }
-  
+
     joinSegs([
-      ['M',[(cx-rx),(cy)]],
+      ['M',[(cx),(cy+ry)]], //
+      ['C',[(cx-rx/num),(cy+ry), (cx-rx),(cy+ry/num), (cx-rx),(cy)]],
       ['C',[(cx-rx),(cy-ry/num), (cx-rx/num),(cy-ry), (cx),(cy-ry)]],
       ['C',[(cx+rx/num),(cy-ry), (cx+rx),(cy-ry/num), (cx+rx),(cy)]],
       ['C',[(cx+rx),(cy+ry/num), (cx+rx/num),(cy+ry), (cx),(cy+ry)]],
-      ['C',[(cx-rx/num),(cy+ry), (cx-rx),(cy+ry/num), (cx-rx),(cy)]],
       ['Z',[]]
     ]);
+  
+    //joinSegs([
+    //  ['M',[(cx-rx),(cy)]], //
+    //  ['C',[(cx-rx),(cy-ry/num), (cx-rx/num),(cy-ry), (cx),(cy-ry)]],
+    //  ['C',[(cx+rx/num),(cy-ry), (cx+rx),(cy-ry/num), (cx+rx),(cy)]],
+    //  ['C',[(cx+rx),(cy+ry/num), (cx+rx/num),(cy+ry), (cx),(cy+ry)]],
+    //  ['C',[(cx-rx/num),(cy+ry), (cx-rx),(cy+ry/num), (cx-rx),(cy)]],
+    //  ['Z',[]]
+    //]);
     break;
   case 'path':
     d = elem.getAttribute('d');
@@ -7857,6 +7905,19 @@ var changeSelectedAttributeNoUndo = this.changeSelectedAttributeNoUndo = functio
       pathActions.moveNode(attr, newValue);
     }
     var elems = elems || selectedElements;
+
+    // get the path instead of text if is textPath
+    //elems = elems.map((elem) => {
+    //  if (elem.tagName === 'text') {
+    //    const path = svgCanvas.getTextPath(elem);
+    //    console.log(path)
+    //    if (path) elem = path;
+    //  }
+    //  return elem;
+    //});
+
+
+
     var i = elems.length;
     var no_xy_elems = ['g', 'polyline', 'path'];
     var good_g_attrs = ['transform', 'opacity', 'filter'];
@@ -7880,7 +7941,7 @@ var changeSelectedAttributeNoUndo = this.changeSelectedAttributeNoUndo = functio
       var oldval = attr === "#text" ? elem.textContent : elem.getAttribute(attr);
       if (oldval == null)  oldval = "";
       if (oldval !== String(newValue)) {
-        if (attr == "#text") {
+        if (attr === "#text") {
           var old_w = svgedit.utilities.getBBox(elem).width;
           elem.textContent = newValue;
 

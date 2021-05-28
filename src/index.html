@@ -6,9 +6,9 @@
   <link rel="icon" href="images/favicon.svg" sizes="any" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <title>Method Draw Vector Editor</title>
+  <title>Fujikohsan Vector Editor</title>
   <meta charset="utf-8">
-  <meta name="description" content="Method Draw is an open source SVG editor for the web, you can use it online without signing up.">
+  <meta name="description" content="Fujikohsan Vector Editor">
 
   <!-- build:css all.css -->
   <link rel="stylesheet" href="css/base.css" type="text/css"/>
@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="css/keyboard.css" type="text/css"/>
   <link rel="stylesheet" href="css/dialog.css" type="text/css"/>
   <link rel="stylesheet" href="css/method-draw.css" type="text/css"/>
+  <link rel="stylesheet" href="css/fve.css" type="text/css"/>
   <link rel="stylesheet" href="css/app.css" type="text/css"/>
   <link rel="stylesheet" href="css/tools.css" type="text/css"/>
   <link rel="stylesheet" href="css/button.css" type="text/css"/>
@@ -55,9 +56,9 @@
 <div id="menu_bar">
   <a class="menu">
     <div class="menu_title" id="logo">
-      <svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-        <path d="M-.1 16.1L16 .04V16.1H-.1z" fill="var(--z12)"></path>
-        <path d="M0 16.1V.1l16 16H0z" fill="var(--z6)"></path>
+      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 0H11L8 6V0H4V15H8V9.5L11 15H16L11.517 7.49007L16 0Z" fill="#1EB5E8"></path>
+        <path d="M0 0H4H8V3H4V6H8V9H4V15H0V9V6V3V0Z" fill="white"></path>
       </svg>
     </div>
     <div class="menu_list">
@@ -122,7 +123,7 @@
         <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers <span class="shortcut">⇧R</span></div>
         <div class="menu_item" id="tool_wireframe">View Wireframe</div>
         <div class="separator"></div>
-        <div class="menu_item" id="tool_source" data-action="source">Source... <span class="shortcut">⌘U</span></div>
+        <div class="menu_item" id="tool_source" data-action="source">View Source... <span class="shortcut">⌘U</span></div>
     </div>
   </div>
 </div>
@@ -362,7 +363,7 @@
       <div class="toolset draginput twocol" id="tool_font_family">
           <!-- Font family -->
         <span>Font</span>
-        <div id="preview_font" style="font-family: sans-serif">sans-serif</div>
+        <div id="preview_font"></div>
         <div class="caret"></div>
         <input id="font_family" data-title="Change Font Family" size="12" type="hidden" />
         <select id="font_family_dropdown">
@@ -549,8 +550,11 @@
             </svg>
           </div>
         </div>
-    </div>
+    </div>    
+
     <div class="clearfix"></div>
+
+    <div class="tool_button" id="tool_text_on_path" title="Place text on path">Place text on path</div>
 
   </div>
   
@@ -735,6 +739,7 @@
   <script type="text/javascript" src="js/lib/jquery.jgraduate.js"></script>
   <script type="text/javascript" src="js/lib/jquery.contextMenu.js"></script>
   <script type="text/javascript" src="js/lib/jquery-ui-1.8.17.custom.min.js"></script>
+  <script type="text/javascript" src="js/lib/css.min.js"></script>
   <script type="text/javascript" src="js/jquery.attr.js"></script>
   <script type="text/javascript" src="js/lib/jquery-draginput.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
@@ -765,6 +770,7 @@
   <script type="text/javascript" src="js/Import.js"></script>
   <script type="text/javascript" src="js/PaintBox.js"></script>
   <script type="text/javascript" src="js/Palette.js"></script>
+  <script type="text/javascript" src="js/Textonpath.js"></script>
   <script type="text/javascript" src="js/Zoom.js"></script>
   <script type="text/javascript" src="js/Modal.js"></script>
   <script type="text/javascript" src="js/ContextMenu.js"></script>
@@ -775,7 +781,6 @@
   <script type="text/javascript" src="js/lib/jpicker.min.js"></script>
   <script type="text/javascript" src="js/lib/mousewheel.js"></script>
   <script type="text/javascript" src="js/eyedropper.js"></script>
-  <!--<script type="text/javascript" src="js/grid.js"></script>-->
   <script type="text/javascript" src="js/lib/requestanimationframe.js"></script>
   <script type="text/javascript" src="js/lib/taphold.js"></script>
   <script type="text/javascript" src="js/lib/filesaver.js"></script>

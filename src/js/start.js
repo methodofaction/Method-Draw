@@ -7,8 +7,8 @@ editor.modal = {
   about: new MD.Modal({
     html: `
       <h1>About this application</h1>
-      <p>Method Draw is a simple <a href="https://github.com/methodofaction/Method-Draw">open source</a> vector drawing application. Method Draw was forked from <a href="https://github.com/SVG-Edit/svgedit">SVG-Edit</a> several years ago with the goal of improving and modernizing the interface.</p>
-      <p>At this time (2021), the author (<a href="http://method.ac/writing">Mark MacKay</a>) is working on improving stability and improving the codebase, which contains a lot of legacy practices. The goal is to create a vector editor suitable for simple graphic design tasks.</p>
+      <p>Fujikohsan Vector Editor is a vector drawing application by Fuji Kosan Co., Ltd. from Tokyo, Japan. Fujikohsan specializes in uniforms, safety clothes, and promotional goods.</p>
+      <p>Visit our website at <a target="_blank" href="https://fujikohsan.co.jp/">fujikohsan.co.jp</a>
       `
   }),
   source: new MD.Modal({
