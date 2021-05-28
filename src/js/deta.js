@@ -41,16 +41,17 @@
             statNode.setAttribute("class", `status_title ${statusMap[status].class}`);
             statNode.innerText = statusMap[status].text;
         } else {
-            const menu = document.querySelector('#menu_bar');
+            const menu = document.querySelector('#tools_bottom');
             const statusItem = document.createElement("div");
-            statusItem.setAttribute("class", `menu ${statusMap[status].class}`);
+            statusItem.setAttribute("class", `status_wrap ${statusMap[status].class}`);
             statusItem.setAttribute("id", "status_indicator");
             const statusItemTitle = document.createElement("div");
             statusItemTitle.setAttribute("class", `status_title ${statusMap[status].class}`);
             statusItemTitle.setAttribute("id", "status_indicator_title");
             statusItemTitle.innerText = statusMap[status].text;
             statusItem.appendChild(statusItemTitle);
-            menu.appendChild(statusItem);
+            const zoomPanel = document.querySelector('#zoom_panel');
+            menu.insertBefore(statusItem, zoomPanel);
         }
         window.deta.status = statusMap[status].text;
     }

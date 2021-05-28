@@ -38,7 +38,7 @@ const detaMenuMods = () => {
   // add share option
   const menu = document.querySelector("#menu_bar");
   const shareDiv = document.createElement("div");
-  shareDiv.setAttribute("class", "menu");
+  shareDiv.setAttribute("class", "share_menu");
   shareDiv.setAttribute("id", "share_drawing");
   const shareDivTitle = document.createElement("div");
   shareDivTitle.setAttribute("id", "share_drawing_title");

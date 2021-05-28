@@ -136,14 +136,21 @@
 
 /* /* status indicator */
 
+.status_wrap {
+    position: absolute;
+    justify-content: flex-end;
+    right: 280px;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 200px;
+}
+
 .status_title {
-    display: inline-block;
     z-index: 10;
     color: var(--z15);
-    position: relative;
     line-height: var(--x8);
     padding: 0 var(--x3);
-    vertical-align: top;
 }
 
 .status_saving {
@@ -163,6 +170,20 @@
 }
 
 /* /* share modal */
+
+.share_menu {
+    cursor: pointer;
+    display: inline-block;
+    z-index: 10;
+    color: var(--z15);
+    position: relative;
+    line-height: var(--x8);
+    vertical-align: top;
+}
+
+.share_menu:hover {
+    background-color: var(--z2);
+}
 
 .share_wrap {
     width: 400px;

@@ -5,7 +5,7 @@ from fastapi import HTTPException
 import urllib
 import base64
 
-deta = Deta(os.getenv("PROJ_KEY"))
+deta = Deta()
 
 base = deta.Base("drawings")
 

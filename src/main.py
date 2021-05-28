@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from state import *
 
-deta = Deta(os.getenv("PROJ_KEY"))
+deta = Deta()
 
 base = deta.Base("drawings")
 
@@ -89,11 +89,9 @@ def modify_public_handler(name: str, drawing: Drawing):
     else:
         raise HTTPException(status_code=502, detail="Internal server error")
 
-#public
 @app.get("/api/metadata/{name}")
 def metadata_handler(name:str):
     drawing = get_metadata(name)
-    print(drawing)
     if drawing:
         return drawing
     else:
