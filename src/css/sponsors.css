@@ -6,7 +6,7 @@
 
 .sponsor a {
   transition: all 200ms ease;
-  background: var(--z2);
+  background-color: var(--z3);
   line-height: var(--x6);
   margin: var(--x1) 0;
   border-radius: var(--x1);
@@ -14,7 +14,7 @@
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--z12);
+  color: var(--z14);
   padding: 0 var(--x2);
   font-size: 12px;
   position: relative;
