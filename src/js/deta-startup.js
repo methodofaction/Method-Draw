@@ -1,6 +1,12 @@
-const isDetaRuntime = location.hostname === "deta.app"
-  || location.hostname === "deta.dev"
+const hostArray = location.hostname.split(".");
+
+const isDevOrApp = hostArray[hostArray.length - 1] === "dev" || hostArray[hostArray.length - 1] === "app";
+const isDetaHost = hostArray[hostArray.length - 2] === "deta";
+
+
+const isDetaRuntime = (isDetaHost && isDevOrApp)
   || location.hostname === "127.0.0.1";
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const paths = window.location.pathname.split("/");

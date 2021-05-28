@@ -7,7 +7,6 @@
         return fetch(resource, init);
     };
     var api = function (method, endpoint, data) {
-        console.log(data);
         const resp = xfetch(endpoint, {
             method: method,
             body: data,

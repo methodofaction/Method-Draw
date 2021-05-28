@@ -201,7 +201,6 @@ const detaModals = {
             el.querySelector("#switch-1").addEventListener(
                 "change",
                 async function () {
-                    console.log('hi');
                     const isPublic = document.getElementById("switch-1");
                     const res = await window.deta.modifyIsPublic(
                         isPublic.checked
@@ -209,8 +208,8 @@ const detaModals = {
 
                     if (isPublic.checked && res.status === 200) {
                         document.getElementById("share_links").style.display = "block";
-                        document.getElementById("raw_url").value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`;
-                        document.getElementById("edit_url").value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`;
+                        document.getElementById("raw_url").value = `https://${window.location.hostname}/public/raw/${window.deta.currOpen}`;
+                        document.getElementById("edit_url").value = `https://${window.location.hostname}/public/?name=${window.deta.currOpen}`;
                         document.getElementById("share_desc").innerHTML =
                             "Anyone with the link can view your work.";
                     } else if (!isPublic.checked && res.status === 200) {

@@ -8,7 +8,8 @@ function State() {
   this.data = _loadData();
 
   this.set = (key, val) => {
-    if (isDetaRuntime && key === "canvasContent") {
+
+    if (isDetaRuntime && !isPublic && key === "canvasContent") {
       window.deta.setStatus("LOCAL_CHANGES");
     }
     key = key.split("-")[0] || key;

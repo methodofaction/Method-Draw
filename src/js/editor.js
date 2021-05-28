@@ -20,7 +20,7 @@ MD.Editor = function () {
       editor.paintBox.fill.prep();
       editor.paintBox.stroke.prep();
       svgCanvas.runExtensions('onNewDocument');
-      if (isDetaRuntime) {
+      if (isDetaRuntime && !isPublic) {
         window.deta.close();
       }
     });

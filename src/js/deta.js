@@ -199,8 +199,8 @@
             document.getElementById("switch-1").checked = public;
             if (public) {
                 document.getElementById("share_links").style.display = "block";
-                document.getElementById("raw_url").value = `${window.location.hostname}/public/raw/${window.deta.currOpen}`;
-                document.getElementById("edit_url").value = `${window.location.hostname}/public/?name=${window.deta.currOpen}`;
+                document.getElementById("raw_url").value = `https://${window.location.hostname}/public/raw/${window.deta.currOpen}`;
+                document.getElementById("edit_url").value = `https://${window.location.hostname}/public/?name=${window.deta.currOpen}`;
                 document.getElementById("share_desc").innerHTML =
                     "Anyone with the link can view your work.";
             } else {
@@ -262,8 +262,8 @@
     const deleteDocument = async () => {
         const response = await window.api.app.deleteDrawing(window.deta.currOpen);
         if (response.status === 200) {
-            close();
             clearCanvas();
+            close();
             return 200;
         } else {
             return null;
