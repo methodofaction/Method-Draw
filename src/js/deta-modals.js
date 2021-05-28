@@ -28,8 +28,11 @@ const detaModals = {
                     } else if (res.status === 200) {
                         b2.blur();
                         successHandler(filename);
+                    } else if (res.status === 401) {
+                        document.getElementById("save_warning").innerHTML = `There was an error while saving the drawing. Please refresh the page, and download any work to prevent data loss.`
+                        document.getElementById("save_warning").style.display = "block";
                     } else {
-                        document.getElementById("save_warning").innerHTML = `Internal Server Error.`
+                        document.getElementById("save_warning").innerHTML = `There was an error while saving the drawing. Please try again.`
                         document.getElementById("save_warning").style.display = "block";
                     }
                 });
@@ -90,6 +93,7 @@ const detaModals = {
         <div id="drawing_list" class="open_drawing_list">
           Loading drawings...
         </div>
+        <h4 id="open_warning" class="open_warning">There was an error opening the drawing. Please try again.</h4>
         <div class="modal_btn_row">
           <button id="open_cancel" class="cancel">Cancel</button>
           <button id="open_ok" class="open">Ok</button>
@@ -115,7 +119,7 @@ const detaModals = {
                     // load the drawing
                     window.deta.loadDocument();
                     b2.blur();
-                    editor.modal.cloudOpen.close();
+                    // editor.modal.cloudOpen.close();
                 }
             });
         }
@@ -145,11 +149,18 @@ const detaModals = {
 
             b2.addEventListener("click", function () {
                 window.deta.deleteDocument().then(res => {
-                    if (res) {
+                    if (res == 200) {
                         b2.blur();
                         editor.modal.cloudDelete.close();
+                        document.getElementById("delete_error").style.display = "none";
                     } else {
-                        // add error handling
+                        if (res == 401) {
+                            document.getElementById("delete_error").innerHTML = `There was an error deleting your drawing, please refresh and try again.`;
+                        } else {
+                            document.getElementById("delete_error").innerHTML = `There was an error deleting your drawing, please try again.`;
+                        }
+                        document.getElementById("delete_error").style.display = "block";
+                        
                     }
                 })
             })
@@ -189,7 +200,7 @@ const detaModals = {
                     <label for="switch-1" class="switch-label">Switch</label>
                 </div>
             </div>
-            
+            <h4 id="share_warning" class="share_warning">There was an error making your drawing public. Please refresh and try again.</h4>
             <div id="share_links" class="share_links">
                 <div class="share_link_title">Raw SVG:</div>
                 <div class="share_url_wrapper">
@@ -227,12 +238,20 @@ const detaModals = {
                         document.getElementById("edit_url").value = `https://${window.location.hostname}/public/?name=${window.deta.currOpen}`;
                         document.getElementById("share_desc").innerHTML =
                             "Anyone with the link can view your work.";
+                        document.getElementById("share_warning").style.display = "none";
                     } else if (!isPublic.checked && res.status === 200) {
 
                         document.getElementById("share_desc").innerHTML =
                             "Make your drawing public and share a link with anyone.";
                         document.getElementById("share_links").style.display = "none";
+                        document.getElementById("share_warning").style.display = "none";
                     } else {
+                        if (res.status === 401) {
+                            document.getElementById("share_warning").innerHTML = `There was an error making your drawing public. Please refresh and try again.`;
+                        } else {
+                            document.getElementById("share_warning").innerHTML = `There was an error making your drawing public. Please try again.`;
+                        }
+                        document.getElementById("share_warning").style.display = "block";
                         // handle errors
                     }
                 }

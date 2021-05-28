@@ -229,12 +229,19 @@
                 setOpen(filename);
                 // change share modal values
                 setShareStatus();
+                editor.modal.cloudOpen.close();
             };
             reader.onerror = function () {
                 console.log(reader.error);
             };
-        } else {
-
+            document.getElementById("open_warning").style.display = "none";
+        } else if (response.status == 401) {
+            document.getElementById("open_warning").innerHTML = `There was an error while opening the drawing. Please refresh the page.`
+            document.getElementById("open_warning").style.display = "block";
+        } 
+        else {
+            document.getElementById("open_warning").innerHTML = `There was an error while opening the drawing. Please try again`
+            document.getElementById("open_warning").style.display = "block";
         }
     }
 
@@ -267,7 +274,7 @@
             close();
             return 200;
         } else {
-            return null;
+            return response.status;
         }
 
     }
