@@ -215,6 +215,7 @@
     const loadDocument = async () => {
         const filename = window.deta.toOpen.innerText;
         const response = await window.api.app.loadDrawing(filename);
+
         if (response.status === 200) {
             const bod = response.body;
             const stream = new Response(bod);
@@ -234,10 +235,11 @@
             reader.onerror = function () {
                 console.log(reader.error);
             };
-            document.getElementById("open_warning").style.display = "none";
         } else if (response.status == 401) {
             document.getElementById("open_warning").innerHTML = `There was an error while opening the drawing. Please refresh the page.`
             document.getElementById("open_warning").style.display = "block";
+            document.getElementById("open_ok_err_btn").style.display = "inherit";
+            document.getElementById("open_ok").style.display = "none";
         } 
         else {
             document.getElementById("open_warning").innerHTML = `There was an error while opening the drawing. Please try again`
@@ -298,8 +300,14 @@
         if (response.status === 200) {
             setStatus("SAVED");
             return response;
+        }else if(response.status === 401){
+            editor.modal.cloudError.open();
+            document.getElementById("cloud_error").innerHTML = `There was an error saving to the cloud. Please refresh the page, and download any work to prevent data loss.`
+            setStatus("ERROR");
+            return null
         } else {
             editor.modal.cloudError.open();
+            document.getElementById("cloud_error").innerHTML = `There was an error saving to the cloud. Please try again.`
             setStatus("ERROR");
             return null;
         }

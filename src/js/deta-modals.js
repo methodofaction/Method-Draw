@@ -12,6 +12,7 @@ const detaModals = {
            <button id="save_cancel_btn" class="cancel">Cancel</button>
            <button id="save_ok_btn" class="ok">Ok</button>
            <button id="save_confirm_btn" class="save_confirm_btn">Confirm</button>
+           <button id="save_ok_err_btn" class="ok_err">Ok</button>
         </div>
         `,
         js: function (el) {
@@ -31,6 +32,10 @@ const detaModals = {
                     } else if (res.status === 401) {
                         document.getElementById("save_warning").innerHTML = `There was an error while saving the drawing. Please refresh the page, and download any work to prevent data loss.`
                         document.getElementById("save_warning").style.display = "block";
+                        document.getElementById("save_ok_btn").style.display = "none";
+                        document.getElementById("save_confirm_btn").style.display = "none";
+                        document.getElementById("save_ok_err_btn").style.display = "block";
+                        $('#filename').prop('readonly', true);
                     } else {
                         document.getElementById("save_warning").innerHTML = `There was an error while saving the drawing. Please try again.`
                         document.getElementById("save_warning").style.display = "block";
@@ -42,6 +47,7 @@ const detaModals = {
                 document.getElementById("filename").value = "";
                 document.getElementById("save_warning").style.display = "none";
                 document.getElementById("save_confirm_btn").style.display = "none";
+                document.getElementById("save_ok_err_btn").style.display = "none";
                 document.getElementById("save_ok_btn").style.display = "inherit";
                 $('#filename').prop('readonly', false);
             };
@@ -85,6 +91,14 @@ const detaModals = {
                     }
                 })
             })
+            
+            const b4 = el.querySelector("#save_ok_err_btn");
+
+            b4.addEventListener("click", function () {
+                b4.blur();
+                editor.modal.cloudSaveAs.close();
+                revertState();
+            })
         }
     }),
     cloudOpen: new MD.Modal({
@@ -97,16 +111,24 @@ const detaModals = {
         <div class="modal_btn_row">
           <button id="open_cancel" class="cancel">Cancel</button>
           <button id="open_ok" class="open">Ok</button>
+          <button id="open_ok_err_btn" class="ok_err">Refresh</button>
         </div>
         `,
         js: function (el) {
             window.deta.toOpen = null;
+
+            const revertOpenState = () => {
+                document.getElementById("open_warning").style.display = "none";
+                document.getElementById("open_ok_err_btn").style.display = "none";
+                document.getElementById("open_ok").style.display = "inherit";
+            };
 
             const b1 = el.querySelector("#open_cancel");
 
             b1.addEventListener("click", function () {
                 b1.blur();
                 editor.modal.cloudOpen.close();
+                revertOpenState();
             });
 
             const b2 = el.querySelector("#open_ok");
@@ -122,6 +144,13 @@ const detaModals = {
                     // editor.modal.cloudOpen.close();
                 }
             });
+
+            const b3 = document.querySelector("#open_ok_err_btn");
+
+            b3.addEventListener("click", function () {
+                b3.blur();
+                location.reload();
+            })
         }
     }),
     cloudDelete: new MD.Modal({
@@ -134,15 +163,23 @@ const detaModals = {
         <div class="modal_btn_row">
            <button id="delete_cancel_btn" class="cancel">Cancel</button>
            <button id="delete_btn" class="delete_btn">Delete</button>
+           <button id="delete_ok_err_btn" class="ok_err">Refresh</button>
         </div>
         `,
         js: function (el) {
+
+            const revertDeleteState = () => {
+                document.getElementById("delete_ok_err_btn").style.display = "none";
+                document.getElementById("delete_error").style.display = "none";
+                document.getElementById("delete_btn").style.display = "inherit"
+            }
 
             const b1 = el.querySelector("#delete_cancel_btn");
 
             b1.addEventListener("click", function () {
                 b1.blur();
                 editor.modal.cloudDelete.close();
+                revertDeleteState();
             });
 
             const b2 = el.querySelector("#delete_btn");
@@ -156,13 +193,22 @@ const detaModals = {
                     } else {
                         if (res == 401) {
                             document.getElementById("delete_error").innerHTML = `There was an error deleting your drawing, please refresh and try again.`;
+                            document.getElementById("delete_ok_err_btn").style.display = "inherit";
+                            document.getElementById("delete_btn").style.display = "none"
                         } else {
                             document.getElementById("delete_error").innerHTML = `There was an error deleting your drawing, please try again.`;
                         }
                         document.getElementById("delete_error").style.display = "block";
-                        
+    
                     }
                 })
+            })
+
+            const b3 = el.querySelector("#delete_ok_err_btn");
+
+            b3.addEventListener("click", function () {
+                b3.blur();
+                location.reload();
             })
         }
     }),
@@ -221,9 +267,15 @@ const detaModals = {
                     </button>
                 </div>
             </div>
+            <button id="share_ok_err_btn" style="margin-top: var(--x5);" class="ok_err">Refresh</button>
         </div>
         `,
         js: function (el) {
+            const revertShareState = () => {
+                document.getElementById("share_warning").style.display = "none";
+                document.getElementById("share_ok_err_btn").style.display = "none"
+                document.getElementById("switch-1").disabled = false;
+            }
             el.querySelector("#switch-1").addEventListener(
                 "change",
                 async function () {
@@ -247,12 +299,14 @@ const detaModals = {
                         document.getElementById("share_warning").style.display = "none";
                     } else {
                         if (res.status === 401) {
-                            document.getElementById("share_warning").innerHTML = `There was an error making your drawing public. Please refresh and try again.`;
+                            document.getElementById("share_warning").innerHTML = `There was an error modifying your drawing status. Please refresh and try again.`;
+                            document.getElementById("share_ok_err_btn").style.display = "inherit"
+                            document.getElementById("switch-1").disabled = true;
                         } else {
-                            document.getElementById("share_warning").innerHTML = `There was an error making your drawing public. Please try again.`;
+                            document.getElementById("share_warning").innerHTML = `There was an error modifying your drawing status. Please try again.`;
                         }
                         document.getElementById("share_warning").style.display = "block";
-                        // handle errors
+                        document.getElementById("switch-1").checked = !isPublic.checked;
                     }
                 }
             );
@@ -268,6 +322,13 @@ const detaModals = {
                 edit_url.setSelectionRange(0, 99999);
                 document.execCommand("copy");
             });
+
+            const b1 = document.querySelector("#share_ok_err_btn");
+
+            b1.addEventListener("click", function () {
+                b1.blur();
+                location.reload();
+            })
         },
     })
 }

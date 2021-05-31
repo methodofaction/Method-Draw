@@ -59,6 +59,11 @@
     background-color: var(--c6);
 }
 
+.ok_err {
+    display: none;
+    background-color: var(--d7);
+}
+
 .save_confirm_btn:hover {
     background-color: var(--c8);
 }
