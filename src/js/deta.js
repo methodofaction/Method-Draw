@@ -187,6 +187,11 @@
                 newNode.textContent = drawings[i].name;
                 openList.appendChild(newNode);
             }
+        } else if (response.status === 401) {
+            document.getElementById("open_warning").innerHTML = `There was an authentication issue while retrieving your drawings. Please refresh the page, and try again.`
+            document.getElementById("open_warning").style.display = "block";
+            document.getElementById("open_ok_err_btn").style.display = "inherit";
+            document.getElementById("open_ok").style.display = "none";
         }
     }
 
@@ -236,13 +241,13 @@
                 console.log(reader.error);
             };
         } else if (response.status == 401) {
-            document.getElementById("open_warning").innerHTML = `There was an authentication issue while opening the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
+            document.getElementById("open_warning").innerHTML = `There was an authentication issue while opening the drawing. Please refresh the page, and try again.`
             document.getElementById("open_warning").style.display = "block";
             document.getElementById("open_ok_err_btn").style.display = "inherit";
             document.getElementById("open_ok").style.display = "none";
         } 
         else {
-            document.getElementById("open_warning").innerHTML = `There was an error while opening the drawing. Please try again`
+            document.getElementById("open_warning").innerHTML = `There was an issue while opening the drawing. Please try again`
             document.getElementById("open_warning").style.display = "block";
         }
     }
@@ -307,7 +312,7 @@
             return null
         } else {
             editor.modal.cloudError.open();
-            document.getElementById("cloud_error").innerHTML = `There was an error saving to the cloud. Please try again.`
+            document.getElementById("cloud_error").innerHTML = `There was an issue saving to the cloud. Please try again.`
             setStatus("ERROR");
             return null;
         }
