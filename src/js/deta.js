@@ -236,7 +236,7 @@
                 console.log(reader.error);
             };
         } else if (response.status == 401) {
-            document.getElementById("open_warning").innerHTML = `There was an error while opening the drawing. Please refresh the page.`
+            document.getElementById("open_warning").innerHTML = `There was an authentication issue while opening the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
             document.getElementById("open_warning").style.display = "block";
             document.getElementById("open_ok_err_btn").style.display = "inherit";
             document.getElementById("open_ok").style.display = "none";
@@ -274,7 +274,7 @@
         if (response.status === 200) {
             clearCanvas();
             close();
-            return 200;
+            return response.status;
         } else {
             return response.status;
         }
@@ -302,7 +302,7 @@
             return response;
         }else if(response.status === 401){
             editor.modal.cloudError.open();
-            document.getElementById("cloud_error").innerHTML = `There was an error saving to the cloud. Please refresh the page, and download any work to prevent data loss.`
+            document.getElementById("cloud_error").innerHTML = `There was an authentication issue while saving the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
             setStatus("ERROR");
             return null
         } else {

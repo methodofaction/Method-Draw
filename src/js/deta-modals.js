@@ -30,7 +30,7 @@ const detaModals = {
                         b2.blur();
                         successHandler(filename);
                     } else if (res.status === 401) {
-                        document.getElementById("save_warning").innerHTML = `There was an error while saving the drawing. Please refresh the page, and download any work to prevent data loss.`
+                        document.getElementById("save_warning").innerHTML = `There was an authentication issue while saving the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
                         document.getElementById("save_warning").style.display = "block";
                         document.getElementById("save_ok_btn").style.display = "none";
                         document.getElementById("save_confirm_btn").style.display = "none";
@@ -192,7 +192,7 @@ const detaModals = {
                         document.getElementById("delete_error").style.display = "none";
                     } else {
                         if (res == 401) {
-                            document.getElementById("delete_error").innerHTML = `There was an error deleting your drawing, please refresh and try again.`;
+                            document.getElementById("delete_error").innerHTML = `There was an authentication issue while deleting the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`;
                             document.getElementById("delete_ok_err_btn").style.display = "inherit";
                             document.getElementById("delete_btn").style.display = "none"
                         } else {
@@ -299,7 +299,7 @@ const detaModals = {
                         document.getElementById("share_warning").style.display = "none";
                     } else {
                         if (res.status === 401) {
-                            document.getElementById("share_warning").innerHTML = `There was an error modifying your drawing status. Please refresh and try again.`;
+                            document.getElementById("share_warning").innerHTML = `There was an authentication issue while modifying your drawing status. Please download any unsaved work ('export svg'), refresh the page, and try again.`;
                             document.getElementById("share_ok_err_btn").style.display = "inherit"
                             document.getElementById("switch-1").disabled = true;
                         } else {
