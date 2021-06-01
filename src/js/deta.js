@@ -190,6 +190,11 @@
                 newNode.textContent = drawings[i].name;
                 openList.appendChild(newNode);
             }
+        } else if (response.status === 401) {
+            document.getElementById("open_warning").innerHTML = `There was an authentication issue while retrieving your drawings. Please refresh the page, and try again.`
+            document.getElementById("open_warning").style.display = "block";
+            document.getElementById("open_ok_err_btn").style.display = "inherit";
+            document.getElementById("open_ok").style.display = "none";
         }
     }
 
@@ -218,6 +223,7 @@
     const loadDocument = async () => {
         const filename = window.deta.toOpen.innerText;
         const response = await window.api.app.loadDrawing(filename);
+
         if (response.status === 200) {
             const bod = response.body;
             const stream = new Response(bod);
@@ -232,12 +238,20 @@
                 setOpen(filename);
                 // change share modal values
                 setShareStatus();
+                editor.modal.cloudOpen.close();
             };
             reader.onerror = function () {
                 console.log(reader.error);
             };
-        } else {
-
+        } else if (response.status == 401) {
+            document.getElementById("open_warning").innerHTML = `There was an authentication issue while opening the drawing. Please refresh the page, and try again.`
+            document.getElementById("open_warning").style.display = "block";
+            document.getElementById("open_ok_err_btn").style.display = "inherit";
+            document.getElementById("open_ok").style.display = "none";
+        } 
+        else {
+            document.getElementById("open_warning").innerHTML = `There was an issue while opening the drawing. Please try again`
+            document.getElementById("open_warning").style.display = "block";
         }
     }
 
@@ -268,9 +282,9 @@
         if (response.status === 200) {
             clearCanvas();
             close();
-            return 200;
+            return response.status;
         } else {
-            return null;
+            return response.status;
         }
 
     }
@@ -294,8 +308,14 @@
         if (response.status === 200) {
             setStatus("SAVED");
             return response;
+        }else if(response.status === 401){
+            editor.modal.cloudError.open();
+            document.getElementById("cloud_error").innerHTML = `There was an authentication issue while saving the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
+            setStatus("ERROR");
+            return null
         } else {
             editor.modal.cloudError.open();
+            document.getElementById("cloud_error").innerHTML = `There was an issue saving to the cloud. Please try again.`
             setStatus("ERROR");
             return null;
         }
