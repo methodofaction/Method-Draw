@@ -115,7 +115,7 @@ MD.Keyboard = function(){
       if (key === "arrowdown") key = "↓";
       if (key === " ") key = "SPACEBAR";
       if (key === "shift") key = "⇧";
-      if (key === "cmd") key = svgedit.browser.isMac ? "⌘" : "Ctrl";
+      if (key === "cmd") key = svgedit.browser.isMac() ? "⌘" : "Ctrl";
       shortcutKey.textContent = key;
       shortcutKeys.appendChild(shortcutKey);
       shortcut.appendChild(shortcutKeys);
