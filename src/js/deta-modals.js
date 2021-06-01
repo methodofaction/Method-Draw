@@ -270,11 +270,6 @@ const detaModals = {
         </div>
         `,
         js: function (el) {
-            const revertShareState = () => {
-                document.getElementById("share_warning").style.display = "none";
-                document.getElementById("share_ok_err_btn").style.display = "none"
-                document.getElementById("switch-1").disabled = false;
-            }
             el.querySelector("#switch-1").addEventListener(
                 "change",
                 async function () {
