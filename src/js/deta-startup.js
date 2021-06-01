@@ -54,4 +54,4 @@ const detaMenuMods = () => {
 
 if (isDetaRuntime && !isPublic) {
   detaMenuMods();
-} 
+}

@@ -75,6 +75,8 @@
 
         // reset share modal when closing a document
         document.getElementById("share_links").style.display = 'none';
+        document.getElementById("share_desc").innerHTML = 'Make your drawing public and share a link with anyone.';
+        document.getElementById("switch-1").checked = false;
 
         // set currOpen var to null
         window.deta.currOpen = null;
