@@ -30,7 +30,7 @@ const detaModals = {
                         b2.blur();
                         successHandler(filename);
                     } else if (res.status === 401) {
-                        document.getElementById("save_warning").innerHTML = `There was an authentication issue while saving the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
+                        document.getElementById("save_warning").innerHTML = `There was an issue while saving the drawing. Please download any unsaved work ('export svg'), refresh the page, and try again.`
                         document.getElementById("save_warning").style.display = "block";
                         document.getElementById("save_ok_btn").style.display = "none";
                         document.getElementById("save_confirm_btn").style.display = "none";
@@ -91,7 +91,7 @@ const detaModals = {
                     }
                 })
             })
-            
+
             const b4 = el.querySelector("#save_ok_err_btn");
 
             b4.addEventListener("click", function () {
@@ -134,14 +134,13 @@ const detaModals = {
             const b2 = el.querySelector("#open_ok");
 
             b2.addEventListener("click", function () {
-                if (window.deta.toOpen == null) {
+                if (window.deta.toOpen === null) {
                     b2.blur();
                     editor.modal.cloudOpen.close();
                 } else {
                     // load the drawing
                     window.deta.loadDocument();
                     b2.blur();
-                    // editor.modal.cloudOpen.close();
                 }
             });
 
@@ -158,7 +157,7 @@ const detaModals = {
         <div class="delete_wrapper">
         <div class="modal_header">Do you want to delete <span id="delete_name">your drawing</span>?</div>
         <p>This will delete the drawing from the cloud, clear the canvas, and erase your undo history.</p>
-        <p id="delete_error" class="delete_error">There was an error deleting your drawing, please refresh and try again.</p>
+        <h4 id="delete_error" class="delete_error">There was an error deleting your drawing, please refresh and try again.</h4>
         </div>
         <div class="modal_btn_row">
            <button id="delete_cancel_btn" class="cancel">Cancel</button>
@@ -186,12 +185,12 @@ const detaModals = {
 
             b2.addEventListener("click", function () {
                 window.deta.deleteDocument().then(res => {
-                    if (res == 200) {
+                    if (res === 200) {
                         b2.blur();
                         editor.modal.cloudDelete.close();
                         document.getElementById("delete_error").style.display = "none";
                     } else {
-                        if (res == 401) {
+                        if (res === 401) {
                             document.getElementById("delete_error").innerHTML = `There was an issue while deleting the drawing. Please refresh the page, and try again.`;
                             document.getElementById("delete_ok_err_btn").style.display = "inherit";
                             document.getElementById("delete_btn").style.display = "none"
@@ -199,7 +198,7 @@ const detaModals = {
                             document.getElementById("delete_error").innerHTML = `There was an issue while deleting your drawing, please try again.`;
                         }
                         document.getElementById("delete_error").style.display = "block";
-    
+
                     }
                 })
             })
@@ -299,11 +298,11 @@ const detaModals = {
                         document.getElementById("share_warning").style.display = "none";
                     } else {
                         if (res.status === 401) {
-                            document.getElementById("share_warning").innerHTML = `There was an issue while trying to update your sharing settings. Please download any unsaved work ('export svg'), refresh the page, and try again.`;
+                            document.getElementById("share_warning").innerHTML = `There was an issue while updating your sharing settings. Please download any unsaved work ('export svg'), refresh the page, and try again.`;
                             document.getElementById("share_ok_err_btn").style.display = "inherit"
                             document.getElementById("switch-1").disabled = true;
                         } else {
-                            document.getElementById("share_warning").innerHTML = `There was an issue while trying to update your sharing settings. Please try again.`;
+                            document.getElementById("share_warning").innerHTML = `There was an issue while updating to update your sharing settings. Please try again.`;
                         }
                         document.getElementById("share_warning").style.display = "block";
                         document.getElementById("switch-1").checked = !isPublic.checked;

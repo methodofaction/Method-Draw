@@ -49,20 +49,12 @@
     max-width: 250px;
     color: var(--a6);
 }
-.open_warning {
-    display: none;
-    max-width: 400px;;
-    color: var(--a6);
-}
+
 .save_confirm_btn {
     display: none;
     background-color: var(--c6);
 }
 
-.ok_err {
-    display: none;
-    background-color: var(--d7);
-}
 
 .save_confirm_btn:hover {
     background-color: var(--c8);
@@ -105,6 +97,17 @@
     line-height: var(--x8);
     padding: 0 var(--x3);
     vertical-align: top;
+}
+
+.open_warning {
+    display: none;
+    max-width: 400px;;
+    color: var(--a6);
+}
+
+.ok_err {
+    display: none;
+    background-color: var(--d7);
 }
 
 /* /* delete modal */
