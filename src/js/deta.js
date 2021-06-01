@@ -73,6 +73,9 @@
             deleteNode.remove();
         }
 
+        // reset share modal when closing a document
+        document.getElementById("share_links").style.display = 'none';
+
         // set currOpen var to null
         window.deta.currOpen = null;
     };
@@ -172,7 +175,7 @@
                 this.style.backgroundColor = "var(--d15)";
                 this.style.fontWeight = "bold";
                 const lastSelect = window.deta.toOpen;
-                if (lastSelect !== null) {
+                if (lastSelect !== null && lastSelect !== this) {
                     lastSelect.style.backgroundColor = "white";
                     lastSelect.style.fontWeight = "normal";
                 }
@@ -190,7 +193,7 @@
         }
     }
 
-    // open a sepcific document
+    // open a specific document
     const setShareStatus = async () => {
         const md_response = await window.api.app.getMetadata(window.deta.currOpen);
 
