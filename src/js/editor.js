@@ -2,6 +2,7 @@ const MD = {};
 
 MD.Editor = function(){
   
+  const el = document.getElementById("method-draw");
   const serializer = new XMLSerializer();
   const _self = this;
   const workarea = document.getElementById("workarea");
@@ -300,7 +301,7 @@ MD.Editor = function(){
   function toggleWireframe() {
     editor.menu.flash($('#view_menu')); 
     $('#tool_wireframe').toggleClass('push_button_pressed');
-    $("#svg_editor").toggleClass('wireframe');
+    $("#method-draw").toggleClass('wireframe');
   }
 
   function groupSelected(){
@@ -341,6 +342,7 @@ MD.Editor = function(){
     editor.modal.source.open();
   }
 
+  this.el = el;
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
   this.changeAttribute = changeAttribute;

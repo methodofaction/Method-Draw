@@ -132,78 +132,82 @@ MD.Panel = function(){
       return (!!text && !!path);
     }
 
-
     function updateContextPanel(elems) {
       if (!elems) elems = editor.selected;
-     var elem = elems[0] || editor.selected[0];
-     const isNode = svgCanvas.pathActions.getNodePoint()
-     // If element has just been deleted, consider it null
-     if(!elem || !elem.parentNode) elem = null;
+      var elem = elems[0] || editor.selected[0];
+      const isNode = svgCanvas.pathActions.getNodePoint()
+      // If element has just been deleted, consider it null
+      if(!elem || !elem.parentNode) elem = null;
 
-     const multiselected = elems.length > 1;
+      const multiselected = elems.length > 1;
      
-     var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
-     var currentMode = svgCanvas.getMode();
+      var currentLayerName = svgCanvas.getCurrentDrawing().getCurrentLayerName();
+      var currentMode = svgCanvas.getMode();
 
-     $('.context_panel').hide();
-     $("#align_tools").toggle(elem && !multiselected);
+      $('.context_panel').hide();
+      $("#align_tools").toggle(elem && !multiselected);
 
-     if (currentMode === 'pathedit') return showPathEdit();
+      if (currentMode === 'pathedit') return showPathEdit();
      
-     var menu_items = $('#cmenu_canvas li');
+      var menu_items = $('#cmenu_canvas li');
      
-     //hack to show the proper multialign box
-     if (multiselected) {
-       const multi = elems.filter(Boolean);
-       elem = (svgCanvas.elementsAreSame(multi)) ? multi[0] : null
-       if (elem) $("#panels").addClass("multiselected");
-       const canTextPath = canPutTextOnPath(multi);
-       $("#tool_text_on_path").toggle(canTextPath);
-     }
+      //hack to show the proper multialign box
+      if (multiselected) {
+        const multi = elems.filter(Boolean);
+        elem = (svgCanvas.elementsAreSame(multi)) ? multi[0] : null
+        if (elem) $("#panels").addClass("multiselected");
+        const canTextPath = canPutTextOnPath(multi);
+        $("#tool_text_on_path").toggle(canTextPath);
+      }
+      else {
+        console.log("remove multiselectd")
+        $("#panels").removeClass("multiselected");
+      }
 
-     if (!elem && !multiselected) {
-       $("#panels").removeClass("multiselected")        
-       $("#stroke_panel").hide();
-       $("#canvas_panel").show();
-     }
+      if (!elem && !multiselected) {      
+        $("#stroke_panel").hide();
+        $("#canvas_panel").show();
+      }
  
-     if (elem !== null) {
-       
-       $("#stroke_panel").show();
-       var elname = elem.nodeName;
-       var angle = svgCanvas.getRotationAngle(elem);
-       $('#angle').val(Math.round(angle));
-       $('#tool_angle_indicator').css("transform", "rotate("+angle+"deg)");
-       var blurval = svgCanvas.getBlur(elem);
-       $('#blur').val(blurval);
-       if(!isNode && currentMode !== 'pathedit') {
-         $('#selected_panel').show();
-         $('.action_selected').removeClass('disabled');
-         // Elements in this array already have coord fields
-         var x, y
-         if(['g', 'polyline', 'path'].indexOf(elname) >= 0) {
-           var bb = svgCanvas.getStrokedBBox([elem]);
-           if(bb) {
-             x = bb.x;
-             y = bb.y;
-           }
-         }
-         
-         x = svgedit.units.convertUnit(x);
-         y = svgedit.units.convertUnit(y);
+      if (elem !== null) {
+        $("#stroke_panel").show();
+        var elname = elem.nodeName;
+        var angle = svgCanvas.getRotationAngle(elem);
+        $('#angle').val(Math.round(angle));
+        $('#group_opacity').val(svgCanvas.getOpacity(elem)*100 || 100);
+        $.fn.dragInput.updateCursor(document.getElementById("group_opacity"));
+        $('#tool_angle_indicator').css("transform", "rotate("+angle+"deg)");
+        var blurval = svgCanvas.getBlur(elem);
+        $('#blur').val(blurval);
+        $.fn.dragInput.updateCursor(document.getElementById("blur"));
+        if(!isNode && currentMode !== 'pathedit') {
+          $('#selected_panel').show();
+          $('.action_selected').removeClass('disabled');
+          // Elements in this array already have coord fields
+          var x, y
+          if(['g', 'polyline', 'path'].indexOf(elname) >= 0) {
+            var bb = svgCanvas.getStrokedBBox([elem]);
+            if(bb) {
+              x = bb.x;
+              y = bb.y;
+            }
+          }
+          
+          x = svgedit.units.convertUnit(x);
+          y = svgedit.units.convertUnit(y);
 
-         $("#" + elname +"_x").val(Math.round(x))
-         $("#" + elname +"_y").val(Math.round(y))
-         if (elname === "polyline") {
-           //we're acting as if polylines were paths
-           $("#path_x").val(Math.round(x))
-           $("#path_y").val(Math.round(y))
-         }
+          $("#" + elname +"_x").val(Math.round(x))
+          $("#" + elname +"_y").val(Math.round(y))
+          if (elname === "polyline") {
+            //we're acting as if polylines were paths
+            $("#path_x").val(Math.round(x))
+            $("#path_y").val(Math.round(y))
+          }
                    
-         // Elements in this array cannot be converted to a path
-         var no_path = ['image', 'text', 'path', 'g', 'use'].indexOf(elname) === -1;
-         if (no_path) $('.action_path_convert_selected').removeClass('disabled');
-         if (elname === "path") $('.action_path_selected').removeClass('disabled');
+          // Elements in this array cannot be converted to a path
+          var no_path = ['image', 'text', 'path', 'g', 'use'].indexOf(elname) === -1;
+          if (no_path) $('.action_path_convert_selected').removeClass('disabled');
+          if (elname === "path") $('.action_path_selected').removeClass('disabled');
 
        }
        
@@ -262,6 +266,7 @@ MD.Panel = function(){
          else $("#cornerRadiusLabel").hide()
          
          cur_panel.forEach((item, i) => {
+
             var attrVal = elem.getAttribute(item);
            //update the draginput cursors
            var name_item = document.getElementById(el_name + '_' + item);
@@ -275,7 +280,7 @@ MD.Panel = function(){
            }
            name_item.value = Math.round(attrVal) || 0;
            if (name_item.getAttribute("data-cursor") === "true") {
-             $.fn.dragInput.updateCursor(name_item );
+             $.fn.dragInput.updateCursor(name_item);
            }
          });
          

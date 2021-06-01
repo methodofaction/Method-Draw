@@ -6,7 +6,7 @@
 }
 
 .draginput {
-  background: var(--z2);
+  background-color: var(--z2);
   border-radius: var(--x1);
   width: calc(50% - var(--x2));
   height: calc(var(--x9) * 2);
@@ -14,14 +14,55 @@
   position: relative;
   margin: 0 var(--x2) var(--x2) 0;
   overflow: hidden;
+  transition: var(--transition);
 }
 
-.draginput.button {
+.dragging .draginput {
+  pointer-events:  none;
+}
+
+.dragging .draginput.active {
+  pointer-events:  all;
+}
+
+.draginput:hover {
+  background-color: var(--z3);
+  transition: none;
+}
+
+.draginput:hover span,
+.draginput.active span {
+  color: var(--z15);
+}
+
+.draginput:hover input,
+.draginput.active input {
+  color: var(--d8);
+}
+
+.draginput.active, 
+.draginput.active:hover {
+  background-color: var(--z0);
+}
+
+.draginput.active:hover {
+  transition: none;
+}
+
+/* TODO this will only work for two line buttons */
+
+.draginput-button {
   text-align: center;
-  color: #999;
-  padding-top: 10px;
+  color: var(--z9);
+  padding-top: var(--x5);
   box-sizing: border-box;
   cursor: pointer;
+}
+
+.draginput-button-delete:hover {
+  background-color:  var(--a7);
+  color:  var(--a15);
+  transition: none;
 }
 
  .draginput .caret {
@@ -84,6 +125,37 @@
   height: 24px;
   position: relative;
   z-index: 2;
+}
+
+.draginput input::selection { background: var(--d4); }
+
+.draginput.text-input input, 
+.draginput.text-input input:hover, 
+.draginput.text-input input:active {
+  cursor: text;
+}
+
+.draginput.text-input input {
+  text-align: left;
+  text-indent: 8px;
+}
+
+.draginput.textcontent {
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
+}
+
+.draginput.textcontent input,
+.draginput.textcontent input:hover,
+.draginput.textcontent input:active {
+  cursor: text;
+}
+
+.text-path .draginput.textcontent {
+  opacity:  1;
+  position: relative;
+  cursor: text;
 }
 
 .draginput.twocol {
@@ -152,7 +224,7 @@
   position: absolute;
   top: 50%;
   width: 100%;
-  border-top: solid var(--d2) 3px;
+  border-top: solid var(--d4) 1px;
   margin-top: -2px;
   z-index: 0;
 }
@@ -182,4 +254,31 @@
 .draginput .push_bottom {
   bottom: 0;
   position: absolute;
+}
+
+.draginput .angle {
+  width:         var(--x12);
+  height:        var(--x12);
+  border-radius: var(--x12);
+  background: var(--z3);
+  position: absolute;
+  bottom: var(--x1);
+  left: 14px;
+}
+
+.draginput:hover .angle {
+  background: var(--z4);
+}
+
+.draginput .angle-cursor {
+  width:         4px;
+  height:        25px;
+  border-top: solid var(--d7) 3px;
+  position: absolute;
+  margin: 0 0 0 23px;
+  transform-origin: 50% 0;
+}
+
+.draginput.font_style:hover {
+  background-color: var(--z2);
 }

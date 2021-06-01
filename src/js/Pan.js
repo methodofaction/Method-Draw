@@ -8,13 +8,13 @@ MD.Pan = function(){
   function startPan(e){
     panning = true;
     svgCanvas.spaceKey = true;
-    document.body.classList.add("dragging");
+    workarea.classList.add("dragging");
   }
 
   function stopPan(){
     panning = false;
     svgCanvas.spaceKey = false;
-    document.body.classList.remove("dragging");
+    workarea.classList.remove("dragging");
   }
   
   var move_pan = function(evt) {    

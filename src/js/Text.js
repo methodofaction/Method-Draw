@@ -81,15 +81,22 @@ MD.Text = function(){
     })
     .keyup(function(e){
       e.stopPropagation();
-      if (e.key === "Escape") {
-        svgCanvas.textActions.toSelectMode()
+      if (e.key === "Escape" || e.key === "Enter") {
+        if (!$("#text_panel").hasClass("text-path")) svgCanvas.textActions.toSelectMode();
+        this.blur();
         return editor.escapeMode();
       }
       svgCanvas.setTextContent(this.value);
+      var elems = svgCanvas.getSelectedElems();
+      svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0]);
+    })
+    .click(function(e) {
+      this.focus();
+      this.select();
     });
 
-  function changeFontSize(){
-    svgCanvas.setFontSize($("#font_size").val());
+  function changeFontSize(attr, value, completed){
+    svgCanvas.setFontSize(value);
   }
 
   function setTextPathAttr(a, val){

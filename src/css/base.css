@@ -97,6 +97,8 @@
   --transition-duration: 333ms;
   --transition-fast: 200ms;
   --panel-width: calc(var(--x10)*2*2 + var(--x1));
+  --transition:  all var(--transition-fast) ease;
+  --transition-none:  none;
 }
 
 a, a:link, a:active, a:visited {

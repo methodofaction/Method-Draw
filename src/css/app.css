@@ -28,3 +28,68 @@
   border-radius: var(--x2);
   box-shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.2);
 }
+
+#workarea.rect, #workarea.line, #workarea.ellipse, #workarea.path, #workarea.shapelib {
+  cursor: crosshair;
+}
+
+#workarea.text {
+  cursor: text;
+}
+
+#workarea.eyedropper {
+  cursor: url(../images/eyedropper.png) 0 16, crosshair;
+}
+
+#workarea.fhpath {
+  cursor: url(../images/pencil_cursor.png) 0 16, crosshair;
+}
+
+#workarea.rotate * {
+  cursor: url(../images/rotate.png) 12 12, auto;
+}
+
+#workarea.select text, #workarea.multiselect text {
+  cursor: default;
+}
+
+#workarea.n-resize * {cursor: n-resize !important;}
+#workarea.e-resize * {cursor: e-resize !important;}
+#workarea.w-resize * {cursor: w-resize !important;}
+#workarea.s-resize * {cursor: s-resize !important;}
+
+#workarea.ne-resize * {cursor: ne-resize !important;}
+#workarea.se-resize * {cursor: se-resize !important;}
+#workarea.nw-resize * {cursor: nw-resize !important;}
+#workarea.sw-resize * {cursor: sw-resize !important;}
+
+#workspace.dragging * {
+  cursor: url(../images/dragging.png), move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+#workspace.drag * {
+  cursor: url(../images/dragging.png), move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+#workarea.copy {
+  cursor: copy;
+}
+
+#workarea.zoom {
+  cursor: crosshair;
+  cursor:-moz-zoom-in;
+  cursor:-webkit-zoom-in;
+}
+#workarea.zoom.out {
+  cursor: crosshair;
+  cursor:-moz-zoom-out;
+  cursor:-webkit-zoom-out;
+}
+
+#selectorRubberBand {
+  shape-rendering: crispEdges;
+}

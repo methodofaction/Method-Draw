@@ -3465,6 +3465,7 @@ var textActions = canvas.textActions = function() {
     
     var charbb;
     charbb = chardata[index];
+    if (!charbb) return;
     if(!empty) {
       textinput.setSelectionRange(index, index);
     }
@@ -7171,7 +7172,11 @@ this.getStyle = function() {
 
 // Function: getOpacity
 // Returns the current opacity
-this.getOpacity = function() {
+this.getOpacity = function(elem) {
+  if (elem) {
+    const opacity = elem.getAttribute("opacity");
+    return opacity === null ? 1 : parseFloat(opacity);
+  }
   return cur_shape.opacity;
 };
 
