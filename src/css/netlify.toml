@@ -1,0 +1,5 @@
+[build]
+  command = "gulp"
+  publish = "dist/"
+[dev]
+   publish="src/"

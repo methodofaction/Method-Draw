@@ -3,6 +3,7 @@
   position: relative;
   z-index: 2;
   height: var(--x8);
+  display: flex;
 }
 
 #menu_bar.active .menu.open .menu_list {
@@ -121,4 +122,8 @@
 
 .menu_list .menu_item:not(.disabled):hover span {
   background: var(--d13);
+}
+
+#modal_donate {
+  display: none;
 }

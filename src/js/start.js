@@ -120,3 +120,4 @@ svgCanvas.setSvgString(state.get("canvasContent"));
 editor.paintBox.fill.setPaint(state.get("canvasFill"));
 editor.paintBox.stroke.setPaint(state.get("canvasStroke"));
 editor.paintBox.canvas.setPaint(state.get("canvasBackground"));
+document.body.classList.remove("loading");

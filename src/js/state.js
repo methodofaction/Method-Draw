@@ -48,7 +48,7 @@ function State(){
     // basic checks
     if (val === undefined || val === null) throw "wont save nuthin, " + key + " " + val;
     const isObject = dao.find(thing => thing.name === key).type === "object";
-    localStorage.setItem("write" + "-" + key, isObject ? JSON.stringify(val) : val.toString());
+    localStorage.setItem("md" + "-" + key, isObject ? JSON.stringify(val) : val.toString());
   }
 
   function _getKey(name) {
@@ -69,7 +69,7 @@ function State(){
   };
 
   function _getValue(key, def) {
-    const item = localStorage.getItem("write-" + key) || def;
+    const item = localStorage.getItem("md-" + key) || def;
     const archetype = dao.find(thing => thing.name === key.split("-")[0]);
     if (archetype) return archetype.clean(item);
     else throw "Unkown archetype";

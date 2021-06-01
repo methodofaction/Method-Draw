@@ -5758,10 +5758,12 @@ this.setSvgString = function(xmlString) {
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);
-    this.styleToAttr(newDoc);
     this.prepareSvg(newDoc);
 
     var batchCmd = new BatchCommand("Change Source");
+
+    newDoc = this.styleToAttr(newDoc);
+    
 
     // remove old svg document
     var nextSibling = svgcontent.nextSibling;
