@@ -38,7 +38,7 @@
     width: 200px;
     white-space: nowrap;
     font-size: 1.5rem;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
     resize: none;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
