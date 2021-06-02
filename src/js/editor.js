@@ -196,8 +196,10 @@ MD.Editor = function(){
       elems: elems
     });
 
-    if (!svgCanvas.getContext())
-      state.set("canvasContent", svgCanvas.getSvgString())
+
+    if (!svgCanvas.getContext()) {
+        state.set("canvasContent", svgCanvas.getSvgString())
+      }
   }
 
   function changeAttribute(attr, value, completed) {

@@ -268,10 +268,6 @@ input[type=file] {
   visibility: none;
 }
 
-.touch .shortcut {
-  display: none;
-}
-
 /* For modern browsers */
 .clearfix:before,
 .clearfix:after {

@@ -160,7 +160,6 @@ MD.Panel = function(){
         $("#tool_text_on_path").toggle(canTextPath);
       }
       else {
-        console.log("remove multiselectd")
         $("#panels").removeClass("multiselected");
       }
 
@@ -297,7 +296,7 @@ MD.Panel = function(){
            $(select).find(`option[value='${cleanFontFamily}']`).prop("selected", true);
            $('#font_size').val(elem.getAttribute("font-size"));
            $('#text').val(elem.textContent);
-           $('#preview_font').text(cleanFontFamily).css('font-family', font_family);
+           $('#preview_font').text(cleanFontFamily).css('font-family', cleanFontFamily === "default" ? "sans-serif" : cleanFontFamily);
            const textPath = elem.querySelector("textPath");
            document.getElementById("text_panel").classList.toggle("text-path", textPath);
            $("#textPath_offset").val(textPath ? textPath.getAttribute("startOffset") : 0);

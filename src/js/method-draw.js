@@ -1573,7 +1573,7 @@ window.methodDraw = function() {
                 keyval = opts.key;
               }
               keyval += '';
-              if (svgedit.browser.isMac && keyval.indexOf("+") != -1) {
+              if (svgedit.browser.isMac() && keyval.indexOf("+") != -1) {
                 var modifier_key =  keyval.split("+")[0];
                 if (modifier_key == "ctrl") keyval.replace("ctrl", "cmd")
               }

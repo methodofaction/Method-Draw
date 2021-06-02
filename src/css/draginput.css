@@ -146,6 +146,12 @@
   z-index: 0;
 }
 
+.draginput.textcontent input {
+  cursor: text;
+  text-align: left;
+  text-indent:  var(--x2);
+}
+
 .draginput.textcontent input,
 .draginput.textcontent input:hover,
 .draginput.textcontent input:active {

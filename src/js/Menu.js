@@ -53,7 +53,7 @@ MD.Menu = function(){
   }
 
   // This puts the correct shortcuts in the menus
-  if (!svgedit.browser.isMac) {
+  if (!svgedit.browser.isMac()) {
    $('.shortcut').each(function(){
      var text = $(this).text();
      $(this).text(text.split("⌘").join("Ctrl+"))

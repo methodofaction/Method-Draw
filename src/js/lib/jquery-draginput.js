@@ -199,7 +199,6 @@ $.fn.dragInput.updateCursor = function(el){
   var scale = parseFloat(el.getAttribute("data-scale"));
   var domain = parseFloat(el.getAttribute("data-domain"));
   var pos = ((value*-1)/scale+domain) + "px";
-  console.log(value, pos)
   var cursor = el.parentNode.lastChild
   if (cursor.className === "draginput_cursor") cursor.style.top = pos;
 }

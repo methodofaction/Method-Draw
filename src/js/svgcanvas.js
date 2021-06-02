@@ -1473,22 +1473,6 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
           if (!childTlist) continue;
 
           var m = transformListToTransform(childTlist).matrix;
-
-          // Convert a matrix to a scale if applicable
-//          if(hasMatrixTransform(childTlist) && childTlist.numberOfItems == 1) {
-//            if(m.b==0 && m.c==0 && m.e==0 && m.f==0) {
-//              childTlist.removeItem(0);
-//              var translateOrigin = svgroot.createSVGTransform(),
-//                scale = svgroot.createSVGTransform(),
-//                translateBack = svgroot.createSVGTransform();
-//              translateOrigin.setTranslate(0, 0);
-//              scale.setScale(m.a, m.d);
-//              translateBack.setTranslate(0, 0);
-//              childTlist.appendItem(translateBack);
-//              childTlist.appendItem(scale);
-//              childTlist.appendItem(translateOrigin);
-//            }
-//          }
         
           var angle = getRotationAngle(child);
           var old_start_transform = start_transform;
@@ -3331,7 +3315,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
   };
   
   var dblClick = function(evt) {
-    var evt_target = evt.target;
+    var isNested = (evt.target.tagName === "tspan" || evt.target.tagName === "textPath");
+    var evt_target = isNested ? evt.target.closest("text") : evt.target;
+    console.log(evt_target)
     var parent = evt_target.parentNode;
     var mouse_target = getMouseTarget(evt);
     var tagName = mouse_target.tagName;
@@ -3339,8 +3325,14 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
     if(parent === current_group) return;
     
     if(tagName === 'text' && current_mode !== 'textedit') {
-      var pt = transformPoint( evt.pageX, evt.pageY, root_sctm );
-      textActions.select(mouse_target, pt.x, pt.y);
+      if (evt_target.querySelector("textPath")) {
+        $("#text").focus();
+        $("#text").select();
+      }
+      else {
+        var pt = transformPoint( evt.pageX, evt.pageY, root_sctm );
+        textActions.select(mouse_target, pt.x, pt.y);
+      }
     }
     
     if((tagName === "g" || tagName === "a") && getRotationAngle(mouse_target)) {
@@ -5832,6 +5824,19 @@ this.setSvgString = function(xmlString) {
     // Put all paint elems in defs
     
     content.find('linearGradient, radialGradient, pattern').appendTo(findDefs());
+
+    svgcontent.querySelectorAll('textPath').forEach(function(el){
+      const href = svgCanvas.getHref(el);
+      if (!href) return;
+      const path = svgcontent.querySelector(href);
+      const offset = el.getAttribute("startOffset");
+      // convert percentage based to absolute
+      if (offset.includes("%") && path) {
+        const totalLength = path.getTotalLength();
+        const pct = parseFloat(offset) * .01;
+        el.setAttribute("startOffset", (pct * totalLength).toFixed(0))
+      }
+    })
     
     // Set ref element for <use> elements
     

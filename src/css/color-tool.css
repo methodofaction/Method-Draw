@@ -4,11 +4,7 @@
   left: 0;
 }
 
-.touch  #color_tools #tool_fill .color_block > div {
-  position: relative;
-}
-
- #color_tools #tool_fill .color_block #fill_bg,  #color_tools #tool_stroke .color_block #stroke_bg {
+#color_tools #tool_fill .color_block #fill_bg,  #color_tools #tool_stroke .color_block #stroke_bg {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -34,7 +30,7 @@
   height: 11px;
   position: absolute;
   top: -5px;
-  right: var(--x3);
+  right: 0;
   cursor: nwse-resize
 }
 
@@ -79,7 +75,7 @@
   margin: 12px 6px 0 6px;
 }
 
-.touch  #color_tools {
+#color_tools {
   width: auto;
   height: auto;
 }
