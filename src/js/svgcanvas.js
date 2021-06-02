@@ -5830,7 +5830,6 @@ this.setSvgString = function(xmlString) {
       if (!href) return;
       const path = svgcontent.querySelector(href);
       const offset = el.getAttribute("startOffset");
-      el.setAttribute("xml:space", "default");
       // convert percentage based to absolute
       if (offset.includes("%") && path) {
         const totalLength = path.getTotalLength();
@@ -5839,7 +5838,9 @@ this.setSvgString = function(xmlString) {
       }
       const tspan = el.querySelector("tspan");
       const text = el.closest("text");
+      text.setAttributeNS(xmlns, "xml:space", "default");
       if (tspan && text) {
+
         // grab the first tspan and apply it to the text element
         svgedit.sanitize.svgWhiteList()["text"].forEach(attr => {
           const value = tspan.getAttribute(attr);
@@ -5848,6 +5849,7 @@ this.setSvgString = function(xmlString) {
             text.setAttribute(attr, value);
           }
         });
+        tspan.setAttributeNS(xmlns, "xml:space", "preserve");
       }
     })
     
@@ -7525,7 +7527,7 @@ this.textPath = function(){
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("x", 0);
   text.setAttribute("y", 0);
-  textPath.setAttribute("xml:space", "default");
+  textPath.setAttributeNS(xmlns, "xml:space", "default");
   textPath.setAttribute("xlink:href", "#" + path.id);
   textPath.setAttribute("href", "#" + path.id);
   const offset = (path.getTotalLength()/2).toFixed(0)
