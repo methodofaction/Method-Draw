@@ -63,7 +63,8 @@
 #workarea.nw-resize * {cursor: nw-resize !important;}
 #workarea.sw-resize * {cursor: sw-resize !important;}
 
-#workspace.dragging * {
+#workspace.dragging *,
+body.dragging * {
   cursor: url(../images/dragging.png), move;
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;

@@ -68,13 +68,13 @@ MD.Canvas = function(){
     if (w === 'fit' || h === 'fit') state.set("canvasSize", res);
     $("#canvas_width").val(w);
     $("#canvas_height").val(h);
-    state.set("canvasContent", svgCanvas.getSvgString());
   }
 
-  function changeSize(){
+  function changeSize(attr, val, completed){
     const w = $("#canvas_width").val();
     const h = $("#canvas_height").val();
     state.set("canvasSize", [w,h]);
+    if (completed) editor.saveCanvas();
   }
 
   function update(center, new_ctr) {

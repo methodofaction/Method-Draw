@@ -108,7 +108,7 @@ MD.Eyedropper = function() {
             changes[attrname] = elem.getAttribute(attrname);
             elem.setAttribute(attrname, newvalue);
           };
-          var batchCmd = new S.BatchCommand();
+          var batchCmd = new svgedit.history.BatchCommand();
           opts.selectedElements.forEach(function(element){
             if (currentStyle.fillPaint)       change(element, "fill", currentStyle.fillPaint);
             if (currentStyle.fillOpacity)     change(element, "fill-opacity", currentStyle.fillOpacity);

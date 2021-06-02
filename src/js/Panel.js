@@ -82,6 +82,8 @@ MD.Panel = function(){
       svgCanvas.pathActions.opencloseSubPath();
     });
 
+    // Text Path
+
     function show(elem) {
       $('.context_panel').hide();
       if (elem === "canvas") return $('#canvas_panel').show();

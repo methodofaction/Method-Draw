@@ -57,6 +57,11 @@
   right: var(--x2);
 }
 
+.draginput:hover #preview_font:after {
+  border-right-color: var(--z3);
+  background: linear-gradient(to right, rgba(0,0,0,0), var(--z3));
+}
+
 #preview_font:after {
   content: '';
   position: absolute;

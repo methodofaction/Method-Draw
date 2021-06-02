@@ -223,7 +223,12 @@
   margin: 0;
   z-index: 1;
   top: 0;
-  left: 0;  
+  left: 0;
+  cursor:  pointer;
+}
+
+.draginput:hover .draginput_cursor {
+  border-color: var(--d6);
 }
 
 .draginput_cursor{
@@ -231,7 +236,6 @@
   top: 50%;
   width: 100%;
   border-top: solid var(--d4) 1px;
-  margin-top: -2px;
   z-index: 0;
 }
 

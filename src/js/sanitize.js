@@ -128,6 +128,9 @@ $.each(svgWhiteList_, function(elt,atts){
   svgWhiteListNS_[elt] = attNS;
 });
 
+
+svgedit.sanitize.svgWhiteList = function() { return svgWhiteList_; }
+
 // temporarily expose these
 svgedit.sanitize.getNSMap = function() { return nsMap_; }
 

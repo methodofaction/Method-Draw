@@ -5830,11 +5830,24 @@ this.setSvgString = function(xmlString) {
       if (!href) return;
       const path = svgcontent.querySelector(href);
       const offset = el.getAttribute("startOffset");
+      el.setAttribute("xml:space", "default");
       // convert percentage based to absolute
       if (offset.includes("%") && path) {
         const totalLength = path.getTotalLength();
         const pct = parseFloat(offset) * .01;
         el.setAttribute("startOffset", (pct * totalLength).toFixed(0))
+      }
+      const tspan = el.querySelector("tspan");
+      const text = el.closest("text");
+      if (tspan && text) {
+        // grab the first tspan and apply it to the text element
+        svgedit.sanitize.svgWhiteList()["text"].forEach(attr => {
+          const value = tspan.getAttribute(attr);
+          if (value) {
+            tspan.removeAttribute(attr);
+            text.setAttribute(attr, value);
+          }
+        });
       }
     })
     
@@ -6043,14 +6056,7 @@ this.importSvgString = function(xmlString) {
       
       var symbol = svgdoc.createElementNS(svgns, "symbol");
       var defs = findDefs();
-      
-      if(svgedit.browser.isGecko()) {
-        // Move all gradients into root for Firefox, workaround for this bug:
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=353575
-        // TODO: Make this properly undo-able.
-        $(svg).find('linearGradient, radialGradient, pattern').appendTo(defs);
-      }
-  
+
       while (svg.firstChild) {
         var first = svg.firstChild;
         symbol.appendChild(first);
@@ -7511,10 +7517,7 @@ this.setTextContent = function(val) {
 
 this.textPath = function(){
   const text = selectedElements.find(element => element.tagName === "text");
-  var path = selectedElements.find(element => element.tagName === "path" || element.tagName === "ellipse");
-  if (path.tagName === "ellipse") {
-    console.log("ellipse")
-  }
+  var path = selectedElements.find(element => element.tagName === "path");
   if (!text || !path) return false;
   const textPath = svgdoc.createElementNS(svgns, "textPath");
   textPath.textContent = text.textContent;
@@ -7522,6 +7525,7 @@ this.textPath = function(){
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("x", 0);
   text.setAttribute("y", 0);
+  textPath.setAttribute("xml:space", "default");
   textPath.setAttribute("xlink:href", "#" + path.id);
   textPath.setAttribute("href", "#" + path.id);
   const offset = (path.getTotalLength()/2).toFixed(0)

@@ -146,7 +146,7 @@ MD.Editor = function(){
       svgCanvas.leaveContext()
     }
     else
-      state.set("canvasContent", svgCanvas.getSvgString())
+      saveCanvas()
   }
 
   // called when we've selected a different element
@@ -198,7 +198,7 @@ MD.Editor = function(){
 
 
     if (!svgCanvas.getContext()) {
-        state.set("canvasContent", svgCanvas.getSvgString())
+        saveCanvas();
       }
   }
 
@@ -206,7 +206,7 @@ MD.Editor = function(){
     if (attr === "opacity") value *= 0.01;
     if (completed) {
       svgCanvas.changeSelectedAttribute(attr, value);
-      state.set("canvasContent", svgCanvas.getSvgString());
+      saveCanvas();
     }
     else svgCanvas.changeSelectedAttributeNoUndo(attr, value);      
   }
@@ -300,6 +300,11 @@ MD.Editor = function(){
     }});
   };
 
+  function saveCanvas(){
+    console.log("saved")
+    state.set("canvasContent", svgCanvas.getSvgString());
+  }
+
   function toggleWireframe() {
     editor.menu.flash($('#view_menu')); 
     $('#tool_wireframe').toggleClass('push_button_pressed');
@@ -381,6 +386,7 @@ MD.Editor = function(){
   this.shortcuts = shortcuts;
   this.donate = donate;
   this.source = source;
+  this.saveCanvas = saveCanvas;
 
   this.export = function(){ 
     if(window.canvg) {

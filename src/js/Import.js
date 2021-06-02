@@ -79,6 +79,7 @@ MD.Import = function(){
 
   function loadSvgString(str, callback) {
     var success = svgCanvas.setSvgString(str) !== false;
+    
     callback = callback || $.noop;
     if(success) {
       callback(true);
@@ -96,6 +97,7 @@ MD.Import = function(){
       var reader = new FileReader();
       reader.onloadend = function(e) {
         loadSvgString(e.target.result);
+        editor.saveCanvas();
         editor.canvas.update(true);
       };
       reader.readAsText(f.files[0]);
