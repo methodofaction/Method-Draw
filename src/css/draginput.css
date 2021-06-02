@@ -267,13 +267,17 @@
 }
 
 .draginput .angle {
-  width:         var(--x12);
-  height:        var(--x12);
+  width: var(--x12);
+  height: var(--x12);
   border-radius: var(--x12);
-  background: var(--z3);
+  background-color: var(--z3);
   position: absolute;
   bottom: var(--x1);
   left: 14px;
+}
+
+body.dragging .draginput .angle {
+  background-color: var(--z1);
 }
 
 .draginput:hover .angle {
