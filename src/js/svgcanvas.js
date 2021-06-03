@@ -5844,7 +5844,7 @@ this.setSvgString = function(xmlString) {
         // grab the first tspan and apply it to the text element
         svgedit.sanitize.svgWhiteList()["text"].forEach(attr => {
           const value = tspan.getAttribute(attr);
-          if (value) {
+          if (value && attr !== "id" && !attr.includes(":")) {
             tspan.removeAttribute(attr);
             text.setAttribute(attr, value);
           }
