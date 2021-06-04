@@ -1,7 +1,7 @@
 #sponsors {
   display: none;
-  margin-left: auto;
-  margin-right: calc(var(--panel-width) + var(--x4));
+  position: absolute;
+  right: calc(var(--panel-width) + var(--x4));
 }
 
 .sponsor a {
@@ -77,7 +77,7 @@
 }
 
 .sponsor a:hover {
-  color: var(--z15);
+  color: var(--z0);
   background: var(--d7);
 }
 
@@ -90,7 +90,7 @@
 .sponsor-description {
   transition: all var(--transition-duration) ease;
   position: absolute;
-  right: calc(var(--panel-width) + var(--x4));
+  right: 0;
   top: var(--x10);
   width: calc(var(--x16)*4);
   z-index: 100;
@@ -98,7 +98,7 @@
   padding: var(--x6);
   border-radius: var(--x1);
   line-height: 150%;
-  box-shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.2);
+  box-shadow: var(--shadow);
   margin-left: 0;
   opacity: 0;
   pointer-events: none;
