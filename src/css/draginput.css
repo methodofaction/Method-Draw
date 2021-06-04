@@ -15,6 +15,7 @@
   margin: 0 var(--x2) var(--x2) 0;
   overflow: hidden;
   transition: var(--transition);
+  box-shadow:  none;
 }
 
 .dragging .draginput {
@@ -23,11 +24,13 @@
 
 .dragging .draginput.active {
   pointer-events:  all;
+  box-shadow: none;
 }
 
 .draginput:hover {
   background-color: var(--z3);
   transition: none;
+  box-shadow:  var(--shadow-bg);
 }
 
 .draginput:hover span,
@@ -295,4 +298,29 @@ body.dragging .draginput .angle {
 
 .draginput.font_style:hover {
   background-color: var(--z2);
+}
+
+.inverted .draginput {
+  background-color: var(--z1);
+}
+
+.inverted .draginput {
+  background-color: var(--z1);
+}
+
+
+.inverted .draginput:hover {
+  background-color: var(--z0);
+}
+
+.inverted .draginput .angle {
+  background-color: var(--z2);
+}
+
+.inverted .draginput span {
+  color: var(--z9);
+}
+
+body.inverted.dragging .draginput .angle {
+  background-color: var(--z1);
 }

@@ -13,6 +13,10 @@ body {
   padding: 0;
 }
 
+body.inverted {
+  background: var(--z2);
+}
+
 ::selection {background: #000; color: #fff; /* Safari */}
 ::-moz-selection {background: #000; color: #fff; /* Firefox */}
 
@@ -41,7 +45,11 @@ html, body {
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--z1);
+  background: transparent;
+}
+
+.inverted ::-webkit-scrollbar-thumb {
+    background: var(--z3);
 }
 
 
@@ -74,12 +82,6 @@ div#font-selector .font-item {
 
 div#font-selector .font-item:hover {
   background-color: #eee;
-}
-
-#color_picker input[type=text], #color_picker  input[type=number] {
-  width: 30px;
-  background: #fff;
-  border: solid rgba(0,0,0,0.3) 1px;
 }
 
  .dropdown_set input[type=text],  .dropdown_set input[type=number] {
@@ -236,17 +238,6 @@ input[type=file] {
   opacity: 0;
 }
 
- #color_picker {
-  position: absolute;
-  display: none;
-  background: #fff;
-  height: 350px;
-  border-radius: 3px;
-  z-index: 5;
-  box-shadow: 0 5px 10px #000;
-  width: 530px;
-}
-
  #tools_bottom {
   position: absolute;
   left: var(--x12);
@@ -277,11 +268,6 @@ input[type=file] {
 
 .clearfix:after {
     clear:both;
-}
-
-#logo svg {
-  pointer-events: none;
-  margin-top: var(--x2);
 }
 
 input[readonly=readonly]:focus {

@@ -58,11 +58,11 @@
   <a class="menu">
     <div class="menu_title" id="logo">
       <svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-        <path d="M-.1 16.1L16 .04V16.1H-.1z" fill="var(--z12)"></path>
-        <path d="M0 16.1V.1l16 16H0z" fill="var(--z6)"></path>
+        <path d="M-.1 16.1L16 .04V16.1H-.1z"></path>
+        <path d="M0 16.1V.1l16 16H0z" fill="var(--z7)"></path>
       </svg>
     </div>
-    <div class="menu_list">
+    <div class="menu_list inverted-undoB">
       <div id="modal_about" class="menu_item" data-action="about">About this app...</div>
       <div class="separator"></div>
       <div id="modal_preferences" class="menu_item" data-action="configure">Configure...</div>
@@ -70,10 +70,10 @@
       <div id="modal_donate" class="menu_item" data-action="donate">Donate or sponsor...</div>
     </div>
   </a>
-  
+
   <div class="menu">
     <div class="menu_title">File</div>
-    <div class="menu_list" id="file_menu"> 
+    <div class="menu_list inverted-undo" id="file_menu"> 
       <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
       
       <div id="tool_open" class="menu_item">
@@ -90,7 +90,7 @@
 
   <div class="menu">
     <div class="menu_title">Edit</div>
-    <div class="menu_list" id="edit_menu">
+    <div class="menu_list inverted-undo" id="edit_menu">
       <div data-action="undo" class="menu_item" id="tool_undo">Undo <span class="shortcut">⌘Z</span></div>
       <div data-action="redo" class="menu_item" id="tool_redo">Redo <span class="shortcut">⌘Y</span></div>
       <div class="separator"></div>
@@ -104,7 +104,7 @@
   
   <div class="menu">
     <div class="menu_title">Object</div>
-    <div class="menu_list"  id="object_menu">
+    <div class="menu_list inverted-undo" id="object_menu">
       <div class="menu_item action_selected disabled" id="tool_move_top">Bring to Front <span class="shortcut">⌘⇧↑</span></div>
       <div class="menu_item action_selected disabled" id="tool_move_up">Bring Forward <span class="shortcut">⌘↑</span></div>
       <div class="menu_item action_selected disabled" id="tool_move_down">Send Backward <span class="shortcut">⌘↓</span></div>
@@ -120,7 +120,7 @@
 
   <div class="menu">
     <div class="menu_title">View</div>
-    <div class="menu_list" id="view_menu">
+    <div class="menu_list inverted-undo" id="view_menu">
         <div class="menu_item push_button_pressed" id="tool_rulers">View Rulers <span class="shortcut">⇧R</span></div>
         <div class="menu_item" id="tool_wireframe">View Wireframe</div>
         <div class="separator"></div>
@@ -128,7 +128,7 @@
     </div>
   </div>
 
-  <div class="sponsors" id="sponsors">
+  <div class="sponsors inverted-undo" id="sponsors">
     <div class="sponsor">
       <a href="https://deta.space/discovery/method-draw?ref=method.ac" class="deta">
         <span></span><span></span><span></span><span></span>
@@ -143,8 +143,12 @@
 
       </div>
     </div>
-    
   </div>
+  <div class="menu-right">
+  <button class="menu-icon" id="darkmode-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M17.66 7.93L12 2.27 6.34 7.93c-3.12 3.12-3.12 8.19 0 11.31C7.9 20.8 9.95 21.58 12 21.58c2.05 0 4.1-.78 5.66-2.34 3.12-3.12 3.12-8.19 0-11.31zM12 19.59c-1.6 0-3.11-.62-4.24-1.76C6.62 16.69 6 15.19 6 13.59s.62-3.11 1.76-4.24L12 5.1v14.49z"></path></svg>
+  </button>
+</div>
 </div>
 
 <div id="panels" class="tools_panel">
@@ -754,7 +758,7 @@
   <li><a href="#move_back">Send to Back<span class="shortcut">⌘⇧↓</span></a></li>
 </ul>
 
-<div class="tools_flyout" id="tools_shapelib">
+<div class="tools_flyout inverted-undo" id="tools_shapelib">
   <div id="shape_buttons"></div>
 </div>
   <!-- build:js loading.js -->
@@ -800,6 +804,7 @@
   <script type="text/javascript" src="js/Palette.js"></script>
   <script type="text/javascript" src="js/Zoom.js"></script>
   <script type="text/javascript" src="js/Modal.js"></script>
+  <script type="text/javascript" src="js/Darkmode.js"></script>
   <script type="text/javascript" src="js/ContextMenu.js"></script>
   <script type="text/javascript" src="js/Shapelib.js"></script>
   <script type="text/javascript" src="js/fonts.js"></script>

@@ -1,9 +1,18 @@
+table.jPicker {
+    border-collapse: collapse;
+    margin-top: var(--x4);
+}
+
+table.jPicker td {
+    padding:  var(--x1);
+}
+
 .jPicker .Icon {
     display: inline-block;
-    height: 24px;
+    height: var(--x6);
     position: relative;
     text-align: left;
-    width: 25px;
+    width: var(--x6);
 }
 .jPicker .Icon span.Color, .jPicker .Icon span.Alpha {
     background-position: 2px 2px;
@@ -26,14 +35,9 @@
     z-index: 10;
 }
 
-table.jPicker {
-    width: 545px;
-     z-index: 20;
-}
-
 .jPicker .Move {
-    background-color: #ddd;
-    border-color: #fff #666 #666 #fff;
+    background-color: var(--z12);
+    border-color: var(--z15) var(--z6) var(--z6) var(--z15);
     border-style: solid;
     border-width: 1px;
     cursor: move;
@@ -45,7 +49,7 @@ table.jPicker {
 }
 
 .jPicker .Map {
-  border:  solid #000 1px;
+  border:  solid var(--z1) 1px;
   height: 256px;
   width: 256px;
   cursor: crosshair;
@@ -55,12 +59,11 @@ table.jPicker {
   position: relative;
 }
 
-
 .jPicker .Bar {
-    border:  solid #000 1px;
+    border:  solid var(--z1) 1px;
     cursor: n-resize;
     height: 260px;
-    margin: 0 15px;
+    margin: 0;
     overflow: hidden;
     padding: 0;
     position: relative;
@@ -68,7 +71,6 @@ table.jPicker {
     height: 256px;
     width: 20px;
 }
-
 
 .jPicker .Map .Map1, 
 .jPicker .Map .Map2, 
@@ -130,9 +132,8 @@ table.jPicker {
     width: 62px;
 }
 
-
 .jPicker .Preview div span {
-    border: 1px solid #000;
+    border: 1px solid var(--z0);
     display: block;
     height: 30px;
     margin: 0 auto;
@@ -157,8 +158,9 @@ table.jPicker {
 
 .jPicker td.Radio {
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 var(--x2);
     width: var(--x8);
+    white-space: nowrap;
 }
 .jPicker td.Radio input {
     margin: 0 var(--x1) 0 0;
@@ -172,33 +174,51 @@ table.jPicker {
     padding: 0;
     text-align: left;
     width: 70px;
+    white-space: nowrap;
 }
 .jPicker tr.Hex td.Text {
     width: 100px;
-    color: #666;
+}
+
+.jPicker tr.Hex td.Text label {
+    margin-left: var(--x4);
 }
 
 .jPicker tr.Hex td.Text span {
     width: 100px;
     color: #333;
 }
+
 .jPicker td.Text input {
-    background-color: #fff;
-    height: 15px;
-    margin: 0 0 0 5px;
+    background-color: var(--z15);
+    height: var(--x4);
+    margin: 0 0 0 var(--x1);;
     text-align: left;
-    width: 30px;
-    color: #333;
+    width: var(--x8);
+    color: var(--z15);
+}
+
+#color_picker input[type=text], #color_picker  input[type=number] {
+  -webkit-appearance:  none;
+  width: 30px;
+  background: var(--z0);
+  border: none;
+  border-radius:  var(--x1);
+}
+
+#color_picker input[type=radio] {
+    position: relative;
+    top:  2px;
 }
 
 #color_picker .jPicker tr.Hex td.Text input.Hex {
-    width: 50px;
+    width: var(--x12);
     display: inline-block;
     float: none;
 }
 
 .jPicker tr.Hex td.Text input.AHex {
-    width: 20px;
+    width: var(--x5);
     display: none;
 }
 .jPicker .Grid {
@@ -207,14 +227,22 @@ table.jPicker {
     width: 108px;
 }
 .jPicker .Grid span.QuickColor {
-    cursor: pointer;
+    cursor: url(../images/eyedropper.svg) 0 23, crosshair;
+    background-repeat:  no-repeat;
     display: inline-block;
-    height: 15px;
-    line-height: 15px;
+    height: var(--x4);
+    line-height: var(--x4);
     margin: 0;
     padding: 0;
-    width: 18px;
+    width: var(--x4);
 }
+
+.jPicker .Grid span.QuickColor:hover {
+    position: relative;
+    z-index: 10;
+    outline:  solid var(--z0) 1px;
+}
+
 .jPicker td  {
   vertical-align:  top;
 }

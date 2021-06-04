@@ -249,7 +249,7 @@ jQuery.fn.jGraduate =
           '<div class="jGraduate_StopSection">' +
             '<label class="jGraduate_Form_Heading">Focal Point</label>' +
             '<div class="jGraduate_Form_Section">' +
-              '<label>Match center: <input type="checkbox" checked="checked" id="' + id + '_jGraduate_match_ctr"/></label><br/>' +
+              '<label class="match-center"><input type="checkbox" checked="checked" id="' + id + '_jGraduate_match_ctr"/> Match center</label><br/>' +
               '<label>x:</label>' +
               '<input type="text" id="' + id + '_jGraduate_fx" size="3" title="Enter x value between 0.0 and 1.0"/>' +
               '<label> y:</label>' +
@@ -287,7 +287,7 @@ jQuery.fn.jGraduate =
             '<div id="' + id + '_jGraduate_Angle" class="jGraduate_SliderBar jGraduate_Angle" title="Click to set Angle">' +
               '<img id="' + id + '_jGraduate_AngleArrows" class="jGraduate_AngleArrows" src="' + $settings.images.clientPath + 'rangearrows2.svg" width="9" height="20">' +
             '</div>' +
-            '<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>Âº&nbsp;</label>' + 
+            '<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>º&nbsp;</label>' + 
                 '</div>' +
                 '<div class="jGraduate_Slider jGraduate_OpacField">' +
             '<label class="prelabel">Opac:</label>' +
@@ -311,7 +311,7 @@ jQuery.fn.jGraduate =
             
       var attr_input = {};
             
-            var SLIDERW = 145;
+            var SLIDERW = 120;
             $('.jGraduate_SliderBar').width(SLIDERW);
       
       var container = $('#' + id+'_jGraduate_GradContainer')[0];

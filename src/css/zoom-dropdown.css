@@ -7,8 +7,8 @@
   width:  100px;
 }
 
-#zoom_panel {
-  opacity:  0.5;
+#zoom_label:after {
+  content: '';
 }
 
 #zoom_select {

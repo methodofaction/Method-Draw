@@ -1,4 +1,4 @@
-:root {          /* red */        /* yellow */     /* green */
+:root, .inverted-undo {          /* red */        /* yellow */     /* green */
 --z0: #111827;   --a0: #291e2a;   --b0: #292329;   --c0: #16262f; 
 --z1: #1e2433;   --a1: #42242e;   --b1: #43322a;   --c1: #1b373a; 
 --z2: #2b313f;   --a2: #5b2a32;   --b2: #5d412b;   --c2: #1e4944; 
@@ -33,7 +33,9 @@
 --d13: #c6cffa;  --e13: #cec5f9;  --f13: #d9c4fb;  --g13: #fbc3d9; 
 --d14: #d8defb;  --e14: #ddd8fa;  --f14: #e5d7fb;  --g14: #fbd6e5; 
 --d15: #eaedfb;  --e15: #edeafb;  --f15: #f0eafb;  --g15: #faeaf1;
-  -webkit-font-smoothing: antialiased;
+-webkit-font-smoothing: antialiased;
+--shadow-bg: 0 var(--x2) var(--x4) var(--z0);
+--shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.4);
 }
 
 .inverted {
@@ -71,7 +73,9 @@
 --d2:  #c6cffa;  --e2:  #cec5f9;  --f2:   #d9c4fb;  --g2:   #fbc3d9; 
 --d1:  #d8defb;  --e1:  #ddd8fa;  --f1:   #e5d7fb;  --g1:   #fbd6e5; 
 --d0:  #eaedfb;  --e0:  #edeafb;  --f0:   #f0eafb;  --g0:   #faeaf1;
-  -webkit-font-smoothing: auto;
+-webkit-font-smoothing: auto;
+--shadow-bg: 0 var(--x2) var(--x4) var(--z3);
+--shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.1);
 }
 
 :root {
@@ -91,20 +95,9 @@
   --x14: 56px;
   --x15: 60px;
   --x16: 64px;
-
   --mono-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   --ui-font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-  --transition-duration: 333ms;
-  --transition-fast: 200ms;
   --panel-width: calc(var(--x10)*2*2 + var(--x1));
-  --transition:  all var(--transition-fast) ease;
-  --transition-none:  none;
-}
-
-a, a:link, a:active, a:visited {
-  color: var(--d6);
-}
-
-a:hover {
-  color: var(--d8);
+  --transition-duration: 200ms;
+  --transition:  all var(--transition-duration) ease;
 }

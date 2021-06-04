@@ -31,6 +31,7 @@ function State(){
   this.canvasFill = (paint)  => { /* noop */ }
   this.canvasStroke = (paint)  => { /* noop */ }
   this.canvasBackground = (paint)  => { /* noop */ }
+  this.darkmode = (isDark)  => { editor.darkmode.set(isDark) }
 
   this.clean = (warn = true) => {
     if (warn) {

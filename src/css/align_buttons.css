@@ -18,14 +18,12 @@
   width: var(--x13);
   line-height: var(--x16);
   text-align: center;
-  outline: solid var(--z1) 1px;
-  background-color: var(--z2);
   cursor: pointer;
   position: relative;
 }
 
 .align_button:hover {
-  background-color: var(--z3);
+  background-color: var(--z0);
   border-color: var(--z3);
 }
 

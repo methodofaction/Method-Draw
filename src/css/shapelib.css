@@ -57,8 +57,7 @@
   border-left-color: var(--z3);
 }
 
-
- .tools_flyout {
+.tools_flyout {
   position: absolute;
   display: none;
   cursor: pointer;
@@ -69,7 +68,7 @@
   height: 324px;
   background: var(--z15);
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow);
 }
 
  .tools_flyout .tool_button {

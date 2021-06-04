@@ -6,6 +6,10 @@
   -webkit-font-smoothing: none;
 }
 
+.inverted #rulers > div {
+  background: var(--z1);
+}
+
 #rulers #ruler_corner {
   top: var(--x8);
   left: var(--x12);

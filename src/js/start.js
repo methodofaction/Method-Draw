@@ -102,6 +102,7 @@ editor.pan = new MD.Pan();
 
 editor.import = new MD.Import();
 editor.contextMenu = new MD.ContextMenu();
+editor.darkmode = new MD.Darkmode();
 
 // bind the selected event to our function that handles updates to the UI
 svgCanvas.bind("selected", editor.selectedChanged);

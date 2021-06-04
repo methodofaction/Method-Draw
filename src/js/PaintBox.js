@@ -8,7 +8,12 @@ MD.PaintBox = function(container, type){
     
     var title = (picker === 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
     var was_none = false;
-    var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
+    var pos = is_background ? {'right': 175, 'top': 50} : {'left': 48, 'bottom': 36}
+
+    $(document).on("mousedown", function(e){
+      if (!e.target.closest("#color_picker"))
+        $("#color_picker").hide();
+    })
     
     $("#color_picker")
       .removeAttr("style")

@@ -55,7 +55,8 @@ MD.Rulers = function(){
   }
 
   function update(zoom) {
-    const gray = getComputedStyle(document.body).getPropertyValue('--z6') || "#999";
+    const isDark = state.get("darkmode");
+    const gray = getComputedStyle(document.body).getPropertyValue(isDark ? '--z5' : '--z6') || "#999";
     if(!zoom) zoom = svgCanvas.getZoom();
     var limit = 30000;
     var c_elem = svgCanvas.getContentElem();    
