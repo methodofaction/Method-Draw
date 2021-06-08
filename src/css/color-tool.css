@@ -51,10 +51,7 @@
   height: var(--x5);
   overflow: hidden;
   border: solid var(--z12) 1px;
-}
-
-.color_block:hover {
-  border-color: #fff;
+  cursor:  pointer;
 }
 
 .color_block svg {

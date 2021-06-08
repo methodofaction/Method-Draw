@@ -159,6 +159,10 @@
   fill:  var(--z5);
 }
 
+.inverted .menu-right svg {
+  fill:  var(--z10);
+}
+
 #logo svg {
   pointer-events: none;
   margin-top: var(--x2);

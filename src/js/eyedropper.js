@@ -72,7 +72,6 @@ MD.Eyedropper = function() {
       title: "Eye Dropper Tool",
       position: 8,
       key: "I",
-      icon: "extensions/eyedropper.png",
       events: {
         "click": function() {
           state.set("canvasMode", "eyedropper");
