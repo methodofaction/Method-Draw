@@ -26,11 +26,9 @@ MD.Import = function(){
       var reader = new FileReader();
       reader.onloadend = function(e) {
         svgCanvas.importSvgString(e.target.result, true);
-        svgCanvas.ungroupSelectedElement()
-        svgCanvas.ungroupSelectedElement()
-        svgCanvas.groupSelectedElements()
-        svgCanvas.alignSelectedElements("m", "page")
-        svgCanvas.alignSelectedElements("c", "page")
+        //svgCanvas.ungroupSelectedElement();
+        svgCanvas.alignSelectedElements("m", "page");
+        svgCanvas.alignSelectedElements("c", "page");
       };
       reader.readAsText(file);
     }
@@ -74,7 +72,7 @@ MD.Import = function(){
       reader.readAsDataURL(file)
     }
     
-    
+    //editor.saveCanvas();
   }
 
   function loadSvgString(str, callback) {
@@ -83,6 +81,7 @@ MD.Import = function(){
     callback = callback || $.noop;
     if(success) {
       callback(true);
+      editor.saveCanvas();
     } else {
       $.alert("Error: Unable to load SVG data", function() {
         callback(false);

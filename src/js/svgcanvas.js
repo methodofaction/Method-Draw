@@ -5492,7 +5492,6 @@ var uniquifyElems = this.uniquifyElems = function(g) {
       }
       // remap all href attributes
       var hreffers = ids[oldid]["hrefs"];
-      console.log(hreffers)
       var k = hreffers.length;
       while (k--) {
         var hreffer = hreffers[k];
@@ -6002,101 +6001,87 @@ this.getPaint = function(color, opac, type) {
 // was obtained
 // * import should happen in top-left of current zoomed viewport  
 this.importSvgString = function(xmlString) {
-
   try {
-    // Get unique ID
-    var uid = svgedit.utilities.encode64(xmlString.length + xmlString).substr(0,32);
-    
-    var useExisting = false;
-
-    // Look for symbol and make sure symbol exists in image
-    if(import_ids[uid]) {
-      if( $(import_ids[uid].symbol).parents('#svgroot').length ) {
-        useExisting = true;
-      }
-    }
-    
     var batchCmd = new BatchCommand("Import SVG");
-  
-    if(useExisting) {
-      var symbol = import_ids[uid].symbol;
-      var ts = import_ids[uid].xform;
-    } else {
-      // convert string into XML document
-      var newDoc = svgedit.utilities.text2xml(xmlString);
-  
-      this.prepareSvg(newDoc);
-  
-      // import new svg document into our document
-      var svg;
-      // If DOM3 adoptNode() available, use it. Otherwise fall back to DOM2 importNode()
-      if(svgdoc.adoptNode) {
-        svg = svgdoc.adoptNode(newDoc.documentElement);
-      }
-      else {
-        svg = svgdoc.importNode(newDoc.documentElement, true);
-      }
-      
-      uniquifyElems(svg);
-      
-      var innerw = convertToNum('width', svg.getAttribute("width")),
-        innerh = convertToNum('height', svg.getAttribute("height")),
-        innervb = svg.getAttribute("viewBox"),
-        // if no explicit viewbox, create one out of the width and height
-        vb = innervb ? innervb.split(" ") : [0,0,innerw,innerh];
-      for (var j = 0; j < 4; ++j)
-        vb[j] = +(vb[j]);
-  
-      // TODO: properly handle preserveAspectRatio
-      var canvasw = +svgcontent.getAttribute("width"),
-        canvash = +svgcontent.getAttribute("height");
-      // imported content should be 1/3 of the canvas on its largest dimension
+    // convert string into XML document
+    var newDoc = svgedit.utilities.text2xml(xmlString);
 
-      
-      // Hack to make recalculateDimensions understand how to scale
-      var ts = "translate(0)";
-      
-      var symbol = svgdoc.createElementNS(svgns, "symbol");
-      var defs = findDefs();
+    this.prepareSvg(newDoc);
 
-      while (svg.firstChild) {
-        var first = svg.firstChild;
-        symbol.appendChild(first);
+    // import new svg document into our document
+    var svg = svgdoc.adoptNode(newDoc.documentElement);
+
+    uniquifyElems(svg);
+
+    // Put all paint elems in defs
+    
+    $(svg).find('linearGradient, radialGradient, pattern').appendTo(findDefs());
+
+    svg.querySelectorAll('textPath').forEach(function(el){
+      const href = svgCanvas.getHref(el);
+      if (!href) return;
+      const path = svgcontent.querySelector(href);
+      $(path).appendTo(findDefs());
+      const offset = el.getAttribute("startOffset");
+      // convert percentage based to absolute
+      if (offset.includes("%") && path) {
+        const totalLength = path.getTotalLength();
+        const pct = parseFloat(offset) * .01;
+        el.setAttribute("startOffset", (pct * totalLength).toFixed(0))
       }
-      var attrs = svg.attributes;
-      for(var i=0; i < attrs.length; i++) {
-        var attr = attrs[i];
-        symbol.setAttribute(attr.nodeName, attr.nodeValue);
+      const tspan = el.querySelector("tspan");
+      const text = el.closest("text");
+      text.setAttributeNS(xmlns, "xml:space", "default");
+      if (tspan && text) {
+
+        // grab the first tspan and apply it to the text element
+        svgedit.sanitize.svgWhiteList()["text"].forEach(attr => {
+          const value = tspan.getAttribute(attr);
+          if (value && attr !== "id" && !attr.includes(":")) {
+            tspan.removeAttribute(attr);
+            text.setAttribute(attr, value);
+          }
+        });
+        tspan.setAttributeNS(xmlns, "xml:space", "preserve");
       }
-      symbol.id = getNextId();
-      
-      // Store data
-      import_ids[uid] = {
-        symbol: symbol,
-        xform: ts
-      }
-      
-      findDefs().appendChild(symbol);
-      batchCmd.addSubCommand(new InsertElementCommand(symbol));
+    })
+    
+    // Set ref element for <use> elements
+    
+    // TODO: This should also be done if the object is re-added through "redo"
+    setUseData(svg);
+    
+    convertGradients(svg);
+    
+    // recalculate dimensions on the top-level children so that unnecessary transforms
+    // are removed
+    svgedit.utilities.walkTreePost(svgcontent, function(n){try{recalculateDimensions(n)}catch(e){console.log(e)}});
+    
+    
+    var innerw = convertToNum('width', svg.getAttribute("width")),
+      innerh = convertToNum('height', svg.getAttribute("height")),
+      innervb = svg.getAttribute("viewBox"),
+      // if no explicit viewbox, create one out of the width and height
+      vb = innervb ? innervb.split(" ") : [0,0,innerw,innerh];
+    for (var j = 0; j < 4; ++j)
+      vb[j] = +(vb[j]);
+
+    // TODO: properly handle preserveAspectRatio
+    var canvasw = +svgcontent.getAttribute("width"),
+      canvash = +svgcontent.getAttribute("height");
+
+    // Hack to make recalculateDimensions understand how to scale
+    
+    const layer = (current_group || getCurrentDrawing().getCurrentLayer());
+    const g = svgdoc.createElementNS(svgns, "g");
+    while (svg.firstChild) {
+      g.appendChild(svg.firstChild);
     }
+    layer.appendChild(g);
+    batchCmd.addSubCommand(new InsertElementCommand(g));
     
-    
-    var use_el = svgdoc.createElementNS(svgns, "use");
-    use_el.id = getNextId();
-    setHref(use_el, "#" + symbol.id);
-    
-    (current_group || getCurrentDrawing().getCurrentLayer()).appendChild(use_el);
-    batchCmd.addSubCommand(new InsertElementCommand(use_el));
     clearSelection();
-    
-    use_el.setAttribute("transform", ts);
-    recalculateDimensions(use_el);
-    $(use_el).data('symbol', symbol).data('ref', symbol);
-    addToSelection([use_el]);
-    
-    // TODO: Find way to add this in a recalculateDimensions-parsable way
-//        if (vb[0] != 0 || vb[1] != 0)
-//          ts = "translate(" + (-vb[0]) + "," + (-vb[1]) + ") " + ts;
+    addToSelection([g]);
     addCommandToHistory(batchCmd);
     call("changed", [svgcontent]);
 

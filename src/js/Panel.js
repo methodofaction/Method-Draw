@@ -82,7 +82,11 @@ MD.Panel = function(){
       svgCanvas.pathActions.opencloseSubPath();
     });
 
-    // Text Path
+    // Use
+    $("#tool_unlink_use").on("click", function(){
+      svgCanvas.ungroupSelectedElement();
+    });
+    
 
     function show(elem) {
       $('.context_panel').hide();
@@ -243,7 +247,8 @@ MD.Panel = function(){
          line: ['x1','y1','x2','y2'], 
          text: ['x', 'y'],
          'use': [],
-         path : []
+         path : [],
+         svg : [],
        };
        
        var el_name = elem.tagName;
