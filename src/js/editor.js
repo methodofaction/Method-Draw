@@ -349,6 +349,25 @@ MD.Editor = function(){
     editor.modal.source.open();
   }
 
+  function loadFromUrl(url, cb){
+    if(!cb) cb = function(){/*noop*/};
+    $.ajax({
+      'url': url,
+      'dataType': 'text',
+      cache: false,
+      success: function(str) {
+        editor.import.loadSvgString(str, cb);
+      },
+      error: function(xhr, stat, err) {
+        if(xhr.status != 404 && xhr.responseText) {
+          editor.import.loadSvgString(xhr.responseText, cb);
+        } else {
+          $.alert("Unable to load from URL" + ": \n"+err+'', cb);
+        }
+      }
+    });
+  }
+
   this.el = el;
   this.selectedChanged = selectedChanged;
   this.elementChanged = elementChanged;
@@ -387,6 +406,7 @@ MD.Editor = function(){
   this.donate = donate;
   this.source = source;
   this.saveCanvas = saveCanvas;
+  this.loadFromUrl = loadFromUrl;
 
   this.export = function(){ 
     if(window.canvg) {

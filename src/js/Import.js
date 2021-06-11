@@ -96,7 +96,6 @@ MD.Import = function(){
       var reader = new FileReader();
       reader.onloadend = function(e) {
         loadSvgString(e.target.result);
-        editor.saveCanvas();
         editor.canvas.update(true);
       };
       reader.readAsText(f.files[0]);
@@ -135,5 +134,6 @@ MD.Import = function(){
 
   this.place = place;
   this.open = open;
+  this.loadSvgString = loadSvgString;
 
 }
