@@ -31,6 +31,7 @@ MD.Keyboard = function(){
     "cmd_o": { name: "Open SVG File",       cb: ()=> editor.import.open()},
     "cmd_k": { name: "Place image",         cb: ()=> editor.import.place()},
     "backspace": { name: "Delete",          cb: ()=> editor.deleteSelected()},
+    "delete":    { name: "Delete",          cb: ()=> editor.deleteSelected()},
     "ctrl_arrowleft":        { name: "Rotate -1deg",  cb: ()=> editor.rotateSelected(0,1)},
     "ctrl_arrowright":       { name: "Rotate +1deg",  cb: ()=> editor.rotateSelected(1,1)},
     "ctrl_shift_arrowleft":  { name: "Rotate -5deg",  cb: ()=> editor.rotateSelected(0,5)},
