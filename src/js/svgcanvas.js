@@ -6008,6 +6008,8 @@ this.importSvgString = function(xmlString) {
 
     this.prepareSvg(newDoc);
 
+    newDoc = this.styleToAttr(newDoc);
+
     // import new svg document into our document
     var svg = svgdoc.adoptNode(newDoc.documentElement);
 
