@@ -1,7 +1,7 @@
 (function(){
   const canvasContent = localStorage.getItem("md-canvasContent");
   const isDark = localStorage.getItem("md-darkmode");
-  document.body.classList.toggle("inverted", !isDark);
+  if (!isDark) body.classList.add("inverted");
   if (!canvasContent) return;
   const parser = new DOMParser();
   const doc = parser.parseFromString(canvasContent, "image/svg+xml");
