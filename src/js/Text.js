@@ -64,14 +64,19 @@ MD.Text = function(){
     var fam_display = this.options[this.selectedIndex].text;
     $('#preview_font').html(fam_display).css("font-family", fam);
     $('#font_family').val(fam).change();
-    // todo should depend on actual load
-    document.fonts.onloadingdone = function (fontFaceSetEvent) {
-    const els = svgCanvas.getSelectedElems();
+ 
+    document.fonts.onloading = function(fontFaceSetEvent) {
+      $("#tool_font_family").addClass("loading");
+    };
+ 
+    document.fonts.onloadingdone = function(fontFaceSetEvent) {
+      const els = svgCanvas.getSelectedElems();
       els.forEach(el => {
         var selector = svgCanvas.selectorManager.requestSelector(el);
         selector.resize();
-      })
-     };
+      });
+      $("#tool_font_family").removeClass("loading");
+    };
     
   });
 

@@ -300,6 +300,43 @@ body.dragging .draginput .angle {
   background-color: var(--z2);
 }
 
+.draginput.loading:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color:  var(--z2);
+  opacity:  0.8;
+  z-index: 10;
+}
+
+.draginput.loading:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--x4);
+  height: var(--x4);
+  border-radius: var(--x4);
+  z-index: 10;
+  border: solid var(--d7) 2px;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0%   { transform: translate(-50%, -50%) rotate(0);      }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+
+
+/* inverted */
+
 .inverted .draginput {
   background-color: var(--z1);
 }

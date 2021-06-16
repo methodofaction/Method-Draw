@@ -51,6 +51,7 @@
   font-size: 2em;
   line-height: 80px;
   padding: 0 var(--x2);
+  white-space: nowrap;
 }
 
 #preview_font + .caret {
