@@ -16,6 +16,7 @@
   padding: 0 var(--x4);
   display: inline-block;
   font-weight: bold;
+  background-color: var(--z1);
 }
 
 .button:hover {

@@ -76,7 +76,18 @@ $.jGraduate = {
               this.linearGradient = options.copy.linearGradient.cloneNode(true);
               break;
             case "radialGradient":
-              this.radialGradient = options.copy.radialGradient.cloneNode(true);
+              const clone = options.copy.radialGradient.cloneNode(true);
+              
+              if (clone.getAttribute('gradientUnits') === "userSpaceOnUse") {
+                // todo hardcoded dimensions
+                const rRatio = (256/2) / clone.getAttribute("r");
+                const cxRatio = (256/2) / clone.getAttribute("cx");
+                const cyRatio = (256/2) /clone.getAttribute("cy");
+                clone.setAttribute("r", rRatio * 22/2 );
+                clone.setAttribute("cx", cxRatio * 22/2);
+                clone.setAttribute("cy", cyRatio * 22/2);
+              }
+              this.radialGradient = clone;
               break;
           }
         }
@@ -476,11 +487,11 @@ jQuery.fn.jGraduate =
           .val(attrval)
           .change(function() {
             // TODO: Support values < 0 and > 1 (zoomable preview?)
-            if (isNaN(parseFloat(this.value)) || this.value < 0) {
-              this.value = 0.0; 
-            } else if(this.value > 1) {
-              this.value = 1.0;
-            }
+            // if (isNaN(parseFloat(this.value)) || this.value < 0) {
+            //   this.value = 0.0; 
+            // } else if(this.value > 1) {
+            //   this.value = 1.0;
+            // }
             
             if(!(attr[0] === 'f' && !showFocus)) {
               if(isRadial && curType === 'radialGradient' || !isRadial && curType === 'linearGradient') {

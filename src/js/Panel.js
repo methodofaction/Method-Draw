@@ -86,6 +86,9 @@ MD.Panel = function(){
     $("#tool_unlink_use").on("click", function(){
       svgCanvas.ungroupSelectedElement();
     });
+
+    $('#button_group').on("click", editor.groupSelected);
+    $('#button_ungroup').on("click", editor.ungroupSelected);
     
 
     function show(elem) {

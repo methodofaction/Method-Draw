@@ -29,8 +29,8 @@ MD.PaintBox = function(container, type){
         paint = new $.jGraduate.Paint(p);
         editor.paintBox[picker].setPaint(paint, true);
         svgCanvas.setPaint(picker, paint);
-        if (paint.radialGradient) paint.radialGradient = paint.radialGradient.outerHTML
-        if (paint.linearGradient) paint.linearGradient = paint.linearGradient.outerHTML
+        //if (paint.radialGradient) paint.radialGradient = paint.radialGradient.outerHTML
+        //if (paint.linearGradient) paint.linearGradient = paint.linearGradient.outerHTML
         if (picker === "fill") state.set("canvasFill", paint);
         if (picker === "stroke") state.set("canvasStroke", paint);
         if (picker === "canvas") state.set("canvasBackground", paint);
@@ -91,6 +91,7 @@ MD.PaintBox = function(container, type){
           const rRatio = this.grad.getAttribute("r") / (bbox.width/2);
           const cxRatio = this.grad.getAttribute("cx") / (bbox.width);
           const cyRatio = this.grad.getAttribute("cy") / (bbox.height);
+          this.grad.removeAttribute("gradientTransform");
           this.grad.setAttribute("r", width/2*rRatio);
           this.grad.setAttribute("cx", cxRatio * width/2);
           this.grad.setAttribute("cy", cyRatio * height/2);

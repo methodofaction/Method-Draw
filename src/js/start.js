@@ -118,7 +118,7 @@ const eyedropper = svgCanvas.addExtension.apply(this, ["eyedropper", MD.Eyedropp
 state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));
 svgCanvas.setSvgString(state.get("canvasContent"));
-editor.paintBox.fill.setPaint(state.get("canvasFill"));
-editor.paintBox.stroke.setPaint(state.get("canvasStroke"));
-editor.paintBox.canvas.setPaint(state.get("canvasBackground"));
+//editor.paintBox.fill.setPaint(state.get("canvasFill"));
+//editor.paintBox.stroke.setPaint(state.get("canvasStroke"));
+//editor.paintBox.canvas.setPaint(state.get("canvasBackground"));
 document.body.classList.remove("loading");
