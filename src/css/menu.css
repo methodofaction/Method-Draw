@@ -92,7 +92,7 @@
 
 .menu_list .menu_item:hover,
 .menu_list .menu_item.push_button_pressed:hover {
-  background: var(--d15);
+  background: var(--accent15);
   color: #000;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .menu_list .menu_item:not(.disabled):hover span {
-  background: var(--d13);
+  background: var(--accent13);
 }
 
 #modal_donate {

@@ -35,6 +35,23 @@
 -webkit-font-smoothing: antialiased;
 --shadow-bg: 0 var(--x2) var(--x4) var(--z0);
 --shadow: 0 var(--x1) var(--x8) rgba(0,0,0,0.4);
+--accent0:  var(--d0);  --comp0:  var(--g0);
+--accent1:  var(--d1);  --comp1:  var(--g1);
+--accent2:  var(--d2);  --comp2:  var(--g2);
+--accent3:  var(--d3);  --comp3:  var(--g3);
+--accent4:  var(--d4);  --comp4:  var(--g4);
+--accent5:  var(--d5);  --comp5:  var(--g5);
+--accent6:  var(--d6);  --comp6:  var(--g6);
+--accent7:  var(--d7);  --comp7:  var(--g7);
+--accent8:  var(--d8);  --comp8:  var(--g8);
+--accent9:  var(--d9);  --comp9:  var(--g9);
+--accent10: var(--d10); --comp10: var(--g10);
+--accent11: var(--d11); --comp11: var(--g11);
+--accent12: var(--d12); --comp12: var(--g12);
+--accent13: var(--d13); --comp13: var(--g13);
+--accent14: var(--d14); --comp14: var(--g14);
+--accent15: var(--d15); --comp15: var(--g15);
+
 }
 
 .inverted {
@@ -74,6 +91,22 @@
 -webkit-font-smoothing: auto;
 --shadow-bg: 0 var(--x2) var(--x4) var(--z3);
 --shadow: 0 var(--x1) var(--x8) rgba(0,0,0,0.1);
+--accent0:  var(--d0);  --comp0:  var(--g0);
+--accent1:  var(--d1);  --comp1:  var(--g1);
+--accent2:  var(--d2);  --comp2:  var(--g2);
+--accent3:  var(--d3);  --comp3:  var(--g3);
+--accent4:  var(--d4);  --comp4:  var(--g4);
+--accent5:  var(--d5);  --comp5:  var(--g5);
+--accent6:  var(--d6);  --comp6:  var(--g6);
+--accent7:  var(--d7);  --comp7:  var(--g7);
+--accent8:  var(--d8);  --comp8:  var(--g8);
+--accent9:  var(--d9);  --comp9:  var(--g9);
+--accent10: var(--d10); --comp10: var(--g10);
+--accent11: var(--d11); --comp11: var(--g11);
+--accent12: var(--d12); --comp12: var(--g12);
+--accent13: var(--d13); --comp13: var(--g13);
+--accent14: var(--d14); --comp14: var(--g14);
+--accent15: var(--d15); --comp15: var(--g15);
 }
 
 :root {

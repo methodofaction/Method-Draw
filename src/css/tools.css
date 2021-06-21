@@ -39,11 +39,11 @@
 }
 
 .tool_button.current svg {
-  fill: var(--d8);
+  fill: var(--accent8);
 }
 
 .tool_button.current svg {
-  fill: var(--d7);
+  fill: var(--accent7);
 }
 
 

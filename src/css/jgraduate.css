@@ -50,8 +50,8 @@ h2.jGraduate_Title {
 
 li.jGraduate_tab_current,
 li.jGraduate_tab_current:hover {
-  color:  var(--d7);
-  -webkit-text-stroke: 0.5px var(--d8);
+  color:  var(--accent7);
+  -webkit-text-stroke: 0.5px var(--accent8);
 }
 
 .jGraduate_colPick {

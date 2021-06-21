@@ -22,7 +22,7 @@
 
 .sponsor a:hover {
   color: var(--z15);
-  background: var(--d7);
+  background: var(--accent7);
 }
 
 .sponsor .deta {
@@ -78,7 +78,7 @@
 
 .sponsor a:hover {
   color: var(--z0);
-  background: var(--d7);
+  background: var(--accent7);
 }
 
 .sponsor a:hover + .sponsor-description {

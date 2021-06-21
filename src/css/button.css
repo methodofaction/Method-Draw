@@ -42,7 +42,7 @@
 }
 
 .button.current svg {
-  fill: var(--d15);
+  fill: var(--accent15);
 }
 
 .button.disabled svg {

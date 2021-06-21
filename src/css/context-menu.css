@@ -39,7 +39,7 @@
 }
 
 .contextMenu LI.hover A {
-  background-color: var(--d7);
+  background-color: var(--accent7);
   color: var(--z15);
   cursor: default;
 }

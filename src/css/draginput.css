@@ -40,7 +40,7 @@
 
 .draginput:hover input,
 .draginput.active input {
-  color: var(--d8);
+  color: var(--accent8);
 }
 
 .draginput.active, 
@@ -122,7 +122,7 @@
   background: transparent;
   font: 24px/normal sans-serif;
   text-align: center;
-  color: var(--d7);
+  color: var(--accent7);
   padding: 30px 0 16px;
   width: 100%;
   height: 24px;
@@ -130,7 +130,7 @@
   z-index: 2;
 }
 
-.draginput input::selection { background: var(--d4); }
+.draginput input::selection { background: var(--accent4); }
 
 .draginput.text-input input, 
 .draginput.text-input input:hover, 
@@ -231,14 +231,14 @@
 }
 
 .draginput:hover .draginput_cursor {
-  border-color: var(--d6);
+  border-color: var(--accent6);
 }
 
 .draginput_cursor{
   position: absolute;
   top: 50%;
   width: 100%;
-  border-top: solid var(--d4) 1px;
+  border-top: solid var(--accent4) 1px;
   z-index: 0;
 }
 
@@ -253,10 +253,10 @@
 }
 
 .draginput input:focus {
-  background: var(--d7);
-  color: var(--d15);
+  background: var(--accent7);
+  color: var(--accent15);
   outline: none;
-  box-shadow: 0 0 5px 2px var(--d7);
+  box-shadow: 0 0 5px 2px var(--accent7);
 }
 
  .draginput input:focus+span {
@@ -290,7 +290,7 @@ body.dragging .draginput .angle {
 .draginput .angle-cursor {
   width:         4px;
   height:        25px;
-  border-top: solid var(--d7) 3px;
+  border-top: solid var(--accent7) 3px;
   position: absolute;
   margin: 0 0 0 23px;
   transform-origin: 50% 0;
@@ -322,7 +322,7 @@ body.dragging .draginput .angle {
   height: var(--x4);
   border-radius: var(--x4);
   z-index: 10;
-  border: solid var(--d7) 2px;
+  border: solid var(--accent7) 2px;
   border-top-color: transparent;
   animation: spin 1s linear infinite;
 }

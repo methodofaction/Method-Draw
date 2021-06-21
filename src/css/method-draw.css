@@ -92,7 +92,7 @@ div#font-selector .font-item:hover {
  input[type=text].tuco,  input[type=number].tuco {width: 150px;}
 
  input[type=submit],  input[type=button], button {
-  background: var(--d7);
+  background: var(--accent7);
   color: var(--z15);
   border-radius: var(--x1);
   padding: var(--x2) var(--x4);
@@ -106,13 +106,13 @@ div#font-selector .font-item:hover {
 input[type=submit]:hover,
 input[type=button]:hover,  
 button:hover {
-  background: var(--d9);
+  background: var(--accent9);
 }
 
 input[type=submit]:active,  
 input[type=button]:active,
 button:active { 
-  box-shadow: 0 0 0 var(--x1) var(--d14);
+  box-shadow: 0 0 0 var(--x1) var(--accent14);
   outline: none;
 }
 

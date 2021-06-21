@@ -43,7 +43,7 @@
 
 #shape_cats div.current {
   font-weight: bold;
-  background: var(--d7);
+  background: var(--accent7);
   color: var(--z15);
 }
 

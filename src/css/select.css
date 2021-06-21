@@ -27,6 +27,6 @@
 
 .select-input select:focus {
   outline: none;
-  box-shadow: 0 0 0 1px var(--d7);
+  box-shadow: 0 0 0 1px var(--accent7);
 
 }
