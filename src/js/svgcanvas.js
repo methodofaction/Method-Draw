@@ -6061,7 +6061,8 @@ this.importSvgString = function(xmlString) {
     setUseData(svg);
     
     convertGradients(svg);
-    
+
+
     // recalculate dimensions on the top-level children so that unnecessary transforms
     // are removed
     svgedit.utilities.walkTreePost(svgcontent, function(n){try{recalculateDimensions(n)}catch(e){console.log(e)}});
@@ -6088,6 +6089,7 @@ this.importSvgString = function(xmlString) {
     }
     layer.appendChild(g);
     batchCmd.addSubCommand(new InsertElementCommand(g));
+
     
     clearSelection();
     addToSelection([g]);
