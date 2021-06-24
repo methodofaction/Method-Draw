@@ -2740,14 +2740,19 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           ty = snapToGrid(ty);
         }
 
-        translateOrigin.setTranslate(-(left+tx),-(top+ty));
+        
+
+        else {
+          translateOrigin.setTranslate(-(left+tx),-(top+ty));
+        }
+
         if(evt.shiftKey) {
           if(sx == 1) sx = sy
           else sy = sx;
         }
         scale.setScale(sx,sy);
-        
         translateBack.setTranslate(left+tx,top+ty);
+
         if(hasMatrix) {
           var diff = angle?1:0;
           tlist.replaceItem(translateOrigin, 2+diff);
@@ -3317,7 +3322,6 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
   var dblClick = function(evt) {
     var isNested = (evt.target.tagName === "tspan" || evt.target.tagName === "textPath");
     var evt_target = isNested ? evt.target.closest("text") : evt.target;
-    console.log(evt_target)
     var parent = evt_target.parentNode;
     var mouse_target = getMouseTarget(evt);
     var tagName = mouse_target.tagName;
@@ -5340,11 +5344,14 @@ this.save = function() {
   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
   var str = this.svgCanvasToString();
-  if (str.includes(" href=")) str = str.replace(" href=", " xlink:href=");
-  console.log(str)
+  var illutratorCompat = true;
+  if (illutratorCompat && str.includes(" href=")) str = str.replace(" href=", " xlink:href=");
   var blob = new Blob([ str ], {type: "image/svg+xml;charset=utf-8"});
   var dropAutoBOM = true;
-  saveAs(blob, "FVE-image.svg", dropAutoBOM);
+  var title = state.get("canvasTitle");
+  var filename = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+  var extension = "svg";
+  saveAs(blob, `${filename}.${extension}`, dropAutoBOM);
 };
 
 // Function: rasterExport

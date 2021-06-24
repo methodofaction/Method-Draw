@@ -103,6 +103,7 @@ editor.pan = new MD.Pan();
 editor.import = new MD.Import();
 editor.contextMenu = new MD.ContextMenu();
 editor.darkmode = new MD.Darkmode();
+editor.title = new MD.Title();
 
 // bind the selected event to our function that handles updates to the UI
 svgCanvas.bind("selected", editor.selectedChanged);
@@ -122,3 +123,4 @@ svgCanvas.setSvgString(state.get("canvasContent"));
 //editor.paintBox.stroke.setPaint(state.get("canvasStroke"));
 //editor.paintBox.canvas.setPaint(state.get("canvasBackground"));
 document.body.classList.remove("loading");
+document.getElementById("workarea").removeAttribute("title");

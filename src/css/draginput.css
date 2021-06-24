@@ -130,7 +130,7 @@
   z-index: 2;
 }
 
-.draginput input::selection { background: var(--accent4); }
+.draginput input::selection { background: var(--accent9); }
 
 .draginput.text-input input, 
 .draginput.text-input input:hover, 
@@ -140,10 +140,10 @@
 
 .draginput.text-input input {
   text-align: left;
-  text-indent: 8px;
+  text-indent: var(--x2);
 }
 
-.draginput.textcontent {
+.draginput.textcontent.hidden {
   position: absolute;
   opacity: 0;
   z-index: 0;

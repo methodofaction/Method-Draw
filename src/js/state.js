@@ -25,6 +25,7 @@ function State(){
   // canvas data
   this.canvasId = (id)      => {/* noop */}
   this.canvasMode = (mode)  => { editor.toolbar.setMode(mode) }
+  this.canvasTitle = (str)  => { editor.canvas.rename(str) }
   this.canvasSize = (size)  => { editor.canvas.resize(...size) }
   this.canvasContent = (svgString)  => { /* noop */ }
   this.canvasRulers = (bool)  => { /* noop */ }

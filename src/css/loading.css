@@ -20,7 +20,7 @@
 
 .loading #svgcanvas:after {
   position: absolute;
-  content: 'Loading';
+  content: attr(title);
   font-size:  13px;
   font-weight: 600;
   line-height: var(--x6);
