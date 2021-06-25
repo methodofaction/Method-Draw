@@ -151,6 +151,8 @@ MD.Canvas = function(){
     }
   }
 
+  rename(state.get("canvasTitle"));
+
   this.resize = resize;
   this.update = update;
   this.rename = rename;
