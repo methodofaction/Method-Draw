@@ -82,19 +82,10 @@ MD.PaintBox = function(container, type){
         var id = this.grad.id = 'gradbox_' + this.type;
         fillAttr = "url(#" + id + ')';
         if (this.grad.getAttribute('gradientUnits') === "userSpaceOnUse") {
-          const box = $("#tool_" + this.type);
-          const width = box.width();
-          const height = box.height();
-          const selectedElement = svgCanvas.getSelectedElems().filter(Boolean)[0];
-          if (!selectedElement) return;
-          const bbox = selectedElement.getBBox();
-          const rRatio = this.grad.getAttribute("r") / (bbox.width/2);
-          const cxRatio = this.grad.getAttribute("cx") / (bbox.width);
-          const cyRatio = this.grad.getAttribute("cy") / (bbox.height);
-          this.grad.removeAttribute("gradientTransform");
-          this.grad.setAttribute("r", width/2*rRatio);
-          this.grad.setAttribute("cx", cxRatio * width/2);
-          this.grad.setAttribute("cy", cyRatio * height/2);
+          const gradient = this.grad;
+          ["userSpaceOnUse", "gradientTransform", "gradientUnits", "cx", "cy", "fx", "fy", "r"].forEach(attr => {
+              gradient.removeAttribute(attr);
+            });
         }
     }
     this.rect.setAttribute('fill', fillAttr);
