@@ -853,7 +853,7 @@ jQuery.fn.jGraduate =
       // bind GUI elements
       $('#'+id+'_jGraduate_Ok').bind('click touchstart', function() {
         $this.paint.type = curType;
-        $this.paint[curType] = curGradient.cloneNode(true);;
+        $this.paint[curType] = curGradient.cloneNode(true);
         $this.paint.solidColor = null;
         okClicked();
       });
@@ -1134,6 +1134,8 @@ jQuery.fn.jGraduate =
         var type = $(this).attr('data-type');
         var container = $(idref + ' .jGraduate_gradPick').show();
         if(type === 'rg' || type === 'lg') {
+          const isRadialUserSpaceOnUse = $("#color_picker").attr("data-radialUserSpace") === "true";
+          $("#color_picker").toggleClass("radialUserSpace", isRadialUserSpaceOnUse && type === 'rg');
           // Show/hide appropriate fields
           $('.jGraduate_' + type + '_field').show();
           $('.jGraduate_' + (type === 'lg' ? 'rg' : 'lg') + '_field').hide();

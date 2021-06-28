@@ -6885,11 +6885,13 @@ var findDefs = function() {
 // Parameters
 // type - String indicating "fill" or "stroke" to apply to an element
 var setGradient = this.setGradient = function(type) {
+  
   if(!cur_properties[type + '_paint'] || cur_properties[type + '_paint'].type == "solidColor") return;
   var grad = canvas[type + 'Grad'];
   // find out if there is a duplicate gradient already in the defs
   var duplicate_grad = findDuplicateGradient(grad);
   var defs = findDefs();
+
   // no duplicate found, so import gradient into defs
   if (!duplicate_grad) {
     var orig_grad = grad;

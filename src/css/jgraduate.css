@@ -23,6 +23,24 @@
   color:  var(--z8);
 }
 
+
+/* Remove editing options for radial gradients with userspaceonuse which will do nothing */
+ #color_picker.radialUserSpace div.grad_coord,
+ #color_picker.radialUserSpace .jGraduate_Form {
+ 	display: none !important;
+ }
+
+ #color_picker.radialUserSpace .jGraduate_gradPick:after {
+	content: 'Click on the color drops to change the color of the gradient';
+  position: absolute;
+  right: var(--x8);
+  width: 250px;
+  color: var(--z12);
+  bottom: 50%;
+  font-size: 1.2em;
+  line-height: 1.5em;
+ }
+
  #color_picker input {
  	color:  var(--z14);
  }
