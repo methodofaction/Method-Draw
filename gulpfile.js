@@ -4,6 +4,9 @@ const useref = require('gulp-useref');
 const replace = require('gulp-replace');
 const cachebust = require('gulp-cache-bust');
 const minify = require('gulp-minify');
+const browserSync = require("browser-sync");
+
+const server = browserSync.create();
 
 gulp.task('css', function () {
   return gulp.src('src/css/*.css')
@@ -79,3 +82,31 @@ gulp.task('build',
       'canvg'
   )
 );
+
+gulp.task('serve', function () {
+  server.init({
+    server: {
+      baseDir: './dist',
+    },
+  });
+});
+
+gulp.task('reload', function (done) {
+  server.reload();
+  done();
+});
+
+gulp.task('watch', function () {
+  gulp.watch('src/css/*.css', gulp.series('css', 'reload'));
+  gulp.watch(['src/js/*.js', 'src/lib/*.js'], gulp.series('js', 'reload'));
+  gulp.watch('src/js/loading.js', gulp.series('loading', 'reload'));
+  gulp.watch('src/*.html', gulp.series('index', 'reload'));
+  gulp.watch('src/site.webmanifest', gulp.series('manifest', 'reload'));
+  gulp.watch('src/images/**/*', gulp.series('images', 'reload'));
+  gulp.watch('src/font-files/**/*', gulp.series('fonts', 'reload'));
+  gulp.watch('src/extensions/**/*', gulp.series('extensions', 'reload'));
+  gulp.watch('src/shapelib/**/*', gulp.series('shapelib', 'reload'));
+  gulp.watch(['src/js/lib/canvg.js', 'src/js/lib/rgbcolor.js'], gulp.series('canvg', 'reload'));
+});
+
+gulp.task('dev', gulp.series('build', gulp.parallel('watch', 'serve')));
