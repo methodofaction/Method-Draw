@@ -8,6 +8,8 @@
     "test": "test"
   },
   "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev",
     "test": "test"
   },
   "repository": {

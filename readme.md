@@ -28,6 +28,12 @@ cd src
 python -m http.server 8000
 ```
 
+or using npm:
+
+```sh
+npm run dev
+```
+
 ## Build
 
 Install dev dependencies:
@@ -36,7 +42,7 @@ Install dev dependencies:
 
 Then you can build into `dist` by running:
 
-`gulp build`
+`npm run build`
 
 Deploy `dist` to your static file server of choice.
 
