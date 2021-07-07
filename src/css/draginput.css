@@ -147,6 +147,7 @@
   position: absolute;
   opacity: 0;
   z-index: 0;
+  pointer-events: none;
 }
 
 .draginput.textcontent input {
@@ -165,6 +166,7 @@
   opacity:  1;
   position: relative;
   cursor: text;
+  pointer-events: auto;
 }
 
 .draginput.twocol {
