@@ -7526,8 +7526,7 @@ this.textPath = function(){
   text.setAttribute("x", 0);
   text.setAttribute("y", 0);
   textPath.setAttributeNS(xmlns, "xml:space", "default");
-  textPath.setAttribute("xlink:href", "#" + path.id);
-  textPath.setAttribute("href", "#" + path.id);
+  textPath.setAttributeNS(xlinkns,'xlink:href', "#" + path.id);
   const offset = (path.getTotalLength()/2).toFixed(0)
   textPath.setAttribute("startOffset", offset);
   text.appendChild(textPath);
