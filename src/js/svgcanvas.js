@@ -7557,7 +7557,7 @@ this.getTextPath = function(elem){
   const textPath = elem.querySelector("textPath");
   var path = null;
   if (textPath) {
-    const href = textPath.getAttribute("href");
+    const href = getHref(textPath);
     const id = href.replace("#", "");
     path = svgroot.getElementById(id);
   }
