@@ -112,7 +112,7 @@ svgedit.select.Selector.prototype.updateGripCursors = function(angle) {
   }
   var i = 0;
   for (var dir in selectorManager_.selectorGrips) {
-    selectorManager_.selectorGrips[dir].setAttribute('style', ('cursor:' + dir_arr[i] + '-resize'));
+    selectorManager_.selectorGrips[dir].style.cursor = dir_arr[i] + '-resize';
     i++;
   };
 };
@@ -128,6 +128,11 @@ svgedit.select.Selector.prototype.showGrips = function(show) {
   var elem = this.selectedElement;
   this.hasGrips = show;
   if(elem && show) {
+    const isText = elem.tagName === "text";
+    const grips = selectorManager_.selectorGrips;
+    ["n", "s", "e", "w"].forEach(dir => {
+      grips[dir].style.display = isText ? "none" : "inline";
+    });
     this.selectorGroup.appendChild(selectorManager_.selectorGripsGroup);
     this.updateGripCursors(svgedit.utilities.getRotationAngle(elem));
   }

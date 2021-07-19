@@ -1317,6 +1317,7 @@ var recalculateDimensions = this.recalculateDimensions = function(selected) {
       tlist.removeItem(k-2);
       tlist.appendItem(mt);
     }
+    
   }
 
   // If it still has a single [M] or [R][M], return null too (prevents BatchCommand from being returned).
@@ -2746,7 +2747,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           translateOrigin.setTranslate(-(left+tx),-(top+ty));
         }
 
-        if(evt.shiftKey) {
+        if(evt.shiftKey || selected.tagName === "text") {
           if(sx == 1) sx = sy
           else sy = sx;
         }
