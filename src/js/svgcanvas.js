@@ -971,7 +971,6 @@ var remapElement = this.remapElement = function(selected,changes,m) {
     }
   }
 
-
   var elName = selected.tagName;
   if(elName === "g" || elName === "text" || elName === "use") {
     // if it was a translate, then just update x,y
@@ -2747,7 +2746,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
           translateOrigin.setTranslate(-(left+tx),-(top+ty));
         }
 
-        if(evt.shiftKey || selected.tagName === "text") {
+        if(evt.shiftKey) {
           if(sx == 1) sx = sy
           else sy = sx;
         }
@@ -7523,6 +7522,7 @@ this.textPath = function(){
   const textPath = svgdoc.createElementNS(svgns, "textPath");
   textPath.textContent = text.textContent;
   text.textContent = "";
+  text.removeAttribute("transform");
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("x", 0);
   text.setAttribute("y", 0);

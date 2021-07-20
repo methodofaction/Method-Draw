@@ -128,11 +128,12 @@ svgedit.select.Selector.prototype.showGrips = function(show) {
   var elem = this.selectedElement;
   this.hasGrips = show;
   if(elem && show) {
-    const isText = elem.tagName === "text";
-    const grips = selectorManager_.selectorGrips;
-    ["n", "s", "e", "w"].forEach(dir => {
-      grips[dir].style.display = isText ? "none" : "inline";
-    });
+    // hide unproportional scale grips
+    // const isText = elem.tagName === "text";
+    // const grips = selectorManager_.selectorGrips;
+    // ["n", "s", "e", "w"].forEach(dir => {
+    //   grips[dir].style.display = isText ? "none" : "inline";
+    // });
     this.selectorGroup.appendChild(selectorManager_.selectorGripsGroup);
     this.updateGripCursors(svgedit.utilities.getRotationAngle(elem));
   }
