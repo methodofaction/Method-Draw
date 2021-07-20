@@ -1,4 +1,4 @@
-MD.Keyboard = function(){
+MD.Keyboard = function () {
 
   const keys = {
     "v": { name: "Select tool",         cb: ()=> state.set("canvasMode", "select") },
@@ -62,7 +62,11 @@ MD.Keyboard = function(){
     keys["cmd_s"] = { name: "Save SVG File to Cloud", cb: () => editor.cloudSave() }
   }
 
-  document.addEventListener("keydown", function(e){
+  if (isDetaRuntime && !isPublic) {
+    keys["cmd_s"] = { name: "Save SVG File to Cloud", cb: () => editor.cloudSave() }
+  }
+
+  document.addEventListener("keydown", function (e) {
     const exceptions = $(":focus").length || $("#color_picker").is(":visible");
     if (exceptions) return false;
     const modKey = !svgedit.browser.isMac() ? "ctrlKey" : "metaKey";
@@ -70,7 +74,7 @@ MD.Keyboard = function(){
     const shift = e.shiftKey ? "shift_" : "";
     const key = cmd + shift + e.key.toLowerCase();
     const canvasMode = state.get("canvasMode");
-    
+
     const modalIsOpen = Object.values(editor.modal).filter((modal) => {
       const isHidden = modal.el.classList.contains("hidden");
       if (!isHidden && key === "cmd_enter") modal.confirm();
@@ -85,13 +89,13 @@ MD.Keyboard = function(){
     }
   });
 
-  document.addEventListener("keyup", function(e){
+  document.addEventListener("keyup", function (e) {
     if ($("#color_picker").is(":visible")) return e;
     const canvasMode = state.get("canvasMode");
     const key = e.key.toLowerCase();
     const keys = {
-    "alt":     ()=> $("#workarea").removeClass("out"),
-    " ": ()=> editor.pan.stopPan(),
+      "alt": () => $("#workarea").removeClass("out"),
+      " ": () => editor.pan.stopPan(),
     }
     if (keys[key]) {
       e.preventDefault();
@@ -111,7 +115,7 @@ MD.Keyboard = function(){
     const shortcutKeys = document.createElement("div");
     shortcutKeys.classList.add("shortcut-keys")
     chords.forEach(key => {
-      const shortcutKey = document.createElement("div"); 
+      const shortcutKey = document.createElement("div");
       shortcutKey.classList.add("shortcut-key");
       if (key === "arrowright") key = "→";
       if (key === "arrowleft") key = "←";
@@ -125,7 +129,7 @@ MD.Keyboard = function(){
       shortcut.appendChild(shortcutKeys);
     });
 
-    const shortcutName = document.createElement("div"); 
+    const shortcutName = document.createElement("div");
     shortcutName.classList.add("shortcut-name");
     shortcutName.textContent = name;
     shortcutKeys.appendChild(shortcutName);

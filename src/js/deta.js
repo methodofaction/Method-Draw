@@ -119,7 +119,6 @@
         openItemTitle.innerText = filename;
         openItem.appendChild(openItemTitle);
         detaMenus.appendChild(openItem);
-
         // add delete option to the the file menu
         const saveAs = document.getElementById('tool_csaveas');
         const deleteItem = document.createElement("div");
