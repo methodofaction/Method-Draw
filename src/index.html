@@ -2,14 +2,13 @@
 <html>
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
   <link rel="icon" href="images/favicon.svg" sizes="any" type="image/svg+xml">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
   <title>Method Draw Vector Editor</title>
   <meta charset="utf-8">
-  <meta name="description"
-    content="Method Draw is an open source SVG editor for the web, you can use it online without signing up.">
+  <meta name="description" content="Method Draw is an open source SVG editor for the web, you can use it online without signing up.">
 
   <!-- build:css all.css -->
   <link rel="stylesheet" href="css/base.css" type="text/css"/>
@@ -117,6 +116,7 @@
       <div class="menu_item action_path_convert_selected disabled" id="tool_topath">Convert to Path</div>
       <div class="menu_item action_path_selected disabled" id="tool_reorient">Reorient path</div>
     </div>
+  </div>
 
   <div class="menu">
     <div class="menu_title">View</div>
@@ -187,154 +187,196 @@
               <div id="canvas_bg"></div>
               <div id="canvas_color"></div>
             </div>
-          </label>
-
-          <div class="draginput">
-            <span>Sizes</span>
-            <select id="resolution">
-
-              <option id="selectedPredefined" selected="selected">Custom</option>
-              <option id="fitToContent" value="content">Fit to Content</option>
-
-              <optgroup label="Social Media">
-                <option value="1012x506">Twitter Post (1012 × 506)</option>
-                <option value="1500x500">Twitter Header (1500 × 500)</option>
-                <option value="1200x630">Facebook Post (1200 × 630)</option>
-                <option value="820x312">Facebook Cover (820 × 312)</option>
-                <option value="1080x1080">Instagram Post (1080 × 1080)</option>
-                <option value="1080x1920">Instagram Story (1080 × 1920)</option>
-                <option value="300">Dribble Shot (400 × 300)</option>
-                <option value="800x600">Dribble Shot HD (800 × 600)</option>
-                <option value="1584x396">LinkedIn Cover (1584 × 396)</option>
-              </optgroup>
-
-              <optgroup label="Presentation">
-                <option value="1920x1080">16:9 (1920 × 1080)</option>
-                <option value="1024x768">4:3 (1024 × 768)</option>
-              </optgroup>
-
-              <optgroup label="Desktop">
-                <option value="1140x1024">Desktop (1140 × 1024)</option>
-                <option value="375x700">MacBook (834 × 1194)</option>
-                <option value="1440x900">MacBook Pro (1024 × 1366)</option>
-                <option value="1500x1000">Surface Book (1440 × 990)</option>
-                <option value="1280x720">iMac (1368 × 912)</option>
-              </optgroup>
-
-
-              <optgroup label="Tablet">
-                <option value="414x896">iPad Mini (768 × 1024)</option>
-                <option value="375x812">iPad Pro 11" (834 × 1194)</option>
-                <option value="375x812">iPad Pro 12.9" (1024 × 1366)</option>
-                <option value="414x736">Surface Pro 3 (1440 × 990)</option>
-                <option value="414x736">Surface Pro 4 (1368 × 912)</option>
-              </optgroup>
-
-              <optgroup label="Phone">
-                <option value="414x896">iPhone 11 ProMax (414 × 896)</option>
-                <option value="375x812">iPhone 11 Pro / X (375 × 812)</option>
-                <option value="414x736">iPhone 8 Plus (414 × 736)</option>
-                <option value="375x667">iPhone 8 (375 × 667)</option>
-                <option value="411x731">Google Pixel 2 (411 × 731)</option>
-                <option value="411x823">Google Pixel XL (411 × 823)</option>
-                <option value="360x640">Android (360 × 640)</option>
-              </optgroup>
-
-              <optgroup label="Paper">
-                <option value="595x842">A4 (595 × 842)</option>
-                <option value="420x595">A5 (420 × 595)</option>
-                <option value="297x420">A6 (297 × 420)</option>
-                <option value="612x792">Letter (612 × 792) </option>
-                <option value="792x1224">Tabloid (792 × 1224)</option>
-
-              </optgroup>
-            </select>
-            <div class="caret"></div>
-            <label id="resolution_label">Custom</label>
           </div>
-
         </div>
+      </label>
+
+      <div class="draginput">
+        <span>Sizes</span>
+        <select id="resolution">
+
+          <option id="selectedPredefined" selected="selected">Custom</option>
+          <option id="fitToContent" value="content">Fit to Content</option>
+
+          <optgroup label="Social Media">
+            <option value="1012x506">Twitter Post (1012 × 506)</option>
+            <option value="1500x500">Twitter Header (1500 × 500)</option>
+            <option value="1200x630">Facebook Post (1200 × 630)</option>
+            <option value="820x312">Facebook Cover (820 × 312)</option>
+            <option value="1080x1080">Instagram Post (1080 × 1080)</option>
+            <option value="1080x1920">Instagram Story (1080 × 1920)</option>
+            <option value="300">Dribble Shot (400 × 300)</option>
+            <option value="800x600">Dribble Shot HD (800 × 600)</option>
+            <option value="1584x396">LinkedIn Cover (1584 × 396)</option>
+          </optgroup>
+
+          <optgroup label="Presentation">
+            <option value="1920x1080">16:9 (1920 × 1080)</option>
+            <option value="1024x768">4:3 (1024 × 768)</option>
+          </optgroup>
+          
+          <optgroup label="Desktop">
+            <option value="1140x1024">Desktop (1140 × 1024)</option>
+            <option value="375x700">MacBook (834 × 1194)</option>
+            <option value="1440x900">MacBook Pro (1024 × 1366)</option>
+            <option value="1500x1000">Surface Book (1440 × 990)</option>
+            <option value="1280x720">iMac (1368 × 912)</option>
+          </optgroup>
+
+
+          <optgroup label="Tablet">
+            <option value="414x896">iPad Mini (768 × 1024)</option>
+            <option value="375x812">iPad Pro 11" (834 × 1194)</option>
+            <option value="375x812">iPad Pro 12.9" (1024 × 1366)</option>
+            <option value="414x736">Surface Pro 3 (1440 × 990)</option>
+            <option value="414x736">Surface Pro 4 (1368 × 912)</option>
+          </optgroup>
+
+          <optgroup label="Phone">
+            <option value="414x896">iPhone 11 ProMax (414 × 896)</option>
+            <option value="375x812">iPhone 11 Pro / X (375 × 812)</option>
+            <option value="414x736">iPhone 8 Plus (414 × 736)</option>
+            <option value="375x667">iPhone 8 (375 × 667)</option>
+            <option value="411x731">Google Pixel 2 (411 × 731)</option>
+            <option value="411x823">Google Pixel XL (411 × 823)</option>
+            <option value="360x640">Android (360 × 640)</option>
+          </optgroup>
+          
+          <optgroup label="Paper">
+            <option value="595x842">A4 (595 × 842)</option>
+            <option value="420x595">A5 (420 × 595)</option>
+            <option value="297x420">A6 (297 × 420)</option>
+            <option value="612x792">Letter (612 × 792) </option>
+            <option value="792x1224">Tabloid (792 × 1224)</option>
+            
+          </optgroup>
+        </select>
+        <div class="caret"></div>
+        <label id="resolution_label">Custom</label>
       </div>
 
-      <div id="rect_panel" class="context_panel">
-        <h4>Rectangle</h4>
-        <div class="draginputs">
-          <label class="draginput">
-            <input id="rect_x" class="attr_changer" data-title="Change X coordinate" data-attr="x" pattern="[0-9]*" />
-            <span>X</span>
-          </label>
-          <label class="draginput">
-            <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y" pattern="[0-9]*" />
-            <span>Y</span>
-          </label>
-          <label class="draginput" id="rect_width_tool attr_changer" data-title="Change rectangle width">
-            <input id="rect_width" class="attr_changer" data-attr="width" type="text" pattern="[0-9]*" />
-            <span class="icon_label">Width</span>
-          </label>
-          <label class="draginput" id="rect_height_tool" data-title="Change rectangle height">
-            <input id="rect_height" class="attr_changer" data-attr="height" type="text" pattern="[0-9]*" />
-            <span class="icon_label">Height</span>
-          </label>
-        </div>
-      </div>
+    </div>
+  </div>
+  
+  <div id="rect_panel" class="context_panel">
+    <h4>Rectangle</h4>
+    <div class="draginputs">
+      <label class="draginput">
+        <input id="rect_x" class="attr_changer" data-title="Change X coordinate" data-attr="x" pattern="[0-9]*" />
+        <span>X</span> 
+      </label>
+      <label class="draginput">
+        <input id="rect_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y" pattern="[0-9]*" />
+        <span>Y</span> 
+      </label>
+      <label  class="draginput" id="rect_width_tool attr_changer" data-title="Change rectangle width">
+        <input id="rect_width" class="attr_changer" data-attr="width" type="text" pattern="[0-9]*" />
+        <span class="icon_label">Width</span>
+      </label>
+      <label  class="draginput" id="rect_height_tool" data-title="Change rectangle height">
+        <input id="rect_height" class="attr_changer" data-attr="height" type="text" pattern="[0-9]*" />
+        <span class="icon_label">Height</span>
+      </label>
+    </div>
+  </div>
+  
+  <div id="path_panel" class="context_panel clearfix">
+      <h4>Path</h4>
+      <div class="draginputs">
+        <label>
+          <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="x" pattern="[0-9]*" />
+          <span>X</span>
+        </label>
+        <label>
+          <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="y" pattern="[0-9]*" />
+          <span>Y</span>
+        </label>
+    </div>
+  </div>
 
-      <div id="path_panel" class="context_panel clearfix">
-        <h4>Path</h4>
-        <div class="draginputs">
-          <label>
-            <input id="path_x" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="x"
-              pattern="[0-9]*" />
-            <span>X</span>
-          </label>
-          <label>
-            <input id="path_y" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="y"
-              pattern="[0-9]*" />
-            <span>Y</span>
-          </label>
-        </div>
-      </div>
+  <div id="image_panel" class="context_panel clearfix">
+  <h4>Image</h4>
+    <div class="draginputs">
+      <label class="draginput">
+        <input id="image_x" class="attr_changer" data-title="Change X coordinate" data-attr="x"  pattern="[0-9]*"/>
+        <span>X</span> 
+      </label>
+      <label class="draginput">
+        <input id="image_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y"  pattern="[0-9]*"/>
+        <span>Y</span> 
+      </label>
+      <label class="draginput">
+        <input id="image_width" class="attr_changer" data-title="Change image width" data-attr="width" pattern="[0-9]*" />
+        <span class="icon_label">Width</span>
+      </label>
+      <label class="draginput">
+        <input id="image_height" class="attr_changer" data-title="Change image height" data-attr="height" pattern="[0-9]*" />
+        <span class="icon_label">Height</span>
+      </label>
+    </div>
+  </div>
+  
+  <div id="circle_panel" class="context_panel">
+    <h4>Circle</h4>
+    <div class="draginputs">
+      <label id="tool_circle_cx" class="draginput">
+        <span>Center X</span>
+        <input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" data-attr="cx"/>
+      </label>
+      <label id="tool_circle_cy" class="draginput">
+        <span>Center Y</span>
+        <input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" data-attr="cy"/>
+      </label>
+      <label id="tool_circle_r" class="draginput">
+        <span>Radius</span>
+        <input id="circle_r" class="attr_changer" title="Change circle's radius" data-attr="r"/>
+      </label>
+    </div>
+  </div>
 
-      <div id="image_panel" class="context_panel clearfix">
-        <h4>Image</h4>
-        <div class="draginputs">
-          <label class="draginput">
-            <input id="image_x" class="attr_changer" data-title="Change X coordinate" data-attr="x" pattern="[0-9]*" />
-            <span>X</span>
-          </label>
-          <label class="draginput">
-            <input id="image_y" class="attr_changer" data-title="Change Y coordinate" data-attr="y" pattern="[0-9]*" />
-            <span>Y</span>
-          </label>
-          <label class="draginput">
-            <input id="image_width" class="attr_changer" data-title="Change image width" data-attr="width"
-              pattern="[0-9]*" />
-            <span class="icon_label">Width</span>
-          </label>
-          <label class="draginput">
-            <input id="image_height" class="attr_changer" data-title="Change image height" data-attr="height"
-              pattern="[0-9]*" />
-            <span class="icon_label">Height</span>
-          </label>
-        </div>
-      </div>
+  <div id="ellipse_panel" class="context_panel">
+      <h4>Ellipse</h4>
+      <div class="draginputs">
+      <label id="tool_ellipse_cx">
+        <input id="ellipse_cx" class="attr_changer" data-title="Change ellipse's cx coordinate" data-attr="cx" pattern="[0-9]*" />
+        <span>X</span>
+      </label>
+      <label id="tool_ellipse_cy">
+        <input id="ellipse_cy" class="attr_changer" data-title="Change ellipse's cy coordinate" data-attr="cy" pattern="[0-9]*" />
+        <span>Y</span>
+      </label>
+      <label id="tool_ellipse_rx">
+        <input id="ellipse_rx" class="attr_changer" data-title="Change ellipse's x radius" data-attr="rx" pattern="[0-9]*" />
+        <span>Radius X</span>
+      </label>
+      <label id="tool_ellipse_ry">
+        <input id="ellipse_ry" class="attr_changer" data-title="Change ellipse's y radius" data-attr="ry" pattern="[0-9]*" />
+        <span>Radius Y</span>
+      </label>
+    </div>
+  </div>
 
-      <div id="circle_panel" class="context_panel">
-        <h4>Circle</h4>
-        <div class="draginputs">
-          <label id="tool_circle_cx" class="draginput">
-            <span>Center X</span>
-            <input id="circle_cx" class="attr_changer" title="Change circle's cx coordinate" data-attr="cx" />
-          </label>
-          <label id="tool_circle_cy" class="draginput">
-            <span>Center Y</span>
-            <input id="circle_cy" class="attr_changer" title="Change circle's cy coordinate" data-attr="cy" />
-          </label>
-          <label id="tool_circle_r" class="draginput">
-            <span>Radius</span>
-            <input id="circle_r" class="attr_changer" title="Change circle's radius" data-attr="r" />
-          </label>
-        </div>
-      </div>
+  <div id="line_panel" class="context_panel clearfix">
+    <h4>Line</h4>
+    <div class="draginputs">
+      <label id="tool_line_x1">
+        <input id="line_x1" class="attr_changer" data-title="Change line's starting x coordinate" data-attr="x1" pattern="[0-9]*" />
+        <span>Start X</span>
+      </label>
+      <label id="tool_line_y1">
+        <input id="line_y1" class="attr_changer" data-title="Change line's starting y coordinate" data-attr="y1" pattern="[0-9]*" />
+        <span>Start Y</span>
+      </label>
+      <label id="tool_line_x2">
+        <input id="line_x2" class="attr_changer" data-title="Change line's ending x coordinate" data-attr="x2"   pattern="[0-9]*" />
+        <span>End X</span>
+      </label>
+      <label id="tool_line_y2">
+        <input id="line_y2" class="attr_changer" data-title="Change line's ending y coordinate" data-attr="y2"   pattern="[0-9]*" />
+        <span>End Y</span>
+      </label>
+    </div>
+  </div>
 
   <div id="text_panel" class="context_panel">
     <div id="textpath-panel">
@@ -378,7 +420,12 @@
           <div id="tool_bold" data-title="Bold Text [B]">B</div>
           <div id="tool_italic" data-title="Italic Text [I]">i</div>
         </div>
-      </div>
+      <label id="tool_font_size" data-title="Change Font Size">
+        <input id="font_size" value="0" />
+        <span id="font_sizeLabel" class="icon_label">Font Size</span>
+      </label>
+    </div>
+  </div>
 
   <!-- formerly gsvg_panel -->
   <div id="svg_panel" class="context_panel clearfix">
@@ -446,7 +493,22 @@
         <div id="tool_angle_indicator" class="angle">
           <div id="tool_angle_indicator_cursor" class="angle-cursor"></div>
         </div>
-      </div>
+      </label>
+      
+      <label id="tool_opacity" data-title="Change selected item opacity">
+        <input id="group_opacity" class="attr_changer" data-attr="opacity" value="100" step="5" min="0" max="100" />
+        <span id="group_opacityLabel" class="icon_label">Opacity</span>
+      </label>
+      
+      <label id="tool_blur" data-title="Change gaussian blur value">
+          <input id="blur" size="2" value="0" step=".1"  min="0" max="10" />
+          <span class="icon_label">Blur</span>
+      </label>
+      
+      <label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
+        <input id="rect_rx" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
+        <span class="icon_label">Roundness</span>
+      </label>
 
     </div>
     
@@ -454,221 +516,131 @@
       <h4>Align to canvas</h4>
       <div class="toolset align_buttons" id="tool_position">
           <label>
-            <input id="g_x" class="attr_changer" data-title="Change groups's x coordinate" data-attr="x"
-              pattern="[0-9]*" />
-            <span>X</span>
-          </label>
-          <label>
-            <input id="g_y" class="attr_changer" data-title="Change groups's y coordinate" data-attr="y"
-              pattern="[0-9]*" />
-            <span>Y</span>
-          </label>
-        </div>
-      </div>
-
-      <div id="path_node_panel" class="context_panel clearfix">
-        <h4>Edit Path</h4>
-
-        <div class="draginputs">
-          <label id="tool_node_x">
-            <input id="path_node_x" class="attr_changer" data-title="Change node's x coordinate" data-attr="x" />
-            <span>X</span>
-          </label>
-          <label id="tool_node_y">
-            <input id="path_node_y" class="attr_changer" data-title="Change node's y coordinate" data-attr="y" />
-            <span>Y</span>
-          </label>
-
-          <div id="segment_type" class="draginput label">
-            <span>Segment Type</span>
-            <select id="seg_type" data-title="Change Segment type">
-              <option id="straight_segments" selected="selected" value="4">Straight</option>
-              <option id="curve_segments" value="6">Curve</option>
-            </select>
-            <div class="caret"></div>
-            <label id="seg_type_label">Straight</label>
-          </div>
-
-        </div>
-
-        <div class="button-container clearfix">
-          <div class="button full" id="tool_node_clone" title="Adds a node">Add Node</div>
-          <div class="button full" id="tool_node_delete" title="Delete Node">Delete Node</div>
-          <div class="button full" id="tool_openclose_path" title="Open/close sub-path">Open Path</div>
-        </div>
-      </div>
-
-      <!-- Buttons when a single element is selected -->
-      <div id="selected_panel" class="context_panel">
-        <div class="draginputs">
-          <label id="tool_angle" data-title="Change rotation angle" class="draginput">
-            <input id="angle" class="attr_changer" size="2" value="0" data-attr="transform" data-min="-180"
-              data-max="180" type="text" />
-            <span class="icon_label">Rotation</span>
-            <div id="tool_angle_indicator">
-              <div id="tool_angle_indicator_cursor"></div>
-            </div>
-          </label>
-
-          <label id="tool_opacity" data-title="Change selected item opacity">
-            <input id="group_opacity" class="attr_changer" data-attr="opacity" value="100" step="5" min="0" max="100" />
-            <span id="group_opacityLabel" class="icon_label">Opacity</span>
-          </label>
-
-          <label id="tool_blur" data-title="Change gaussian blur value">
-            <input id="blur" size="2" value="0" step=".1" min="0" max="10" />
-            <span class="icon_label">Blur</span>
-          </label>
-
-          <label id="cornerRadiusLabel" data-title="Change Rectangle Corner Radius">
-            <input id="rect_rx" value="0" data-attr="rx" class="attr_changer" type="text" pattern="[0-9]*" />
-            <span class="icon_label">Roundness</span>
-          </label>
-
-        </div>
-
-
-        <div id="align_tools">
-          <h4>Align</h4>
-          <div class="toolset align_buttons" id="tool_position">
-            <label>
-              <div class="col last clear" id="position_opts">
-                <div class="align_button" id="tool_posleft" title="Align Left" data-align="left">
-                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                    <path
-                      d="M 2 1 L 2 5 L 14 5 L 14 11 L 2 11 L 2 16 L 20 16 L 20 22 L 2 22 L 2 26 L 1 26 L 1 1 L 2 1 Z" />
-                  </svg>
-                </div>
-                <div class="align_button" id="tool_poscenter" title="Align Center" data-align="center">
-                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                    <path
-                      d="M 13 1 L 14 1 L 14 6 L 22 6 L 22 12 L 14 12 L 14 15 L 19 15 L 19 21 L 14 21 L 14 26 L 13 26 L 13 21 L 8 21 L 8 15 L 13 15 L 13 12 L 5 12 L 5 6 L 13 6 L 13 1 Z" />
-                  </svg>
-                </div>
-                <div class="align_button" id="tool_posright" title="Align Right" data-align="right">
-                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                    <path
-                      d="M 25 1 L 25 5 L 13 5 L 13 11 L 25 11 L 25 16 L 7 16 L 7 22 L 25 22 L 25 26 L 26 26 L 26 1 L 25 1 Z" />
-                  </svg>
-                </div>
-                <div class="align_button" id="tool_postop" title="Align Top" data-align="top">
-                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                    <path
-                      d="M 1 2 L 5 2 L 5 14 L 11 14 L 11 2 L 16 2 L 16 20 L 22 20 L 22 2 L 26 2 L 26 1 L 1 1 L 1 2 Z" />
-                  </svg>
-                </div>
-                <div class="align_button" id="tool_posmiddle" title="Align Middle" data-align="middle">
-                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                    <path
-                      d="M 26 13 L 26 14 L 21 14 L 21 22 L 15 22 L 15 14 L 12 14 L 12 19 L 6 19 L 6 14 L 1 14 L 1 13 L 6 13 L 6 8 L 12 8 L 12 13 L 15 13 L 15 5 L 21 5 L 21 13 L 26 13 Z" />
-                  </svg>
-                </div>
-                <div class="align_button" id="tool_posbottom" title="Align Bottom" data-align="bottom">
-                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                    <path
-                      d="M 1 25 L 5 25 L 5 13 L 11 13 L 11 25 L 16 25 L 16 7 L 22 7 L 22 25 L 26 25 L 26 26 L 1 26 L 1 25" />
-                  </svg>
-                </div>
+            <div class="col last clear" id="position_opts">
+              <div class="align_button" id="tool_posleft" title="Align Left" data-align="left">
+                <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+                  <path d="M 2 1 L 2 5 L 14 5 L 14 11 L 2 11 L 2 16 L 20 16 L 20 22 L 2 22 L 2 26 L 1 26 L 1 1 L 2 1 Z" />
+                </svg>
               </div>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Buttons when multiple elements are selected -->
-      <div id="multiselected_panel" class="context_panel clearfix">
-        <h4 class="hidable">Multiple Elements</h4>
-
-        <div class="toolset align_buttons">
-          <label id="tool_align_relative">
-            <div class="select-input">
-              <select id="align_relative_to" title="Align relative to ..." class="select_tool">
-                <option id="selected_objects" value="selected">Align to objects</option>
-                <option id="page" value="page">Align to page</option>
-              </select>
+              <div class="align_button" id="tool_poscenter" title="Align Center" data-align="center">
+                <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+                  <path d="M 13 1 L 14 1 L 14 6 L 22 6 L 22 12 L 14 12 L 14 15 L 19 15 L 19 21 L 14 21 L 14 26 L 13 26 L 13 21 L 8 21 L 8 15 L 13 15 L 13 12 L 5 12 L 5 6 L 13 6 L 13 1 Z" />
+                </svg>
+              </div>
+              <div class="align_button" id="tool_posright" title="Align Right" data-align="right">
+                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+                    <path d="M 25 1 L 25 5 L 13 5 L 13 11 L 25 11 L 25 16 L 7 16 L 7 22 L 25 22 L 25 26 L 26 26 L 26 1 L 25 1 Z"/>
+                  </svg>
+              </div>
+              <div class="align_button" id="tool_postop" title="Align Top" data-align="top">
+                  <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+                    <path d="M 1 2 L 5 2 L 5 14 L 11 14 L 11 2 L 16 2 L 16 20 L 22 20 L 22 2 L 26 2 L 26 1 L 1 1 L 1 2 Z"/>
+                  </svg>
+              </div>
+              <div class="align_button" id="tool_posmiddle" title="Align Middle" data-align="middle">
+                <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+                  <path d="M 26 13 L 26 14 L 21 14 L 21 22 L 15 22 L 15 14 L 12 14 L 12 19 L 6 19 L 6 14 L 1 14 L 1 13 L 6 13 L 6 8 L 12 8 L 12 13 L 15 13 L 15 5 L 21 5 L 21 13 L 26 13 Z"/>
+                </svg>
+              </div>
+              <div class="align_button" id="tool_posbottom" title="Align Bottom" data-align="bottom">
+                <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+                  <path d="M 1 25 L 5 25 L 5 13 L 11 13 L 11 25 L 16 25 L 16 7 L 22 7 L 22 25 L 26 25 L 26 26 L 1 26 L 1 25"/>
+                </svg>
+              </div>
             </div>
             <div class="clearfix"></div>
           </label>
-          <div class="col last clear">
-            <div class="align_button" id="tool_alignleft" title="Align Left" data-align="left">
-              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                <path d="M 2 1 L 2 5 L 14 5 L 14 11 L 2 11 L 2 16 L 20 16 L 20 22 L 2 22 L 2 26 L 1 26 L 1 1 L 2 1 Z" />
-              </svg>
-            </div>
-            <div class="align_button" id="tool_aligncenter" title="Align Center" data-align="center">
-              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                <path
-                  d="M 13 1 L 14 1 L 14 6 L 22 6 L 22 12 L 14 12 L 14 15 L 19 15 L 19 21 L 14 21 L 14 26 L 13 26 L 13 21 L 8 21 L 8 15 L 13 15 L 13 12 L 5 12 L 5 6 L 13 6 L 13 1 Z" />
-              </svg>
-            </div>
-            <div class="align_button" id="tool_alignright" title="Align Right" data-align="right">
-              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                <path
-                  d="M 25 1 L 25 5 L 13 5 L 13 11 L 25 11 L 25 16 L 7 16 L 7 22 L 25 22 L 25 26 L 26 26 L 26 1 L 25 1 Z" />
-              </svg>
-            </div>
-            <div class="align_button" id="tool_aligntop" title="Align Top" data-align="top">
-              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                <path d="M 1 2 L 5 2 L 5 14 L 11 14 L 11 2 L 16 2 L 16 20 L 22 20 L 22 2 L 26 2 L 26 1 L 1 1 L 1 2 Z" />
-              </svg>
-            </div>
-            <div class="align_button" id="tool_alignmiddle" title="Align Middle" data-align="middle">
-              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                <path
-                  d="M 26 13 L 26 14 L 21 14 L 21 22 L 15 22 L 15 14 L 12 14 L 12 19 L 6 19 L 6 14 L 1 14 L 1 13 L 6 13 L 6 8 L 12 8 L 12 13 L 15 13 L 15 5 L 21 5 L 21 13 L 26 13 Z" />
-              </svg>
-            </div>
-            <div class="align_button" id="tool_alignbottom" title="Align Bottom" data-align="bottom">
-              <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
-                <path
-                  d="M 1 25 L 5 25 L 5 13 L 11 13 L 11 25 L 16 25 L 16 7 L 22 7 L 22 25 L 26 25 L 26 26 L 1 26 L 1 25" />
-              </svg>
-            </div>
+      </div>    
+    </div>
+  </div>
+  
+  <!-- Buttons when multiple elements are selected -->
+  <div id="multiselected_panel" class="context_panel clearfix">
+    <h4 class="hidable">Multiple Elements</h4>
+    
+    <div class="toolset align_buttons">
+      <label id="tool_align_relative">
+        <div class="select-input">
+          <select id="align_relative_to" title="Align relative to ..." class="select_tool">
+          <option id="selected_objects" value="selected">Align to objects</option>
+          <option id="page" value="page">Align to page</option>
+          </select>
+        </div>
+      </label>
+      <div class="col last clear">
+          <div class="align_button" id="tool_alignleft" title="Align Left" data-align="left">
+            <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+              <path d="M 2 1 L 2 5 L 14 5 L 14 11 L 2 11 L 2 16 L 20 16 L 20 22 L 2 22 L 2 26 L 1 26 L 1 1 L 2 1 Z" />
+            </svg>
+          </div>
+          <div class="align_button" id="tool_aligncenter" title="Align Center" data-align="center">
+            <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+              <path d="M 13 1 L 14 1 L 14 6 L 22 6 L 22 12 L 14 12 L 14 15 L 19 15 L 19 21 L 14 21 L 14 26 L 13 26 L 13 21 L 8 21 L 8 15 L 13 15 L 13 12 L 5 12 L 5 6 L 13 6 L 13 1 Z" />
+            </svg>
+          </div>
+          <div class="align_button" id="tool_alignright" title="Align Right" data-align="right">
+            <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+              <path d="M 25 1 L 25 5 L 13 5 L 13 11 L 25 11 L 25 16 L 7 16 L 7 22 L 25 22 L 25 26 L 26 26 L 26 1 L 25 1 Z"/>
+            </svg>
+          </div>
+          <div class="align_button" id="tool_aligntop" title="Align Top"  data-align="top">
+            <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+              <path d="M 1 2 L 5 2 L 5 14 L 11 14 L 11 2 L 16 2 L 16 20 L 22 20 L 22 2 L 26 2 L 26 1 L 1 1 L 1 2 Z"/>
+            </svg>
+          </div>
+          <div class="align_button" id="tool_alignmiddle" title="Align Middle" data-align="middle">
+            <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+              <path d="M 26 13 L 26 14 L 21 14 L 21 22 L 15 22 L 15 14 L 12 14 L 12 19 L 6 19 L 6 14 L 1 14 L 1 13 L 6 13 L 6 8 L 12 8 L 12 13 L 15 13 L 15 5 L 21 5 L 21 13 L 26 13 Z"/>
+            </svg>
+          </div>
+          <div class="align_button" id="tool_alignbottom" title="Align Bottom"  data-align="bottom">
+            <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" width="27" height="27">
+              <path d="M 1 25 L 5 25 L 5 13 L 11 13 L 11 25 L 16 25 L 16 7 L 22 7 L 22 25 L 26 25 L 26 26 L 1 26 L 1 25"/>
+            </svg>
           </div>
         </div>
-        <div class="clearfix"></div>
-
-      </div>
-
-      <div id="stroke_panel" class="context_panel">
-        <h4>Stroke</h4>
-        <div class="draginputs">
-          <label class="draginput" data-title="Change stroke">
-            <input id="stroke_width" size="2" value="1" data-attr="stroke-width" min="0" max="99" step="1" />
-            <span class="icon_label">Width</span>
-          </label>
-          <div class="stroke_tool draginput">
-            <span>Dash</span>
-            <select id="stroke_style" data-title="Change stroke dash style">
-              <option selected="selected" value="none">—</option>
-              <option value="2,2">···</option>
-              <option value="5,5">- -</option>
-              <option value="5,2,2,2">-·-</option>
-              <option value="5,2,2,2,2,2">-··-</option>
-            </select>
-            <div class="caret"></div>
-            <label id="stroke_style_label">—</label>
-          </div>
-
-          <label style="display: none;">
-            <span class="icon_label">Stroke Join</span>
-          </label>
-
-          <label style="display: none;">
-            <span class="icon_label">Stroke Cap</span>
-          </label>
-
-        </div>
-
     </div>
     <div class="clearfix"></div>
     <div class="button full" id="button_group">Group Elements</div>
     <div class="button full" id="tool_text_on_path" title="Place text on path">Place text on path</div>
 
-    </div> <!-- tools_top -->
-    <div id="cur_context_panel">
+  </div>
+  
+  <div id="stroke_panel" class="context_panel">
+    <h4>Stroke</h4>
+    <div class="draginputs">
+      <label class="draginput" data-title="Change stroke">
+        <input id="stroke_width" size="2" value="1" data-attr="stroke-width" min="0" max="99" step="1" />
+        <span class="icon_label">Width</span>
+      </label>
+      <div class="stroke_tool draginput"> 
+        <span>Dash</span>
+        <select id="stroke_style" data-title="Change stroke dash style">
+          <option selected="selected" value="none">—</option>
+          <option value="2,2">···</option>
+          <option value="5,5">- -</option>
+          <option value="5,2,2,2">-·-</option>
+          <option value="5,2,2,2,2,2">-··-</option>
+        </select>
+        <div class="caret"></div>
+        <label id="stroke_style_label">—</label>
+      </div>
+      
+      <label style="display: none;">
+        <span class="icon_label">Stroke Join</span>
+      </label>
+      
+      <label  style="display: none;">
+        <span class="icon_label">Stroke Cap</span>
+      </label>
 
     </div>
+  </div>
+
+</div> <!-- tools_top -->
+  <div id="cur_context_panel">
+    
+  </div>
 
 <div id="tools_left" class="tools_panel">
   <div class="tool_button" id="tool_select" data-mode="select" title="Select Tool [V]">
@@ -695,42 +667,35 @@
     </svg>
   </div>
 
+  <div class="tool_button" id="tool_shapelib" data-mode="shapelib" title="Shape Tool [s]" >
+    <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="0 0 24 24" >
+      <polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"/>
+    </svg>
+    <div class="tool_menu">
+      
+    </div>
+</div>
 
-        </div>
-      </div>
+  <div class="tool_button" id="tool_path" data-mode="path" title="Path Tool [P]">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" width="27" height="27">
+      <path d="M12.2 1.9c0-.36.86 0 .86 0V14a1.3 1.3 0 10.88 0V1.9s.87-.36.87 0c0 6.81 5.22 11.68 5.22 11.68l-3.25 8.2h-6.55l-3.26-8.2s5.22-4.87 5.22-11.68zM7.83 25.26v-2.61h11.32v2.6H7.84z"/>
+    </svg>
+  </div>
+  <div class="tool_button" id="tool_text" data-mode="text" title="Text Tool [T]">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27" height="27"><path d="M5 4v3h5.5v12h3V7H19V4z"/></svg>
+  </div>
 
-      <div class="tool_button" id="tool_path" data-mode="path" title="Path Tool [P]">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27" width="27" height="27">
-          <path
-            d="M12.2 1.9c0-.36.86 0 .86 0V14a1.3 1.3 0 10.88 0V1.9s.87-.36.87 0c0 6.81 5.22 11.68 5.22 11.68l-3.25 8.2h-6.55l-3.26-8.2s5.22-4.87 5.22-11.68zM7.83 25.26v-2.61h11.32v2.6H7.84z" />
-        </svg>
-      </div>
-      <div class="tool_button" id="tool_text" data-mode="text" title="Text Tool [T]">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27" height="27">
-          <path d="M5 4v3h5.5v12h3V7H19V4z" />
-        </svg>
-      </div>
+  <div class="tool_button" id="tool_zoom" data-mode="zoom" title="Zoom Tool [Z]">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+  </div>
 
-      <div class="tool_button" id="tool_zoom" data-mode="zoom" title="Zoom Tool [Z]">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27">
-          <path
-            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-        </svg>
-      </div>
-
-      <div class="tool_button" id="tool_eyedropper" data-mode="eyedropper" title="Eyedropper Tool [E]">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27"
-          style="transform: scale(-1, 1)">
-          <path
-            d="M20.71 5.63l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42zM6.92 19L5 17.08l8.06-8.06 1.92 1.92L6.92 19z" />
-        </svg>
-      </div>
-
-      <div id="color_tools">
+  <div class="tool_button" id="tool_eyedropper" data-mode="eyedropper" title="Eyedropper Tool [E]">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27" style="transform: scale(-1, 1)"><path d="M20.71 5.63l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-3.12 3.12-1.93-1.91-1.41 1.41 1.42 1.42L3 16.25V21h4.75l8.92-8.92 1.42 1.42 1.41-1.41-1.92-1.92 3.12-3.12c.4-.4.4-1.03.01-1.42zM6.92 19L5 17.08l8.06-8.06 1.92 1.92L6.92 19z"/></svg>
+  </div>
+  
+  <div id="color_tools">
         <div id="tool_switch" title="Switch stroke and fill colors [X]">
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'>
-            <path d='M3.01 2A6 6 0 019 8h1.83l-2.91 2.91L5 8h2a4 4 0 00-3.99-4v1.93L.1 3.02 3.01.1V2z' />
-          </svg>
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11'><path d='M3.01 2A6 6 0 019 8h1.83l-2.91 2.91L5 8h2a4 4 0 00-3.99-4v1.93L.1 3.02 3.01.1V2z' /></svg>
         </div>
         <div class="color_tool active" id="tool_fill">
           <label class="icon_label" title="Change fill color"></label>
@@ -741,7 +706,7 @@
         </div>
 
         <div class="color_tool" id="tool_stroke">
-          <label class="icon_label" title="Change stroke color"></label>
+            <label class="icon_label" title="Change stroke color"></label>
           <div class="color_block">
             <div id="stroke_bg"></div>
             <div id="stroke_color" class="color_block" title="Change stroke color"></div>
@@ -775,33 +740,22 @@
         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="2 2 20 20" width="27"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
       </span>
       <input id="zoom" value="100%" type="text" readonly="readonly" />
-
     </div>
+  </div>
+  
+  <div id="palette" title="Click to change fill color, shift-click to change stroke color"></div>
+</div>
 
-    <!-- hidden divs -->
-    <div id="color_picker"></div>
-
-  </div> <!-- svg_editor -->
-
+<!-- hidden divs -->
+<div id="color_picker"></div>
 
 </div> <!-- /app -->
 
-
-  <ul id="cmenu_canvas" class="contextMenu">
-    <li><a href="#cut">Cut <span class="shortcut">⌘X;</span></a></li>
-    <li><a href="#copy">Copy<span class="shortcut">⌘C</span></a></li>
-    <li><a href="#paste">Paste<span class="shortcut">⌘V</span></a></li>
-    <li class="separator"><a href="#delete">Delete<span class="shortcut">⌫</span></a></li>
-    <li class="separator"><a href="#group">Group<span class="shortcut">⌘G</span></a></li>
-    <li><a href="#ungroup">Ungroup<span class="shortcut">⌘⇧G</span></a></li>
-    <li class="separator"><a href="#move_front">Bring to Front<span class="shortcut">⌘⇧↑</span></a></li>
-    <li><a href="#move_up">Bring Forward<span class="shortcut">⌘↑</span></a></li>
-    <li><a href="#move_down">Send Backward<span class="shortcut">⌘↓</span></a></li>
-    <li><a href="#move_back">Send to Back<span class="shortcut">⌘⇧↓</span></a></li>
-  </ul>
-
-  <div class="tools_flyout" id="tools_shapelib">
-    <div id="shape_buttons"></div>
+<div id="dialog_box">
+  <div id="dialog_box_overlay"></div>
+  <div id="dialog_container">
+    <div id="dialog_content"></div>
+    <div id="dialog_buttons"></div>
   </div>
 </div>
 

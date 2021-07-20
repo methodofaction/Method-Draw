@@ -37,7 +37,7 @@ function populateFonts(){
   }
 
   $("#font_family_dropdown").append(options);
-  $("head").append("<style>" + fontfaces + "</style>");
+  $("head").append("<style>" + fontfaces +"</style>");
 
 };
 
@@ -106,7 +106,7 @@ window.fonts = {
       "font-style": "normal"
     }
   },
-
+  
   "Rounded Mplus 1c Light": {
     "Regular": {
       "file": "MPLUSRounded1c-Light.ttf",
