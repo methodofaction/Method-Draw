@@ -71,7 +71,7 @@
     </div>
   </a>
 
-  <div class="menu">
+  <div class="menu" id="file_menu_main">
     <div class="menu_title">File</div>
     <div class="menu_list inverted-undo" id="file_menu"> 
       <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
@@ -126,6 +126,9 @@
         <div class="separator"></div>
         <div class="menu_item" id="tool_source" data-action="source">Source... <span class="shortcut">⌘U</span></div>
     </div>
+  </div>
+  <div id="deta_menus">
+
   </div>
 
   <div class="sponsors" id="sponsors">
@@ -776,6 +779,7 @@
   <script type="text/javascript" src="js/loading.js"></script>
   <!-- endbuild -->
   <!-- build:js all.js -->
+  <script type="text/javascript" src="js/deta-startup.js"></script>
   <script type="text/javascript" src="js/lib/jquery-3.5.1.min.js"></script>
   <script type="text/javascript" src="js/lib/pathseg.js"></script>
   <script type="text/javascript" src="js/lib/jquery.hotkeys.min.js"></script>
@@ -816,10 +820,9 @@
   <script type="text/javascript" src="js/Zoom.js"></script>
   <script type="text/javascript" src="js/Modal.js"></script>
   <script type="text/javascript" src="js/Title.js"></script>
-  <script type="text/javascript" src="js/Darkmode.js"></script>
+  <script type="text/javascript" src="js/darkmode.js"></script>
   <script type="text/javascript" src="js/ContextMenu.js"></script>
   <script type="text/javascript" src="js/Shapelib.js"></script>
-  <script type="text/javascript" src="js/fonts.js"></script>
   <script type="text/javascript" src="js/dialog.js"></script>
   <script type="text/javascript" src="js/lib/contextmenu.js"></script>
   <script type="text/javascript" src="js/lib/jpicker.min.js"></script>
@@ -831,6 +834,12 @@
   <script type="text/javascript" src="js/paste.js"></script>
   <script type="text/javascript" src="js/modals.js"></script>
   <script type="text/javascript" src="js/start.js"></script>
+  <script type="text/javascript" src="js/fonts.js"></script>
   <!-- endbuild -->
+  <!-- rest of deta stuff, order important -->
+  <script type="text/javascript" src="js/api.js"></script>
+  <script type="text/javascript" src="js/deta.js"></script>
+  <script type="text/javascript" src="js/deta-modals.js"></script>
+  <link rel="stylesheet" href="css/deta.css" type="text/css" />
 </body>
 </html>

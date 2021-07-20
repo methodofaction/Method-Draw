@@ -349,6 +349,45 @@ MD.Editor = function(){
     editor.modal.source.open();
   }
 
+   // deta stuff
+   function cloudSaveAs() {
+    editor.modal.cloudSaveAs.open();
+  }
+  this.cloudSaveAs = cloudSaveAs;
+
+  function cloudSave() {
+    if (window.deta.currOpen) {
+      window.deta.saveDocument();
+    } else {
+      editor.modal.cloudSaveAs.open();
+    }
+  }
+  this.cloudSave = cloudSave;
+
+  async function cloudOpen() {
+    await window.deta.listDocuments();
+    editor.modal.cloudOpen.open();
+  }
+  this.cloudOpen = cloudOpen;
+
+  function cloudDelete() {
+    document.querySelector("#delete_name").innerText = window.deta.currOpen || "your drawing";
+    editor.modal.cloudDelete.open();
+  }
+  this.cloudDelete = cloudDelete;
+
+  function share() {
+
+    if (window.deta.currOpen) {
+      editor.modal.share.open();
+    } else {
+      this.cloudSave();
+    }
+
+  }
+  this.share = share;
+  // end deta stuff
+
   function loadFromUrl(url, cb){
     if(!cb) cb = function(){/*noop*/};
     $.ajax({

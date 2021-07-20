@@ -58,6 +58,9 @@ MD.Keyboard = function(){
     "enter":    { name: false,   cb: ()=> editor.escapeMode()},
     " ":  { name: "Pan canvas",  cb: (e)=> editor.pan.startPan(e)},
   };
+  if (isDetaRuntime && !isPublic) {
+    keys["cmd_s"] = { name: "Save SVG File to Cloud", cb: () => editor.cloudSave() }
+  }
 
   document.addEventListener("keydown", function(e){
     const exceptions = $(":focus").length || $("#color_picker").is(":visible");

@@ -8,6 +8,10 @@ function State(){
   this.data = _loadData();
   
   this.set = (key, val) => {
+    
+    if (isDetaRuntime && !isPublic && key === "canvasContent") {
+      window.deta.setStatus("LOCAL_CHANGES");
+    }
     key = key.split("-")[0] || key;
     if (tenThousandThings.indexOf(key) === -1) return console.warn( key + " not implemented");
     const archetype = dao.find(thing => thing.name === key);
