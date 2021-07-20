@@ -19,7 +19,7 @@
   color: var(--z14);
   height: var(--x8);
   display: block;
-  width: calc(100% - var(--x4));
+  width: calc(100% - var(--x2));
   padding: 0 var(--x4);
   border: none;
   border-radius: var(--x1);
@@ -27,6 +27,6 @@
 
 .select-input select:focus {
   outline: none;
-  box-shadow: 0 0 0 1px var(--d7);
+  box-shadow: 0 0 0 1px var(--accent7);
 
 }

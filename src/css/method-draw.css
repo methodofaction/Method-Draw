@@ -13,6 +13,10 @@ body {
   padding: 0;
 }
 
+body.inverted {
+  background: var(--z2);
+}
+
 ::selection {background: #000; color: #fff; /* Safari */}
 ::-moz-selection {background: #000; color: #fff; /* Firefox */}
 
@@ -32,7 +36,7 @@ html, body {
 
 ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background: var(--z2);
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -41,7 +45,11 @@ html, body {
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--z1);
+  background: transparent;
+}
+
+.inverted ::-webkit-scrollbar-thumb {
+    background: var(--z3);
 }
 
 
@@ -76,12 +84,6 @@ div#font-selector .font-item:hover {
   background-color: #eee;
 }
 
-#color_picker input[type=text], #color_picker  input[type=number] {
-  width: 30px;
-  background: #fff;
-  border: solid rgba(0,0,0,0.3) 1px;
-}
-
  .dropdown_set input[type=text],  .dropdown_set input[type=number] {
   width: 50px;
 }
@@ -90,7 +92,7 @@ div#font-selector .font-item:hover {
  input[type=text].tuco,  input[type=number].tuco {width: 150px;}
 
  input[type=submit],  input[type=button], button {
-  background: var(--d7);
+  background: var(--accent7);
   color: var(--z15);
   border-radius: var(--x1);
   padding: var(--x2) var(--x4);
@@ -104,13 +106,13 @@ div#font-selector .font-item:hover {
 input[type=submit]:hover,
 input[type=button]:hover,  
 button:hover {
-  background: var(--d9);
+  background: var(--accent9);
 }
 
 input[type=submit]:active,  
 input[type=button]:active,
 button:active { 
-  box-shadow: 0 0 0 var(--x1) var(--d14);
+  box-shadow: 0 0 0 var(--x1) var(--accent14);
   outline: none;
 }
 
@@ -218,17 +220,13 @@ input[type=file] {
   transform: translate(-100%, 0);
 }
 
- .disabled {
+.disabled {
   opacity: 0.5;
   cursor: default;
 }
 
 .width_label {
   padding-right: 5px;
-}
-
-#text {
-  position: absolute;
 }
 
  #tool_bold span,  #tool_italic span { 
@@ -240,17 +238,6 @@ input[type=file] {
   opacity: 0;
 }
 
- #color_picker {
-  position: absolute;
-  display: none;
-  background: #fff;
-  height: 350px;
-  border-radius: 3px;
-  z-index: 5;
-  box-shadow: 0 5px 10px #000;
-  width: 530px;
-}
-
  #tools_bottom {
   position: absolute;
   left: var(--x12);
@@ -258,23 +245,6 @@ input[type=file] {
   bottom: 0;
   height: var(--x10);
   overflow: visible;
-}
-
-.draginput.text-input input, 
-.draginput.text-input input:hover, 
-.draginput.text-input input:active {
-  cursor: text;
-}
-
-.draginput.text-input input {
-  text-align: left;
-  text-indent: 8px;
-}
-
-.draginput.textcontent {
-  position: absolute;
-  opacity: 0;
-  z-index: 0;
 }
 
  ul li.current {
@@ -289,63 +259,6 @@ input[type=file] {
   visibility: none;
 }
 
-.touch .shortcut {
-  display: none;
-}
-
-#workarea.rect, #workarea.line, #workarea.ellipse, #workarea.path, #workarea.shapelib {
-  cursor: crosshair;
-}
-
-#workarea.text {
-  cursor: text;
-}
-
-#workarea.eyedropper {
-  cursor: url(../images/eyedropper.png) 0 16, crosshair;
-}
-
-#workarea.fhpath {
-  cursor: url(../images/pencil_cursor.png) 0 16, crosshair;
-}
-
-#workarea.rotate * {
-  cursor: url(../images/rotate.png) 12 12, auto;
-}
-
-#workarea.select text, #workarea.multiselect text {
-  cursor: default;
-}
-
-#workarea.n-resize * {cursor: n-resize !important;}
-#workarea.e-resize * {cursor: e-resize !important;}
-#workarea.w-resize * {cursor: w-resize !important;}
-#workarea.s-resize * {cursor: s-resize !important;}
-
-#workarea.ne-resize * {cursor: ne-resize !important;}
-#workarea.se-resize * {cursor: se-resize !important;}
-#workarea.nw-resize * {cursor: nw-resize !important;}
-#workarea.sw-resize * {cursor: sw-resize !important;}
-
-#workarea.copy {
-  cursor: copy;
-}
-
-#workarea.zoom {
-  cursor: crosshair;
-  cursor:-moz-zoom-in;
-  cursor:-webkit-zoom-in;
-}
-#workarea.zoom.out {
-  cursor: crosshair;
-  cursor:-moz-zoom-out;
-  cursor:-webkit-zoom-out;
-}
-
-#selectorRubberBand {
-  shape-rendering: crispEdges;
-}
-
 /* For modern browsers */
 .clearfix:before,
 .clearfix:after {
@@ -355,73 +268,6 @@ input[type=file] {
 
 .clearfix:after {
     clear:both;
-}
-
-
-#zoom_label {
-  height: 20px;
-  background: transparent;
-  cursor: default !important;
-  width: auto;
-  padding: 0 20px;
-  margin: 0;
-}
-
-#zoom_panel {
-  padding: 9px 0;
-  right: 175px;
-  position: absolute;
-}
-
-#zoom_panel .caret {
-  margin-top: -5px;
-}
-
-#zoom_label img, #zoom_label svg {
-  width: 16px;
-  height: 16px;
-}
-
-#logo svg {
-  pointer-events: none;
-  margin-top: var(--x2);
-}
-
-#zoomLabel {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-#zoomLabel svg {
-  fill: var(--z10);
-}
-
-#zoom_label input {
-  color: var(--z10);
-  font-size: 13px;
-  height: auto;
-  width: 50px;
-  padding: 0;
-  cursor: default;
-  position: static;
-}
-
-#zoom_label span {
-  top: 0;
-  left: 0;
-}
-
-body.dragging * {
-  cursor: url(../images/dragging.png), move;
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
-}
-
-body.drag * {
-  cursor: url(../images/dragging.png), move;
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
 }
 
 input[readonly=readonly]:focus {
@@ -442,25 +288,6 @@ input[readonly=readonly]:focus {
 
 #color_canvas_tools  {
   display: block;
-}
-
-#tool_angle_indicator {
-  width:         var(--x12);
-  height:        var(--x12);
-  border-radius: var(--x12);
-  background: var(--z3);
-  position: absolute;
-  bottom: var(--x1);
-  left: 12px;
-}
-
-#tool_angle_indicator_cursor {
-  width:         4px;
-  height:        25px;
-  border-top: solid var(--d7) 3px;
-  position: absolute;
-  margin: 0 0 0 23px;
-  transform-origin: 50% 0;
 }
 
 #stroke_style_label {

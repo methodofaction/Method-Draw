@@ -8,10 +8,19 @@ MD.PaintBox = function(container, type){
     
     var title = (picker === 'stroke' ? 'Pick a Stroke Paint and Opacity' : 'Pick a Fill Paint and Opacity');
     var was_none = false;
-    var pos = is_background ? {'right': 175, 'top': 50} : {'left': 50, 'bottom': 50}
+    var pos = is_background ? {'right': 175, 'top': 50} : {'left': 48, 'bottom': 36}
+
+    $(document).on("mousedown", function(e){
+      if (!e.target.closest("#color_picker"))
+        $("#color_picker").hide();
+    })
+
+    const unsupportedGradient = getUnsupportedGradient(picker);
     
     $("#color_picker")
       .removeAttr("style")
+      .toggleClass("radialUserSpace", unsupportedGradient)
+      .attr("data-radialUserSpace", Boolean(unsupportedGradient))
       .css(pos)
       .jGraduate(
       { 
@@ -22,10 +31,17 @@ MD.PaintBox = function(container, type){
       },
       function(p) {
         paint = new $.jGraduate.Paint(p);
-        editor.paintBox[picker].setPaint(paint, true);
-        svgCanvas.setPaint(picker, paint);
-        if (paint.radialGradient) paint.radialGradient = paint.radialGradient.outerHTML
-        if (paint.linearGradient) paint.linearGradient = paint.linearGradient.outerHTML
+        if (unsupportedGradient) {
+          // remove current gradient stops
+          while (unsupportedGradient.firstChild) unsupportedGradient.removeChild(unsupportedGradient.lastChild);
+          Array.from(paint.radialGradient.children).forEach(stop => {
+            unsupportedGradient.appendChild(stop);
+          });
+        }
+        else {
+          editor.paintBox[picker].setPaint(paint, true);
+          svgCanvas.setPaint(picker, paint);
+        }
         if (picker === "fill") state.set("canvasFill", paint);
         if (picker === "stroke") state.set("canvasStroke", paint);
         if (picker === "canvas") state.set("canvasBackground", paint);
@@ -56,6 +72,27 @@ MD.PaintBox = function(container, type){
   this.paint = new $.jGraduate.Paint({solidColor: cur.color});
   this.type = type;
 
+  function getUnsupportedGradient(type){
+    const selectedElems = svgCanvas.getSelectedElems().filter(Boolean);
+    if (!selectedElems.length) return false;
+    const elem = selectedElems[0];
+    // fill or stroke
+    var url = elem.getAttribute(type);
+    if (url.includes("(")) {
+      url = url.split("(")[1].split(")")[0];
+    }
+    // not a gradient
+    else return false;
+    const originalGradient = svgCanvas.svgroot.querySelector(url);
+    if (!originalGradient) return false
+    const isRadial = originalGradient.tagName === "radialGradient"
+    // not a radial gradient
+    if (!isRadial) return false;
+    const isUserSpaceOnUse = originalGradient.getAttribute("gradientUnits") === "userSpaceOnUse";
+    if (!isUserSpaceOnUse) return false;
+    return originalGradient;
+  }
+
   this.setPaint = function(paint, apply, noUndo) {
     this.paint = paint;
     var fillAttr = "none";
@@ -76,6 +113,13 @@ MD.PaintBox = function(container, type){
         this.grad = this.defs.appendChild(paint[ptype]);
         var id = this.grad.id = 'gradbox_' + this.type;
         fillAttr = "url(#" + id + ')';
+        
+        if (this.grad.getAttribute('gradientUnits') === "userSpaceOnUse") {
+          const gradient = this.grad;
+          ["userSpaceOnUse", "gradientTransform", "gradientUnits", "cx", "cy", "fx", "fy", "r"].forEach(attr => {
+              gradient.removeAttribute(attr);
+            });
+        }
     }
     this.rect.setAttribute('fill', fillAttr);
     this.rect.setAttribute('opacity', opac);
@@ -85,6 +129,7 @@ MD.PaintBox = function(container, type){
     }
 
     if(apply) {
+
       svgCanvas.setColor(this.type, fillAttr, true);
       svgCanvas.setPaintOpacity(this.type, opac, true);
     }

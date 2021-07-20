@@ -8,7 +8,7 @@ const detaModals = {
            <div class='ext_tag'> .svg</div>
         </div>
         <h4 id="save_warning" class="save_warning"></h4>
-        <div class="modal_btn_row">
+        <div class="modal_btn_row inverted-undo">
            <button id="save_cancel_btn" class="cancel">Cancel</button>
            <button id="save_ok_btn" class="ok">Ok</button>
            <button id="save_confirm_btn" class="save_confirm_btn">Confirm</button>
@@ -104,7 +104,7 @@ const detaModals = {
     cloudOpen: new MD.Modal({
         html: `
         <div class="modal_header">Please select an svg to open:</div>
-        <div id="drawing_list" class="open_drawing_list">
+        <div id="drawing_list" class="open_drawing_list inverted-undo">
           Loading drawings...
         </div>
         <h4 id="open_warning" class="open_warning">There was an error opening the drawing. Please try again.</h4>
@@ -234,7 +234,7 @@ const detaModals = {
 
     share: new MD.Modal({
         html: `
-        <div class="share_wrap">
+        <div class="share_wrap inverted-undo">
             <div class="share_controls">
                 <div class="share_info">
                     <div class="share_title">Share to the web.</div>

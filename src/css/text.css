@@ -14,6 +14,7 @@
   line-height: var(--x10);
   bottom: 0;
   border-top: solid var(--z1) 2px;
+  cursor:  pointer;
 }
 
 #tool_bold {
@@ -29,15 +30,16 @@
   font-size: 24px;
 }
 
-
 #tool_bold:hover,   #tool_italic:hover {
   color: var(--z15);
+  background-color:  var(--z3);
 }
 
 #tool_bold.disabled,
 #tool_italic.disabled {
   opacity: 1;
   color: var(--z4);
+  pointer-events: none;
 }
 
 #tool_bold.active,   #tool_italic.active {
@@ -49,10 +51,16 @@
   font-size: 2em;
   line-height: 80px;
   padding: 0 var(--x2);
+  white-space: nowrap;
 }
 
 #preview_font + .caret {
   right: var(--x2);
+}
+
+.draginput:hover #preview_font:after {
+  border-right-color: var(--z3);
+  background: linear-gradient(to right, rgba(0,0,0,0), var(--z3));
 }
 
 #preview_font:after {
@@ -64,4 +72,12 @@
   width: 15px;
   border-right: solid var(--z2) 10px;
   background: linear-gradient(to right, rgba(0,0,0,0), var(--z2));
+}
+
+#textpath-panel {
+  display: none;
+}
+
+.text-path #textpath-panel {
+  display: block;
 }

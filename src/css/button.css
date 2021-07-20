@@ -12,10 +12,11 @@
   border: solid var(--z5) 2px;
   border-radius: var(--x1);
   white-space: nowrap;
-  margin: var(--x2) var(--x4) var(--x2) 0;
+  margin: var(--x2) var(--x2) var(--x2) 0;
   padding: 0 var(--x4);
   display: inline-block;
   font-weight: bold;
+  background-color: var(--z1);
 }
 
 .button:hover {
@@ -41,7 +42,7 @@
 }
 
 .button.current svg {
-  fill: var(--d15);
+  fill: var(--accent15);
 }
 
 .button.disabled svg {

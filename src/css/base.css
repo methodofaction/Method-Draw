@@ -1,77 +1,112 @@
-:root {          /* red */        /* yellow */     /* green */
---z0: #111827;   --a0: #291e2a;   --b0: #292329;   --c0: #16262f; 
---z1: #1e2433;   --a1: #42242e;   --b1: #43322a;   --c1: #1b373a; 
---z2: #2b313f;   --a2: #5b2a32;   --b2: #5d412b;   --c2: #1e4944; 
---z3: #393e4c;   --a3: #753035;   --b3: #77512b;   --c3: #215c4f; 
---z4: #474c59;   --a4: #8f3539;   --b4: #926129;   --c4: #21705a; 
---z5: #565a66;   --a5: #aa3a3c;   --b5: #ad7225;   --c5: #218465; 
---z6: #656974;   --a6: #c53e3f;   --b6: #ca8320;   --c6: #1d9970; 
---z7: #747782;   --a7: #e14242;   --b7: #e69515;   --c7: #16ae7b; 
---z8: #848790;   --a8: #f2524e;   --b8: #f7a327;   --c8: #32bd88; 
---z9: #94969f;   --a9: #f76b62;   --b9: #fbae48;   --c9: #57c596; 
---z10: #a4a6ae;  --a10: #fc8277;  --b10: #feb963;  --c10: #73cea4; 
---z11: #b4b7bd;  --a11: #ff978d;  --b11: #ffc47e;  --c11: #8cd6b3; 
---z12: #c5c7cc;  --a12: #ffaca2;  --b12: #ffcf97;  --c12: #a4ddc1; 
---z13: #d6d8db;  --a13: #ffc1b9;  --b13: #ffdab1;  --c13: #bbe5d0; 
---z14: #e7e9eb;  --a14: #ffd5d0;  --b14: #ffe5cb;  --c14: #d1eddf; 
---z15: #f9fafb;  --a15: #fde9e7;  --b15: #fdf0e5;  --c15: #e7f4ee; 
+:root, .inverted-undo {          /* red */        /* yellow */     /* green */
+--z0: #111827;  --a0: #2a1c26; --b0: #2a2429;  --c0: #162730; 
+--z1: #1e2433;  --a1: #421f24; --b1: #45322a;  --c1: #1c3b3b; 
+--z2: #2b313f;  --a2: #5a2122; --b2: #60422b;  --c2: #1f4f47; 
+--z3: #393e4c;  --a3: #71231f; --b3: #7b522a;  --c3: #226452; 
+--z4: #474c59;  --a4: #89221c; --b4: #976328;  --c4: #227a5e; 
+--z5: #565a66;  --a5: #a22018; --b5: #b47424;  --c5: #20906a; 
+--z6: #656974;  --a6: #bb1b13; --b6: #d1861d;  --c6: #1ba776; 
+--z7: #747782;  --a7: #d4100b; --b7: #f0990f;  --c7: #0ebf82; 
+--z8: #848790;  --a8: #e62b18; --b8: #ffa723;  --c8: #31ce8f; 
+--z9: #94969f;  --a9: #ee5035; --b9: #ffb146;  --c9: #59d49c; 
+--z10: #a4a6ae; --a10: #f66d50;--b10: #ffbc63; --c10: #76dbaa; 
+--z11: #b4b7bd; --a11: #fb866c;--b11: #ffc67d; --c11: #8fe0b7; 
+--z12: #c5c7cc; --a12: #ff9f88;--b12: #ffd197; --c12: #a7e6c5; 
+--z13: #d6d8db; --a13: #ffb7a5;--b13: #ffdbb1; --c13: #bdecd3; 
+--z14: #e7e9eb; --a14: #ffcfc3;--b14: #ffe6cb; --c14: #d2f1e1; 
+--z15: #f9fafb; --a15: #fee6e1;--b15: #fef1e5; --c15: #e8f6ef; 
 
-/* blue */       /* violet */     /* purple */      /* pink */
---d0: #172139;   --e0: #191f38;   --f0: #1c1f39;   --g0: #261e31; 
---d1: #1d2d4f;   --e1: #22284e;   --f1: #29274f;   --g1: #3f253e; 
---d2: #223966;   --e2: #2c3165;   --f2: #372f66;   --g2: #572c4b; 
---d3: #28457f;   --e3: #363a7d;   --f3: #46377f;   --g3: #713258; 
---d4: #2d5298;   --e4: #3f4495;   --f4: #543f98;   --g4: #8b3866; 
---d5: #315fb2;   --e5: #494daf;   --f5: #6447b2;   --g5: #a63d74; 
---d6: #356dcd;   --e6: #5457c9;   --f6: #7350cd;   --g6: #c14283; 
---d7: #397be8;   --e7: #5e61e3;   --f7: #8358e8;   --g7: #de4692; 
---d8: #5089f7;   --e8: #706ef2;   --f8: #9466f7;   --g8: #ee569f; 
---d9: #6f96f8;   --e9: #867ff4;   --f9: #a378f8;   --g9: #f26faa; 
---d10: #88a4f9;  --e10: #9a90f5;  --f10: #b28bf9;  --g10: #f585b5; 
---d11: #9eb2f9;  --e11: #aca2f7;  --f11: #c09efa;  --g11: #f89ac1; 
---d12: #b3c0fa;  --e12: #bdb3f8;  --f12: #cdb1fa;  --g12: #faafcd; 
---d13: #c6cffa;  --e13: #cec5f9;  --f13: #d9c4fb;  --g13: #fbc3d9; 
---d14: #d8defb;  --e14: #ddd8fa;  --f14: #e5d7fb;  --g14: #fbd6e5; 
---d15: #eaedfb;  --e15: #edeafb;  --f15: #f0eafb;  --g15: #faeaf1;
-  -webkit-font-smoothing: antialiased;
+--d0: #152239;  --e0: #181e39; --f0: #1f1d39;  --g0: #291d30; 
+--d1: #1a3050;  --e1: #202651; --f1: #2f2251;  --g1: #43223b; 
+--d2: #1d3d69;  --e2: #282e69; --f2: #3f2769;  --g2: #5e2647; 
+--d3: #1e4c82;  --e3: #303782; --f3: #502b82;  --g3: #7a2953; 
+--d4: #1e5a9d;  --e4: #383f9d; --f4: #622e9d;  --g4: #962a5f; 
+--d5: #1c69b8;  --e5: #4047b8; --f5: #7430b8;  --g5: #b32a6c; 
+--d6: #1779d4;  --e6: #4750d4; --f6: #8732d4;  --g6: #d12678; 
+--d7: #0b89f0;  --e7: #4e59f0; --f7: #9933f0;  --g7: #ef2085; 
+--d8: #3797ff;  --e8: #6366ff; --f8: #aa43ff;  --g8: #ff3892; 
+--d9: #62a3ff;  --e9: #7e78ff; --f9: #b85fff;  --g9: #ff5c9f; 
+--d10: #7fafff; --e10: #958aff; --f10: #c477ff;--g10: #ff78ac; 
+--d11: #98bbfe; --e11: #a99cff; --f11: #cf8fff;--g11: #ff91b9; 
+--d12: #aec8fe; --e12: #bbafff; --f12: #daa5ff;--g12: #ffa8c6; 
+--d13: #c3d4fd; --e13: #cdc2fe; --f13: #e3bbfe;--g13: #ffbed4; 
+--d14: #d7e2fd; --e14: #ddd6fd; --f14: #ebd1fd;--g14: #ffd4e1; 
+--d15: #eaeffc; --e15: #ece9fc; --f15: #f3e8fc;--g15: #fde9ef;
+-webkit-font-smoothing: antialiased;
+--shadow-bg: 0 var(--x2) var(--x4) var(--z0);
+--shadow: 0 var(--x1) var(--x8) rgba(0,0,0,0.4);
+--accent0:  var(--d0);  --comp0:  var(--g0);
+--accent1:  var(--d1);  --comp1:  var(--g1);
+--accent2:  var(--d2);  --comp2:  var(--g2);
+--accent3:  var(--d3);  --comp3:  var(--g3);
+--accent4:  var(--d4);  --comp4:  var(--g4);
+--accent5:  var(--d5);  --comp5:  var(--g5);
+--accent6:  var(--d6);  --comp6:  var(--g6);
+--accent7:  var(--d7);  --comp7:  var(--g7);
+--accent8:  var(--d8);  --comp8:  var(--g8);
+--accent9:  var(--d9);  --comp9:  var(--g9);
+--accent10: var(--d10); --comp10: var(--g10);
+--accent11: var(--d11); --comp11: var(--g11);
+--accent12: var(--d12); --comp12: var(--g12);
+--accent13: var(--d13); --comp13: var(--g13);
+--accent14: var(--d14); --comp14: var(--g14);
+--accent15: var(--d15); --comp15: var(--g15);
+
 }
 
 .inverted {
---z15: #111827; --a15: #291e2a;  --b15: #292329;  --c15: #16262f; 
---z14: #1e2433; --a14: #42242e;  --b14: #43322a;  --c14: #1b373a; 
---z13: #2b313f; --a13: #5b2a32;  --b13: #5d412b;  --c13: #1e4944; 
---z12: #393e4c; --a12: #753035;  --b12: #77512b;  --c12: #215c4f; 
---z11: #474c59; --a11: #8f3539;  --b11: #926129;  --c11: #21705a; 
---z10: #565a66; --a10: #aa3a3c;  --b10: #ad7225;  --c10: #218465; 
---z9:  #656974; --a9:  #c53e3f;  --b9:  #ca8320;  --c9:  #1d9970; 
---z8:  #747782; --a8:  #e14242;  --b8:  #e69515;  --c8:  #16ae7b; 
---z7:  #848790; --a7:  #f2524e;  --b7:  #f7a327;  --c7:  #32bd88; 
---z6:  #94969f; --a6:  #f76b62;  --b6:  #fbae48;  --c6:  #57c596; 
---z5:  #a4a6ae; --a5:  #fc8277;  --b5:  #feb963;  --c5:  #73cea4; 
---z4:  #b4b7bd; --a4:  #ff978d;  --b4:  #ffc47e;  --c4:  #8cd6b3; 
---z3:  #c5c7cc; --a3:  #ffaca2;  --b3:  #ffcf97;  --c3:  #a4ddc1; 
---z2:  #d6d8db; --a2:  #ffc1b9;  --b2:  #ffdab1;  --c2:  #bbe5d0; 
---z1:  #e7e9eb; --a1:  #ffd5d0;  --b1:  #ffe5cb;  --c1:  #d1eddf; 
---z0:  #f9fafb; --a0:  #fde9e7;  --b0:  #fdf0e5;  --c0:  #e7f4ee; 
+--z0: #ffffff;  --a0: #ffebe5;  --b0: #fff5e9;  --c0: #edfaf3; 
+--z1: #ececee;  --a1: #ffd2c6;  --b1: #ffeace;  --c1: #d7f5e4; 
+--z2: #dadade;  --a2: #ffbaa7;  --b2: #ffdfb3;  --c2: #c1efd5; 
+--z3: #c8c8ce;  --a3: #ffa28a;  --b3: #ffd399;  --c3: #aae9c7; 
+--z4: #b6b6be;  --a4: #fe886d;  --b4: #ffc87f;  --c4: #92e2b9; 
+--z5: #a4a5ae;  --a5: #f76e51;  --b5: #ffbd64;  --c5: #78dcab; 
+--z6: #93949e;  --a6: #ef5135;  --b6: #ffb247;  --c6: #5ad59d; 
+--z7: #82838f;  --a7: #e62c18;  --b7: #ffa723;  --c7: #31ce8f; 
+--z8: #727380;  --a8: #d30d0a;  --b8: #ef980e;  --c8: #0dbe81; 
+--z9: #616371;  --a9: #b91612;  --b9: #cf841c;  --c9: #18a574; 
+--z10: #525463; --a10: #9e1a17; --b10: #b17122; --c10: #1d8c68; 
+--z11: #424555; --a11: #851b1a; --b11: #935e26; --c11: #1e745b; 
+--z12: #333647; --a12: #6c1b1c; --b12: #764c27; --c12: #1d5d4e; 
+--z13: #25283a; --a13: #53191e; --b13: #5a3a27; --c13: #1a4742; 
+--z14: #171b2d; --a14: #3b1620; --b14: #3e2a26; --c14: #153236; 
+--z15: #080c21; --a15: #221320; --b15: #231a23; --c15: #0f1e2a; 
 
-/* blue */       /* violet */     /* purple */      /* pink */
---d15:#172139;   --e15: #191f38;  --f15:  #1c1f39;  --g15: #261e31; 
---d14:#1d2d4f;   --e14: #22284e;  --f14:  #29274f;  --g14: #3f253e; 
---d13:#223966;   --e13: #2c3165;  --f13:  #372f66;  --g13: #572c4b; 
---d12:#28457f;   --e12: #363a7d;  --f12:  #46377f;  --g12: #713258; 
---d11:#2d5298;   --e11: #3f4495;  --f11:  #543f98;  --g11: #8b3866; 
---d10:#315fb2;   --e10: #494daf;  --f10:  #6447b2;  --g10: #a63d74; 
---d9: #356dcd;   --e9:  #5457c9;  --f9:   #7350cd;  --g9:  #c14283; 
---d8: #397be8;   --e8:  #5e61e3;  --f8:   #8358e8;  --g8:  #de4692; 
---d7: #5089f7;   --e7:  #706ef2;  --f7:   #9466f7;  --g7:  #ee569f; 
---d6: #6f96f8;   --e6:  #867ff4;  --f6:   #a378f8;  --g6:  #f26faa; 
---d5:  #88a4f9;  --e5:  #9a90f5;  --f5:   #b28bf9;  --g5:   #f585b5; 
---d4:  #9eb2f9;  --e4:  #aca2f7;  --f4:   #c09efa;  --g4:   #f89ac1; 
---d3:  #b3c0fa;  --e3:  #bdb3f8;  --f3:   #cdb1fa;  --g3:   #faafcd; 
---d2:  #c6cffa;  --e2:  #cec5f9;  --f2:   #d9c4fb;  --g2:   #fbc3d9; 
---d1:  #d8defb;  --e1:  #ddd8fa;  --f1:   #e5d7fb;  --g1:   #fbd6e5; 
---d0:  #eaedfb;  --e0:  #edeafb;  --f0:   #f0eafb;  --g0:   #faeaf1;
-  -webkit-font-smoothing: auto;
+--d0: #eff3ff;  --e0: #f2eeff;  --f0: #f9ecff;  --g0: #ffedf3; 
+--d1: #dbe5ff;  --e1: #e2d9ff;  --f1: #f0d5ff;  --g1: #ffd7e5; 
+--d2: #c7d8ff;  --e2: #d1c5ff;  --f2: #e7bfff;  --g2: #ffc1d6; 
+--d3: #b2caff;  --e3: #bfb2ff;  --f3: #dda8ff;  --g3: #ffabc8; 
+--d4: #9bbdff;  --e4: #ac9eff;  --f4: #d290ff;  --g4: #ff93bb; 
+--d5: #81b0ff;  --e5: #978bff;  --f5: #c679ff;  --g5: #ff7aad; 
+--d6: #63a3ff;  --e6: #7f78ff;  --f6: #b960ff;  --g6: #ff5da0; 
+--d7: #3897ff;  --e7: #6366ff;  --f7: #ab44ff;  --g7: #ff3992; 
+--d8: #0788f0;  --e8: #4d58f0;  --f8: #9932f0;  --g8: #ef1e85; 
+--d9: #1077d2;  --e9: #444ed2;  --f9: #842fd2;  --g9: #cf2277; 
+--d10: #1466b5; --e10: #3b44b5; --f10: #702cb5; --g10: #b02369; 
+--d11: #165599; --e11: #323a99; --f11: #5d2899; --g11: #91235c; 
+--d12: #15467e; --e12: #29317e; --f12: #4a247e; --g12: #74214f; 
+--d13: #143664; --e13: #212764; --f13: #381f64; --g13: #581e42; 
+--d14: #11284b; --e14: #181e4b; --f14: #271a4b; --g14: #3c1a36; 
+--d15: #0d1a33; --e15: #101633; --f15: #161433; --g15: #21142a; 
+-webkit-font-smoothing: auto;
+--shadow-bg: 0 var(--x2) var(--x4) var(--z3);
+--shadow: 0 var(--x1) var(--x8) rgba(0,0,0,0.1);
+--accent0:  var(--d0);  --comp0:  var(--g0);
+--accent1:  var(--d1);  --comp1:  var(--g1);
+--accent2:  var(--d2);  --comp2:  var(--g2);
+--accent3:  var(--d3);  --comp3:  var(--g3);
+--accent4:  var(--d4);  --comp4:  var(--g4);
+--accent5:  var(--d5);  --comp5:  var(--g5);
+--accent6:  var(--d6);  --comp6:  var(--g6);
+--accent7:  var(--d7);  --comp7:  var(--g7);
+--accent8:  var(--d8);  --comp8:  var(--g8);
+--accent9:  var(--d9);  --comp9:  var(--g9);
+--accent10: var(--d10); --comp10: var(--g10);
+--accent11: var(--d11); --comp11: var(--g11);
+--accent12: var(--d12); --comp12: var(--g12);
+--accent13: var(--d13); --comp13: var(--g13);
+--accent14: var(--d14); --comp14: var(--g14);
+--accent15: var(--d15); --comp15: var(--g15);
 }
 
 :root {
@@ -91,18 +126,9 @@
   --x14: 56px;
   --x15: 60px;
   --x16: 64px;
-
   --mono-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   --ui-font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-  --transition-duration: 333ms;
-  --transition-fast: 200ms;
   --panel-width: calc(var(--x10)*2*2 + var(--x1));
-}
-
-a, a:link, a:active, a:visited {
-  color: var(--d6);
-}
-
-a:hover {
-  color: var(--d8);
+  --transition-duration: 200ms;
+  --transition:  all var(--transition-duration) ease;
 }

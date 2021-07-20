@@ -1,5 +1,4 @@
-function populateFonts(fonts) {
-
+function populateFonts(){
   let options = `
     <option value='sans-serif' selected>sans-serif</option>
     <option value='serif' selected>serif</option>
@@ -13,14 +12,13 @@ function populateFonts(fonts) {
     woff: "woff",
     woff2: "woff2",
   };
-  for (fontName in fonts) {
-    const variants = fonts[fontName];
+  for (fontName in window.fonts) {
+    const variants = window.fonts[fontName];
     for (variantName in variants) {
       const variant = variants[variantName];
       const ext = variant.file.split(".")[1].toLowerCase();
       const format = formats[ext];
       let src = `url('font-files/${variant.file}') format('${format}')`;
-
       if (isDetaRuntime) {
         src = `url('https://method-draw-fonts.s3.eu-central-1.amazonaws.com/font-files/${variant.file}') format('${format}')`;
       }
@@ -39,11 +37,11 @@ function populateFonts(fonts) {
   }
 
   $("#font_family_dropdown").append(options);
-  $("head").append("<style>" + fontfaces + "</style>");
+  $("head").append("<style>" + fontfaces +"</style>");
 
 };
 
-const fonts = {
+window.fonts = {
 
   "Anton": {
     "Regular": {
@@ -108,7 +106,7 @@ const fonts = {
       "font-style": "normal"
     }
   },
-
+  
   "Rounded Mplus 1c Light": {
     "Regular": {
       "file": "MPLUSRounded1c-Light.ttf",
@@ -602,4 +600,4 @@ const fonts = {
   }
 };
 
-populateFonts(fonts);
+populateFonts();

@@ -15,7 +15,7 @@ const dao = [
     name: "canvasTitle",
     label: "Canvas Title",
     type: "string",
-    default: "",
+    default: "Drawing",
     private: false,
     save: true
   },

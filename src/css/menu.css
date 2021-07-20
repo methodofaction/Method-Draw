@@ -38,7 +38,6 @@
 }
 
 .menu_list {
-  display: none;
   position: absolute;
   left: 0;
   top: var(--x8);
@@ -46,12 +45,18 @@
   background: var(--z15);
   padding: var(--x2) 0;
   border-radius: 0 var(--x2) var(--x2) var(--x2);
-  box-shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.4);
+  box-shadow:  var(--shadow);
 }
+
 
 #menu_bar.active .menu.open .menu_title {
   background: var(--z15);
   color: var(--z1);
+}
+
+.inverted #menu_bar.active .menu.open .menu_title {
+  background: var(--z0);
+  color: var(--z15);
 }
 
 .menu .menu_list {
@@ -64,7 +69,7 @@
   overflow: hidden;
   line-height: var(--x6);
   padding: var(--x1) var(--x16) var(--x1) var(--x6);
-  cursor: default;
+  cursor: pointer;
   color: var(--z3);
 }
 
@@ -87,7 +92,7 @@
 
 .menu_list .menu_item:hover,
 .menu_list .menu_item.push_button_pressed:hover {
-  background: var(--d15);
+  background: var(--accent15);
   color: #000;
 }
 
@@ -121,5 +126,58 @@
 }
 
 .menu_list .menu_item:not(.disabled):hover span {
-  background: var(--d13);
+  background: var(--accent13);
 }
+
+#modal_donate {
+  display: none;
+}
+
+.menu-right {
+  margin-left: auto;
+}
+
+.menu-right button {
+  background: transparent;
+  line-height: var(--x5);
+}
+
+.menu-right button:hover {
+  background: transparent;
+}
+
+.menu-right button:active {
+  box-shadow: none;
+  outline: none;
+}
+
+.menu-right button:hover svg {
+  fill:  var(--z12);
+}
+
+.menu-right svg {
+  fill:  var(--z5);
+}
+
+.inverted .menu-right svg {
+  fill:  var(--z10);
+}
+
+#logo svg {
+  pointer-events: none;
+  margin-top: var(--x2);
+  fill: var(--z7);
+}
+
+#logo svg path:last-child {
+  fill:  var(--z13);
+}
+
+#logo:hover svg {
+  fill:  var(--z9);
+}
+
+#logo svg path:last-child {
+  fill:  var(--z15);
+}
+

@@ -4,8 +4,9 @@
   width: var(--panel-width);
   right: var(--x1);
   top: var(--x5);
+  bottom: 0;
   border-bottom: none;
-  overflow: visible;
+  overflow: auto;
   padding: 0;
 }
 

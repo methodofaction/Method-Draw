@@ -76,7 +76,18 @@ $.jGraduate = {
               this.linearGradient = options.copy.linearGradient.cloneNode(true);
               break;
             case "radialGradient":
-              this.radialGradient = options.copy.radialGradient.cloneNode(true);
+              const clone = options.copy.radialGradient.cloneNode(true);
+              
+              if (clone.getAttribute('gradientUnits') === "userSpaceOnUse") {
+                // todo hardcoded dimensions
+                const rRatio = (256/2) / clone.getAttribute("r");
+                const cxRatio = (256/2) / clone.getAttribute("cx");
+                const cyRatio = (256/2) /clone.getAttribute("cy");
+                clone.setAttribute("r", rRatio * 22/2 );
+                clone.setAttribute("cx", cxRatio * 22/2);
+                clone.setAttribute("cy", cyRatio * 22/2);
+              }
+              this.radialGradient = clone;
               break;
           }
         }
@@ -249,7 +260,7 @@ jQuery.fn.jGraduate =
           '<div class="jGraduate_StopSection">' +
             '<label class="jGraduate_Form_Heading">Focal Point</label>' +
             '<div class="jGraduate_Form_Section">' +
-              '<label>Match center: <input type="checkbox" checked="checked" id="' + id + '_jGraduate_match_ctr"/></label><br/>' +
+              '<label class="match-center"><input type="checkbox" checked="checked" id="' + id + '_jGraduate_match_ctr"/> Match center</label><br/>' +
               '<label>x:</label>' +
               '<input type="text" id="' + id + '_jGraduate_fx" size="3" title="Enter x value between 0.0 and 1.0"/>' +
               '<label> y:</label>' +
@@ -287,7 +298,7 @@ jQuery.fn.jGraduate =
             '<div id="' + id + '_jGraduate_Angle" class="jGraduate_SliderBar jGraduate_Angle" title="Click to set Angle">' +
               '<img id="' + id + '_jGraduate_AngleArrows" class="jGraduate_AngleArrows" src="' + $settings.images.clientPath + 'rangearrows2.svg" width="9" height="20">' +
             '</div>' +
-            '<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>Âº&nbsp;</label>' + 
+            '<label><input type="text" id="' + id + '_jGraduate_AngleInput" size="3" value="0"/>º&nbsp;</label>' + 
                 '</div>' +
                 '<div class="jGraduate_Slider jGraduate_OpacField">' +
             '<label class="prelabel">Opac:</label>' +
@@ -311,7 +322,7 @@ jQuery.fn.jGraduate =
             
       var attr_input = {};
             
-            var SLIDERW = 145;
+            var SLIDERW = 120;
             $('.jGraduate_SliderBar').width(SLIDERW);
       
       var container = $('#' + id+'_jGraduate_GradContainer')[0];
@@ -476,11 +487,11 @@ jQuery.fn.jGraduate =
           .val(attrval)
           .change(function() {
             // TODO: Support values < 0 and > 1 (zoomable preview?)
-            if (isNaN(parseFloat(this.value)) || this.value < 0) {
-              this.value = 0.0; 
-            } else if(this.value > 1) {
-              this.value = 1.0;
-            }
+            // if (isNaN(parseFloat(this.value)) || this.value < 0) {
+            //   this.value = 0.0; 
+            // } else if(this.value > 1) {
+            //   this.value = 1.0;
+            // }
             
             if(!(attr[0] === 'f' && !showFocus)) {
               if(isRadial && curType === 'radialGradient' || !isRadial && curType === 'linearGradient') {
@@ -842,7 +853,7 @@ jQuery.fn.jGraduate =
       // bind GUI elements
       $('#'+id+'_jGraduate_Ok').bind('click touchstart', function() {
         $this.paint.type = curType;
-        $this.paint[curType] = curGradient.cloneNode(true);;
+        $this.paint[curType] = curGradient.cloneNode(true);
         $this.paint.solidColor = null;
         okClicked();
       });
@@ -1123,6 +1134,8 @@ jQuery.fn.jGraduate =
         var type = $(this).attr('data-type');
         var container = $(idref + ' .jGraduate_gradPick').show();
         if(type === 'rg' || type === 'lg') {
+          const isRadialUserSpaceOnUse = $("#color_picker").attr("data-radialUserSpace") === "true";
+          $("#color_picker").toggleClass("radialUserSpace", isRadialUserSpaceOnUse && type === 'rg');
           // Show/hide appropriate fields
           $('.jGraduate_' + type + '_field').show();
           $('.jGraduate_' + (type === 'lg' ? 'rg' : 'lg') + '_field').hide();

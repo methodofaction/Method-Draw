@@ -18,7 +18,7 @@ const detaMenuMods = () => {
   document.getElementById("file_menu_main").innerHTML =
     `
       <div class="menu_title">File</div>
-      <div class="menu_list" id="file_menu">
+      <div class="menu_list inverted-undo" id="file_menu">
         <div data-action="clear" id="tool_clear" class="menu_item">New Document</div>
         <div data-action="cloudOpen" id="tool_copen" class="menu_item">Open Document</div>
         <div data-action="cloudSave" id="tool_csave" class="menu_item">Save<span class="shortcut">⌘S</span></div>
@@ -37,6 +37,7 @@ const detaMenuMods = () => {
 
   // add share option
   const menu = document.querySelector("#menu_bar");
+  const shareMenu = document.getElementById("deta_menus");
   const shareDiv = document.createElement("div");
   shareDiv.setAttribute("class", "share_menu");
   shareDiv.setAttribute("id", "share_drawing");
@@ -48,10 +49,14 @@ const detaMenuMods = () => {
   });
   shareDivTitle.innerText = `Share`;
   shareDiv.appendChild(shareDivTitle);
-  menu.appendChild(shareDiv);
+  shareMenu.appendChild(shareDiv);
+//   menu.appendChild(shareDiv);
   document.getElementById("sponsors").style.display = "none"
 }
 
 if (isDetaRuntime && !isPublic) {
   detaMenuMods();
+}
+if (isPublic) {
+    document.getElementById("sponsors").style.display = "inherit"
 }

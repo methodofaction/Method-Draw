@@ -50,7 +50,7 @@ var svgWhiteList_ = {
   "circle": ["class", "clip-path", "clip-rule", "cx", "cy", "fill", "fill-opacity", "fill-rule", "filter", "id", "mask", "opacity", "r", "requiredFeatures", "stroke", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-opacity", "stroke-width", "style", "systemLanguage", "transform"],
   "clipPath": ["class", "clipPathUnits", "id"],
   "defs": [],
-        "style" : ["type"],
+  "style" : ["type"],
   "desc": [],
   "ellipse": ["class", "clip-path", "clip-rule", "cx", "cy", "fill", "fill-opacity", "fill-rule", "filter", "id", "mask", "opacity", "requiredFeatures", "rx", "ry", "stroke", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-opacity", "stroke-width", "style", "systemLanguage", "transform"],
   "feGaussianBlur": ["class", "color-interpolation-filters", "id", "requiredFeatures", "stdDeviation"],
@@ -127,6 +127,9 @@ $.each(svgWhiteList_, function(elt,atts){
   });
   svgWhiteListNS_[elt] = attNS;
 });
+
+
+svgedit.sanitize.svgWhiteList = function() { return svgWhiteList_; }
 
 // temporarily expose these
 svgedit.sanitize.getNSMap = function() { return nsMap_; }

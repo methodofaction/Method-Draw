@@ -35,7 +35,6 @@ $.fn.dragInput = function(cfg){
     var scale = area/cursorHeight * step;
     var lastY = 0;
     var attr = this.getAttribute("data-attr");
-    var canvas = svgCanvas;
     var completed = true //for mousewheel
     var $cursor = (area && this.dragCfg.cursor)
       ? $("<div class='draginput_cursor' />").appendTo($label) 
@@ -78,17 +77,17 @@ $.fn.dragInput = function(cfg){
     
     //when the mouse is released
     this.stop = function() {
-      var selectedElems = canvas.getSelectedElems();
+      var selectedElems = svgCanvas.getSelectedElems();
       $('body').removeClass('dragging');
       $label.removeClass("active");
       completed = true;
       $(window).unbind("mousemove.draginput touchmove.draginput mouseup.draginput touchend.draginput");
       lastY = 0;
       if (selectedElems[0]) {
-        var batchCmd = canvas.undoMgr.finishUndoableChange();
-        if (!batchCmd.isEmpty()) canvas.undoMgr.addCommandToHistory(batchCmd);
+        var batchCmd = svgCanvas.undoMgr.finishUndoableChange();
+        if (!batchCmd.isEmpty()) svgCanvas.undoMgr.addCommandToHistory(batchCmd);
       }
-      this.adjustValue(0, completed)
+      this.adjustValue(0, completed);
     }
     
     this.updateCursor = function(){
@@ -98,17 +97,22 @@ $.fn.dragInput = function(cfg){
     }
     
     this.launch = function(e) {
-      var selectedElems = canvas.getSelectedElems();
+      var selectedElems = svgCanvas.getSelectedElems();
       var oy = e.pageY;
       var val = this.value;
       var el = this;
-      if (attr && selectedElems.length) canvas.undoMgr.beginUndoableChange(attr, selectedElems)
+      if (attr && selectedElems.length) svgCanvas.undoMgr.beginUndoableChange(attr, selectedElems)
       $('body').addClass('dragging');
       $label.addClass('active');
       $(window).bind("mousemove.draginput touchmove.draginput", function(e){el.move(e, oy, parseFloat(val))})
       $(window).bind("mouseup.draginput touchend.draginput", function(e){el.stop()})
+      $("input").blur();
     }
     
+    const delta = 2;
+    let startX;
+    let startY;
+
     $(this)
       .attr("readonly", "readonly")
       .attr("data-scale", scale)
@@ -116,8 +120,22 @@ $.fn.dragInput = function(cfg){
       .attr("data-cursor", ($cursor !== false))
           
     .bind("mousedown touchstart", function(e){
+      startX = event.pageX;
+      startY = event.pageY;
       this.blur();
       this.launch(e);
+    })
+
+    .bind("mouseup touchend", function(e) {
+      const diffX = Math.abs(event.pageX - startX);
+      const diffY = Math.abs(event.pageY - startY);
+
+      if (diffX < delta && diffY < delta) {
+          this.removeAttribute("readonly", "readonly");
+          this.focus();
+          this.select();
+      }
+      
     })
     
     .bind("dblclick taphold", function(e) {
@@ -147,12 +165,15 @@ $.fn.dragInput = function(cfg){
     })
     
     .blur(function(e){
+      window.getSelection().removeAllRanges();
       this.setAttribute("readonly", "readonly")
     })
     
     .bind("mousewheel", function(e, delta, deltaX, deltaY){
-      var selectedElems = canvas.getSelectedElems();
-      if (completed) canvas.undoMgr.beginUndoableChange(attr, selectedElems)
+      const panels = document.getElementById("panels");
+      if (panels.scrollHeight > panels.clientHeight) return;
+      var selectedElems = svgCanvas.getSelectedElems();
+      if (completed) svgCanvas.undoMgr.beginUndoableChange(attr, selectedElems)
       completed = false
       clearTimeout(window.undoTimeout)
       window.undoTimeout = setTimeout(function(){
@@ -179,6 +200,6 @@ $.fn.dragInput.updateCursor = function(el){
   var domain = parseFloat(el.getAttribute("data-domain"));
   var pos = ((value*-1)/scale+domain) + "px";
   var cursor = el.parentNode.lastChild
-  if (cursor.className == "draginput_cursor") cursor.style.top = pos;
+  if (cursor.className === "draginput_cursor") cursor.style.top = pos;
 }
 

@@ -898,7 +898,6 @@ window.methodDraw = function() {
     };
     
     var clickSave = function(){
-      console.log("hi")
       flash($('#file_menu'));
       svgCanvas.save();
     };
@@ -1574,7 +1573,7 @@ window.methodDraw = function() {
                 keyval = opts.key;
               }
               keyval += '';
-              if (svgedit.browser.isMac && keyval.indexOf("+") != -1) {
+              if (svgedit.browser.isMac() && keyval.indexOf("+") != -1) {
                 var modifier_key =  keyval.split("+")[0];
                 if (modifier_key == "ctrl") keyval.replace("ctrl", "cmd")
               }
@@ -1717,7 +1716,7 @@ window.methodDraw = function() {
     $('#rect_rx')      .dragInput({ min: 0,    max: 100,   step:  1,  callback: changeAttribute,    cursor: true                          });
     $('#stroke_width') .dragInput({ min: 0,    max: 99,    step:  1,  callback: changeStrokeWidth,   cursor: true, smallStep: 0.1, start: 1.5          });
     $('#angle')        .dragInput({ min: -180, max: 180,   step:  1,  callback: changeRotationAngle, cursor: false, dragAdjust: 0.5      });
-    $('#font_size')    .dragInput({ min: 1, max: 250, step: 1, callback: changeFontSize, cursor: true, stepfunc: stepFontSize, dragAdjust: .15 });
+    $('#font_size')    .dragInput({ min: 1, max: 250, step: 1, callback: changeFontSize,             cursor: false, stepfunc: stepFontSize, dragAdjust: .15 });
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: changeAttribute,       cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: changeBlur,          cursor: true,  start: 0               });
       // Set default zoom 

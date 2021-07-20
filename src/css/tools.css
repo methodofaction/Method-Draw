@@ -1,4 +1,4 @@
- #tools_left {
+#tools_left {
   position: absolute;
   border-right: none;
   width: var(--x12);
@@ -14,6 +14,23 @@
   cursor: pointer;
   line-height: 60px;
   text-align: center;
+  transform: scale(0.8);
+}
+
+.inverted .tool_button svg {
+  fill: var(--z13);
+}
+
+.tool_button:hover {
+  transform: scale(1);
+}
+
+.tool_button:hover svg {
+  fill: var(--z13);
+}
+
+.tool_button.current {
+  transform: scale(1.4);
 }
 
 .tool_button svg {
@@ -21,21 +38,30 @@
   fill: var(--z5);
 }
 
-.tool_button:hover svg {
-  fill: var(--z10);
-}
-
-.tool_button.current {
-  background-color: var(--z0);
+.tool_button.current svg {
+  fill: var(--accent8);
 }
 
 .tool_button.current svg {
-  fill: var(--d15);
+  fill: var(--accent7);
 }
+
 
 .tool_button.disabled svg {
   background-color: #aaa;
   cursor: not-allowed;
   fill: var(--z3);
   pointer-events: none;
+}
+
+#tool_rect svg {
+  position: relative;
+  top: -1px;
+  left:  1px;
+}
+
+#tool_ellipse svg {
+  position: relative;
+  top: 2px;
+  left: 1px;
 }

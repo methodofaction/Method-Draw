@@ -2,7 +2,7 @@
   overflow: auto;
   top: 0;
   bottom: 0;
-  left: 110px;
+  left: 136px;
   right: 0;
   position: absolute;
   vertical-align: top;
@@ -14,69 +14,58 @@
   position: absolute;
   left: 0;
   top: 0;
-  height: 300px;
+  height: 320px;
   background: var(--z14);
-  border-radius: 3px 0 0 3px;
+  border-radius: var(--x1) 0 0 var(--x1);
   z-index: 2;
 }
+
 #shape_cats > div {
-  line-height: 1em;
-  padding: 0 .5em;
-  border-bottom: 1px solid var(--z13);
+  padding: 0 var(--x4);
   background: var(--z14);
-  color: var(--z3);
-  height: 26px;
-  line-height: 26px;
+  color: var(--z6);
+  height: var(--x7);
+  line-height: var(--x7);
+  transition:  background-color 100ms ease;
 }
 
 #shape_cats > div:first-child {
-  border-radius: 3px 0 0 0;
+  border-radius: var(--x1) 0 0 0;
 }
 
 #shape_cats > div:last-child {
-  border-radius: 0 0 0 3px;
+  border-radius: 0 0 0 var(--x1);
 }
 
 #shape_cats div:hover {
-  background: var(--z15);
   color: var(--z0);
 }
+
 #shape_cats div.current {
   font-weight: bold;
-  background: var(--z3);
+  background: var(--accent7);
   color: var(--z15);
-  position: relative;
 }
 
-#shape_cats div.current:after {
-  content: '';
-  position: absolute;
-  right: -26px;
-  top: 0;
-  border: solid transparent 13px;
-  border-left-color: var(--z3);
-}
-
-
- .tools_flyout {
+.tools_flyout {
   position: absolute;
   display: none;
   cursor: pointer;
-  width: 385px;
+  width: 410px;
   z-index: 10;
-  left: 47px;
+  left: var(--x12);
   top: 230px;
-  height: 324px;
+  height: 336px;
   background: var(--z15);
-  border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: var(--x1);
+  box-shadow: var(--shadow);
 }
 
  .tools_flyout .tool_button {
   float: left;
   background-color: var(--z15);
-  height: 24px;
-  width: 24px;
+  height: var(--x6);
+  width: var(--x6);
 }
 
 /* Necessary to keep the flyouts sized properly */
@@ -85,16 +74,13 @@
 .tools_flyout .tool_button,
 .tools_flyout .tool_flyout {
   background: var(--z15);
-  width: 40px;
-  height: 40px;
-  margin: 5px;
-  border-radius: 0px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px; 
-  border-width: 0;
+  width: var(--x10);
+  height: var(--x10);
+  margin: var(--x1);
 }
 
-.tools_flyout .tool_button svg {
+.tools_flyout .tool_button svg,
+.inverted .tools_flyout .tool_button svg {
   fill: var(--z4);
 }
 

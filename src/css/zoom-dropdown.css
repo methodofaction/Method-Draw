@@ -1,0 +1,79 @@
+#zoom_panel,
+#zoom_select {
+  padding: var(--x2) 0;
+  right: calc(var(--panel-width) + var(--x2));
+  position: absolute;
+  cursor:  pointer;
+  width:  100px;
+}
+
+#zoom_label:after {
+  content: '';
+}
+
+#zoom_select {
+  opacity: 0;
+  z-index: 100;
+}
+
+#zoom_select:hover + div {
+  opacity:  1;
+}
+
+#zoom_label {
+  position: absolute;
+  background: transparent;
+  width: 100%;
+  margin: 0;
+}
+
+#zoom_panel .caret {
+  margin-top: -5px;
+}
+
+#zoom_label img, #zoom_label svg {
+  width: var(--x4);
+  height: var(--x4);
+}
+
+#zoomLabel {
+  width: var(--x4);
+  height: var(--x4);
+  cursor: pointer;
+}
+
+#zoomLabel svg {
+  fill: var(--z10);
+  position: relative;
+  top: 2px;
+}
+
+#zoom_label input {
+  -webkit-appearance: none;
+  color: var(--z10);
+  font-size: 13px;
+  height: auto;
+  width: var(--x12);
+  padding: 0;
+  cursor: default;
+  position: absolute;
+  background:  transparent;
+  border:  none;
+  top:  2px;
+  left:  var(--x6);
+  pointer-events: none;
+}
+
+#zoom_label select {
+  -webkit-appearance: none;
+  position: absolute;
+  top:  0;
+  left:  0;
+  bottom:  0;
+  right:  0;
+}
+
+#zoom_label span {
+  top: 0;
+  left: 0;
+}

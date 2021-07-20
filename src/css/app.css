@@ -9,17 +9,11 @@
 }
 
 #svgcanvas {
-  background-color: var(--z1);
-  width: 800px;
-  height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background: var(--z2);
+  background-color: var(--z2);
+  display: block;
 }
 
- #workarea {
+#workarea {
   display: block;
   position:absolute;
   top: var(--x8);
@@ -32,5 +26,76 @@
   justify-content: center;
   transition: transform 500ms cubic-bezier(0.13,0.66,0.24,0.92);
   border-radius: var(--x2);
-  box-shadow: var(--x1) var(--x1) var(--x8) rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-bg);
+}
+
+.inverted #svgcanvas,
+.inverted #workarea {
+  background:  var(--z1);
+}
+
+#workarea.rect, #workarea.line, #workarea.ellipse, #workarea.path, #workarea.shapelib {
+  cursor: crosshair;
+}
+
+#workarea.text {
+  cursor: text;
+}
+
+#workarea.eyedropper {
+  cursor: url(../images/eyedropper.svg) 0 16, crosshair;
+}
+
+#workarea.fhpath {
+  cursor: url(../images/pencil_cursor.png) 0 16, crosshair;
+}
+
+#workarea.rotate * {
+  cursor: url(../images/rotate.png) 12 12, auto;
+}
+
+#workarea.select text, #workarea.multiselect text {
+  cursor: default;
+}
+
+#workarea.n-resize * {cursor: n-resize !important;}
+#workarea.e-resize * {cursor: e-resize !important;}
+#workarea.w-resize * {cursor: w-resize !important;}
+#workarea.s-resize * {cursor: s-resize !important;}
+
+#workarea.ne-resize * {cursor: ne-resize !important;}
+#workarea.se-resize * {cursor: se-resize !important;}
+#workarea.nw-resize * {cursor: nw-resize !important;}
+#workarea.sw-resize * {cursor: sw-resize !important;}
+
+#workspace.dragging *,
+body.dragging * {
+  cursor: url(../images/dragging.png), move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+#workspace.drag * {
+  cursor: url(../images/dragging.png), move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+#workarea.copy {
+  cursor: copy;
+}
+
+#workarea.zoom {
+  cursor: crosshair;
+  cursor:-moz-zoom-in;
+  cursor:-webkit-zoom-in;
+}
+#workarea.zoom.out {
+  cursor: crosshair;
+  cursor:-moz-zoom-out;
+  cursor:-webkit-zoom-out;
+}
+
+#selectorRubberBand {
+  shape-rendering: crispEdges;
 }
