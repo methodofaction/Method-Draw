@@ -316,6 +316,7 @@ MD.Editor = function(){
     if (_self.selected.length > 1) {
       editor.menu.flash($('#object_menu'));
       svgCanvas.groupSelectedElements();
+      saveCanvas();
     }
   };
 
@@ -323,6 +324,7 @@ MD.Editor = function(){
     if(_self.selected.length === 1 && _self.selected[0].tagName === "g"){
       editor.menu.flash($('#object_menu'));
       svgCanvas.ungroupSelectedElement();
+      saveCanvas();
     }
   }
 
