@@ -125,16 +125,9 @@ MD.Canvas = function(){
     }
     
     if(center) {
-      // Go to top-left for larger documents
-      if(svgCanvas.contentW > $(workarea).width()) {
-        // Top-left
-        workarea.scrollLeft = offset.x - 10;
-        workarea.scrollTop = offset.y - 10;
-      } else {
-        // Center
-        workarea.scrollLeft = scroll_x;
-        workarea.scrollTop = scroll_y;
-      }
+      workarea.scrollLeft = scroll_x;
+      workarea.scrollTop = scroll_y;
+
     } else {
       workarea.scrollLeft = new_ctr.x - w_orig/2;
       workarea.scrollTop = new_ctr.y - h_orig/2;
