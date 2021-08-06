@@ -5754,29 +5754,22 @@ this.styleToAttr = function(doc) {
 // Returns:
 // This function returns false if the set was unsuccessful, true otherwise.
 this.setSvgString = function(xmlString) {
+  console.log("opened")
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);
-    this.prepareSvg(newDoc);
-
     var batchCmd = new BatchCommand("Change Source");
 
+    this.prepareSvg(newDoc);
     newDoc = this.styleToAttr(newDoc);
     
-
     // remove old svg document
     var nextSibling = svgcontent.nextSibling;
     var oldzoom = svgroot.removeChild(svgcontent);
     batchCmd.addSubCommand(new RemoveElementCommand(oldzoom, nextSibling, svgroot));
   
-    // set new svg document
-    // If DOM3 adoptNode() available, use it. Otherwise fall back to DOM2 importNode()
-    if(svgdoc.adoptNode) {
-      svgcontent = svgdoc.adoptNode(newDoc.documentElement);
-    }
-    else {
-      svgcontent = svgdoc.importNode(newDoc.documentElement, true);
-    }
+
+    svgcontent = svgdoc.adoptNode(newDoc.documentElement);
     
     svgroot.appendChild(svgcontent);
     var content = $(svgcontent);

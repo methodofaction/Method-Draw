@@ -77,7 +77,6 @@ MD.Import = function(){
 
   function loadSvgString(str, callback) {
     var success = svgCanvas.setSvgString(str) !== false;
-    
     callback = callback || $.noop;
     if(success) {
       callback(true);

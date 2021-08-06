@@ -144,12 +144,12 @@ svgedit.sanitize.sanitizeSvg = function(node) {
   // we only care about element nodes
   // automatically return for all comment, etc nodes
   // for text, we do a whitespace trim
-  if (node.nodeType == 3) {
+  if (node.nodeType === 3) {
     node.nodeValue = node.nodeValue.replace(/^\s+|\s+$/g, "");
     // Remove empty text nodes
     if(!node.nodeValue.length) node.parentNode.removeChild(node);
   }
-  if (node.nodeType != 1) return;
+  if (node.nodeType !== 1) return;
 
   var doc = node.ownerDocument;
   var parent = node.parentNode;
@@ -161,7 +161,6 @@ svgedit.sanitize.sanitizeSvg = function(node) {
 
   // if this element is allowed
   if (allowedAttrs != undefined) {
-
     var se_attrs = [];
   
     var i = node.attributes.length;
@@ -201,16 +200,17 @@ svgedit.sanitize.sanitizeSvg = function(node) {
       }
       
       // for the style attribute, rewrite it in terms of XML presentational attributes
-      if (attrName == "style") {
-        var props = attr.nodeValue.replace(' ', '').split(";"),
-          p = props.length;
-        while(p--) {
-          var nv = props[p].split(":");
-          // now check that this attribute is supported
-          if (allowedAttrs.indexOf(nv[0]) >= 0) {
-            node.setAttribute(nv[0],nv[1]);
-          }
-        }
+      if (attrName === "style") {
+        const props = attr.nodeValue
+          .split(";")
+          .map(prop => prop.trim())
+          .filter(Boolean)
+          .forEach(prop => {
+            var nv = prop.split(":");
+            if (allowedAttrs.indexOf(nv[0]) >= 0) {
+              node.setAttribute(nv[0],nv[1]);
+            }
+          })
         node.removeAttribute('style');
       }
     }
