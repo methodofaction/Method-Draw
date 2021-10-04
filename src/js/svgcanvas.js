@@ -3359,6 +3359,11 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
       canvas.setMode("pathedit");
       canvas.pathActions.toEditMode(evt_target);
     }
+
+    // Reset context
+    if(tagName === "ellipse" || tagName === "circle" || tagName === "line" || tagName === "rect") {
+      editor.convertToPath();
+    }
     
     if((parent.tagName !== 'g' && parent.tagName !== 'a') ||
       parent === getCurrentDrawing().getCurrentLayer() ||
@@ -4038,13 +4043,15 @@ var pathActions = canvas.pathActions = function() {
               var endseg = drawn_path.createSVGPathSegClosePath();
               seglist.appendItem(newseg);
               seglist.appendItem(endseg);
-              selectorManager.requestSelector(newpath).showGrips(true)
+              selectorManager.requestSelector(newpath).showGrips(true);
             } else if(len < 3) {
               keep = false;
+
               return keep;
             }
 
             stretchy.parentNode.removeChild(stretchy);
+            state.set("canvasMode", "select");
             
             // this will signal to commit the path
             element = newpath;
@@ -4526,6 +4533,15 @@ var pathActions = canvas.pathActions = function() {
       addToSelection([elem], true);
       call("changed", selectedElements);
     },
+
+    reverse: function() {
+
+      var elem = selectedElements[0];
+      if(!elem || !elem.getAttribute("d")) return;
+
+      const d = elem.getAttribute("d");
+      var reversed = reverse(path);
+    },
     
     clear: function(remove) {
       current_path = null;
@@ -4623,113 +4639,114 @@ var pathActions = canvas.pathActions = function() {
       return svgedit.path.path;
     },
     opencloseSubPath: function() {
-      var sel_pts = svgedit.path.path.selected_pts;
+      const path = svgedit.path.path;
+      const selPts = path.selected_pts;
       // Only allow one selected node for now
-      if(sel_pts.length !== 1) return;
-      
-      var elem = svgedit.path.path.elem;
-      var list = elem.pathSegList;
+      if (selPts.length !== 1) { return; }
 
-      var len = list.numberOfItems;
+      const { elem } = path;
+      const list = elem.pathSegList;
 
-      var index = sel_pts[0];
-      
-      var open_pt = null;
-      var start_item = null;
+      // const len = list.numberOfItems;
+
+      const index = selPts[0];
+
+      let openPt = null;
+      let startItem = null;
 
       // Check if subpath is already open
-      svgedit.path.path.eachSeg(function(i) {
-        if(this.type === 2 && i <= index) {
-          start_item = this.item;
+      path.eachSeg(function (i) {
+        if (this.type === 2 && i <= index) {
+          startItem = this.item;
         }
-        if(i <= index) return true;
-        if(this.type === 2) {
+        if (i <= index) { return true; }
+        if (this.type === 2) {
           // Found M first, so open
-          open_pt = i;
-          return false;
-        } else if(this.type === 1) {
-          // Found Z first, so closed
-          open_pt = false;
+          openPt = i;
           return false;
         }
+        if (this.type === 1) {
+          // Found Z first, so closed
+          openPt = false;
+          return false;
+        }
+        return true;
       });
-      
-      if(open_pt == null) {
+
+      if (openPt == null) {
         // Single path, so close last seg
-        open_pt = svgedit.path.path.segs.length - 1;
+        openPt = path.segs.length - 1;
       }
 
-      if(open_pt !== false) {
+      if (openPt !== false) {
         // Close this path
-        
+
         // Create a line going to the previous "M"
-        var newseg = elem.createSVGPathSegLinetoAbs(start_item.x, start_item.y);
-      
-        var closer = elem.createSVGPathSegClosePath();
-        if(open_pt == svgedit.path.path.segs.length) {
+        const newseg = elem.createSVGPathSegLinetoAbs(startItem.x, startItem.y);
+
+        const closer = elem.createSVGPathSegClosePath();
+        if (openPt === path.segs.length - 1) {
           list.appendItem(newseg);
           list.appendItem(closer);
         } else {
-          svgedit.path.insertItemBefore(elem, closer, open_pt);
-          svgedit.path.insertItemBefore(elem, newseg, open_pt);
+          list.insertItemBefore(closer, openPt);
+          list.insertItemBefore(newseg, openPt);
         }
-        
-        svgedit.path.path.init().selectPt(open_pt+1);
+
+        path.init().selectPt(openPt + 1);
         return;
       }
-      
-      
 
       // M 1,1 L 2,2 L 3,3 L 1,1 z // open at 2,2
       // M 2,2 L 3,3 L 1,1
-      
-      // M 1,1 L 2,2 L 1,1 z M 4,4 L 5,5 L6,6 L 5,5 z 
-      // M 1,1 L 2,2 L 1,1 z [M 4,4] L 5,5 L(M)6,6 L 5,5 z 
-      
-      var seg = svgedit.path.path.segs[index];
-      
-      if(seg.mate) {
+
+      // M 1,1 L 2,2 L 1,1 z M 4,4 L 5,5 L6,6 L 5,5 z
+      // M 1,1 L 2,2 L 1,1 z [M 4,4] L 5,5 L(M)6,6 L 5,5 z
+
+      const seg = path.segs[index];
+
+      if (seg.mate) {
         list.removeItem(index); // Removes last "L"
         list.removeItem(index); // Removes the "Z"
-        svgedit.path.path.init().selectPt(index - 1);
+        path.init().selectPt(index - 1);
         return;
       }
-      
-      var last_m, z_seg;
-      
-      // Find this sub-path's closing point and remove
-      for(var i=0; i<list.numberOfItems; i++) {
-        var item = list.getItem(i);
 
-        if(item.pathSegType === 2) {
+      let lastM; let zSeg;
+
+      // Find this sub-path's closing point and remove
+      for (let i = 0; i < list.numberOfItems; i++) {
+        const item = list.getItem(i);
+
+        if (item.pathSegType === 2) {
           // Find the preceding M
-          last_m = i;
-        } else if(i === index) {
+          lastM = i;
+        } else if (i === index) {
           // Remove it
-          list.removeItem(last_m);
-//            index--;
-        } else if(item.pathSegType === 1 && index < i) {
+          list.removeItem(lastM);
+          // index--;
+        } else if (item.pathSegType === 1 && index < i) {
           // Remove the closing seg of this subpath
-          z_seg = i-1;
+          zSeg = i - 1;
           list.removeItem(i);
           break;
         }
       }
-      
-      var num = (index - last_m) - 1;
-      
-      while(num--) {
-        svgedit.path.insertItemBefore(elem, list.getItem(last_m), z_seg);
+
+      let num = (index - lastM) - 1;
+
+      while (num--) {
+        list.insertItemBefore(list.getItem(lastM), zSeg);
       }
-      
-      var pt = list.getItem(last_m);
-      
+
+      const pt = list.getItem(lastM);
+
       // Make this point the new "M"
-      svgedit.path.replacePathSeg(2, last_m, [pt.x, pt.y]);
-      
-      var i = index
-      
-      svgedit.path.path.init().selectPt(0);
+      svgedit.path.replacePathSeg(2, lastM, [ pt.x, pt.y ]);
+
+      // i = index; // i is local here, so has no effect; what was the intent for this?
+
+      path.init().selectPt(0);
     },
     deletePathNode: function() {
       if(!pathActions.canDeleteNodes) return;
@@ -5754,7 +5771,6 @@ this.styleToAttr = function(doc) {
 // Returns:
 // This function returns false if the set was unsuccessful, true otherwise.
 this.setSvgString = function(xmlString) {
-  console.log("opened")
   try {
     // convert string into XML document
     var newDoc = svgedit.utilities.text2xml(xmlString);

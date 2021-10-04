@@ -22,6 +22,19 @@ MD.Text = function(){
     editor.selectedChanged(window, [text]);
   }
 
+  function changeTextOnPath(){
+    const elem = svgCanvas.getSelectedElems()[0];
+    const textPath = elem.querySelector("textPath");
+    if (!textPath) return;
+    const path = svgCanvas.getTextPath(elem);
+    const d = path.getAttribute("d");
+    const reversed = utils.SVGPathEditor.reverse(d);
+    path.setAttribute("d", reversed);
+    const selector = svgCanvas.selectorManager.requestSelector(elem);
+    selector.resize();
+    editor.selectedChanged(window, [elem]);
+  }
+
   function setBold(){
     if ($(this).hasClass("disabled")) return;
     svgCanvas.setBold( !svgCanvas.getBold() );
@@ -40,6 +53,7 @@ MD.Text = function(){
 
   $('#tool_text_on_path').click(placeTextOnPath);
   $('#tool_release_text_on_path').click(releaseTextOnPath);
+  $('#tool_change_text_on_path').click(changeTextOnPath);
 
   $("#tool_bold").on("click", setBold);
   $("#tool_italic").on("click", setItalic);

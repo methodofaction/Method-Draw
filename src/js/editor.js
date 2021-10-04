@@ -104,7 +104,7 @@ MD.Editor = function(){
     svgCanvas.convertToPath();
     var elems = svgCanvas.getSelectedElems()
     svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0])
-    svgCanvas.selectorManager.requestSelector(elems[0]).selectorRect.setAttribute("display", "none");
+    //svgCanvas.selectorManager.requestSelector(elems[0]).selectorRect.setAttribute("display", "none");
     svgCanvas.setMode("pathedit");
     svgCanvas.pathActions.toEditMode(elems[0]);
     svgCanvas.clearSelection();
