@@ -101,8 +101,9 @@ MD.Text = function(){
     .keyup(function(e){
       e.stopPropagation();
       if (e.key === "Escape" || e.key === "Enter") {
-        if (!$("#text_panel").hasClass("text-path")) svgCanvas.textActions.toSelectMode();
+        svgCanvas.textActions.toSelectMode();
         this.blur();
+        editor.saveCanvas();
         return editor.escapeMode();
       }
       svgCanvas.setTextContent(this.value);

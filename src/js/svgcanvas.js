@@ -3480,13 +3480,15 @@ var textActions = canvas.textActions = function() {
       });
       cursor = getElem("selectorParentGroup").appendChild(cursor);
     }
-    
+
     if(!blinker) {
       blinker = setInterval(function() {
         var show = (cursor.getAttribute('display') === 'none');
-        cursor.setAttribute('display', show?'inline':'none');
+        cursor.setAttribute('display', show ? 'inline': 'none');
       }, 600);
     }
+
+    console.log("blinker", blinker)
     
     var start_pt = ptToScreen(charbb.x, textbb.y);
     var end_pt = ptToScreen(charbb.x, (textbb.y + textbb.height));
@@ -3820,42 +3822,42 @@ var pathActions = canvas.pathActions = function() {
     p.setAttribute("d", pathActions.convertPath(p));
   }
 
-  // TODO: Move into path.js
-    svgedit.path.Path.prototype.endChanges = function(text) {
-      if(svgedit.browser.isWebkit()) resetD(this.elem);
-      var cmd = new ChangeElementCommand(this.elem, {d: this.last_d}, text);
-      addCommandToHistory(cmd);
-      call("changed", [this.elem]);
-    }
+// TODO: Move into path.js
+  svgedit.path.Path.prototype.endChanges = function(text) {
+    if(svgedit.browser.isWebkit()) resetD(this.elem);
+    var cmd = new ChangeElementCommand(this.elem, {d: this.last_d}, text);
+    addCommandToHistory(cmd);
+    call("changed", [this.elem]);
+  }
 
-    svgedit.path.Path.prototype.addPtsToSelection = function(indexes) {
-      if(!$.isArray(indexes)) indexes = [indexes];
-      for(var i=0; i< indexes.length; i++) {
-        var index = indexes[i];
-        var seg = this.segs[index];
-        if(seg.ptgrip) {
-          if(this.selected_pts.indexOf(index) == -1 && index >= 0) {
-            this.selected_pts.push(index);
-          }
+  svgedit.path.Path.prototype.addPtsToSelection = function(indexes) {
+    if(!$.isArray(indexes)) indexes = [indexes];
+    for(var i=0; i< indexes.length; i++) {
+      var index = indexes[i];
+      var seg = this.segs[index];
+      if(seg.ptgrip) {
+        if(this.selected_pts.indexOf(index) == -1 && index >= 0) {
+          this.selected_pts.push(index);
         }
-      };
-      this.selected_pts.sort();
-      var i = this.selected_pts.length,
-        grips = new Array(i);
-      // Loop through points to be selected and highlight each
-      while(i--) {
-        var pt = this.selected_pts[i];
-        var seg = this.segs[pt];
-        seg.select(true);
-        grips[i] = seg.ptgrip;
       }
-      // TODO: Correct this:
-      pathActions.canDeleteNodes = true;
-      
-      pathActions.closed_subpath = this.subpathIsClosed(this.selected_pts[0]);
-      
-      call("selected", grips);
+    };
+    this.selected_pts.sort();
+    var i = this.selected_pts.length,
+      grips = new Array(i);
+    // Loop through points to be selected and highlight each
+    while(i--) {
+      var pt = this.selected_pts[i];
+      var seg = this.segs[pt];
+      seg.select(true);
+      grips[i] = seg.ptgrip;
     }
+    // TODO: Correct this:
+    pathActions.canDeleteNodes = true;
+    
+    pathActions.closed_subpath = this.subpathIsClosed(this.selected_pts[0]);
+    
+    call("selected", grips);
+  }
 
   var current_path = null,
     drawn_path = null,
@@ -3936,6 +3938,11 @@ var pathActions = canvas.pathActions = function() {
   return {
     mouseDown: function(evt, mouse_target, start_x, start_y) {
       if(current_mode === "path") {
+
+        // deselect when start draw
+
+        svgCanvas.removeFromSelection(svgCanvas.getSelectedElems())
+
         mouse_x = start_x;
         mouse_y = start_y;
         

@@ -38,3 +38,7 @@
 #panels.multiselected #multiselected_panel .hidable {
   display: none;
 }
+
+#tool_place_text_on_path {
+  display: none;
+}
