@@ -73,6 +73,21 @@
   color: var(--z3);
 }
 
+.menu_list input[type=file] {
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+  background: red;
+  z-index: 100;
+}
+
+
 .menu_list .menu_item.tool_button {
   background: transparent;
   border: none;

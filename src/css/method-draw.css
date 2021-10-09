@@ -209,17 +209,6 @@ button:focus {
   overflow: hidden;
 }
 
-input[type=file] {
-  -webkit-appearance: none;
-  position: absolute;
-  opacity: 0;
-  background: red;
-  z-index: 10;
-  height: 30px;
-  width: 100%;
-  transform: translate(-100%, 0);
-}
-
 .disabled {
   opacity: 0.5;
   cursor: default;

@@ -124,6 +124,7 @@ MD.Import = function(){
   }
 
   function open(){
+    console.log("open")
     $openInput.trigger("click");
   }
 

@@ -2193,11 +2193,10 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 
     root_sctm = svgcontent.querySelector("g").getScreenCTM().inverse();
 
-    var pt = transformPoint( evt.pageX, evt.pageY, root_sctm ),
-      mouse_x = pt.x * current_zoom,
-      mouse_y = pt.y * current_zoom;
+    var pt = transformPoint( evt.pageX, evt.pageY, root_sctm );
+    var mouse_x = pt.x * current_zoom;
+    var mouse_y = pt.y * current_zoom;
       
-
     evt.preventDefault();
 
     if(right_click) {
@@ -3940,9 +3939,6 @@ var pathActions = canvas.pathActions = function() {
       if(current_mode === "path") {
 
         // deselect when start draw
-
-        svgCanvas.removeFromSelection(svgCanvas.getSelectedElems())
-
         mouse_x = start_x;
         mouse_y = start_y;
         
@@ -4050,7 +4046,7 @@ var pathActions = canvas.pathActions = function() {
               var endseg = drawn_path.createSVGPathSegClosePath();
               seglist.appendItem(newseg);
               seglist.appendItem(endseg);
-              selectorManager.requestSelector(newpath).showGrips(true);
+              selectOnly([newpath], true);
             } else if(len < 3) {
               keep = false;
 
@@ -4145,8 +4141,11 @@ var pathActions = canvas.pathActions = function() {
             if(subpath) index += svgedit.path.path.segs.length;
             svgedit.path.addPointGrip(index, x, y);
           }
-            keep = true;
+          keep = true;
         }
+
+        if (!keep || !newpath) clearSelection();
+
         return;
       }
       
@@ -4156,7 +4155,7 @@ var pathActions = canvas.pathActions = function() {
       svgedit.path.path.storeD();
       
       var id = evt.target.id;
-      if (id.substr(0,14) == "pathpointgrip_") {
+      if (id.includes("pathpointgrip_")) {
         // Select this point
         var cur_pt = svgedit.path.path.cur_pt = parseInt(id.substr(14));
         svgedit.path.path.dragging = [start_x, start_y];
@@ -4174,7 +4173,7 @@ var pathActions = canvas.pathActions = function() {
         } else {
           svgedit.path.path.addPtsToSelection(cur_pt);
         }
-      } else if(id.indexOf("ctrlpointgrip_") == 0) {
+      } else if(id.includes("ctrlpointgrip_")) {
         svgedit.path.path.dragging = [start_x, start_y];
         
         var parts = id.split('_')[1].split('c');
@@ -4571,21 +4570,8 @@ var pathActions = canvas.pathActions = function() {
       tlist.clear();
       path.removeAttribute("transform");
       var segList = path.pathSegList;
-      
-      // Opera/win/non-EN throws an error here.
-      // TODO: Find out why!
-      // Presumed fixed in Opera 10.5, so commented out for now
-      
-//      try {
-        var len = segList.numberOfItems;
-//      } catch(err) {
-//        var fixed_d = pathActions.convertPath(path);
-//        path.setAttribute('d', fixed_d);
-//        segList = path.pathSegList;
-//        var len = segList.numberOfItems;
-//      }
+      var len = segList.numberOfItems;
       var last_x, last_y;
-
 
       for (var i = 0; i < len; ++i) {
         var seg = segList.getItem(i);
@@ -4603,7 +4589,6 @@ var pathActions = canvas.pathActions = function() {
       }
       
       reorientGrads(path, m);
-
 
     },
     zoomChange: function() {
