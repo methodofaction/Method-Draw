@@ -1,15 +1,13 @@
 MD.Import = function(){
   const workarea = document.getElementById("workarea");
-  const $importInput = $('#tool_import + input');
-  const $openInput = $('#tool_open + input');
+  const $importInput = $('#tool_import input');
+  const $openInput = $('#tool_open input');
 
-  $('#tool_import').on("click", place);
-  $('#tool_open').on("click", open);
-
-  $importInput.change(importImage);
-  $openInput.change(openImage);
+  $importInput.on("change", importImage);
+  $openInput.on("change", openImage);
 
   function importImage(e){
+    $('#menu_bar').removeClass('active')
     if (!window.FileReader) return;
     //e.stopPropagation();
     //e.preventDefault();
@@ -90,6 +88,7 @@ MD.Import = function(){
   }
 
   function openImage(e){
+    $('#menu_bar').removeClass('active')
     const f = this;
     if(f.files.length === 1) {
       svgCanvas.clear();
@@ -124,7 +123,6 @@ MD.Import = function(){
   }
 
   function open(){
-    console.log("open")
     $openInput.trigger("click");
   }
 
