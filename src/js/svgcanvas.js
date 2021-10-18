@@ -3486,8 +3486,6 @@ var textActions = canvas.textActions = function() {
         cursor.setAttribute('display', show ? 'inline': 'none');
       }, 600);
     }
-
-    console.log("blinker", blinker)
     
     var start_pt = ptToScreen(charbb.x, textbb.y);
     var end_pt = ptToScreen(charbb.x, (textbb.y + textbb.height));
@@ -7157,24 +7155,6 @@ this.setStrokeAttr = function(attr, val) {
   }
 };
 
-this.setTextPathAttr = function(attr, val) {
-  cur_shape[attr.replace('-','_')] = val;
-  var elems = [];
-  var i = selectedElements.length;
-  while (i--) {
-    var elem = selectedElements[i];
-    if (elem) {
-      if (elem.tagName === "text") {
-        const textPath = elem.querySelector("textPath");
-        if (textPath) elems.push(textPath)
-      }
-    }
-  }
-  if (elems.length > 0) {
-    changeSelectedAttribute(attr, val, elems);
-    call("changed", selectedElements);
-  }
-};
 
 // Function: getStyle
 // Returns current style options
@@ -7516,55 +7496,6 @@ this.setTextContent = function(val) {
   textActions.setCursor();
 };
 
-this.textPath = function(){
-  const text = selectedElements.find(element => element.tagName === "text");
-  var path = selectedElements.find(element => element.tagName === "path");
-  if (!text || !path) return false;
-  const textPath = svgdoc.createElementNS(svgns, "textPath");
-  textPath.textContent = text.textContent;
-  text.textContent = "";
-  text.removeAttribute("transform");
-  text.setAttribute("text-anchor", "middle");
-  text.setAttribute("x", 0);
-  text.setAttribute("y", 0);
-  textPath.setAttributeNS(xmlns, "xml:space", "default");
-  textPath.setAttributeNS(xlinkns,'xlink:href', "#" + path.id);
-  const offset = (path.getTotalLength()/2).toFixed(0)
-  textPath.setAttribute("startOffset", offset);
-  text.appendChild(textPath);
-  findDefs().appendChild(path);
-  selectorManager.releaseSelector(path);
-  selectorManager.requestSelector(text).resize();
-  call("changed", [textPath]);
-  return text;
-}
-
-this.releaseTextPath = function(){
-  const text = selectedElements.find(element => element.tagName === "text");
-  const textPath = text.querySelector("textPath");
-  const content = textPath.textContent;
-  if (!text) return false;
-  const path = svgCanvas.getTextPath(text);
-  if (!text || !path) return false;
-  text.removeChild(textPath);
-  text.textContent = content;
-  getCurrentDrawing().getCurrentLayer().appendChild(path);
-  const bb = path.getBBox();
-  text.setAttribute("x", bb.x);
-  text.setAttribute("y", bb.y);
-  return text;
-}
-
-this.getTextPath = function(elem){
-  const textPath = elem.querySelector("textPath");
-  var path = null;
-  if (textPath) {
-    const href = getHref(textPath);
-    const id = href.replace("#", "");
-    path = svgroot.getElementById(id);
-  }
-  return path;
-}
 
 // Function: setImageURL
 // Sets the new image URL for the selected image element. Updates its size if

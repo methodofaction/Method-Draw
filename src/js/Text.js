@@ -1,40 +1,5 @@
 MD.Text = function(){
 
-  function placeTextOnPath(){
-    const elems = editor.selected;
-    const needsConversion = elems.find(elem => ["ellipse", "circle", "line", "polyline", "polygon", "rect"].indexOf(elem.tagName) > -1);
-    if (needsConversion) {
-      const path = svgCanvas.convertToPath(needsConversion);
-      const text = elems.find(elem => elem.tagName === "text");
-      svgCanvas.addToSelection([path, text]);
-    }
-
-    const text = svgCanvas.textPath();
-    svgCanvas.clearSelection();
-    svgCanvas.addToSelection([text]);
-    editor.selectedChanged(window, [text]);
-  }
-
-  function releaseTextOnPath(){
-    const text = svgCanvas.releaseTextPath();
-    const selector = svgCanvas.selectorManager.requestSelector(text);
-    selector.resize();
-    editor.selectedChanged(window, [text]);
-  }
-
-  function changeTextOnPath(){
-    const elem = svgCanvas.getSelectedElems()[0];
-    const textPath = elem.querySelector("textPath");
-    if (!textPath) return;
-    const path = svgCanvas.getTextPath(elem);
-    const d = path.getAttribute("d");
-    const reversed = utils.SVGPathEditor.reverse(d);
-    path.setAttribute("d", reversed);
-    const selector = svgCanvas.selectorManager.requestSelector(elem);
-    selector.resize();
-    editor.selectedChanged(window, [elem]);
-  }
-
   function setBold(){
     if ($(this).hasClass("disabled")) return;
     svgCanvas.setBold( !svgCanvas.getBold() );
@@ -51,10 +16,6 @@ MD.Text = function(){
     svgCanvas.setFontFamily(this.value);
   });
 
-  $('#tool_text_on_path').click(placeTextOnPath);
-  $('#tool_release_text_on_path').click(releaseTextOnPath);
-  $('#tool_change_text_on_path').click(changeTextOnPath);
-
   $("#tool_bold").on("click", setBold);
   $("#tool_italic").on("click", setItalic);
 
@@ -63,17 +24,17 @@ MD.Text = function(){
     const isSystemFont = fam === "sans-serif" || fam === "serif" || fam === "monospace";
     const font = isSystemFont ? {Bold: true, Italic: true, "BoldItalic": true} : fonts[fam];
     if (!isSystemFont) fam = `'${fam}'`;
-    
-    svgCanvas.setBold(false);
-    svgCanvas.setItalic(false);
+
+
+    console.log(font.axes)
     
     $("#tool_bold")
       .removeClass("active")
-      .toggleClass("disabled", !font.Bold);
+      .toggleClass("disabled", !font.axes.wght);
 
     $("#tool_italic")
       .removeClass("active")
-      .toggleClass("disabled", !font.Italic);
+      .toggleClass("disabled", !font.axes.ital);
     
     var fam_display = this.options[this.selectedIndex].text;
     $('#preview_font').html(fam_display).css("font-family", fam);
@@ -119,15 +80,8 @@ MD.Text = function(){
     svgCanvas.setFontSize(value);
   }
 
-  function setTextPathAttr(a, val){
-    svgCanvas.setTextPathAttr('startOffset', val);
-    var elems = svgCanvas.getSelectedElems();
-    svgCanvas.selectorManager.requestSelector(elems[0]).reset(elems[0]);
-  }
-
   this.setBold = setBold;
   this.setItalic = setItalic;
   this.changeFontSize = changeFontSize;
-  this.setTextPathAttr = setTextPathAttr;
 
 }

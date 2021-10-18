@@ -4,7 +4,7 @@ function populateFonts(fonts){
     <option value='serif' selected>serif</option>
     <option value='monospace' selected>monospace</option>
   `;
-  let fontfaces = "";
+  let fontLinks = "";
   const formats = {
     ttf: "truetype",
     otf: "opentype",
@@ -13,587 +13,1656 @@ function populateFonts(fonts){
     woff2: "woff2",
   };
   for (fontName in fonts) {
-    const variants = fonts[fontName];
-    for (variantName in variants) {
-      const variant = variants[variantName];
-      const ext = variant.file.split(".")[1].toLowerCase();
-      const format = formats[ext];
-      const src = `url('font-files/${variant.file}') format('${format}')`;
-      fontfaces += `
-        @font-face {
-          font-family: '${fontName}';
-          src: ${src};
-          font-weight: ${variant["font-weight"]};
-          font-style: ${variant["font-style"]};
-        }
-      `;
-    }
+    const font = fonts[fontName];
+    const axes = Object.keys(font.axes).join(",");
+    const pairs = Object.keys(font.axes);
+    fontLinks += `<link href="https://fonts.googleapis.com/css2?family=${fontName.split(" ").join("+")}" rel="stylesheet">`
     options += `
       <option value="${fontName}">${fontName}</option>
     `;
   }
 
   $("#font_family_dropdown").append(options);
-  $("head").append("<style>" + fontfaces +"</style>");
-
+  $("head").append('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>');
+  $("head").append(fontLinks);
 };
 
 const fonts = {
 
-  "Anton": {
-    "Regular": {
-      "file": "Anton-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Alegreya": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
     }
   },
 
-  "Asset": {
-    "Regular": {
-      "file": "Asset-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Alumni Sans": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Calistoga": {
-    "Regular": {
-      "file": "Calistoga-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Andada Pro": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 840],
+        value: 400
+      }
     }
   },
 
-  "Emilys Candy": {
-    "Regular": {
-      "file": "EmilysCandy-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Antonio": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 700],
+        value: 400
+      }
     }
   },
 
-  "Great Vibes": {
-    "Regular": {
-      "file": "GreatVibes-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Archivo": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [62,125],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Harlow Solid Italic": {
-    "Italic": {
-      "file": "HARLOWSI_0.TTF",
-      "font-weight": "normal",
-      "font-style": "italic",
+  "Arimo": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
     }
   },
 
-  "Rounded Mplus 1c": {
-    "Regular": {
-      "file": "MPLUSRounded1c-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Arimo": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
     }
   },
 
-  "Rounded Mplus 1c Thin": {
-    "Regular": {
-      "file": "MPLUSRounded1c-Thin.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-  
-  "Rounded Mplus 1c Light": {
-    "Regular": {
-      "file": "MPLUSRounded1c-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-  "Rounded Mplus 1c Medium": {
-    "Regular": {
-      "file": "MPLUSRounded1c-Medium.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-  "Rounded Mplus 1c Bold": {
-    "Regular": {
-      "file": "MPLUSRounded1c-Bold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-  "Rounded Mplus 1c ExtraBold": {
-    "Regular": {
-      "file": "MPLUSRounded1c-ExtraBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    }
-  },
-  "Rounded Mplus 1c Black": {
-    "Regular": {
-      "file": "MPLUSRounded1c-Black.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Asap": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
     }
   },
 
-  "Montserrat": {
-    "Regular": {
-      "file": "Montserrat-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-Italic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic",
-    },
-    "Bold": {
-      "file": "Montserrat-Bold.ttf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-    "Bold Italic": {
-      "file": "Montserrat-BoldItalic.ttf",
-      "font-weight": "bold",
-      "font-style": "italic",
-    }
-  },
-  "Montserrat Thin": {
-    "Regular": {
-      "file": "Montserrat-Thin.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-ThinItalic.ttf",
-      "font-style": "italic",
-      "font-weight": "normal"
-    }
-  },
-  "Montserrat ExtraLight": {
-    "Regular": {
-      "file": "Montserrat-ExtraLight.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-ExtraLightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic",
-    }
-  },
-  "Montserrat Light": {
-    "Regular": {
-      "file": "Montserrat-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-LightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic",
-    }
-  },
-  "Montserrat Medium": {
-    "Regular": {
-      "file": "Montserrat-Medium.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-MediumItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic",
-    }
-  },
-  "Montserrat SemiBold": {
-    "Regular": {
-      "file": "Montserrat-SemiBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-SemiBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic",
-    }
-  },
-  "Montserrat ExtraBold": {
-    "Regular": {
-      "file": "Montserrat-ExtraBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-ExtraBoldItalic.ttf",
-      "font-style": "italic",
-      "font-weight": "normal"
-    }
-  },
-  "Montserrat Black": {
-    "Regular": {
-      "file": "Montserrat-Black.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Montserrat-BlackItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic",
+  "Assistant": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
     }
   },
 
-  "Nunito": {
-    "Regular": {
-      "file": "Nunito-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Nunito-Italic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
-    },
-    "Bold": {
-      "file": "Nunito-Bold.ttf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-    "Bold Italic": {
-      "file": "Nunito-BoldItalic.ttf",
-      "font-style": "italic",
-      "font-weight": "bold"
-    },
-  },
-
-  "Nunito ExtraLight": {
-    "Regular": {
-      "file": "Nunito-ExtraLight.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Nunito-ExtraLightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Azeret Mono": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Nunito Light": {
-    "Regular": {
-      "file": "Nunito-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Nunito-LightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Besley": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
     }
   },
 
-  "Nunito SemiBold": {
-    "Regular": {
-      "file": "Nunito-SemiBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Nunito-SemiBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Big Shoulders Display": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Nunito ExtraBold": {
-    "Regular": {
-      "file": "Nunito-ExtraBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Nunito-ExtraBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Bitter": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Nunito Black": {
-    "Regular": {
-      "file": "Nunito-Black.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Nunito-BlackItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Bodoni Moda": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "opsz": {
+        name: "Optical Size",
+        range: [6, 96],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Brygada 1918": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Cabin": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [75,100],
+        step: 0.1,
+        value: 100
+
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Catamaran": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Caveat": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Changa": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Cinzel": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Comfortaa": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Commissioner": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Crimson Pro": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Cuprum": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Dancing Script": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Domine": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Dosis": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+  "EB Garamond": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 800],
+        value: 400
+      }
+    }
+  },
+
+  "El Messiri": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Encode Sans": {
+    "axes": {
+      "wdth": {
+        name: "Width",
+        range: [75,125],
+        step: 0.1,
+        value: 100
+
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Epilogue": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+
+  "Exo": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Faustina": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Fira Code": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+
+  "Fraunces": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "opsz": {
+        name: "Optical Size",
+        range: [9, 144],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      },
+      "SOFT": {
+        name: "Softness",
+        range: [0, 100],
+        value: 0,
+        step: 0.1
+      },
+      "WONK": {
+        name: "Wonky",
+        range: [0, 1],
+        value: 0
+      }
+    }
+  },
+
+  "Gemunu Libre": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+ "Georama": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [62.5,125],
+        step: 0.1,
+        value: 100
+
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Glory": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 800],
+        value: 400
+      }
+    }
+  },
+
+
+  "Gluten": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Grandstander": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Grenze Gotisch": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Hahmlet": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Heebo": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Hepta Slab": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [1, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Ibarra Real Nova": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Imbue": {
+    "axes": {
+      "opsz": {
+        name: "Optical Size",
+        range: [10, 100],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Inconsolata": {
+    "axes": {
+      "wdth": {
+        name: "Width",
+        range: [50,200],
+        step: 0.1,
+        value: 100
+
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Inter": {
+    "axes": {
+      "slnt": {
+        name: "Slant",
+        range: [-10,0],
+        step: 1,
+        value: 0
+
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "JetBrains Mono": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Josefin Sans": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Josefin Slab": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Jost": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Jura": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+ "Karla": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Kreon": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+ "Kufam": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Kumbh Sans": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Lemonada": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Lexend": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+ "Libre Franklin": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+ "Literata": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "opsz": {
+        name: "Optical Size",
+        range: [7, 72],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 900],
+        value: 400
+      }
+    }
+  },
+
+ "Lora": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+ "Manrope": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+ "Manuale": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Markazi Text": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Maven Pro": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Merriweather Sans": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Mulish": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 1000],
+        value: 400
+      }
+    }
+  },
+
+  "MuseoModerno": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Newsreader": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "opsz": {
+        name: "Optical Size",
+        range: [6, 72],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Noto Sans Display": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [62.5,100],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Noto Sans Mono": {
+    "axes": {
+      "wdth": {
+        name: "Width",
+        range: [62.5,100],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Noto Serif Display": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [62.5,100],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
   "Open Sans": {
-    "Regular": {
-      "file": "OpenSans-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "OpenSans-Italic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
-    },
-    "Bold": {
-      "file": "OpenSans-Bold.ttf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-    "Bold Italic": {
-      "file": "OpenSans-BoldItalic.ttf",
-      "font-style": "italic",
-      "font-weight": "bold"
-    },
-  },
-
-  "Open Sans Light": {
-    "Regular": {
-      "file": "OpenSans-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "OpenSans-LightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
-    },
-  },
-
-  "Open Sans SemiBold": {
-    "Regular": {
-      "file": "OpenSans-SemiBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "OpenSans-SemiBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
-    },
-  },
-
-  "Open Sans ExtraBold": {
-    "Regular": {
-      "file": "OpenSans-ExtraBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "OpenSans-ExtraBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
-    },
-  },
-
-  "Plaster": {
-    "Regular": {
-      "file": "Plaster-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [75,100],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 800],
+        value: 400
+      }
     }
   },
 
-  "Playball": {
-    "Regular": {
-      "file": "Playball-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
+  "Orbitron": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
     }
   },
 
-  "Poppins": {
-    "Regular": {
-      "file": "Poppins-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-Italic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
-    },
-    "Bold": {
-      "file": "Poppins-Bold.ttf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-    "Bold Italic": {
-      "file": "Poppins-BoldItalic.ttf",
-      "font-style": "italic",
-      "font-weight": "bold"
-    },
-  },
-
-  "Poppins Thin": {
-    "Regular": {
-      "file": "Poppins-Thin.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-ThinItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Oswald": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 700],
+        value: 400
+      }
     }
   },
 
-  "Poppins ExtraLight": {
-    "Regular": {
-      "file": "Poppins-ExtraLight.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-ExtraLightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Oxanium": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
     }
   },
 
-  "Poppins Light": {
-    "Regular": {
-      "file": "Poppins-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-LightItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Petrona": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Poppins SemiBold": {
-    "Regular": {
-      "file": "Poppins-SemiBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-SemiBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Piazzolla": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "opsz": {
+        name: "Optical Size",
+        range: [8, 30],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
-  "Poppins ExtraBold": {
-    "Regular": {
-      "file": "Poppins-ExtraBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-ExtraBoldItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Playfair Display": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
     }
   },
 
-  "Poppins Black": {
-    "Regular": {
-      "file": "Poppins-Black.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Italic": {
-      "file": "Poppins-BlackItalic.ttf",
-      "font-weight": "normal",
-      "font-style": "italic"
+  "Podkova": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Public Sans": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
     }
   },
 
   "Quicksand": {
-    "Regular": {
-      "file": "Quicksand-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Bold": {
-      "file": "Quicksand-Bold.ttf",
-      "font-weight": "bold",
-      "font-style": "normal"
-    },
-  },
-
-  "Quicksand Light": {
-    "Regular": {
-      "file": "Quicksand-Light.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Quicksand Medium": {
-    "Regular": {
-      "file": "Quicksand-Medium.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Quicksand SemiBold": {
-    "Regular": {
-      "file": "Quicksand-SemiBold.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Racing Sans One": {
-    "Regular": {
-      "file": "RacingSansOne-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Sacramento": {
-    "Regular": {
-      "file": "Sacramento-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Special Elite": {
-    "Regular": {
-      "file": "SpecialElite-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-  },
-
-  "Tangerine": {
-    "Regular": {
-      "file": "Tangerine-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
-    "Bold": {
-      "file": "Tangerine-Bold.ttf",
-      "font-weight": "bold",
-      "font-style": "normal"
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
     }
   },
 
-  "UnifrakturMaguntia": {
-    "Book": {
-      "file": "UnifrakturMaguntia-Regular.ttf",
-      "font-weight": "normal",
-      "font-style": "normal"
-    },
+  "Raleway": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Rasa": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Recursive": {
+    "axes": {
+      "slnt": {
+        name: "Slant",
+        range: [-15,0],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 1000],
+        value: 400
+      },
+      "CASL": {
+        name: "Casual",
+        range: [0,1],
+        value: 0,
+        step: 0.01
+      },
+      "CRSV": {
+        name: "Cursive",
+        range: [0,1],
+        value: 0.5,
+        step: 0.1
+      },
+      "MONO": {
+        name: "Monospace",
+        range: [0,1],
+        value: 0,
+        step: 0.01
+      }
+    }
+  },
+
+  "Red Hat Display": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Red Hat Text": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Red Rose": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Reem Kufi": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Roboto Mono": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Roboto Slab": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Rokkitt": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Rosario": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Rubik": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Ruda": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
+    }
+  },
+
+  "STIX Two Text": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Saira": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [50,125],
+        step: 0.1,
+        value: 125
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Sansita Swashed": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Signika": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Sora": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Space Grotesk": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Spartan": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Stick No Bills": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Syne": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [400, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Texturina": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "opsz": {
+        name: "Optical Size",
+        range: [12, 72],
+        value: 14,
+        step: 0.1
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Tourney": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wdth": {
+        name: "Width",
+        range: [75,125],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+
+  "Trispace": {
+    "axes": {
+      "wdth": {
+        name: "Width",
+        range: [75,125],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 800],
+        value: 400
+      }
+    }
+  },
+
+  "Truculenta": {
+    "axes": {
+      "opsz": {
+        name: "Optical Size",
+        range: [12, 72],
+        value: 14,
+        step: 0.1
+      },
+      "wdth": {
+        name: "Width",
+        range: [75,125],
+        step: 0.1,
+        value: 100
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Urbanist": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Varta": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
+  },
+
+
+  "Vollkorn": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [400, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Work Sans": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [100, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Yaldevi": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 900],
+        value: 400
+      }
+    }
+  },
+
+  "Yanone Kaffeesatz": {
+    "axes": {
+      "wght": {
+        name: "Weight",
+        range: [200, 700],
+        value: 400
+      }
+    }
+  },
+
+  "Yrsa": {
+    "axes": {
+      "ital": {
+        name: "Italic",
+        range: [0,1],
+        value: 0
+      },
+      "wght": {
+        name: "Weight",
+        range: [300, 700],
+        value: 400
+      }
+    }
   }
 };
 

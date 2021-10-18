@@ -38,7 +38,6 @@ MD.Panel = function(){
     $('#font_size')    .dragInput({ min: 1,    max: 250,   step: 1,   callback: editor.text.changeFontSize, cursor: true, stepfunc: editor.stepFontSize, dragAdjust: .15 });
     $('#group_opacity').dragInput({ min: 0,    max: 100,   step:  5,  callback: editor.changeAttribute,     cursor: true,  start: 100             });
     $('#blur')         .dragInput({ min: 0,    max: 10,    step: .1,  callback: editor.changeBlur,          cursor: true,  start: 0               });
-    $('#textPath_offset').dragInput({ min: 0,  max: null,   step: 1,  callback: editor.text.setTextPathAttr,cursor: true,  start: 0               });
 
     // Align
 
@@ -301,11 +300,8 @@ MD.Panel = function(){
            var font_family = elem.getAttribute("font-family") || "default";
            var cleanFontFamily = font_family.split(",")[0].replace(/'/g, "");
            var select = document.getElementById("font_family_dropdown");
+           const axis = 
            $('#text_panel').css("display", "inline");  
-           $('#tool_italic').toggleClass('active', svgCanvas.getItalic())
-           $('#tool_bold').toggleClass('active', svgCanvas.getBold())
-           $('#tool_italic').toggleClass('disabled', fonts[cleanFontFamily] ? !fonts[cleanFontFamily]["Italic"] : false)
-           $('#tool_bold').toggleClass('disabled', fonts[cleanFontFamily] ? !fonts[cleanFontFamily]["Bold"] : false);
            $('#font_family').val(font_family);
            $(select).find(`option[value='${cleanFontFamily}']`).prop("selected", true);
            $('#font_size').val(elem.getAttribute("font-size"));

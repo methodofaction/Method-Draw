@@ -39,6 +39,6 @@
   display: none;
 }
 
-#tool_place_text_on_path {
-  display: none;
+#tool_text_on_path {
+  display: none !important;
 }
