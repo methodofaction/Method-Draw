@@ -4629,6 +4629,11 @@ var pathActions = canvas.pathActions = function() {
       return svgedit.path.path;
     },
     opencloseSubPath: function() {
+      
+      const isNullish = (val) => {
+        return val === null || val === undefined;
+      };
+
       const path = svgedit.path.path;
       const selPts = path.selected_pts;
       // Only allow one selected node for now
@@ -4663,7 +4668,7 @@ var pathActions = canvas.pathActions = function() {
         return true;
       });
 
-      if (openPt == null) {
+      if (isNullish(openPt)) {
         // Single path, so close last seg
         openPt = path.segs.length - 1;
       }
@@ -4707,7 +4712,6 @@ var pathActions = canvas.pathActions = function() {
       // Find this sub-path's closing point and remove
       for (let i = 0; i < list.numberOfItems; i++) {
         const item = list.getItem(i);
-
         if (item.pathSegType === 2) {
           // Find the preceding M
           lastM = i;
@@ -4723,19 +4727,15 @@ var pathActions = canvas.pathActions = function() {
         }
       }
 
-      let num = (index - lastM) - 1;
-
-      while (num--) {
-        list.insertItemBefore(list.getItem(lastM), zSeg);
-      }
+      //let num = (index - lastM) - 1;
+      //while (num--) {
+      //  list.insertItemBefore(list.getItem(lastM), zSeg);
+      //}
 
       const pt = list.getItem(lastM);
-
+      
       // Make this point the new "M"
       svgedit.path.replacePathSeg(2, lastM, [ pt.x, pt.y ]);
-
-      // i = index; // i is local here, so has no effect; what was the intent for this?
-
       path.init().selectPt(0);
     },
     deletePathNode: function() {
@@ -5927,7 +5927,7 @@ this.setSvgString = function(xmlString) {
     var background = $("#canvas_background")
     if (background.length) {
       var opacity = background.attr("fill-opacity")
-      opacity = opacity ? parseInt(opacity)*100 : 100
+      opacity = opacity ? parseInt(opacity, 10)*100 : 100
       fill = this.getPaint(background.attr("fill"), opacity, "canvas")
       editor.paintBox.canvas.setPaint(fill)
     }
