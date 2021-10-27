@@ -54,7 +54,7 @@ Deploy `dist` to your static file server of choice.
 **2015.01.01** Project frozen  
 **2013.01.01** Project forked from SVG-Edit  
 
-Sponsor development in the form of [one-time donations](https://method.ac/donate/), or by hiring me to customize Method Draw for your own needs (only simple 2-20 hour projects).
+Sponsor development by [donating to the author](https://method.ac/donate/).
 
 Method Draw is Copyright (c)
 Mark MacKay [mark@method.ac](mailto:mark@method.ac)
