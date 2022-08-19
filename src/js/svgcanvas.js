@@ -7213,15 +7213,13 @@ this.setPaintOpacity = function(type, val, preventUndo) {
 // elem - The element to check the blur value for
 this.getBlur = function(elem) {
   var val = 0;
-//    var elem = selectedElements[0];
-  
+
   if(elem) {
     var filter_url = elem.getAttribute('filter');
     if(filter_url) {
-      var blur = getElem(elem.id + '_blur');
-      if(blur) {
-        val = blur.firstChild.getAttribute('stdDeviation');
-      }
+      const selector = filter_url.split("url(#")[1].slice(0, -1);
+      var blur = getElem(selector);
+      if (blur) val = blur.firstChild.getAttribute('stdDeviation');
     }
   }
   return val;

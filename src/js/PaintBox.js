@@ -78,7 +78,7 @@ MD.PaintBox = function(container, type){
     const elem = selectedElems[0];
     // fill or stroke
     var url = elem.getAttribute(type);
-    if (url.includes("(")) {
+    if (url && url.includes("(")) {
       url = url.split("(")[1].split(")")[0];
     }
     // not a gradient

@@ -182,6 +182,17 @@ MD.Panel = function(){
  
       if (elem !== null) {
         $("#stroke_panel").show();
+        $('#stroke_width').val(elem.getAttribute("stroke-width") || 0);
+        // stroke style
+        const strokeStyle = elem.getAttribute("stroke-dasharray") || "none";
+        const strokeStyles = {
+          "none": "—",
+          "2,2": "...",
+          "5,5": "- -",
+          "5,2,2,2": "-·-",
+          "5,2,2,2,2,2": "-··-"
+        };
+        $("#stroke_style_label").html(strokeStyles[strokeStyle] || "—");
         var elname = elem.nodeName;
         var angle = svgCanvas.getRotationAngle(elem);
         $('#angle').val(Math.round(angle));
