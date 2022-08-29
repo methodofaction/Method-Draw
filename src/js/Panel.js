@@ -101,7 +101,8 @@ MD.Panel = function(){
 
       const tagName = elem.tagName;
       $("#" + tagName + "_panel").show();
-      $('#stroke_width').val(elem.getAttribute("stroke-width") || 0);
+      const strokeWidth = elem.getAttribute("stroke") && !elem.getAttribute("stroke-width") ? 1 : elem.getAttribute("stroke-width") || 0;
+      $('#stroke_width').val(strokeWidth);
       const dash = elem.getAttribute("stroke-dasharray") || "none"
       $('#stroke_style option').removeAttr('selected');
       $('#stroke_style option[value="'+ dash +'"]').attr("selected", "selected");
@@ -182,7 +183,8 @@ MD.Panel = function(){
  
       if (elem !== null) {
         $("#stroke_panel").show();
-        $('#stroke_width').val(elem.getAttribute("stroke-width") || 0);
+        const strokeWidth = elem.getAttribute("stroke") && !elem.getAttribute("stroke-width") ? 1 : elem.getAttribute("stroke-width") || 0;
+        $('#stroke_width').val(strokeWidth);
         // stroke style
         const strokeStyle = elem.getAttribute("stroke-dasharray") || "none";
         const strokeStyles = {
