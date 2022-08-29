@@ -301,7 +301,6 @@ MD.Editor = function(){
   };
 
   function saveCanvas(){
-    console.log("saved")
     state.set("canvasContent", svgCanvas.getSvgString());
   }
 

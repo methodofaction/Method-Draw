@@ -34,7 +34,6 @@ state.set("canvasId", t("Untitled"));
 state.set("canvasMode", state.get("canvasMode"));
 
 // load from param
-console.log(window.location.search)
 if (!window.location.search.includes("?load=")) {
   svgCanvas.setSvgString(state.get("canvasContent"));
 }
