@@ -8,6 +8,8 @@
     "test": "test"
   },
   "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev",
     "test": "test"
   },
   "repository": {
@@ -26,6 +28,7 @@
   },
   "homepage": "https://github.com/methodofaction/Method-Draw#readme",
   "devDependencies": {
+    "browser-sync": "2.27.4",
     "gulp": "^4.0.2",
     "gulp-cache-bust": "^1.4.1",
     "gulp-concat": "^2.6.1",
