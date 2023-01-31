@@ -322,7 +322,8 @@ svgedit.utilities.getHref = function(elem) {
 // Sets the given element's xlink:href value
 svgedit.utilities.setHref = function(elem, val) {
   elem.setAttributeNS(XLINKNS, "xlink:href", val);
-  //elem.setAttribute("href", val);
+  // Remove duplicated
+  // elem.setAttribute("href", val);
 }
 
 // Function: findDefs
