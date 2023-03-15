@@ -4,6 +4,14 @@ MD.Pan = function(){
   let panning = false;
   let last_x = null;
   let last_y = null;
+  let isMousedown = false;
+  
+  window.onmousedown = function (){
+      isMousedown = true;
+  }
+  window.onmouseup = function (){
+      isMousedown = false;
+  }
 
   function startPan(e){
     panning = true;
@@ -19,6 +27,7 @@ MD.Pan = function(){
   
   var move_pan = function(evt) {    
     if(!panning) return;
+    if (!isMousedown) return;
     workarea.scrollLeft -= (evt.clientX - last_x);
     workarea.scrollTop -= (evt.clientY - last_y);
     last_x = evt.clientX;
