@@ -50,7 +50,8 @@ var curConfig = {
   initStroke: {width: 1, color: '000', opacity: 1},
   imgPath: 'images/',
   baseUnit: 'px',
-  defaultFont: "Noto Sans JP"
+  defaultFont: "Noto Sans JP",
+  initOpacity: 1
 };
 
 // Update config with new one if given
