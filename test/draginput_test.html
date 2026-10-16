@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel='stylesheet' href='qunit/qunit.css' type='text/css'/>
+  <script src='../src/js/lib/jquery-3.5.1.min.js'></script>
+  <script type='text/javascript' src='../src/js/lib/jquery-draginput.js'></script>
+  <script type='text/javascript' src='qunit/qunit.js'></script>
+  <script type='text/javascript'>
+  $(function() {
+    // dragInput reaches into the editor's svgCanvas on stop()/mousewheel;
+    // stub the pieces it touches so the plugin can run standalone.
+    window.svgCanvas = {
+      getSelectedElems: function(){ return []; },
+      undoMgr: {
+        beginUndoableChange: function(){},
+        finishUndoableChange: function(){ return { isEmpty: function(){ return true; } }; },
+        addCommandToHistory: function(){}
+      }
+    };
+
+    function makeInput(id, value, attr) {
+      var label = document.createElement('label');
+      var input = document.createElement('input');
+      input.id = id;
+      input.type = 'text';
+      input.value = value;
+      input.setAttribute('data-attr', attr);
+      label.appendChild(input);
+      document.getElementById('qunit-fixture').appendChild(label);
+      return input;
+    }
+
+    module('draginput');
+
+    test('default drag direction is unchanged (drag up increases value)', function() {
+      expect(2);
+      var seen = [];
+      var input = makeInput('stroke_width_test', '10', 'stroke-width');
+      $(input).dragInput({ min: 0, max: 99, step: 1, callback: function(attr, v){ seen.push(v); }, cursor: false });
+      // drag UP 10px: pageY decreases
+      input.move({ pageY: 90 }, 100);
+      ok(seen[0] > 10, 'dragging up increases the value for default fields, got ' + seen[0]);
+      // drag DOWN 10px from the new position
+      input.move({ pageY: 100 }, 90);
+      ok(seen[1] < seen[0], 'dragging down decreases the value for default fields, got ' + seen[1]);
+    });
+
+    test('inverted drag direction for Y/height fields (issue #163)', function() {
+      expect(2);
+      var seen = [];
+      var input = makeInput('rect_y_test', '100', 'y');
+      $(input).dragInput({ min: null, max: null, step: 1, callback: function(attr, v){ seen.push(v); }, cursor: false, inverted: true });
+      // drag DOWN 10px: in SVG coordinates Y grows downward, so the shape
+      // follows the cursor down, i.e. the Y value increases
+      input.move({ pageY: 110 }, 100);
+      ok(seen[0] > 100, 'dragging down increases Y for inverted fields, got ' + seen[0]);
+      // drag UP 10px: Y decreases, the shape follows the cursor up
+      input.move({ pageY: 100 }, 110);
+      ok(seen[1] < seen[0], 'dragging up decreases Y for inverted fields, got ' + seen[1]);
+    });
+
+    test('arrow keys follow the inverted direction (issue #163)', function() {
+      expect(2);
+      var seen = [];
+      var input = makeInput('rect_height_test', '100', 'height');
+      $(input).dragInput({ min: 1, max: null, step: 1, callback: function(attr, v){ seen.push(v); }, cursor: false, inverted: true });
+      $(input).trigger({ type: 'keydown', key: 'ArrowUp' });
+      equals(seen[0], 99, 'ArrowUp decreases an inverted field, got ' + seen[0]);
+      $(input).trigger({ type: 'keydown', key: 'ArrowDown' });
+      equals(seen[1], 100, 'ArrowDown increases an inverted field, got ' + seen[1]);
+    });
+
+    test('arrow keys are unchanged for default fields', function() {
+      expect(2);
+      var seen = [];
+      var input = makeInput('opacity_test', '100', 'opacity');
+      $(input).dragInput({ min: 0, max: 100, step: 5, callback: function(attr, v){ seen.push(v); }, cursor: false });
+      $(input).trigger({ type: 'keydown', key: 'ArrowUp' });
+      equals(seen[0], 100, 'ArrowUp on a maxed default field stays clamped, got ' + seen[0]);
+      $(input).trigger({ type: 'keydown', key: 'ArrowDown' });
+      // note: arrow keys nudge by 1 regardless of the configured step
+      equals(seen[1], 99, 'ArrowDown decreases a default field, got ' + seen[1]);
+    });
+  });
+  </script>
+</head>
+<body>
+  <h1 id='qunit-header'>draginput tests</h1>
+  <h2 id='qunit-banner'></h2>
+  <div id='qunit-testrunner-toolbar'></div>
+  <h2 id='qunit-userAgent'></h2>
+  <ol id='qunit-tests'></ol>
+  <div id='qunit-fixture'></div>
+</body>
+</html>

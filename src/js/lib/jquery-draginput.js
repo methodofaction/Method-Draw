@@ -15,6 +15,10 @@ $.fn.dragInput = function(cfg){
       dragAdjust: cfg && cfg.dragAdjust ? cfg.dragAdjust : 1,
       height: 70,
       cursor: cfg && cfg.cursor ? Boolean(cfg.cursor) : false,
+      // `inverted` flips the drag/wheel/arrow-key direction so that dragging
+      // down increases the value. Used for Y and height fields to match SVG's
+      // downward-growing Y coordinate system (issue #163).
+      inverted: cfg && cfg.inverted ? true : false,
       start: cfg && cfg.start ? Number(cfg.start) : 0,
       _btn_width: 20,
       _direction: null,
@@ -68,7 +72,10 @@ $.fn.dragInput = function(cfg){
       if (lastY === 0) {
         lastY = oy;
       }
-      var deltaY = (e.pageY - lastY) *-1
+      // `inverted` fields (Y/height) drag in the opposite direction so the
+      // edited shape follows the cursor in SVG coordinates (issue #163)
+      var direction = this.dragCfg.inverted ? 1 : -1;
+      var deltaY = (e.pageY - lastY) * direction
       lastY = e.pageY;
       val = (deltaY * scale) * dragAdjust
       var fixed = (step < 1) ? 1 : 0
@@ -148,10 +155,12 @@ $.fn.dragInput = function(cfg){
       // Respond to up/down arrow keys.
       var key = e.key;
       var _self = this;
+      // `inverted` fields (Y/height) decrement on ArrowUp so the shape
+      // follows the key direction in SVG coordinates (issue #163)
+      var upStep = _self.dragCfg.inverted ? -1 : 1;
       var keys = {
-        "ArrowUp": function(){ _self.adjustValue(1) },
-        "ArrowDown": function(){ _self.adjustValue(-1) },
-        "ArrowDown": function(){ _self.adjustValue(-1) },
+        "ArrowUp": function(){ _self.adjustValue(upStep) },
+        "ArrowDown": function(){ _self.adjustValue(-upStep) },
         "Enter": function(){ _self.adjustValue(0); _self.blur(); },
       }
       if (keys[key]) {
@@ -181,10 +190,12 @@ $.fn.dragInput = function(cfg){
       },200)
       
       var wheel_input = this;
+      // `inverted` fields (Y/height) scroll in the opposite direction (issue #163)
+      var wheelStep = this.dragCfg.step * (this.dragCfg.inverted ? -1 : 1);
       if (deltaY > 0)
-        this.adjustValue(this.dragCfg.step);
+        this.adjustValue(wheelStep);
       else if (deltaY < 0)
-        this.adjustValue(-this.dragCfg.step);
+        this.adjustValue(-wheelStep);
       e.preventDefault();
       
     })
